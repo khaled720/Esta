@@ -26,7 +26,8 @@ namespace ESTA.Models
 
         public virtual Level level { get; set; }
 
-
+        [ForeignKey("UserLeveFK")]
+        public int LevelId { get; set; }
 
     }
 }

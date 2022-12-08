@@ -1,12 +1,16 @@
 using ESTA.Models;
+using ESTA.Repository;
+using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<AppDbContext>(opt=>
 opt.UseSqlServer(builder.Configuration.GetConnectionString("dev_conn")));
+builder.Services.AddScoped<IAppRep,AppRep>();
 builder.Services.AddIdentityCore<User>(options => 
 options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();

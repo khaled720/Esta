@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model List<ESTA.Models.Course>
+
+
+
+    <h2>All Courses</h2>
+
+    <table>
+        <thead>
+            <th>Title</th>
+    <th>Final Grade</th>
+        </thead>
+        <tbody>
+
+     
+    @{
+    foreach (var item in Model)
+    {
+      <tr>
+      <td>@item.Title</td>
+        <td>@item.FinalGrade</td>
+      </tr> 
+    }
+    }
+	</tbody>
+</table>
