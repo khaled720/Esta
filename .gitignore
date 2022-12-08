@@ -25,6 +25,7 @@
 *.pyc
 *.xml
 ipch/
+bin/
 obj/
 [Bb]in
 [Dd]ebug*/
