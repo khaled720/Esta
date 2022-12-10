@@ -1,6 +1,7 @@
-﻿using System.Data.Entity;
+﻿
 using ESTA.Models;
 using ESTA.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Repository
 {
