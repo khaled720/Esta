@@ -6,35 +6,29 @@
 @model ESTA.ViewModels.CourseLevelsViewModel
 
 
-<h2>Add New Course</h2>
+<h2>Edit Course</h2>
 <hr />
-@*@if (Model.course==null)
-{
-    <script>
-        alert("Error ")
-    </script>
-}*@
-
 <form method="post">
-  @*  @Html.ValidationSummary(false,"","text-danger")*@
+    @*  @Html.ValidationSummary(false,"","text-danger")*@
     <div class="row">
-<div class="form-group col-6">
-    <label>Title</label>
- @*   <input type="text" class="form-control"  />*@
- @*   @Html.EditorFor(M=>M.course.Title, new { htmlAttributes = new { @class = "form-control" } })*@
+        <div class="form-group col-6">
+            <label>Title</label>
+            @*   <input type="text" class="form-control"  />*@
+            @*   @Html.EditorFor(M=>M.course.Title, new { htmlAttributes = new { @class = "form-control" } })*@
             <input asp-for=@Model.course.Title class="form-control" type="text" />
             @Html.ValidationMessageFor(k=>k.course.Title,"",new {@class="text-danger"})
 
             <span asp-validation-for=@Model.course.Title style="color: blue;"></span>
-</div>
+        </div>
         <div class="form-group col-6">
-        <label>Start Date</label>
-        @Html.EditorFor(M=>M.course.StartDate, new { htmlAttributes = new { @class = "form-control" ,@type="date" } })
+            <label>Start Date</label>
+          <input class="form-control" asp-for=@Model.course.StartDate   type="date"/>
             @Html.ValidationMessageFor(k=>k.course.StartDate,"",new {@class="text-danger"})
-    </div>
+        </div>
     </div>
 
-    <div class="row">
+
+        <div class="row">
 
 <div class="form-group col-6">
         <label>Payment Link</label>
@@ -52,24 +46,24 @@
     </div>
 
     </div>
-    
-<div class="form-group">
-    <label>Final Grade</label>
+
+    <div class="form-group">
+        <label>Final Grade</label>
         @Html.EditorFor(M=>M.course.FinalGrade, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(k=>k.course.FinalGrade,"",new {@class="text-danger"})
-</div>
+    </div>
 
-   
+
     <div class="form-group">
         <label>Level</label>
-       @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), "Select Course Level ......", new { @class = "form-control " })
-      
+        @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), "Select Course Level ......", new { @class = "form-control " })
+
         @Html.ValidationMessageFor(k=>k.course.LevelId,"",new {@class="text-danger"})
     </div>
 
 
 
-<button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 
 
 </form>

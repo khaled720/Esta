@@ -25,6 +25,7 @@
 *.pyc
 *.xml
 ipch/
+.vs/
 bin/
 obj/
 [Bb]in

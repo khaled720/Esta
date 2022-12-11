@@ -10,11 +10,17 @@
 
 
     <h2>All Courses</h2>
-
-    <table>
-        <thead>
-            <th>Title</th>
+<p>
+    @Html.ActionLink("Add New Course", "AddCourse", "", new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped">
+        <thead >
+            <tr>   <th>Title</th>
     <th>Final Grade</th>
+    <th>Actions</th>
+
+</tr>
+         
         </thead>
         <tbody>
 
@@ -25,7 +31,15 @@
       <tr>
       <td>@item.Title</td>
         <td>@item.FinalGrade</td>
-      </tr> 
+
+
+
+                    <td>
+                        @Html.ActionLink("Edit", "EditCourse", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "CourseDetails", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+                    </td>
+                </tr> 
     }
     }
 	</tbody>

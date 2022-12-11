@@ -13,6 +13,7 @@ namespace ESTA.Repository
         }
         public ICoursesRep CoursesRep => new CoursesRep(appContext);
 
+        public ILevelRep LevelRep =>  new LevelsRep(appContext);
 
         public async Task<bool> SaveAsync()
         {

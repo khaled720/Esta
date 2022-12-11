@@ -7,9 +7,11 @@ namespace ESTA.Repository.IRepository
     {
 
        public Task<IEnumerable<Course>> GetAllCourses();
-        public Course GetCourse(int id);
+        public Task<Course> GetCourse(int id);
 
         public Task<bool> AddCourse(Course course);
+
+        public Task<bool> EditCourse(Course course);
 
 
 

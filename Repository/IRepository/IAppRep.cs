@@ -7,7 +7,7 @@ namespace ESTA.Repository.IRepository
 
 
         ICoursesRep CoursesRep { get; }
-
+        ILevelRep LevelRep { get; }
         Task<bool> SaveAsync();
     }
 }
