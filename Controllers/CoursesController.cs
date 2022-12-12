@@ -37,7 +37,13 @@ namespace ESTA.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCourse(CourseLevelsViewModel clvm)
         {
+           
             if (ModelState.IsValid) {if (clvm.course != null) {
+                    if (clvm.ImgFile != null) 
+                    {
+                   //     clvm.course.SavePhoto(clvm.ImgFile);
+                    
+                    }
              await appRep.CoursesRep.AddCourse(clvm.course);
                     clvm.course = new Course();
  

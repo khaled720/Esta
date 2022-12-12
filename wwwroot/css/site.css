@@ -16,3 +16,24 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/*#courses {
+    display: none !IMPORTANT;
+    transition:1s ease-in;
+}
+#nav-courses:hover + #courses {
+    display: block !IMPORTANT;
+}*/
+
+
+#photoDiv {
+    background: #9e9e9e47;
+    border-radius: 18px;
+    width: 80%;
+    height: 190px;
+    margin: 26px auto;
+    max-width: 100%;
+    height: 290px;
+    background-size: cover;
+    background-attachment: fixed;
+}

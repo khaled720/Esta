@@ -64,7 +64,8 @@ namespace ESTA.Repository
 
         public async Task<Course> GetCourse(int id)
         {
-            return await appContext.Courses.Where(y => y.Id == id).FirstOrDefaultAsync();
+            return await appContext.Courses.Include(y=>y.level)
+                .Where(y => y.Id == id).FirstOrDefaultAsync();
         }
 
      

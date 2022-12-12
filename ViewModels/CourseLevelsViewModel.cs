@@ -8,8 +8,11 @@ namespace ESTA.ViewModels
 
         public Course  course { get; set; }
 
+
         public List<Level>? Levels { get; set; }
 
 
+        public IFormFile? ImgFile { get; set; }
+        
     }
 }

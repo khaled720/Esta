@@ -61,6 +61,7 @@
         @Html.ValidationMessageFor(k=>k.course.LevelId,"",new {@class="text-danger"})
     </div>
 
+    @Html.HiddenFor(M=>M.course.Id)
 
 
     <button type="submit" class="btn btn-primary">Submit</button>
