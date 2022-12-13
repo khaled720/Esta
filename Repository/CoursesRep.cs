@@ -1,4 +1,7 @@
 ﻿
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +32,20 @@ namespace ESTA.Repository
 
         }
 
+        public bool DeleteCourse(int id)
+        {
+            try
+            {
+                appContext.Courses.Remove(appContext.Courses.First(y=>y.Id==id));
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         public async Task<bool> EditCourse(Course UpdatedCourse)
         {
 
@@ -48,7 +65,7 @@ namespace ESTA.Repository
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
@@ -64,10 +81,18 @@ namespace ESTA.Repository
 
         public async Task<Course> GetCourse(int id)
         {
+
             return await appContext.Courses.Include(y=>y.level)
-                .Where(y => y.Id == id).FirstOrDefaultAsync();
+                .Where(y => y.Id == id).FirstAsync();
+
         }
 
-     
+        public async Task<string> SearchForCourse(string Name)
+        {
+         var courses= await appContext.Courses.Where(y=>y.Title.Contains(Name)).ToListAsync();
+            
+     return JsonSerializer.Serialize(courses);
+
+        }
     }
 }

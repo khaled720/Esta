@@ -22,10 +22,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item" id="nav-courses">
-                            <a class="nav-link text-dark" href="">Courses</a>
+                        <li class="nav-item-link">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">All Courses</a>
                         </li>
-                     
+                        <li class="nav-item-link">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="AddCourse">Add New Course</a>
+                        </li>
+                        <li class="nav-item-link">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Levels" asp-action="Index">All Levels</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -36,18 +41,7 @@
 		</nav>               
       
     </header>
-    <div id="courses" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-        <ul class="navbar-nav flex-grow-1">
-
-            <li class="nav-item-link">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">All Courses</a>
-            </li>
-            <li class="nav-item-link">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="AddCourse">Add New Course</a>
-            </li>
-
-        </ul>
-    </div>
+ 
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -60,6 +54,9 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

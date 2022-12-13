@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ESTA.Models.Course
+
+
+
+
+
+
+
+
+<div class="row">
+
+<img class="col-4" src="@Model.PhotoPath"  style="margin:auto ;    border-radius: 30px;"/>
+
+<div class="col-8">
+
+		<h2 class="text-danger">@Model.Title <p style="float:right;color:gray"> $@Model.Price.00</p></h2>
+
+		<h4>@Model.level.TypeName</h4>
+		<h6>@Model.Description</h6>
+
+
+
+</div>
+
+</div>
+
+<hr />
+
+
+

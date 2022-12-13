@@ -8,14 +8,17 @@
 @model List<ESTA.Models.Course>
 
 
+    <div style="display:flex;justify-content:space-between;align-items:center">  <h2>All Courses</h2>
 
-    <h2>All Courses</h2>
-<p>
-    @Html.ActionLink("Add New Course", "AddCourse", "", new { @class = "btn btn-primary" })
-</p>
-<table class="table table-striped">
+    @Html.ActionLink("Add New Course", "AddCourse", "Courses",new {}, new { @class = "btn btn-primary" })
+    </div>
+  
+    <input id="search" placeholder="Search for course " onchange="Search()" class="form-control" />
+
+<table id="courses-table" class="table table-striped">
         <thead >
             <tr>   <th>Title</th>
+  
     <th>Final Grade</th>
     <th>Actions</th>
 
@@ -28,19 +31,23 @@
     @{
     foreach (var item in Model)
     {
-      <tr>
-      <td>@item.Title</td>
-        <td>@item.FinalGrade</td>
+              <tr>
+              <td>@item.Title</td>
+                <td>@item.FinalGrade</td>
 
 
 
-                    <td>
-                        @Html.ActionLink("Edit", "EditCourse", new { id = item.Id }, new { @class = "btn btn-primary" }) |
-                        @Html.ActionLink("Details", "CourseDetails", new { id = item.Id }, new { @class = "btn btn-warning" }) |
-                        @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
-                    </td>
-                </tr> 
+                            <td>
+                                @Html.ActionLink("Edit", "EditCourse", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Details", "CourseInfo", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                                @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+                            </td>
+                        </tr> 
     }
     }
 	</tbody>
 </table>
+
+<script src="~/js/course.js"></script>
+
+

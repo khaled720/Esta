@@ -12,7 +12,8 @@ namespace ESTA.Repository.IRepository
         public Task<bool> AddCourse(Course course);
 
         public Task<bool> EditCourse(Course course);
-
+        public bool DeleteCourse(int id);
+       public Task<string> SearchForCourse(string Name);
 
 
     }
