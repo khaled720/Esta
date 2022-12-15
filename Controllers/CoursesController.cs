@@ -1,26 +1,33 @@
 ﻿using System.Text.Encodings.Web;
 using ESTA.Models;
+using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ESTA.Controllers
 {
+
+    [Route("Admin/{controller}/{action=Index}/{id?}")]
     public class CoursesController : Controller
     {
         private readonly IAppRep appRep;
         private readonly IWebHostEnvironment hostEnvironment;
 
+
         public CoursesController(IAppRep appRep, IWebHostEnvironment hostEnvironment)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
+
         }
 
         public async Task<IActionResult> Index()
         {
+
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
             return View(courses);
         }
@@ -30,7 +37,8 @@ namespace ESTA.Controllers
         {
             var clvm = new CourseLevelsViewModel();
             clvm.course = new Course();
-            clvm.Levels = (List<Level>?)await appRep.LevelRep.GetAllLevels();
+            clvm.Levels = (List<Level>?)
+                await appRep.LevelRep.GetAllLevels();
             if (clvm.Levels == null)
             {
                 clvm.Levels = new List<Level>();
@@ -217,13 +225,34 @@ namespace ESTA.Controllers
 
 
 
+
+
+    }
+
+
+
+
+
+
+    [Route("api/[controller]")]
+    public class CoursesApiController : ControllerBase
+    {
+
+        private readonly IAppRep appRep;
+        private readonly IWebHostEnvironment hostEnvironment;
+
+        public CoursesApiController(IAppRep appRep, IWebHostEnvironment hostEnvironment)
+        {
+            this.appRep = appRep;
+            this.hostEnvironment = hostEnvironment;
+        }
+
+        [Route("SearchForCourse")]
         [HttpPost]
         public async Task<string> SearchForCourse(string name)
         {
-         return await appRep.CoursesRep.SearchForCourse(name);
-           
+            return await appRep.CoursesRep.SearchForCourse(name);
+
         }
-
-
     }
 }

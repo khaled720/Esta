@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using ESTA.Models;
+using ESTA.Repository;
+using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Controllers
@@ -7,15 +9,20 @@ namespace ESTA.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IAppRep appRep;
+        private readonly IWebHostEnvironment hostEnvironment;
+        public HomeController(ILogger<HomeController> logger,IAppRep appRep, IWebHostEnvironment hostEnvironment)
         {
             _logger = logger;
+            this.appRep = appRep;
+            this.hostEnvironment = hostEnvironment;
+            
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+            return View(courses);
         }
 
         public IActionResult Privacy()

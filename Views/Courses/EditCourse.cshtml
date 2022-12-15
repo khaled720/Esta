@@ -4,10 +4,10 @@
 @{
 }
 @model ESTA.ViewModels.CourseLevelsViewModel
-
+<link href="~/css/course.css" rel="stylesheet" />
 
 <h2>Edit Course</h2>
-<div class="roundedDiv" id="kk" style="margin:auto">
+<div class="neuDiv" id="kk" style="margin:auto">
 
 <form method="post" enctype="multipart/form-data">
     @Html.HiddenFor(M=>M.course.Id)
@@ -18,7 +18,8 @@
 
 
     @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
-    <div onclick="GetPhoto()" id="photoDiv" class="" style="background-image:url(@Model.course.PhotoPath)">
+    <div onclick="GetPhoto()" id="photoDiv" class="" style="background-image:url('@Model.course.PhotoPath')">
+        Click to add image
     </div>
 
 
@@ -29,7 +30,7 @@
         <div class="form-group col-6">
             <label>Title</label>
 
-            <input asp-for=@Model.course.Title class="form-control" type="text" />
+            <input asp-for=@Model.course.Title class="" type="text" />
             @Html.ValidationMessageFor(k=>k.course.Title,"",new {@class="text-danger"})
 
 
@@ -37,37 +38,47 @@
         <div class="form-group col-6">
             <label>Title in Arabic</label>
 
-            <input asp-for=@Model.course.TitleAr class="form-control" type="text" />
+            <input asp-for=@Model.course.TitleAr class="" type="text" />
             @Html.ValidationMessageFor(k=>k.course.TitleAr,"",new {@class="text-danger"})
 
 
         </div>
 
     </div>
+
+
     <div class="form-group ">
         <label>Start Date</label>
-        @Html.EditorFor(M=>M.course.StartDate, new { htmlAttributes = new { @class = "form-control" ,@type="date" } })
+ <input asp-for=@Model.course.StartDate type="date" />
+    
+      
+      @*  @Html.EditorFor(M=>M.course.StartDate,
+        new { htmlAttributes = new { @class = "" ,@type="date" } })*@
         @Html.ValidationMessageFor(k=>k.course.StartDate,"",new {@class="text-danger"})
+   
+    
     </div>
+
+
     <div class="row">
 
         <div class="form-group col-4">
             <label>Payment Link</label>
             @*   <input type="text" class="form-control"  />*@
-            @Html.EditorFor(M=>M.course.PaymentLink, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(M=>M.course.PaymentLink, new { htmlAttributes = new { @class = "" } })
             @Html.ValidationMessageFor(k=>k.course.PaymentLink,"",new {@class="text-danger"})
 
         </div>
         <div class="form-group col-4">
             <label>Price</label>
             @*   <input type="text" class="form-control"  />*@
-            @Html.EditorFor(M=>M.course.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(M=>M.course.Price, new { htmlAttributes = new { @class = "" } })
             @Html.ValidationMessageFor(k=>k.course.Price,"",new {@class="text-danger"})
 
         </div>
         <div class="form-group  col-4">
             <label>Final Grade</label>
-            @Html.EditorFor(M=>M.course.FinalGrade, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(M=>M.course.FinalGrade, new { htmlAttributes = new { @class = "" } })
             @Html.ValidationMessageFor(k=>k.course.FinalGrade,"",new {@class="text-danger"})
         </div>
     </div>
@@ -77,7 +88,7 @@
 
     <div class="form-group">
         <label>Level</label>
-        @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), "Select Course Level ......", new { @class = "form-control " })
+        @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), "Select Course Level ......", new { @class = " " })
 
         @Html.ValidationMessageFor(k=>k.course.LevelId,"",new {@class="text-danger"})
     </div>
@@ -87,7 +98,7 @@
     <div class="form-group col-12">
         <label>Description</label>
 
-        <textarea asp-for=@Model.course.Description class="form-control"></textarea>
+        <textarea asp-for=@Model.course.Description class=""></textarea>
         @Html.ValidationMessageFor(k=>k.course.Description,"",new {@class="text-danger"})
 
         <span asp-validation-for=@Model.course.Description style="color: blue;"></span>
@@ -97,7 +108,7 @@
         <label>Description In Arabic</label>
 
 
-        <textarea asp-for=@Model.course.DescriptionAr class="form-control"></textarea>
+        <textarea asp-for=@Model.course.DescriptionAr class=""></textarea>
 
         @Html.ValidationMessageFor(k=>k.course.DescriptionAr,"",new {@class="text-danger"})
 
@@ -108,4 +119,4 @@
 
 
 </form>
-</div>
+</div><script src="~/js/course.js"></script>

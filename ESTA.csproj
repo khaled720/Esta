@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>f3aa221e-f61f-4ec5-8139-621f06aa7340</UserSecretsId>
+	  <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+	  
   </PropertyGroup>
 
   <ItemGroup>

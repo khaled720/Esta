@@ -58,6 +58,11 @@ namespace ESTA.Repository
                 DbCourse.Title=UpdatedCourse.Title;
                 DbCourse.Price=UpdatedCourse.Price;
                 DbCourse.PaymentLink = UpdatedCourse.PaymentLink;
+                DbCourse.Description=UpdatedCourse.Description;
+                DbCourse.DescriptionAr=UpdatedCourse.DescriptionAr;
+                DbCourse.TitleAr=UpdatedCourse.TitleAr;
+                DbCourse.PhotoPath=UpdatedCourse.PhotoPath;
+                
 
                 this.appContext.SaveChanges();
 
