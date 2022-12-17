@@ -25,6 +25,28 @@ namespace ESTA.Controllers
             return View(courses);
         }
 
+
+
+
+        public async Task<IActionResult> CourseDetails(int id)
+        {
+           var course =await appRep.CoursesRep.GetCourse(id);
+
+
+            return View(course);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public IActionResult Privacy()
         {
             return View();

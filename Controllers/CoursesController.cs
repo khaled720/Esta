@@ -73,6 +73,7 @@ namespace ESTA.Controllers
                             {
                                 clvm.course.PhotoPath = "/Images/Courses/Learn.jpg";
                             }
+                            clvm.course.PhotoPath = "/Images/Courses/Learn.jpg";
                         }
                     }
                     catch (Exception)
