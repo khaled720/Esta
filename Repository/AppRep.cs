@@ -15,6 +15,8 @@ namespace ESTA.Repository
 
         public ILevelRep LevelRep =>  new LevelsRep(appContext);
 
+        public IUserRep UserRep =>  new UserRep(appContext);
+
         public async Task<bool> SaveAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;

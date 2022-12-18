@@ -16,12 +16,12 @@ namespace ESTA.Models
 
         public DbSet<Course> Courses { get; set; }
         public DbSet<Forum> Formus { get; set; }
-        public DbSet<UserForum> UsersForums { get; set; }
+      
         public DbSet<Level> Levels { get; set; }
 
         public DbSet<State> States { get; set; }
 
-
+  public DbSet<UserForum> UsersForums { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
 
 

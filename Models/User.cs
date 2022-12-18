@@ -29,5 +29,7 @@ namespace ESTA.Models
         [ForeignKey("UserLeveFK")]
         public int LevelId { get; set; }
 
+      //  public ICollection<Course> MyCourses { get; set; }
+
     }
 }
