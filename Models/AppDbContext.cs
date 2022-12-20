@@ -22,22 +22,6 @@ namespace ESTA.Models
         protected async override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-
-            /* 
-                  builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
-                 builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
-
-              builder.Entity<Level>().HasData(new Level() { Id = 1,TypeName="Ceta Level 1" }) ;
-              builder.Entity<Level>().HasData(new Level() { Id = 2, TypeName = "Ceta Level 2" }); 
-              builder.Entity<Level>().HasData(new Level() { Id = 3, TypeName = "Ceta Level 3" });
-            */
-            // builder.
-
-          
-
-          await  userManager.CreateAsync(new User() { FullName = "Adminstration", Email = "Admin@Admin.com" }, "Admin_2022");
-           await userManager.AddToRoleAsync(new User() { FullName = "Adminstration", Email = "Admin@Admin.com" }, "Admin");
         }
 
         public override DbSet<User> Users { get; set; }
