@@ -4,6 +4,8 @@ using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ESTA.Migrations;
+using AutoMapper;
+using ESTA.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,12 @@ options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
-
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new ForumMapper());
+});
+var mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

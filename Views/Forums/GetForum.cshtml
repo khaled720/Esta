@@ -1,0 +1,92 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model ESTA.ViewModels.ForumsWithComments
+
+<div class="row gy-2 justify-content-around">
+    <div class="card col-xl-8">
+        <h5 class="card-header">@Model.Title</h5>
+        <div class="card-body">
+            <p class="card-text">@Model.Description</p>
+            <hr />
+            <div class="row">
+                <div class="col" id="CommentList">
+                    <partial />
+                    @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
+                    {
+                    showAllLink = true,
+                    showReply = false,
+                    UserForums = Model.UserForum
+                    })
+
+                </div>
+            </div>
+
+            <button onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
+            <div class="row p-2 justify-content-end">
+                <div class="col-8">
+                    <textarea wrap="hard" maxlength="500" class="form-control" id="comment" type="text" placeholder="write comment" aria-label="Write comment ..."></textarea>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" onclick="AddComment()">Comment</button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" value="@Model.Id" id="ForumId" />
+    </div>
+
+    <div class="col-xl-3 align-self-center" id="stats">
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var id = $('#ForumId').val();
+            loadStats();
+        });
+
+        function loadStats() {
+            $('#stats').load('@Url.Action("GetForumStatistics","Forums",new { id = ViewContext.RouteData.Values["id"]})');
+        }
+        var commentPage = 1;
+        function getNextPage() {
+            $.ajax({
+                type: 'get',
+                dataType: 'JSON',
+                url: '/Forums/GetForumsComment',
+                data: {
+                    forumId: $('#ForumId').val(),
+                    page: commentPage++
+                },
+                success: function (data) {
+                    ListComments(data, true);
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+        function AddComment() {
+            $.ajax({
+                type: 'post',
+                dataType: 'JSON',
+                url: '/Forums/AddComment',
+                data: {
+                    forumId: $('#ForumId').val(),
+                    comment: $('#comment').val()
+                },
+                success: function (data) {
+                    $('#comment').val('')
+                    ListComments(data, true);
+                    loadStats();
+                },
+                error: function (data) {
+                    console.log('hiii')
+                }
+            });
+        }
+
+
+    </script>
+    }

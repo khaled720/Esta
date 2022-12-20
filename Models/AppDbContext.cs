@@ -19,15 +19,43 @@ namespace ESTA.Models
             //  configurationBuilder.IgnoreAny(typeof(ForeignKeyIndexConvention));
         }
   
-        protected async override void OnModelCreating(ModelBuilder builder)
+        protected async override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            modelBuilder.Entity<UserForum>()
+                .HasOne(x => x.user)
+                .WithMany(u => u.userForum)
+                .HasForeignKey(x => x.userId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserForum>()
+                .HasOne(x => x.forum)
+                .WithMany(u => u.UserForum)
+                .HasForeignKey(x => x.forumId);
+
+            modelBuilder.Entity<UserForum>()
+                .HasOne(x => x.Parent)
+                .WithMany(u => u.Replies)
+                .IsRequired(false)
+                .HasForeignKey(x => x.ParentId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.level)
+                .WithMany(u => u.user)
+                .HasForeignKey(x => x.LevelId);
+
+            modelBuilder.Entity<Forum>()
+                .HasOne(x => x.level)
+                .WithMany(u => u.forum)
+                .HasForeignKey(x => x.LevelId);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         public override DbSet<User> Users { get; set; }
 
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Forum> Formus { get; set; }
+        public DbSet<Forum> Forums { get; set; }
 
         public DbSet<Level> Levels { get; set; }
 

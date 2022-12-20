@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<ESTA.ViewModels.GetUserForums>
+
+@if (Model.Count > 0)
+{
+    <div class="card x-75">
+        <div class="card-body">
+            <div class="row">
+                <div class="col" id="CommentList">
+                    @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
+                {
+                showAllLink = true,
+                showReply = false,
+                UserForums = Model
+                })
+                </div>
+                <input type="hidden" value="@ViewBag.query" id="query">
+            </div>
+            <button onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-text">
+            <h2>Couldn't find search results try different query</h2>
+        </div>
+    </div>
+}
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+        });
+        var commentPage = 1;
+        function getNextPage() {
+            $.ajax({
+                type: 'get',
+                dataType: 'JSON',
+                url: '/Forums/GetNextSearchComment',
+                data: {
+                    query: $('#query').val(),
+                    page: commentPage++,
+                },
+                success: function (data) {
+                    console.log(data)
+                    ListComments(data, true);
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+    </script>
+}

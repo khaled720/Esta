@@ -17,7 +17,7 @@ namespace ESTA.Models
 
         //[ForeignKey("ForumLevelFrnKey")]
         //public int ForumLevelId { get; set; }
-
+        
         
         public DateTime JoinDate { get; set; } = DateTime.Now;
 
@@ -28,8 +28,9 @@ namespace ESTA.Models
 
         [ForeignKey("UserLeveFK")]
         public int LevelId { get; set; }
+        public virtual ICollection<UserForum> userForum { get; set; }
 
-      //  public ICollection<Course> MyCourses { get; set; }
+        //  public ICollection<Course> MyCourses { get; set; }
 
     }
 }
