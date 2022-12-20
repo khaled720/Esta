@@ -21,6 +21,8 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Index()
         {
+   
+
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
             return View(courses);
         }

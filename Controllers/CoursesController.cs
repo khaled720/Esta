@@ -27,7 +27,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Index()
         {
-
+         
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
             return View(courses);
         }
@@ -73,7 +73,7 @@ namespace ESTA.Controllers
                             {
                                 clvm.course.PhotoPath = "/Images/Courses/Learn.jpg";
                             }
-                            clvm.course.PhotoPath = "/Images/Courses/Learn.jpg";
+                            ///clvm.course.PhotoPath = "/Images/Courses/Learn.jpg";
                         }
                     }
                     catch (Exception)
@@ -85,7 +85,7 @@ namespace ESTA.Controllers
                     clvm.course = new Course();
                 }
 
-                if (await appRep.SaveAsync())
+                if (await appRep.SaveChangesAsync())
                 {
                     return RedirectToAction("Index");
                 }
@@ -188,7 +188,7 @@ namespace ESTA.Controllers
             {
                 try
                 {
- await  appRep.SaveAsync();
+ await  appRep.SaveChangesAsync();
                 }
                 catch (Exception)
                 {
@@ -210,8 +210,11 @@ namespace ESTA.Controllers
             try
             {
         var course=await appRep.CoursesRep.GetCourse(id);
-
-            return View(course);
+         List<UserCourse> users = await appRep.CoursesRep.GetEnrolledUsersInCourse(id);
+                AdminCourseInfoViewModel acivm = new AdminCourseInfoViewModel();
+                acivm.course=course;
+                acivm.Users=users;
+                return View(acivm);
             }
             catch (Exception)
             {
@@ -222,6 +225,12 @@ namespace ESTA.Controllers
 
          
         }
+
+
+
+
+
+       
 
 
 

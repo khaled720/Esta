@@ -114,7 +114,7 @@ function SearchForCourse() {
 
     for (var i = 0; i < lengthofRecords; i++) {
 
-        if (!table.children[i].children[0].innerHTML.toLowerCase()
+        if (!table.children[i].children[1].innerHTML.toLowerCase()
             .includes(InputElement.value.toLowerCase())) {
 
             table.children[i].style.display = "none";

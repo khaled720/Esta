@@ -17,9 +17,17 @@ namespace ESTA.Repository
 
         public IUserRep UserRep =>  new UserRep(appContext);
 
-        public async Task<bool> SaveAsync()
+        public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;
         }
+
+        public  void RollbackChangesAsync()
+        {
+ 
+                 this.appContext.ChangeTracker.Clear();
+        }
+
+
     }
 }

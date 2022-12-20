@@ -30,7 +30,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> AddLevel(Level level)
         {
             await appRep.LevelRep.AddLevel(level);
-            var isAdded = await appRep.SaveAsync();
+            var isAdded = await appRep.SaveChangesAsync();
             if (isAdded)
             {
 

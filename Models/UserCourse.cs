@@ -9,7 +9,7 @@ namespace ESTA.Models
         public int Id { get; set; }
 
         public int Grade { get; set; }
-
+        public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
         public Course course { get; set; }
 

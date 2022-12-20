@@ -8,7 +8,13 @@
 
 
 <br />
-<div id="courses-grid" style="display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
+@if (Model.Count()==0)
+{
+    <h3 class="text-danger" > You Haven't Enrolled Any Courses Yet.</h3>
+}else{
+    <h3 class="">My Courses</h3>
+    <div id="courses-grid" style="display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
+  
     @foreach (var item in Model)
     {
        
@@ -30,9 +36,22 @@ background: rgba(100%,100%,100%,50%);
 
         <div class="card-body">
      Starting Date:    @item.course.StartDate.Value.ToShortDateString()
+           Enrollment Date:    @item.EnrollmentDate.ToShortDateString()
+                    
                <br> Price: <strong style="color:green"> @item.course.Price.ToString("c")</strong>
-                <br> Price: <strong style="color:green"> @item.state.StateName</strong>
-           </div>
+
+                <br> State: <strong style="color:green" > @item.state.StateName</strong>
+                    <br>Payment State: 
+                    @if (item.isPaid)
+                    {
+                          <strong style="color:green"> Done </strong>  
+                    }else{
+                         
+                    <strong style="color:green"> Pending </strong>
+                    }
+                
+               
+                </div>
        </div> 
     }
 
@@ -47,6 +66,8 @@ background: rgba(100%,100%,100%,50%);
 
 
     </div>
+}
+
  <style>
         .card{
         transition:0.5s ease-in-out; overflow:hidden;

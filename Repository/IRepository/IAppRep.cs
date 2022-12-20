@@ -9,6 +9,6 @@ namespace ESTA.Repository.IRepository
         ICoursesRep CoursesRep { get; }
         ILevelRep LevelRep { get; }
         IUserRep UserRep { get; }
-        Task<bool> SaveAsync();
+        Task<bool> SaveChangesAsync();
     }
 }

@@ -14,7 +14,7 @@
 
     <input style="display:none" asp-for=@Model.ImgFile id="upload" type="file" accept="image/*"
            onchange="ImageChange(event)">
-
+           @Html.HiddenFor(y=>y.course.PhotoPath)
 
 
     @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@

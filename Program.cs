@@ -3,6 +3,7 @@ using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using ESTA.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,10 @@ opt.UseSqlServer(builder.Configuration.GetConnectionString("dev_conn")));
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped<IAppRep,AppRep>();
+builder.Services.AddAuthorization(opt=>opt.AddPolicy("RequireAdminRole",p=>p.RequireRole("Admin")));
 builder.Services.AddIdentityCore<User>(options => 
 options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 
@@ -43,4 +46,23 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
 
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    var scope = app.Services.CreateScope();
+
+    AppDbContext dbcontext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    //  dbcontext.Database.EnsureCreated();
+    dbcontext.Database.Migrate();
+    CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
+});
+
 app.Run();
+
+
+
+ void CreateSuperUser(UserManager<User> userManager){
+
+  var d=  userManager.FindByEmailAsync(app.Configuration["AdminCredentials:Email"].ToString()).GetAwaiter().GetResult();    
+
+}
+

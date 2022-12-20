@@ -23,8 +23,8 @@
     /* margin: 24%; */
     border-radius: 15px;" >
 		<p>Your Are Going to Enroll To This Course .Would You Like To Enroll & Pay Now Or Pay Later?  </p>
-<a asp-controller="User" asp-action="Profile" class="btn btn-danger"> Enroll & Pay Now</a>
-<a id="enroll" href="/User/EnrollCourse/@Model.Id" class="btn btn-warning"> Enroll & Pay Later</a>
+		<a href="/User/PayEnrollCourse/@Model.Id" class="btn btn-danger"> Enroll & Pay Now</a>
+<a id="enroll" href="/User/EnrollCourse/@Model.Id"   class="btn btn-warning"> Enroll & Pay Later</a>
 	
 		<a onclick="HideEnrollOptions()"  href="#" class=""> Cancel</a>
 
@@ -40,7 +40,8 @@
 
 		<h2 class="text-danger">@Model.Title 
 			<p style="float:right;color:gray">@Model.Price.ToString("c") <br> 
-				<a onclick="ShowEnrollOptions()" id="enroll" href="#" class="btn btn-danger"> Enroll Now</a></p></h2>
+
+				<a onclick="ShowEnrollOptions()" id="enroll"  class="btn btn-danger"> Enroll Now</a></p></h2>
 
 		<h4>@Model.level.TypeName</h4>
 		 Starts at:    @Model.StartDate.Value.ToShortDateString()

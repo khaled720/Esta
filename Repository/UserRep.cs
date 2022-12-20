@@ -17,21 +17,31 @@ namespace ESTA.Repository
 
         public async Task<bool> EnrollCourse(int StateId,int CourseId,string UserId,bool isPaymentCompleted)
 		{
-         UserCourse userCourse = new UserCourse();
+
+            try
+            {
+ UserCourse userCourse = new UserCourse();
             userCourse.isPaid = isPaymentCompleted;
             userCourse.CourseId=CourseId;
-           // userCourse.UserId=UserId;
-            userCourse.StateId = StateId;
-
-
-            await appContext.AddAsync<UserCourse>(userCourse);
+           userCourse.UserId=UserId;
+            userCourse.StateId = StateId; 
+                await appContext.AddAsync<UserCourse>(userCourse);
             return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+           
+
+
+           
 		}
 
         public async Task<IEnumerable<UserCourse>> GetMyCourses(string UserId)
         {
             //where ..
-            return await appContext.UserCourses.Include(y => y.state).Include(y=>y.course).ToListAsync();
+            return await appContext.UserCourses.AsNoTracking().Include(y => y.state).Include(y=>y.course).ToListAsync();
         }
     }
 }

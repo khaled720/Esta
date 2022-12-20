@@ -11,7 +11,7 @@
     <p>Egyptian Society Technical Analysts</p>
 </div>
 
-
+Is User Authenticated ? : @User.Identity.IsAuthenticated
 
 <div style="display:flex;justify-content:space-between;align-items:center">
     <h2>All Courses</h2>
@@ -29,8 +29,10 @@
     {
        
     <div class="card" style="height:fit-content; position:relative">
-        <a href="home/coursedetails/@item.Id" class="btn btn-primary"  style="position:absolute;bottom:5px;right:5px">More</a>
-            <div class="card-header" style="
+        <a href="/home/coursedetails/@item.Id" class="btn btn-primary"
+        style="position:absolute;bottom:5px;right:5px">More</a>
+           
+        <div class="card-header" style="
 position:absolute;top:0;left:0;right:0;
 
 background: rgba(100%,100%,100%,50%);

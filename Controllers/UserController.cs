@@ -1,5 +1,7 @@
-﻿using ESTA.Models;
+﻿using System.Security.Claims;
+using ESTA.Models;
 using ESTA.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +23,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            //     HttpContext.Session.SetString();
-          var user =await  this.userManager.GetUserAsync(HttpContext.User);
+
            
             
             
@@ -30,21 +31,45 @@ namespace ESTA.Controllers
         }
 
 
+
+
         public async Task<IActionResult> Courses()
         {
             // user corses shuild be lodd her
             //User Id Must be Dynamic
-      var courses=    await  appRep.UserRep.GetMyCourses("0fc3d362-4672-46fb-8876-fb79a32257ca");
+      var courses=    await  appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            return View();
+            return View(courses);
         }
 
-        public async Task<IActionResult> EnrollCourse(int id)
+        
+        public async Task<IActionResult> EnrollCourse(int Id)
         {
 
-          await  appRep.UserRep.EnrollCourse(1, id, "0fc3d362-4672-46fb-8876-fb79a32257ca", true);
-           await appRep.SaveAsync();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                await appRep.UserRep.EnrollCourse(1, Id, User.FindFirstValue(ClaimTypes.NameIdentifier), false);
+                await appRep.SaveChangesAsync();
+                return View();
+            }
+            else
+            {
+                return Redirect("/Account/Login");
+            }
+        }
+        public async Task<IActionResult> PayEnrollCourse(int Id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await appRep.UserRep.EnrollCourse(1, Id, User.FindFirstValue(ClaimTypes.NameIdentifier), true);
+                await appRep.SaveChangesAsync();
+                return RedirectToAction("Courses");
+            }
+            else
+            {
+                return Redirect("/Account/Login");
+            }
+         
 
         }
         public IActionResult CourseEnrolled()

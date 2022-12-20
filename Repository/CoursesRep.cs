@@ -15,6 +15,7 @@ namespace ESTA.Repository
         public CoursesRep( AppDbContext appContext)
         {
             this.appContext = appContext;
+          
         }
         public async Task<bool> AddCourse(Course course)
         {
@@ -81,15 +82,20 @@ namespace ESTA.Repository
 
         public async Task<IEnumerable<Course>> GetAllCourses()
         {
-            return await appContext.Courses.ToListAsync();
+            return await appContext.Courses.AsNoTracking().ToListAsync();
         }
 
         public async Task<Course> GetCourse(int id)
         {
 
-            return await appContext.Courses.Include(y=>y.level)
+            return await appContext.Courses.AsNoTracking().Include(y=>y.level)
                 .Where(y => y.Id == id).FirstAsync();
 
+        }
+
+        public async Task<List<UserCourse>> GetEnrolledUsersInCourse(int id)
+        {
+            return await appContext.UserCourses.AsNoTracking().Where(y => y.CourseId == id).Include(y => y.user).ToListAsync();
         }
 
         public async Task<string> SearchForCourse(string Name)
