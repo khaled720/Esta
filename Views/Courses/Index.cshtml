@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model List<ESTA.Models.Course>
+
+
+    <div style="display:flex;justify-content:space-between;align-items:center">  <h2>All Courses</h2>
+
+    @Html.ActionLink("Add New Course", "AddCourse", "Courses",new {}, new { @class = "btn btn-primary" })
+    </div>
+  
+    <input id="search" placeholder="Search for course " oninput="Search()" class="form-control" />
+
+<table id="courses-table" class="table table-striped">
+        <thead >
+            <tr>   <th>Title</th>
+  
+    <th>Price</th>
+    <th>Starting Date</th>
+ <th></th>
+    <th>Actions</th>
+
+</tr>
+         
+        </thead>
+        <tbody>
+
+     
+    @{
+    foreach (var item in Model)
+    {
+              <tr>
+              <td>@item.Title</td>
+                <td>@item.Price.ToString("c")</td>
+                    <td>@item.StartDate.Value.ToShortDateString()</td>
+          <td></td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "EditCourse", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Details", "CourseInfo", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                                @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+                            </td>
+                        </tr> 
+    }
+    }
+	</tbody>
+</table>
+
+<script src="~/js/course.js"></script>
+
+
