@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESTA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221208070721_AddTables")]
-    partial class AddTables
+    [Migration("20221220100614_SeedLevelsRolesStates")]
+    partial class SeedLevelsRolesStates
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -32,26 +32,46 @@ namespace ESTA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescriptionAr")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("FinalGrade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LevelId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("PaymentLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TitleAr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.HasIndex("LevelId");
+
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("ESTA.Models.Forum", b =>
@@ -133,9 +153,6 @@ namespace ESTA.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ForumLevelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -145,6 +162,9 @@ namespace ESTA.Migrations
 
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("LevelId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -181,6 +201,9 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LevelId")
+                        .IsUnique();
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -200,29 +223,32 @@ namespace ESTA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<int>("courseId")
+                    b.Property<int>("StateId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("isPaid")
                         .HasColumnType("bit");
 
-                    b.Property<int>("stateId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("courseId");
+                    b.HasIndex("CourseId");
 
-                    b.HasIndex("stateId");
+                    b.HasIndex("StateId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserCourses");
                 });
@@ -338,10 +364,12 @@ namespace ESTA.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -378,10 +406,12 @@ namespace ESTA.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -389,6 +419,17 @@ namespace ESTA.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ESTA.Models.Course", b =>
+                {
+                    b.HasOne("ESTA.Models.Level", "level")
+                        .WithMany()
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("level");
                 });
 
             modelBuilder.Entity("ESTA.Models.Forum", b =>
@@ -402,23 +443,34 @@ namespace ESTA.Migrations
                     b.Navigation("level");
                 });
 
+            modelBuilder.Entity("ESTA.Models.User", b =>
+                {
+                    b.HasOne("ESTA.Models.Level", "level")
+                        .WithOne("user")
+                        .HasForeignKey("ESTA.Models.User", "LevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("level");
+                });
+
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
                 {
                     b.HasOne("ESTA.Models.Course", "course")
                         .WithMany()
-                        .HasForeignKey("courseId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ESTA.Models.State", "state")
                         .WithMany()
-                        .HasForeignKey("stateId")
+                        .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ESTA.Models.User", "user")
                         .WithMany()
-                        .HasForeignKey("userId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -496,6 +548,12 @@ namespace ESTA.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ESTA.Models.Level", b =>
+                {
+                    b.Navigation("user")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

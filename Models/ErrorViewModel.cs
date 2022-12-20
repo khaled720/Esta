@@ -1,6 +1,6 @@
 namespace ESTA.Models
 {
-    public class ErrorViewModel
+    public class ErrorViewModel 
     {
         public string? RequestId { get; set; }
 

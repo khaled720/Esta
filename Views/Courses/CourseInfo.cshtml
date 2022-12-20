@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ESTA.ViewModels.AdminCourseInfoViewModel
+
+
+
+
+
+
+
+
+<div class="row">
+
+<img class="col-4" src="@Model.course.PhotoPath"  style="margin:auto ;    border-radius: 30px;"/>
+
+<div class="col-8">
+
+		<h2 class="text-danger">@Model.course.Title <p style="float:right;color:gray"> @Model.course.Price.ToString("c")</p></h2>
+
+		<h4>@Model.course.level.TypeName</h4>
+		<h6>@Model.course.Description</h6>
+
+
+
+</div>
+
+</div>
+
+
+<hr />
+
+<h3>
+Users Enrolled in this Course
+
+</h3>
+
+
+
+<table id="courses-table" class="table table-striped">
+        <thead >
+            <tr>   
+             
+  
+    <th>Name</th>
+            <th>Email</th>
+            <th>Enrollment Date</th>
+            <th>Payment Status</th>
+
+    <th>Actions</th>
+
+</tr>
+         
+        </thead>
+        <tbody>
+
+     
+    @{
+    foreach (var item in Model.Users)
+    {
+              <tr>
+              <td>@item.user.FullName</td>
+
+                <td>@item.user.Email</td>
+                   <td>@item.EnrollmentDate.ToShortDateString()</td>
+
+                  
+
+                    @if (item.isPaid)
+                    {
+                        <td style="color:green"> Done </td>
+                    }
+                    else
+                    {
+
+                        <td style="color:green"> Pending </td>
+                    }
+
+
+                    @if (!item.isPaid)
+                    {
+                       <td>
+                                @Html.ActionLink("Mark As Paid", "MarkCoursePaid", new { id = Model.course.Id }, new { @class = "btn btn-danger" }) 
+                            </td>
+                    }
+                   
+                        </tr> 
+    }
+    }
+	</tbody>
+</table>
