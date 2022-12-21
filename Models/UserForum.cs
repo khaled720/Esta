@@ -4,17 +4,17 @@ namespace ESTA.Models
 {
     public class UserForum
     {
-        public int Id { get; set; }
+     
 
 
         public virtual Forum forum { get; set; }
-      //[ForeignKey("ForumIDFrnKey")]
-      //  public int ForumId { get; set; }
+      [ForeignKey("ForumId")]
+        public int ForumId { get; set; }
      
         public virtual User user { get; set; }
 
-        // [ForeignKey("UserIDFrnKey")]
-        //public int UserId { get; set; }
+         [ForeignKey("UserId")]
+        public string UserId { get; set; }
 
         public string Comment { get; set; }
 

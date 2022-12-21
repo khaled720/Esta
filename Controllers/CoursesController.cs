@@ -3,6 +3,7 @@ using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ESTA.Controllers
 {
-
+    [Authorize("RequireAdminRole")]
     [Route("Admin/{controller}/{action=Index}/{id?}")]
     public class CoursesController : Controller
     {

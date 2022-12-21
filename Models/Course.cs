@@ -29,8 +29,8 @@ namespace ESTA.Models
 
         [Required(ErrorMessage = "Start Date Is Required !!!")]
         //   [Key]
-       
-        
+
+
         public DateTime? StartDate { get; set; }
 
         [Required(ErrorMessage = "Final Grade Is Required !!!")]
@@ -44,5 +44,7 @@ namespace ESTA.Models
         public string? Description { get; set; }
 
         public string? DescriptionAr { get; set; }
+
+        public IEnumerable<UserCourse>? users { get; set; }
     }
 }

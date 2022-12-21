@@ -1,8 +1,10 @@
-﻿using System.Security.Claims;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using ESTA.Models;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ESTA.Controllers
 {
@@ -58,27 +60,44 @@ namespace ESTA.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                User user = new User();
-                user.Email = registerModel.Email;
-                user.UserName = registerModel.Email;
-                user.FullName = "Khaled Samir";
-                user.LevelId = 1;
+                if (ModelState.IsValid)
+                {
+                    User user = new User();
+                    user.Email = registerModel.Email;
+                    user.UserName = registerModel.Email;
+                    user.FullName = "Khaled Samir2";
+                    user.LevelId = 2;
 
-                var result = await userManager.CreateAsync(user, registerModel.Password);
-                if (result.Succeeded)
-                {
-                    return Redirect("Account/Login");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Registration did not complete");
-                    return View();
-                }
+                    var result = await userManager.CreateAsync(user, registerModel.Password);
+                    if (result.Succeeded)
+                    {
+                        return Redirect("/Account/Login");
+                    }
+                    else
+                    {
+                        foreach (var item in result.Errors.ToList())
+                        {
+                            ModelState.AddModelError(string.Empty,item.Description);
+                        }
+                      
+                        return View();
+                    }
+                   }
+                ModelState.AddModelError(string.Empty, "Registration did not complete");
+                return View();
             }
-            return View();
-        }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError(string.Empty, "Try Again Later !!!");
+                return View();
+            }
+           
+            }
+           
+        
 
         public async Task<IActionResult> Logout()
         {

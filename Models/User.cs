@@ -21,15 +21,15 @@ namespace ESTA.Models
         
         public DateTime JoinDate { get; set; } = DateTime.Now;
 
+    
 
-
-
+        [ForeignKey("LevelId")]
         public virtual Level level { get; set; }
 
-        [ForeignKey("UserLeveFK")]
+        
         public int LevelId { get; set; }
 
-      //  public ICollection<Course> MyCourses { get; set; }
-
+        public IEnumerable<UserCourse>? Courses { get; set; }
+        public IEnumerable<UserForum>? Forums { get; set; }
     }
 }

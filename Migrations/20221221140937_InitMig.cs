@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ESTA.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -243,17 +243,16 @@ namespace ESTA.Migrations
                 name: "UserCourses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Grade = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Grade = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     isPaid = table.Column<bool>(type: "bit", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserCourses", x => x.Id);
+                    table.PrimaryKey("PK_UserCourses", x => new { x.CourseId, x.UserId });
                     table.ForeignKey(
                         name: "FK_UserCourses_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -278,28 +277,56 @@ namespace ESTA.Migrations
                 name: "UsersForums",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    forumId = table.Column<int>(type: "int", nullable: false),
-                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ForumId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsersForums", x => x.Id);
+                    table.PrimaryKey("PK_UsersForums", x => new { x.ForumId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_UsersForums_AspNetUsers_userId",
-                        column: x => x.userId,
+                        name: "FK_UsersForums_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UsersForums_Formus_forumId",
-                        column: x => x.forumId,
+                        name: "FK_UsersForums_Formus_ForumId",
+                        column: x => x.ForumId,
                         principalTable: "Formus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "98cfdfa9-da9a-420b-82e1-73a651e81328", "c5ac0492-075f-49e0-81e6-3c5feacbaccc", "User", "USER" },
+                    { "cfa7f306-f130-453a-80e3-54414aabadae", "1ab2b837-b536-40e5-b0bf-27ce84912828", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Levels",
+                columns: new[] { "Id", "TypeName" },
+                values: new object[,]
+                {
+                    { 1, "Ceta Level 1" },
+                    { 2, "Ceta Level 2" },
+                    { 3, "Ceta Level 3" },
+                    { 4, "Non Ceta Level" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "States",
+                columns: new[] { "Id", "StateName" },
+                values: new object[,]
+                {
+                    { 1, "Enrolled" },
+                    { 2, "In Progress" },
+                    { 3, "Completed" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -337,8 +364,7 @@ namespace ESTA.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_LevelId",
                 table: "AspNetUsers",
-                column: "LevelId",
-                unique: true);
+                column: "LevelId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -358,11 +384,6 @@ namespace ESTA.Migrations
                 column: "levelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserCourses_CourseId",
-                table: "UserCourses",
-                column: "CourseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserCourses_StateId",
                 table: "UserCourses",
                 column: "StateId");
@@ -373,14 +394,9 @@ namespace ESTA.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsersForums_forumId",
+                name: "IX_UsersForums_UserId",
                 table: "UsersForums",
-                column: "forumId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsersForums_userId",
-                table: "UsersForums",
-                column: "userId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

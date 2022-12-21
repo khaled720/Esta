@@ -113,6 +113,28 @@ namespace ESTA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Levels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            TypeName = "Ceta Level 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            TypeName = "Ceta Level 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            TypeName = "Ceta Level 3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            TypeName = "Non Ceta Level"
+                        });
                 });
 
             modelBuilder.Entity("ESTA.Models.State", b =>
@@ -130,6 +152,23 @@ namespace ESTA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("States");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            StateName = "Enrolled"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            StateName = "In Progress"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            StateName = "Completed"
+                        });
                 });
 
             modelBuilder.Entity("ESTA.Models.User", b =>
@@ -199,8 +238,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LevelId")
-                        .IsUnique();
+                    b.HasIndex("LevelId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -215,14 +253,11 @@ namespace ESTA.Migrations
 
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
@@ -233,16 +268,10 @@ namespace ESTA.Migrations
                     b.Property<int>("StateId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("isPaid")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
+                    b.HasKey("CourseId", "UserId");
 
                     b.HasIndex("StateId");
 
@@ -253,11 +282,11 @@ namespace ESTA.Migrations
 
             modelBuilder.Entity("ESTA.Models.UserForum", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("ForumId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -266,18 +295,9 @@ namespace ESTA.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("forumId")
-                        .HasColumnType("int");
+                    b.HasKey("ForumId", "UserId");
 
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("forumId");
-
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UsersForums");
                 });
@@ -307,6 +327,22 @@ namespace ESTA.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cfa7f306-f130-453a-80e3-54414aabadae",
+                            ConcurrencyStamp = "1ab2b837-b536-40e5-b0bf-27ce84912828",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "98cfdfa9-da9a-420b-82e1-73a651e81328",
+                            ConcurrencyStamp = "c5ac0492-075f-49e0-81e6-3c5feacbaccc",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -444,8 +480,8 @@ namespace ESTA.Migrations
             modelBuilder.Entity("ESTA.Models.User", b =>
                 {
                     b.HasOne("ESTA.Models.Level", "level")
-                        .WithOne("user")
-                        .HasForeignKey("ESTA.Models.User", "LevelId")
+                        .WithMany("Users")
+                        .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -455,19 +491,19 @@ namespace ESTA.Migrations
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
                 {
                     b.HasOne("ESTA.Models.Course", "course")
-                        .WithMany()
+                        .WithMany("users")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ESTA.Models.State", "state")
-                        .WithMany()
+                        .WithMany("userCourses")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ESTA.Models.User", "user")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -482,14 +518,14 @@ namespace ESTA.Migrations
             modelBuilder.Entity("ESTA.Models.UserForum", b =>
                 {
                     b.HasOne("ESTA.Models.Forum", "forum")
-                        .WithMany()
-                        .HasForeignKey("forumId")
+                        .WithMany("Users")
+                        .HasForeignKey("ForumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ESTA.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userId")
+                        .WithMany("Forums")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -549,10 +585,31 @@ namespace ESTA.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ESTA.Models.Course", b =>
+                {
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("ESTA.Models.Forum", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("ESTA.Models.Level", b =>
                 {
-                    b.Navigation("user")
-                        .IsRequired();
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ESTA.Models.State", b =>
+                {
+                    b.Navigation("userCourses");
+                });
+
+            modelBuilder.Entity("ESTA.Models.User", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Forums");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,7 +24,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Profile()
         {
 
-           
+            await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
             
             
             return View();

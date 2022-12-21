@@ -15,7 +15,8 @@ namespace ESTA.Models
 
         public string Description { get; set; }
 
-       // public string DescriptionAr { get; set; }
-    
+        public IEnumerable<UserForum> Users { get; set; }
+        // public string DescriptionAr { get; set; }
+
     }
 }
