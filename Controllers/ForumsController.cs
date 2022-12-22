@@ -72,7 +72,7 @@ namespace ESTA.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult NewForum(AddForum forum)
+        public async Task<IActionResult> NewForumAsync(AddForum forum)
         {
             var Newforum = new Forum
             {
@@ -81,7 +81,7 @@ namespace ESTA.Controllers
                 LevelId = forum.levelId
             };
             appRep.ForumRep.AddForum(Newforum);
-            appRep.SaveChangesAsync();
+            await appRep.SaveChangesAsync();
             
             return RedirectToAction("Index");
         }
@@ -101,20 +101,20 @@ namespace ESTA.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult EditForum(EditForum EditForum)
+        public async Task<IActionResult> EditForumAsync(EditForum EditForum)
         {
             Forum Forum = appRep.ForumRep.GetForum(EditForum.Id, false);
             if (Forum != null)
             {
                 _mapper.Map(EditForum, Forum);
-                appRep.SaveChangesAsync();
+                await appRep.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View("Error");
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult DeleteForum(int id)
+        public async Task<IActionResult> DeleteForumAsync(int id)
         {
             Forum Forum = appRep.ForumRep.GetForum(id, false);
             if (Forum != null)
@@ -123,14 +123,14 @@ namespace ESTA.Controllers
                 appRep.SaveChangesAsync();
                 List<UserForum> commentList = appRep.ForumRep.GetComments(id, null);
                 appRep.ForumRep.DeleteComment(commentList);
-                appRep.SaveChangesAsync();
+                await appRep.SaveChangesAsync();
                 return Json(true);
             }
             return View(false);
         }
         [Authorize]
         [HttpPost]
-        public IActionResult AddComment(int forumId, string comment)
+        public async Task<IActionResult> AddCommentAsync(int forumId, string comment)
         {
             var newComment = new UserForum
             {
@@ -139,7 +139,7 @@ namespace ESTA.Controllers
                 forumId = forumId
             };
             appRep.ForumRep.AddComment(newComment);
-            appRep.SaveChangesAsync();
+            await appRep.SaveChangesAsync();
 
             newComment = appRep.ForumRep.GetCommentById(newComment.Id);
             GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
@@ -148,7 +148,7 @@ namespace ESTA.Controllers
         }
         [HttpPost]
         [Authorize]
-        public IActionResult AddReply(int forumId, string comment, int parentId)
+        public async Task<IActionResult> AddReplyAsync(int forumId, string comment, int parentId)
         {
             var newReply = new UserForum
             {
@@ -158,28 +158,28 @@ namespace ESTA.Controllers
                 ParentId = parentId
             };
             appRep.ForumRep.AddComment(newReply);
-            appRep.SaveChangesAsync();
+            await appRep.SaveChangesAsync();
 
             return RedirectToAction("GetCommentReplies", new { parentId });
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult DeleteComment(int commentId)
+        public async Task<IActionResult> DeleteCommentAsync(int commentId)
         {
             var Reply = appRep.ForumRep.GetReplies(commentId, null);
             Reply.Add(appRep.ForumRep.GetCommentById(commentId));
             appRep.ForumRep.DeleteComment(Reply);
-            appRep.SaveChangesAsync();
+            await appRep.SaveChangesAsync();
 
             return Json(true);
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult DeleteReply(int commentId)
+        public async Task<IActionResult> DeleteReplyAsync(int commentId)
         {
             var Reply = appRep.ForumRep.GetCommentById(commentId);
             appRep.ForumRep.DeleteReply(Reply);
-            appRep.SaveChangesAsync();
+            await appRep.SaveChangesAsync();
 
             return Json(true);
         }

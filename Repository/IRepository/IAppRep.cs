@@ -10,6 +10,7 @@ namespace ESTA.Repository.IRepository
         ILevelRep LevelRep { get; }
         IUserRep UserRep { get; }
         IForumRepository ForumRep { get; }
+        IEventsRepo EventRep { get; }
         Task<bool> SaveChangesAsync();
     }
 }

@@ -1,0 +1,81 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ESTA.ViewModels.DisplayEventPartial
+
+<div class="card">
+
+    <div class="card-body">
+        <h5 class="card-title">ESTA News</h5>
+        <div id="@(Model.DivId)" class="carousel slide" data-bs-ride="carousel" style="width: 50%;margin: auto;">
+            <div class="carousel-indicators">
+                @for (int i = 0; i < Model.Events.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        <button type="button" data-bs-target="#@(Model.DivId)" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    }
+                    else
+                    {
+                        <button type="button" data-bs-target="#@(Model.DivId)" data-bs-slide-to="@i"></button>
+                    }
+                }
+                
+            </div>
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.Events.Count; i++)
+                {
+                    var events = Model.Events[i];
+                    if (i == 0)
+                    {
+                        <div class="carousel-item active">
+                            <img src="@events.Image" class="d-block w-100" alt="eventImg">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>@events.Title</h5>
+                                <p>
+                                    @events.Description
+                                    <span>
+                                        <a asp-action="GetEvent" asp-route-id="@events.Id">read more</a>
+                                    </span>
+                                </p>
+                                <a asp-action="EditEvent" asp-route-id="@events.Id" class="btn btn-secondary">Edit</a>
+                                <a asp-action="DeleteEvent" asp-route-id="@events.Id" class="btn btn-danger">Delete</a>
+                            </div>
+                            
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-item">
+                            <img src="@events.Image" class="d-block w-100" alt="eventImg">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>@events.Title</h5>
+                                <p>
+                                    @events.Description
+                                    <span>
+                                        <a asp-action="GetEvent" asp-route-id="@events.Id">read more</a>
+                                    </span>
+                                </p>
+                                <a asp-action="EditEvent" asp-route-id="@events.Id" class="btn btn-secondary">Edit</a>
+                                <a asp-action="DeleteEvent" asp-route-id="@events.Id" class="btn btn-danger">Delete</a>
+                            </div>
+
+                        </div>
+                    }
+
+                }
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#@(Model.DivId)" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#@(Model.DivId)" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>

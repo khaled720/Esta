@@ -55,6 +55,7 @@ namespace ESTA.Models
         public override DbSet<User> Users { get; set; }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<EventsNews> EventsNews { get; set; }
         public DbSet<Forum> Forums { get; set; }
 
         public DbSet<Level> Levels { get; set; }

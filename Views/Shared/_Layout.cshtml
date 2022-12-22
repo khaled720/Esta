@@ -1,5 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using System.Security.Claims
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> signInManager;
+@inject UserManager<User> userManager;
+@{
+    var admin = false;
+    if (signInManager.IsSignedIn(User))
+    {
+        var user = await userManager.GetUserAsync(User);
+        admin = await userManager.IsInRoleAsync(user, "Admin");
+    }
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,59 +47,99 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                          <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile">MyAccount</a>
                         </li>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Events &amp; News
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="EventsNews" asp-action="Index">All Events</a>
+                                </li>
+                                @*@if (admin)
+                                {*@
+                                <li class="dropdown-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="EventsNews" asp-action="CreateEvent">Add Event or News</a>
+                                </li>
+                                @*}*@
+                            </ul>
+                        </li>
                     </ul>
 
-       
-                   
+
+
+
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark " asp-area=""
-                            asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark " asp-area=""
+                               asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area=""
-                            asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                    </ul>
-                    }else{
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area=""
+                               asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
 
 
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                            <strong><a class="nav-link text-dark " asp-area="" 
-                                asp-controller="User" asp-action="Profile">
-                                    @User.FindFirstValue(ClaimTypes.Email)
-                                </a></strong>    
+                                <strong>
+                                    <a class="nav-link text-dark " asp-area=""
+                                   asp-controller="User" asp-action="Profile">
+                                        @User.FindFirstValue(ClaimTypes.Email)
+                                    </a>
+                                </strong>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark " asp-area=""
                                asp-controller="Account" asp-action="Logout">
 
-                                  Logout 
+                                    Logout
                                 </a>
                             </li>
-                            
+
                         </ul>
-                    
+
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Forums
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Forums" asp-action="Index">All Forum</a>
+                                    </li>
+                                    @if (admin)
+                                    {
+                                        <li class="dropdown-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Forums" asp-action="NewForum">New Forum</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+
                     }
-                    
+
 
 
 
                 </div>
 
-			</div>
-		</nav>               
-      
+            </div>
+        </nav>
+
     </header>
- 
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -102,10 +153,41 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckeditor/customCkeditor.js"></script>
 
+    <script src="~/lib/ckeditor/ck-editor-initialize.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+        }
+
+        function formatDate(date) {
+            var newDate = new Date(date);
+            var fullDate = [
+                newDate.getFullYear(),
+                padTo2Digits(newDate.getMonth() + 1),
+                padTo2Digits(newDate.getDate()),
+            ].join('/') +
+                ' ' +
+                [
+                    padTo2Digits(newDate.getHours() % 12 || 12),
+                    padTo2Digits(newDate.getMinutes()),
+                    padTo2Digits(newDate.getSeconds()),
+                ].join(':');
+            if (newDate.getHours() > 12) {
+
+                fullDate += ' ' + 'PM'
+            }
+            else {
+                fullDate += ' ' + 'AM'
+            }
+            return fullDate;
+        }
+    </script>
 </body>
 </html>

@@ -28,6 +28,7 @@ options.SignIn.RequireConfirmedAccount = true)
 var config = new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new ForumMapper());
+    cfg.AddProfile(new EventsMapper());
 });
 var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);

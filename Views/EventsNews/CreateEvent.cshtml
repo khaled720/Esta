@@ -1,0 +1,158 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ESTA.ViewModels.CreateEvent
+<style>
+    .file-upload {
+        background-color: #ffffff;
+        width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 2px dashed black;
+        position: relative;
+    }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            /*background-color: antiquewhite;*/
+            border: 2px dashed black;
+        }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: black;
+    }
+
+    .drag-text {
+        text-align: center;
+    }
+
+        .drag-text h3 {
+            font-weight: 100;
+            text-transform: uppercase;
+            color: black;
+            padding: 60px 0;
+        }
+
+</style>
+<input type="file" id="ck_imageUploader" accept="image/gif, image/jpeg, image/png" style="display:none;" />
+
+<div class="card">
+    <div class="card-footer">
+
+        <form asp-action="CreateEvent" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger">
+            </div>
+            <div class="file-upload my-2">
+                <div class="image-upload-wrap">
+                    <input class="file-upload-input" asp-for="Image" type='file' onchange="readURL(this);" accept="image/*" />
+                    <div class="drag-text">
+                        <h3>Drag and drop a file or click to add Image</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="formTitle" class="form-label">Event Arabic Title</label>
+                    <input class="form-control" id="formTitle" type="text" asp-for="TitleAr" />
+                    <span asp-validation-for="TitleAr" class="text-danger"></span>
+                </div>
+
+                <div class="col-6">
+                    <label for="formTitle" class="form-label">Event English Title</label>
+                    <input class="form-control" id="formTitle" type="text" asp-for="TitleEn" />
+                    <span asp-validation-for="TitleEn" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6 mt-3">
+                <label for="formTitle" class="form-label">Event date</label>
+                <input class="form-control" id="formDate" type="date" asp-for="Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label for="editor_en" class="form-label">Event Arabic Details</label>
+                <textarea class="form-control" id="editor_ar" asp-for="DetailsAr"></textarea>
+                <span asp-validation-for="DetailsAr" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label for="editor_en" class="form-label">Event English Details</label>
+                <textarea class="form-control" id="editor_en" asp-for="DetailsEn"></textarea>
+                <span asp-validation-for="DetailsEn" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label class="form-label">Is this an Event or News?</label>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input",@checked = "checked"})
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        News
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input"})
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Event
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">submit</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
+    }
+    <script>
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var formData = new FormData();
+                console.log(input.files[0])
+                formData.append("Image", input.files[0]);
+                $.ajax({
+                    type: 'post',
+                    dataType: 'JSON',
+                    url: '/EventsNews/SaveImg',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        $('.file-upload-wrap').css('background-image', "URL('" + data + "')");
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                });
+
+            } else {
+                removeUpload();
+            }
+        }
+
+    </script>
+}
