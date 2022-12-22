@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using ESTA.Models;
+using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ namespace ESTA.Controllers
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
+        private readonly IAppRep appRep;
 
-        public AccountController(SignInManager<User> _signInManager, UserManager<User> userManager)
+        public AccountController(SignInManager<User> _signInManager, UserManager<User> userManager,IAppRep appRep)
         {
             signInManager = _signInManager;
             this.userManager = userManager;
+            this.appRep = appRep;
         }
 
         [HttpGet]
@@ -51,10 +54,16 @@ namespace ESTA.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            RegisterViewModel registerView = new RegisterViewModel();
-            return View(registerView);
+            RegisterViewModel registerModel = new RegisterViewModel();
+            registerModel.Levels =await appRep.LevelRep.GetAllLevels();
+            registerModel.Questions = await appRep.QuestionRep.GetAllQuestions();
+
+
+
+
+            return View(registerModel);
         }
 
         [HttpPost]
@@ -105,5 +114,18 @@ namespace ESTA.Controllers
             HttpContext.Session.Clear();
             return Redirect("/Home/Index");
         }
+
+
+
+        public IActionResult CreateUser(Level level)
+        {
+            return View();
+        }
+
+
+
+
+
+
     }
 }

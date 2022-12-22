@@ -47,7 +47,24 @@ namespace ESTA.Models
             builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
            builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
 
+
+            builder.Entity<UserAnswer>().HasKey(y=>new { y.UserId,y.QuestionId});
+            builder.Entity<UserAnswer>().HasOne(y => y.question).WithMany(y => y.userAnswers).HasForeignKey(y=>y.QuestionId);
+            builder.Entity<UserAnswer>().HasOne(y => y.user).WithMany(y => y.userAnswers).HasForeignKey(y => y.UserId);
+
+
+            builder.Entity<Question>().HasData(new Question { Id = 1 ,QuestionArtxt= "كيف تعرفت على الجمعية المصرية للمحللين الفنيين؟", QuestionEntxt= "How did you get to know the Egyptian Society of Technical Analysts?", IsYesNo=false}) ;
+            builder.Entity<Question>().HasData(new Question { Id = 2, QuestionArtxt = "ماھي معلوماتك عن الجمعية المصرية للمحللين الفنيين؟", QuestionEntxt = "What is your information about the Egyptian Society of Technical Analysts?", IsYesNo = false });
+            builder.Entity<Question>().HasData(new Question { Id = 3, QuestionArtxt = "لماذا ترغب في االلتحاق بالجمعية المصرية للمحللين الفنيين؟", QuestionEntxt = "Why would you like to join the Egyptian Society of Technical Analysts?", IsYesNo = false });
+            builder.Entity<Question>().HasData(new Question { Id = 4, QuestionArtxt = "لو التحقت بالجمعية المصرية للمحللين الفنيين كيف يمكن أن تخدمھا؟", QuestionEntxt = "If you joined the Egyptian Society of Technical Analysts, how would you serve it?", IsYesNo = false });
+            builder.Entity<Question>().HasData(new Question { Id = 5, QuestionArtxt = "ھل أنت عضو بجمعيات مماثلة سواء داخل مصر أو خارجھا؟", QuestionEntxt = "Are you a member of similar Societies inside or outside Egypt?", IsYesNo = true });
+            builder.Entity<Question>().HasData(new Question { Id = 6, QuestionArtxt = "ھل لديك أي دراية بالتحليل الفني؟", QuestionEntxt = "Do you have any knowledge of technical analysis?", IsYesNo = true });
+            builder.Entity<Question>().HasData(new Question { Id = 7, QuestionArtxt = "ھل لديك أي دراية بالتحليل المالي؟", QuestionEntxt = "Do you have any knowledge of financial analysis?", IsYesNo = true });
+            builder.Entity<Question>().HasData(new Question { Id = 8, QuestionArtxt = "ھل أنت مستثمر بأسواق المال؟", QuestionEntxt = "Are you an investor in the capital markets?", IsYesNo = true });
+            builder.Entity<Question>().HasData(new Question { Id = 9, QuestionArtxt = "ھل سبق توقيع أى عقوبات أو جزاءات عليك أو خضعت للتحقيق من ھيئة سوق المال أو\r\nالبورصة أو أى جھة رقابية أخرى داخل مصر أو خارجھا خالل الخمس سنين الماضية؟",
+                QuestionEntxt = "Have any sanctions or penalties been imposed on you or have you been investigated by the Capital Market Authority or\r\nThe stock exchange or any other regulatory body inside or outside Egypt during the past five years?", IsYesNo = true });
           
+
         }
 
         public override DbSet<User> Users { get; set; }
@@ -60,8 +77,22 @@ namespace ESTA.Models
         public DbSet<State> States { get; set; }
 
 
+
+        public DbSet<Question> Questions { get; set; }
+    
+
+
         public DbSet<UserForum> UsersForums { get; set; }
    
         public DbSet<UserCourse> UserCourses { get; set; }
+
+
+        /// <summary>
+        /// ///
+        /// </summary>
+        public DbSet<UserAnswer> UserAnswers { get; set; }
+
+  
+
     }
 }

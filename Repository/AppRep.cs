@@ -17,6 +17,8 @@ namespace ESTA.Repository
 
         public IUserRep UserRep =>  new UserRep(appContext);
 
+        public IQuestionRep QuestionRep => new QuestionRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;

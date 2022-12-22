@@ -43,5 +43,17 @@ namespace ESTA.Repository
             //where ..
             return await appContext.UserCourses.AsNoTracking().Include(y => y.state).Include(y => y.course).ToListAsync();
         }
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

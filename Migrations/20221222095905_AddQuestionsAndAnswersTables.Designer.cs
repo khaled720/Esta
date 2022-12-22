@@ -4,6 +4,7 @@ using ESTA.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESTA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221222095905_AddQuestionsAndAnswersTables")]
+    partial class AddQuestionsAndAnswersTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,71 +161,6 @@ namespace ESTA.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Questions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsYesNo = false,
-                            QuestionArtxt = "كيف تعرفت على الجمعية المصرية للمحللين الفنيين؟",
-                            QuestionEntxt = "How did you get to know the Egyptian Society of Technical Analysts?"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsYesNo = false,
-                            QuestionArtxt = "ماھي معلوماتك عن الجمعية المصرية للمحللين الفنيين؟",
-                            QuestionEntxt = "What is your information about the Egyptian Society of Technical Analysts?"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsYesNo = false,
-                            QuestionArtxt = "لماذا ترغب في االلتحاق بالجمعية المصرية للمحللين الفنيين؟",
-                            QuestionEntxt = "Why would you like to join the Egyptian Society of Technical Analysts?"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsYesNo = false,
-                            QuestionArtxt = "لو التحقت بالجمعية المصرية للمحللين الفنيين كيف يمكن أن تخدمھا؟",
-                            QuestionEntxt = "If you joined the Egyptian Society of Technical Analysts, how would you serve it?"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsYesNo = true,
-                            QuestionArtxt = "ھل أنت عضو بجمعيات مماثلة سواء داخل مصر أو خارجھا؟",
-                            QuestionEntxt = "Are you a member of similar Societies inside or outside Egypt?"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            IsYesNo = true,
-                            QuestionArtxt = "ھل لديك أي دراية بالتحليل الفني؟",
-                            QuestionEntxt = "Do you have any knowledge of technical analysis?"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            IsYesNo = true,
-                            QuestionArtxt = "ھل لديك أي دراية بالتحليل المالي؟",
-                            QuestionEntxt = "Do you have any knowledge of financial analysis?"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            IsYesNo = true,
-                            QuestionArtxt = "ھل أنت مستثمر بأسواق المال؟",
-                            QuestionEntxt = "Are you an investor in the capital markets?"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            IsYesNo = true,
-                            QuestionArtxt = "ھل سبق توقيع أى عقوبات أو جزاءات عليك أو خضعت للتحقيق من ھيئة سوق المال أو\r\nالبورصة أو أى جھة رقابية أخرى داخل مصر أو خارجھا خالل الخمس سنين الماضية؟",
-                            QuestionEntxt = "Have any sanctions or penalties been imposed on you or have you been investigated by the Capital Market Authority or\r\nThe stock exchange or any other regulatory body inside or outside Egypt during the past five years?"
-                        });
                 });
 
             modelBuilder.Entity("ESTA.Models.State", b =>
@@ -544,15 +481,15 @@ namespace ESTA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "733bd323-6b9d-4c56-81d3-ad2620610138",
-                            ConcurrencyStamp = "b7c33edc-c068-48dc-a77c-fc1c1d4dbba3",
+                            Id = "ecddf7d2-0b16-4bf7-a55c-5c24a62e133d",
+                            ConcurrencyStamp = "0f815bb0-2f5c-4687-a2ef-23121480f384",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "0a1fa116-3bb5-4fa3-960f-8f39216bef0f",
-                            ConcurrencyStamp = "8be1cfd8-e520-4160-8941-654da298e818",
+                            Id = "116fc029-c4bb-4089-9f70-b6af4d4f0bd9",
+                            ConcurrencyStamp = "06175ef0-4342-408f-a04c-ac5b5e86616c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
