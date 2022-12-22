@@ -47,3 +47,4 @@ _ReSharper*/
 # Microsoft Office temporary files
 ~$*
 /.vs
+/.vs/ESTA/DesignTimeBuild/.dtbcache.v2
