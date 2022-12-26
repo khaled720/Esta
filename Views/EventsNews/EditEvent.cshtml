@@ -61,11 +61,9 @@
             <div asp-validation-summary="All" class="text-danger">
             </div>
             <div class="file-upload my-2">
-                <div class="image-upload-wrap" style="background-image:URL(@Model.Image)">
+                <div class="image-upload-wrap">
                     <input class="file-upload-input" asp-for="ImageUpload" type='file' onchange="readURL(this);" accept="image/*" />
-                    <div class="drag-text">
-                        <h3>Drag and drop a file or click to add Image</h3>
-                    </div>
+                    <img class="img-fluid" id="imgSrc" src="@Model.Image" alt="your image" />
                 </div>
             </div>
             <div class="row">
@@ -81,11 +79,22 @@
                     <span asp-validation-for="TitleEn" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-6 mt-3">
-                <label for="formTitle" class="form-label">Event date</label>
-                <input class="form-control" id="formDate" type="date" asp-for="Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
+            @if(Model.Date != null)
+            {
+                <div class="col-6 mt-3">
+                    <label for="formTitle" class="form-label">Event date</label>
+                    <input class="form-control" id="formDate" type="date" asp-for="Date" value="@Model.Date.Value.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="col-6 mt-3">
+                    <label for="formTitle" class="form-label">Event date</label>
+                    <input class="form-control" id="formDate" type="date" asp-for="Date" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+            }
 
             <div class="col-12 mt-3">
                 <label for="editor_en" class="form-label">Event Arabic Details</label>
@@ -153,25 +162,12 @@
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var formData = new FormData();
+                const url = URL.createObjectURL(input.files[0]);
                 console.log(input.files[0])
-                formData.append("Image", input.files[0]);
-                $.ajax({
-                    type: 'post',
-                    dataType: 'JSON',
-                    url: '/EventsNews/SaveImg',
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (data) {
-                        $('.image-upload-wrap').css('background-image', "URL('" + data + "')");
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
-
-            } else {
-                removeUpload();
+                console.log(url)
+                $('#imgSrc').attr('src', url);
+                $('#imgSrc').css('display', 'block');
+                $('.drag-text').hide();
             }
         }
 

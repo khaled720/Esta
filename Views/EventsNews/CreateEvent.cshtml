@@ -63,6 +63,8 @@
             <div class="file-upload my-2">
                 <div class="image-upload-wrap">
                     <input class="file-upload-input" asp-for="Image" type='file' onchange="readURL(this);" accept="image/*" />
+                    <img class="img-fluid" id="imgSrc" src="#" alt="your image" style="display:none;" />
+
                     <div class="drag-text">
                         <h3>Drag and drop a file or click to add Image</h3>
                     </div>
@@ -83,7 +85,7 @@
             </div>
             <div class="col-6 mt-3">
                 <label for="formTitle" class="form-label">Event date</label>
-                <input class="form-control" id="formDate" type="date" asp-for="Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <input class="form-control" id="formDate" type="date" asp-for="Date" value="" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
 
@@ -132,25 +134,12 @@
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var formData = new FormData();
+                const url = URL.createObjectURL(input.files[0]);
                 console.log(input.files[0])
-                formData.append("Image", input.files[0]);
-                $.ajax({
-                    type: 'post',
-                    dataType: 'JSON',
-                    url: '/EventsNews/SaveImg',
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (data) {
-                        $('.file-upload-wrap').css('background-image', "URL('" + data + "')");
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
-
-            } else {
-                removeUpload();
+                console.log(url)
+                $('#imgSrc').attr('src', url);
+                $('#imgSrc').css('display', 'block');
+                $('.drag-text').hide();
             }
         }
 

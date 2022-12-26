@@ -35,5 +35,10 @@ namespace ESTA.Repository
         {
             return context.EventsNews.ToList();
         }
+
+        public List<EventsNews> GetOnlyEvents()
+        {
+            return context.EventsNews.Where(x => x.Flag == 0).ToList();
+        }
     }
 }

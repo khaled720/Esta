@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using ESTA.Migrations;
 using AutoMapper;
 using ESTA.Mappers;
+using ESTA.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 
+ImageHelper.Configure(app.Environment);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

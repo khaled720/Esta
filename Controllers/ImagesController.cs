@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ESTA.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Controllers
 {
@@ -26,21 +27,8 @@ namespace ESTA.Controllers
         [HttpPost]
         public string PostImg([FromForm] IFormFile file)
         {
-            var st = file.OpenReadStream();
-
-            BinaryReader Br = new BinaryReader(st);
-
-            var bt = Br.ReadBytes((int)st.Length);
-            //   var base64str= Convert.ToBase64String(bt);
-            var path = webHost.WebRootPath;
-            var ImageName = file.FileName.Trim();
-
-            var saveFile = Path.Combine(path + "/editor_images", ImageName);
+            string ImageName = ImageHelper.UploadedFile(file, "editor_images");
             var display = "/editor_images/" + ImageName;
-
-            System.IO.File.WriteAllBytes(saveFile, bt);
-
-
             return display;
 
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ESTA.Helpers;
 using ESTA.Mappers;
 using ESTA.Models;
 using ESTA.Repository;
@@ -74,14 +75,6 @@ namespace ESTA.Controllers
 
             return View(displayEvents);
         }
-        [HttpPost]
-        public IActionResult SaveImg(IFormFile Image)
-        {
-            string ImgName = UploadedFile(Image);
-            var ImgPath = "/images/News/" + ImgName;
-
-            return Json(ImgPath);
-        }
         public IActionResult CreateEvent()
         {
             return View();
@@ -91,7 +84,7 @@ namespace ESTA.Controllers
         {
             var DescArDecoded = HttpUtility.HtmlDecode(Event.DetailsAr);
             var DescEnDecoded = HttpUtility.HtmlDecode(Event.DetailsEn);
-            var imgName = UploadedFile(Event.Image);
+            var imgName = ImageHelper.UploadedFile(Event.Image, "images/News/");
             EventsNews NewEvent = mapper.Map<CreateEvent, EventsNews>(Event);
 
             NewEvent.DetailsAr = DescArDecoded;
@@ -110,15 +103,28 @@ namespace ESTA.Controllers
             return View(editEvent);
         }
         [HttpPost]
-        public async Task<IActionResult> EditEventAsync(EditEvents events)
+        public async Task<IActionResult> EditEventAsync(EditEvents EditEvent)
         {
-            EventsNews Event = appRep.EventRep.GetEventById(events.Id);
-            mapper.Map(events, Event);
+            EventsNews Event = appRep.EventRep.GetEventById(EditEvent.Id);
+            var DescArDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsAr);
+            var DescEnDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsEn);
+            if(EditEvent.ImageUpload != null)
+            {
+                var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "/images/News/");
+                Event.Image = "/images/News/" + imgName;
+            }
+            Event.DetailsAr = DescArDecoded;
+            Event.DetailsEn = DescEnDecoded;
+            Event.TitleAr = EditEvent.TitleAr;
+            Event.TitleEn = EditEvent.TitleEn;
+            if(EditEvent.Date != null)
+            {
+                Event.Date = Event.Date;
+            }
             await appRep.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
-        [HttpPost]
         public async Task<IActionResult> DeleteEventAsync(int id)
         {
             EventsNews events = appRep.EventRep.FindEvent(id);
@@ -128,20 +134,6 @@ namespace ESTA.Controllers
                 await appRep.SaveChangesAsync();
             }
             return RedirectToAction("Index");
-        }
-        [NonAction]
-        private string UploadedFile(IFormFile Image)
-        {
-            string uniqueFileName;
-
-            string uploadsFolder = Path.Combine(webHost.WebRootPath, "images\\News");
-            uniqueFileName = Guid.NewGuid().ToString() + "_" + Image.FileName;
-            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                Image.CopyTo(fileStream);
-            }
-            return uniqueFileName;
         }
         private string RemoveHTMLTags(string text)
         {
