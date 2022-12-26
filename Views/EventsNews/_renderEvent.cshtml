@@ -37,11 +37,9 @@
                                 <p>
                                     @events.Description
                                     <span>
-                                        <a asp-action="GetEvent" asp-route-id="@events.Id">read more</a>
+                                        <a asp-action="GetEvent" asp-route-id="@events.Id">@ESTA.Resources.EventsNews.readMore</a>
                                     </span>
                                 </p>
-                                <a asp-action="EditEvent" asp-route-id="@events.Id" class="btn btn-secondary">Edit</a>
-                                <a asp-action="DeleteEvent" asp-route-id="@events.Id" class="btn btn-danger">Delete</a>
                             </div>
                             
                         </div>
@@ -55,11 +53,9 @@
                                 <p>
                                     @events.Description
                                     <span>
-                                        <a asp-action="GetEvent" asp-route-id="@events.Id">read more</a>
+                                        <a asp-action="GetEvent" asp-route-id="@events.Id">@ESTA.Resources.EventsNews.readMore</a>
                                     </span>
                                 </p>
-                                <a asp-action="EditEvent" asp-route-id="@events.Id" class="btn btn-secondary">Edit</a>
-                                <a asp-action="DeleteEvent" asp-route-id="@events.Id" class="btn btn-danger">Delete</a>
                             </div>
 
                         </div>
@@ -70,11 +66,11 @@
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#@(Model.DivId)" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">@ESTA.Resources.EventsNews.Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#@(Model.DivId)" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">@ESTA.Resources.EventsNews.Next</span>
             </button>
         </div>
     </div>

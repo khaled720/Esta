@@ -7,6 +7,9 @@ using ESTA.Migrations;
 using AutoMapper;
 using ESTA.Mappers;
 using ESTA.Helpers;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,15 +29,33 @@ options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
+//configure localization
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+//configure supported languages.
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("ar")
+};
+builder.Services.Configure<RequestLocalizationOptions>(options => {
+    options.DefaultRequestCulture = new RequestCulture("en");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
 var config = new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new ForumMapper());
     cfg.AddProfile(new EventsMapper());
 });
 var mapper = config.CreateMapper();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton(mapper);
 var app = builder.Build();
-
+//tell app to use the resources.
+app.UseRequestLocalization(
+    app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value
+    );
 ImageHelper.Configure(app.Environment);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

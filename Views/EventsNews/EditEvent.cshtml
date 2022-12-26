@@ -68,13 +68,13 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <label for="formTitle" class="form-label">Event Arabic Title</label>
+                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventTitleAr</label>
                     <input class="form-control" id="formTitle" type="text" asp-for="TitleAr" />
                     <span asp-validation-for="TitleAr" class="text-danger"></span>
                 </div>
 
                 <div class="col-6">
-                    <label for="formTitle" class="form-label">Event English Title</label>
+                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventTitleEn</label>
                     <input class="form-control" id="formTitle" type="text" asp-for="TitleEn" />
                     <span asp-validation-for="TitleEn" class="text-danger"></span>
                 </div>
@@ -82,7 +82,7 @@
             @if(Model.Date != null)
             {
                 <div class="col-6 mt-3">
-                    <label for="formTitle" class="form-label">Event date</label>
+                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
                     <input class="form-control" id="formDate" type="date" asp-for="Date" value="@Model.Date.Value.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
@@ -90,20 +90,20 @@
             else
             {
                 <div class="col-6 mt-3">
-                    <label for="formTitle" class="form-label">Event date</label>
+                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
                     <input class="form-control" id="formDate" type="date" asp-for="Date" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
             }
 
             <div class="col-12 mt-3">
-                <label for="editor_en" class="form-label">Event Arabic Details</label>
+                <label for="editor_en" class="form-label">@ESTA.Resources.EventsNews.EventDetailsAr</label>
                 <textarea class="form-control" id="editor_ar" asp-for="DetailsAr"></textarea>
                 <span asp-validation-for="DetailsAr" class="text-danger"></span>
             </div>
 
             <div class="col-12 mt-3">
-                <label for="editor_en" class="form-label">Event English Details</label>
+                <label for="editor_en" class="form-label">@ESTA.Resources.EventsNews.EventDetailsEn</label>
                 <textarea class="form-control" id="editor_en" asp-for="DetailsEn"></textarea>
                 <span asp-validation-for="DetailsEn" class="text-danger"></span>
             </div>
@@ -111,17 +111,17 @@
             @if(Model.Flag == 1)
             {
                 <div class="col-12 mt-3">
-                    <label class="form-label">Is this an Event or News?</label>
+                    <label class="form-label">@ESTA.Resources.EventsNews.NewsOrEvent</label>
                     <div class="form-check form-check-inline">
                         @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input", @checked="checked"})
                         <label class="form-check-label" for="flexRadioDefault1">
-                            News
+                            @ESTA.Resources.EventsNews.News
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
                         @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input"})
                         <label class="form-check-label" for="flexRadioDefault1">
-                            Event
+                            @ESTA.Resources.EventsNews.Event
                         </label>
                     </div>
                 </div>
@@ -129,25 +129,25 @@
             else
             {
                 <div class="col-12 mt-3">
-                    <label class="form-label">Is this an Event or News?</label>
+                    <label class="form-label">@ESTA.Resources.EventsNews.NewsOrEvent</label>
                     <div class="form-check form-check-inline">
                         @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input"})
                         <label class="form-check-label" for="flexRadioDefault1">
-                            News
+                            @ESTA.Resources.EventsNews.News
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
                         @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input", @checked="checked"})
                         <label class="form-check-label" for="flexRadioDefault1">
-                            Event
+                            @ESTA.Resources.EventsNews.Event
                         </label>
                     </div>
                 </div>
             }
 
             <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-primary">submit</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">@ESTA.Resources.EventsNews.Submit</button>
+                <a asp-action="Index" class="btn btn-secondary">@ESTA.Resources.EventsNews.Cancel</a>
             </div>
         </form>
     </div>

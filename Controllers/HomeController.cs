@@ -5,6 +5,7 @@ using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Controllers
@@ -14,14 +15,17 @@ namespace ESTA.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IAppRep appRep;
         private readonly IWebHostEnvironment hostEnvironment;
-        private readonly IMapper mapper;
+        private readonly string culture;
 
-        public HomeController(IMapper mapper, ILogger<HomeController> logger, IAppRep appRep, IWebHostEnvironment hostEnvironment)
+        public HomeController(ILogger<HomeController> logger, IAppRep appRep, IWebHostEnvironment hostEnvironment, IHttpContextAccessor contextAccessor)
         {
             _logger = logger;
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
-            this.mapper = mapper;
+
+            var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+            // Culture contains the information of the requested culture
+            culture = rqf.RequestCulture.Culture.Name;
         }
 
         public async Task<IActionResult> Index()
@@ -47,13 +51,21 @@ namespace ESTA.Controllers
         {
             List<EventsNews> EventNews = appRep.EventRep.GetOnlyEvents();
             List<DisplayEvents> DisplayEvent = new();
-            foreach(var eventItem in EventNews)
+            string title;
+            foreach (var eventItem in EventNews)
             {
+                if (culture == "en")
+                {
+                    title = eventItem.TitleEn;
+                }
+                else
+                {
+                    title = eventItem.TitleAr;
+                }
                 DisplayEvent.Add(new DisplayEvents()
                 {
                     Date= eventItem.Date,
-                    Description = eventItem.DetailsEn,
-                    Title = eventItem.TitleEn,
+                    Title = title,
                     Id = eventItem.Id
                 });
             }

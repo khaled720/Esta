@@ -3,7 +3,18 @@
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<User> signInManager;
 @inject UserManager<User> userManager;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
 @{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocalizationOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path)
+        ? "~/"
+        : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+
     var admin = false;
     if (signInManager.IsSignedIn(User))
     {
@@ -11,6 +22,7 @@
         admin = await userManager.IsInRoleAsync(user, "Admin");
     }
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,6 +78,16 @@
                                 </li>
                                 @*}*@
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
+                                  class="form-horizontal nav-link text-dark">
+                                <select name="culture"
+                                        onchange="this.form.submit();"
+                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                        asp-items="cultureItems">
+                                </select>
+                            </form>
                         </li>
                     </ul>
 

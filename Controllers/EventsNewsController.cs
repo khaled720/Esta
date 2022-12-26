@@ -6,6 +6,7 @@ using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -17,13 +18,18 @@ namespace ESTA.Controllers
     {
         private readonly IAppRep appRep;
         private readonly IMapper mapper;
+        private readonly string culture;
         private readonly IWebHostEnvironment webHost;
 
-        public EventsNewsController(IWebHostEnvironment webHost, IAppRep appRep, IMapper mapper)
+        public EventsNewsController(IWebHostEnvironment webHost, IAppRep appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             this.appRep = appRep;
             this.mapper = mapper;
             this.webHost = webHost;
+            
+            var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+            // Culture contains the information of the requested culture
+            culture = rqf.RequestCulture.Culture.Name;
         }
         public IActionResult Index()
         {
@@ -31,17 +37,30 @@ namespace ESTA.Controllers
             DisplayEventObj ListObj = new();
             List<DisplayEvents> Events = new();
             List<DisplayEvents> News = new();
+            string details;
+            string title;
             foreach (var eventVar in EventsList)
             {
+                if (culture == "en")
+                {
+                    details = RemoveHTMLTags(eventVar.DetailsEn).Trim().Substring(1, 20);
+                    title = eventVar.TitleEn;
+                }
+                else
+                {
+                    details = RemoveHTMLTags(eventVar.DetailsAr).Trim().Substring(1, 20);
+                    title = eventVar.TitleAr;
+                }
                 if (eventVar.Flag == 0)
                 {
+
                     Events.Add(new()
                     {
                         Id = eventVar.Id,
                         Image = eventVar.Image,
-                        Title = eventVar.TitleAr,
+                        Title = title,
                         Flag = eventVar.Flag,
-                        Description = RemoveHTMLTags(eventVar.DetailsAr).Trim().Substring(1, 20),
+                        Description = details,
                     });
                 }
                 else
@@ -50,9 +69,9 @@ namespace ESTA.Controllers
                     {
                         Id = eventVar.Id,
                         Image = eventVar.Image,
-                        Title = eventVar.TitleAr,
+                        Title = title,
                         Flag = eventVar.Flag,
-                        Description = RemoveHTMLTags(eventVar.DetailsAr).Substring(1, 20),
+                        Description = details,
                     });
                 }
 
@@ -68,10 +87,10 @@ namespace ESTA.Controllers
             DisplayEvents displayEvents = new()
             {
                 Id = events.Id,
-                Description = events.DetailsAr,
-                Title = events.TitleAr,
                 Image = events.Image
             };
+            displayEvents.Title = culture == "en" ?  events.TitleEn : events.TitleAr;
+            displayEvents.Description = culture == "en" ? events.DetailsEn : events.DetailsAr;
 
             return View(displayEvents);
         }
@@ -108,7 +127,7 @@ namespace ESTA.Controllers
             EventsNews Event = appRep.EventRep.GetEventById(EditEvent.Id);
             var DescArDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsAr);
             var DescEnDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsEn);
-            if(EditEvent.ImageUpload != null)
+            if (EditEvent.ImageUpload != null)
             {
                 var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "/images/News/");
                 Event.Image = "/images/News/" + imgName;
@@ -117,7 +136,7 @@ namespace ESTA.Controllers
             Event.DetailsEn = DescEnDecoded;
             Event.TitleAr = EditEvent.TitleAr;
             Event.TitleEn = EditEvent.TitleEn;
-            if(EditEvent.Date != null)
+            if (EditEvent.Date != null)
             {
                 Event.Date = Event.Date;
             }
