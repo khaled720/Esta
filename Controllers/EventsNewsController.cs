@@ -87,10 +87,10 @@ namespace ESTA.Controllers
             DisplayEvents displayEvents = new()
             {
                 Id = events.Id,
-                Image = events.Image
+                Image = events.Image,
+                Title = culture == "en" ? events.TitleEn : events.TitleAr,
+                Description = culture == "en" ? events.DetailsEn : events.DetailsAr
             };
-            displayEvents.Title = culture == "en" ?  events.TitleEn : events.TitleAr;
-            displayEvents.Description = culture == "en" ? events.DetailsEn : events.DetailsAr;
 
             return View(displayEvents);
         }
