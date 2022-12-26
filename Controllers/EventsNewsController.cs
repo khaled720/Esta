@@ -154,7 +154,7 @@ namespace ESTA.Controllers
             }
             return RedirectToAction("Index");
         }
-        private string RemoveHTMLTags(string text)
+        private static string RemoveHTMLTags(string text)
         {
             return Regex.Replace(text.Trim(), "<.*?>", String.Empty);
         }
