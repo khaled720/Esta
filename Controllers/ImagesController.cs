@@ -38,9 +38,9 @@ namespace ESTA.Controllers
         public void Delete([FromForm] string imgPath)
         {
             var path = webHost.WebRootPath;
-
-            var saveFile = Path.Combine(path, "wwwroot\\" + imgPath);
-            FileInfo file = new FileInfo(saveFile);
+            imgPath = imgPath.Remove(0,1);
+            var saveFile = Path.Combine(path, imgPath);
+            FileInfo file = new (saveFile);
             try
             {
                 if (file.Exists)//check file exsit or not
