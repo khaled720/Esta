@@ -3,22 +3,39 @@
 *@
 @{
 }
-@model ESTA.ViewModels.DisplayEventObj
+@model List<ESTA.ViewModels.DisplayEvents>
 @{
-    if (Model.Events.Count > 0)
-    {
-        await Html.RenderPartialAsync("_renderEvent", new ESTA.ViewModels.DisplayEventPartial()
+    <div id="cards" class="row row-cols-1 row-cols-md-4 g-4">
+        @if (Model.Count > 0)
+        {
+            await Html.RenderPartialAsync("_renderEvent", new ESTA.ViewModels.DisplayEventPartial()
                 {
-                    DivId = "Event",
-                    Events = Model.Events
+                    Events = Model
                 });
-    }
-    if (Model.News.Count > 0)
-    {
-        await Html.RenderPartialAsync("_renderEvent", new ESTA.ViewModels.DisplayEventPartial()
-                {
-                    DivId = "News",
-                    Events = Model.News
-                });
-    }
+        }
+    </div>
+
+    <button class="btn btn-link mt-2" onclick="LoadMoreEvents()">Load More</button>
+}
+@section Scripts{
+    <script>
+        var page = 0
+        function LoadMoreEvents() {
+            $.ajax({
+                type: 'get',
+                url: '/EventsNews/GetEventsPage',
+                data: {
+                    page: ++page
+                },
+                success: function (data) {
+                    $('#cards').append(data);
+                    console.log(data)
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+
+    </script>
 }

@@ -4,11 +4,12 @@ using ESTA.ViewModels;
 
 namespace ESTA.Repository
 {
-    public class EventRepo:IEventsRepo
+    public class EventRepo : IEventsRepo
     {
         private readonly AppDbContext context;
 
-        public EventRepo(AppDbContext context) {
+        public EventRepo(AppDbContext context)
+        {
             this.context = context;
         }
 
@@ -28,12 +29,13 @@ namespace ESTA.Repository
 
         public EventsNews GetEventById(int Id)
         {
-            return context.EventsNews.Where(x=>x.Id == Id).FirstOrDefault();
+            return context.EventsNews.Where(x => x.Id == Id).FirstOrDefault();
         }
 
-        public List<EventsNews> GetEvents()
+        public List<EventsNews> GetEvents(int page, int count = 4)
         {
-            return context.EventsNews.ToList();
+            return context.EventsNews
+                .Skip(page * count).Take(count).ToList();
         }
 
         public List<EventsNews> GetOnlyEvents()

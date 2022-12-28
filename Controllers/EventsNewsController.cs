@@ -8,6 +8,7 @@ using ESTA.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -26,60 +27,26 @@ namespace ESTA.Controllers
             this.appRep = appRep;
             this.mapper = mapper;
             this.webHost = webHost;
-            
+
             var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
             culture = rqf.RequestCulture.Culture.Name;
         }
         public IActionResult Index()
         {
-            List<EventsNews> EventsList = appRep.EventRep.GetEvents();
-            DisplayEventObj ListObj = new();
-            List<DisplayEvents> Events = new();
-            List<DisplayEvents> News = new();
-            string details;
-            string title;
-            foreach (var eventVar in EventsList)
+            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(0);
+
+            return View(EventsNews);
+        }
+        public IActionResult GetEventsPage(int page)
+        {
+            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(page);
+            DisplayEventPartial displayEvent = new()
             {
-                if (culture == "en")
-                {
-                    details = RemoveHTMLTags(eventVar.DetailsEn).Trim().Substring(1, 20);
-                    title = eventVar.TitleEn;
-                }
-                else
-                {
-                    details = RemoveHTMLTags(eventVar.DetailsAr).Trim().Substring(1, 20);
-                    title = eventVar.TitleAr;
-                }
-                if (eventVar.Flag == 0)
-                {
+                Events = EventsNews,
+            };
 
-                    Events.Add(new()
-                    {
-                        Id = eventVar.Id,
-                        Image = eventVar.Image,
-                        Title = title,
-                        Flag = eventVar.Flag,
-                        Description = details,
-                    });
-                }
-                else
-                {
-                    News.Add(new()
-                    {
-                        Id = eventVar.Id,
-                        Image = eventVar.Image,
-                        Title = title,
-                        Flag = eventVar.Flag,
-                        Description = details,
-                    });
-                }
-
-            }
-            ListObj.Events = Events;
-            ListObj.News = News;
-
-            return View(ListObj);
+            return PartialView("_renderEvent", displayEvent);
         }
         public IActionResult GetEvent(int id)
         {
@@ -157,6 +124,36 @@ namespace ESTA.Controllers
         private static string RemoveHTMLTags(string text)
         {
             return Regex.Replace(text.Trim(), "<.*?>", String.Empty);
+        }
+        private List<DisplayEvents> EventsModelToEventsDisplay(int page)
+        {
+            List<EventsNews> EventsList = appRep.EventRep.GetEvents(page);
+
+            List<DisplayEvents> EventsNews = new();
+            string details;
+            string title;
+            foreach (var eventVar in EventsList)
+            {
+                if (culture == "en")
+                {
+                    details = RemoveHTMLTags(eventVar.DetailsEn).Trim().Substring(1, 20);
+                    title = eventVar.TitleEn;
+                }
+                else
+                {
+                    details = RemoveHTMLTags(eventVar.DetailsAr).Trim().Substring(1, 20);
+                    title = eventVar.TitleAr;
+                }
+                EventsNews.Add(new()
+                {
+                    Id = eventVar.Id,
+                    Image = eventVar.Image,
+                    Title = title,
+                    Flag = eventVar.Flag,
+                    Description = details,
+                });
+            }
+            return EventsNews;
         }
     }
 }

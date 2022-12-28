@@ -6,7 +6,7 @@ namespace ESTA.Repository.IRepository
     public interface IEventsRepo
     {
         public void AddEvent(EventsNews Event);
-        public List<EventsNews> GetEvents();
+        public List<EventsNews> GetEvents(int page, int count = 4);
         public List<EventsNews> GetOnlyEvents();
         public EventsNews GetEventById(int Id);
         public void DeleteEvent(EventsNews events);
