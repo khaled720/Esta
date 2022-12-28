@@ -45,7 +45,7 @@ namespace ESTA.Controllers
             {
                 Events = EventsNews,
             };
-
+            
             return PartialView("_renderEvent", displayEvent);
         }
         public IActionResult GetEvent(int id)
