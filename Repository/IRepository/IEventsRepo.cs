@@ -11,5 +11,6 @@ namespace ESTA.Repository.IRepository
         public EventsNews GetEventById(int Id);
         public void DeleteEvent(EventsNews events);
         public EventsNews FindEvent(int Id);
+        public EventsNews GetLatestEvent();
     }
 }

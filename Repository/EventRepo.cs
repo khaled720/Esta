@@ -35,7 +35,17 @@ namespace ESTA.Repository
         public List<EventsNews> GetEvents(int page, int count = 4)
         {
             return context.EventsNews
-                .Skip(page * count).Take(count).ToList();
+                .OrderByDescending(x => x.Date)
+                .Skip(page * count)
+                .Take(count)
+                .ToList();
+        }
+
+        public EventsNews GetLatestEvent()
+        {
+            return context.EventsNews.Where(x => x.Date >= DateTime.Now.Date)
+                .OrderBy(x => x.Date)
+                .FirstOrDefault();
         }
 
         public List<EventsNews> GetOnlyEvents()
