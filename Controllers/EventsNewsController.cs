@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -32,6 +33,11 @@ namespace ESTA.Controllers
             // Culture contains the information of the requested culture
             culture = rqf.RequestCulture.Culture.Name;
         }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
         public IActionResult Index()
         {
             List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(0);
@@ -51,15 +57,20 @@ namespace ESTA.Controllers
         public IActionResult GetEvent(int id)
         {
             EventsNews events = appRep.EventRep.GetEventById(id);
-            DisplayEvents displayEvents = new()
+            if (events != null)
             {
-                Id = events.Id,
-                Image = events.Image,
-                Title = culture == "en" ? events.TitleEn : events.TitleAr,
-                Description = culture == "en" ? events.DetailsEn : events.DetailsAr
-            };
+                DisplayEvents displayEvents = new()
+                {
+                    Id = events.Id,
+                    Image = events.Image,
+                    Title = culture == "en" ? events.TitleEn : events.TitleAr,
+                    Description = culture == "en" ? events.DetailsEn : events.DetailsAr
+                };
 
-            return View(displayEvents);
+                return View(displayEvents);
+            }
+            else
+                return RedirectToAction("Error"); ;
         }
         public IActionResult CreateEvent()
         {
@@ -84,9 +95,14 @@ namespace ESTA.Controllers
         public IActionResult EditEvent(int id)
         {
             EventsNews Event = appRep.EventRep.GetEventById(id);
-            EditEvents editEvent = mapper.Map<EventsNews, EditEvents>(Event);
+            if (Event != null)
+            {
+                EditEvents editEvent = mapper.Map<EventsNews, EditEvents>(Event);
 
-            return View(editEvent);
+                return View(editEvent);
+            }
+            else
+                return RedirectToAction("Error");
         }
         [HttpPost]
         public async Task<IActionResult> EditEventAsync(EditEvents EditEvent)
@@ -118,8 +134,9 @@ namespace ESTA.Controllers
             {
                 appRep.EventRep.DeleteEvent(events);
                 await appRep.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Error");
         }
         private static string RemoveHTMLTags(string text)
         {

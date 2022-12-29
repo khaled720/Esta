@@ -97,7 +97,7 @@ namespace ESTA.Controllers
                 EditForum editForum = _mapper.Map<Forum, EditForum>(Forum);
                 return View(editForum);
             }
-            return View("Error");
+            return RedirectToAction("Error");
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
@@ -110,7 +110,7 @@ namespace ESTA.Controllers
                 await appRep.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View("Error");
+            return RedirectToAction("Error");
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
