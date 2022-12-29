@@ -54,7 +54,6 @@ $('#ck_imageUploader').change(function () {
                 success: function (result) {
                     var img = CurrentEditor.document.createElement('img');
                     img.setAttribute('src', result);
-                    img.addClass('ck_img');
                     CurrentEditor.insertElement(img);
                     input.val('');
                     setTimeout(() => addEvent(result), 20);
@@ -96,37 +95,35 @@ CKEDITOR.on('instanceReady', function (event) {
 });
 
 function OnNodeRemoved(event) {
-    console.log(event.target.classList.contains('ck_img'))
     console.log(event);
     debugger;
-    if (event.target.classList.contains('ck_img')) {
-        var img = event.target;
-        var imgSrc = img.attributes['src'].nodeValue;
-        /// var input = $('#ck_imageUploader');
-        ///  var ajaxurl = input.attr('RemoveImageUrl');
-        console.log(imgSrc)
-        var form = new FormData();
-        form.append("imgPath", imgSrc)
-        for (var key of form.entries()) {
-            console.log(key[0] + ', ' + key[1]);
-        }
-        $.ajax({
-            url: "/api/Images",
-            type: 'delete',
-            processData: false,
-            contentType: false,
-            data: form,
-            success: function () {
-                //alert("Deleted " + imgSrc);
-            },
-            failure: function (ex) {
-                //alert(JSON.stringify(ex));
-            },
-            error: function (ex) {
-                //alert(JSON.stringify(ex));
-            }
-        });
+    var img = event.target;
+    var imgSrc = img.attributes['src'].nodeValue;
+    /// var input = $('#ck_imageUploader');
+    ///  var ajaxurl = input.attr('RemoveImageUrl');
+    console.log(imgSrc)
+    var form = new FormData();
+    form.append("imgPath", imgSrc)
+    for (var key of form.entries()) {
+        console.log(key[0] + ', ' + key[1]);
     }
+    $.ajax({
+        url: "/api/Images",
+        type: 'delete',
+        processData: false,
+        contentType: false,
+        data: form,
+        success: function () {
+            img.remove();
+            //alert("Deleted " + imgSrc);
+        },
+        failure: function (ex) {
+            //alert(JSON.stringify(ex));
+        },
+        error: function (ex) {
+            //alert(JSON.stringify(ex));
+        }
+    });
 }
 
 
