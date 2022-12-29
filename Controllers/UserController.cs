@@ -9,11 +9,11 @@ namespace ESTA.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly UserManager<User> userManager;
 
-        public UserController(IAppRep appRep, IWebHostEnvironment hostEnvironment, UserManager<User> userManager)
+        public UserController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, UserManager<User> userManager)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;

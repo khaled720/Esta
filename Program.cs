@@ -18,15 +18,16 @@ builder.Services.AddDbContext<AppDbContext>(
 
 
 
-builder.Services.AddScoped<IAppRep, AppRep>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAuthorization(
     opt => opt.AddPolicy("RequireAdminRole", p => p.RequireRole("Admin"))
 );
 builder.Services
-    .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedEmail = true)
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 

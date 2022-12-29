@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ESTA.Models.Director
+
+<link href="~/css/director.css" rel="stylesheet" />
+
+<h2>Add New Director</h2>
+
+
+<style>
+  
+
+
+</style>
+
+<div class="neuDiv" id="kk" style="margin:auto">
+
+<form method="post"  enctype="multipart/form-data">
+
+
+    <input style="display:none" asp-for=@Model.Photo id="upload" type="file" accept="image/*"
+           onchange="ImageChange(event)">
+
+
+
+        @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
+    <div onclick="GetPhoto()" id="photoDiv" class="" style="width:35%;border-radius:170px">
+        <h5>Click to Upload Image</h5>
+    </div>
+
+
+
+
+  @*  @Html.ValidationSummary(false,"","text-danger")*@
+    <div class="row">
+<div class="form-group col-6">
+    <label>Name in English</label>
+    <div class="title">
+  <input asp-for=@Model.NameEn, class="" type="text" />
+          
+
+    </div>
+            @Html.ValidationMessageFor(k=>k.NameEn,"",new {@class="text-danger"})
+
+    
+</div>
+            <div class="form-group col-6">
+                <label>JobEn</label>
+                @*   <input type="text" class="form-control"  />*@
+                @Html.EditorFor(M=>M.JobEn, new { htmlAttributes = new { @class = "form-" } })
+                @Html.ValidationMessageFor(k=>k.JobEn,"",new {@class="text-danger"})
+
+            </div>
+
+     
+    </div>
+
+        
+
+    <div class="row">
+            <div class="form-group col-6">
+                <label>Name in Arabic</label>
+
+                <input asp-for=@Model.NameAr class="" type="text" />
+                @Html.ValidationMessageFor(k=>k.NameAr,"",new {@class="text-danger"})
+
+
+            </div>
+<div class="form-group col-6">
+        <label>JobAr</label>
+        @*   <input type="text" class="form-control"  />*@
+        @Html.EditorFor(M=>M.JobAr, new { htmlAttributes = new { @class = "" } })
+        @Html.ValidationMessageFor(k=>k.JobAr,"",new {@class="text-danger"})
+
+    </div>
+  
+       
+
+
+
+    </div>
+
+
+
+<button style="margin:auto" type="submit" class="btn btn-primary" >Submit</button>
+
+
+</form>
+
+
+
+</div>
+
+
+<script src="~/js/director.js"></script>
+

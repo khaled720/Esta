@@ -9,12 +9,12 @@ namespace ESTA.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork Uow;
         private readonly IWebHostEnvironment hostEnvironment;
-        public HomeController(ILogger<HomeController> logger,IAppRep appRep, IWebHostEnvironment hostEnvironment)
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork appRep, IWebHostEnvironment hostEnvironment)
         {
             _logger = logger;
-            this.appRep = appRep;
+            this.Uow = appRep;
             this.hostEnvironment = hostEnvironment;
             
         }
@@ -23,7 +23,7 @@ namespace ESTA.Controllers
         {
    
 
-            List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+            List<Course> courses = (List<Course>)await Uow.CoursesRep.GetAllCourses();
             return View(courses);
         }
 
@@ -32,7 +32,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> CourseDetails(int id)
         {
-           var course =await appRep.CoursesRep.GetCourse(id);
+           var course =await Uow.CoursesRep.GetCourse(id);
 
 
             return View(course);

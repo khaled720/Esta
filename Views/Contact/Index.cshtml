@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<ESTA.Models.Contact>
+
+
+
+<h2>Contacts</h2>
+
+
+<table id="courses-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th>AddressEn</th>
+
+            <th>Emails</th>
+      
+            <th></th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AddressEn</td>
+                    <td>@item.Emails</td>
+                
+                    <td></td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "EditContact", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Delete", "DeleteContact", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

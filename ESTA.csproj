@@ -27,6 +27,9 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Images\Courses\" />
+    <Folder Include="wwwroot\Images\Editor\" />
+    <Folder Include="wwwroot\Images\Directors\" />
+    <Folder Include="wwwroot\js\ckeditor\plugins\insertImage\dialogs\" />
   </ItemGroup>
 
 </Project>

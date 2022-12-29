@@ -11,8 +11,6 @@ namespace ESTA.Models
 {
     public sealed class AppDbContext : IdentityDbContext<User>
     {
-
-
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -37,7 +35,7 @@ namespace ESTA.Models
 
             builder.Entity<Level>().HasData(new Level() { Id = 1,TypeName="Ceta Level 1" }) ;
             builder.Entity<Level>().HasData(new Level() { Id = 2, TypeName = "Ceta Level 2" }); 
-              builder.Entity<Level>().HasData(new Level() { Id = 3, TypeName = "Ceta Level 3" });
+            builder.Entity<Level>().HasData(new Level() { Id = 3, TypeName = "Ceta Level 3" });
             builder.Entity<Level>().HasData(new Level() { Id = 4, TypeName = "Non Ceta Level" });
 
             builder.Entity<State>().HasData(new State() { Id = 1, StateName = "Enrolled" });
@@ -45,7 +43,7 @@ namespace ESTA.Models
             builder.Entity<State>().HasData(new State() { Id =3, StateName = "Completed" });
 
             builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
-           builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
 
 
             builder.Entity<UserAnswer>().HasKey(y=>new { y.UserId,y.QuestionId});
@@ -92,7 +90,10 @@ namespace ESTA.Models
         /// </summary>
         public DbSet<UserAnswer> UserAnswers { get; set; }
 
-  
+        public DbSet<Content> Contents { get; set; }
+
+        public DbSet<Director> Directors { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
     }
 }

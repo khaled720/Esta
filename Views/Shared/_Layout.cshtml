@@ -19,7 +19,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -34,16 +34,21 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Levels" asp-action="Index">All Levels</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Content" asp-action="Index">Content</a>
                         </li>
                           <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile">MyAccount</a>
                         </li>
-
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Director" asp-action="Index">Directors</a>
+                        </li>
                     </ul>
 
        
-                   
+                  <partial name="_LoginPartial"></partial>
+
+             @*      
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <ul class="navbar-nav flex-grow-1">
@@ -79,7 +84,7 @@
                     
                     }
                     
-
+*@
 
 
                 </div>

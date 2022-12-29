@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ESTA.ViewModels
 {
-    public class RegisterViewModel
+    public class RegisterViewModel //:IValidatableObject
     {
 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$",ErrorMessage ="Not Supported Email Format")]
         public string Email { get; set; }
 
         [Required]
@@ -25,7 +26,7 @@ namespace ESTA.ViewModels
 
 
 
-        public bool RememberMe { get; set; }
+    //    public bool RememberMe { get; set; }
 
         [Display(Name = "Full Name In English")]
         [Required]
@@ -40,9 +41,9 @@ namespace ESTA.ViewModels
         [Required]
         public string HomePhone { get; set; } = String.Empty;
         [Required]
-        public string EnglishReadingLevel { get; set; } = String.Empty;
+        public string EnglishReadingLevel { get; set; } = "Good";
         [Required]
-        public string EnglishWritingLevel { get; set; } = String.Empty;
+        public string EnglishWritingLevel { get; set; } = "Good";
         [Required]
         public string Hometown { get; set; } = String.Empty;
         //  [Display(Name = "Street Name")]
@@ -75,7 +76,10 @@ namespace ESTA.ViewModels
         [Required]
         public string MessagingAddress { get; set; } = String.Empty;
         [Required]
+        [RegularExpression(@"(.{14})",ErrorMessage = "National Card ID Must be 14 digits")]
         public string NationalCardID { get; set; } = String.Empty;
+
+        [RegularExpression(@"(.{8})", ErrorMessage = "National Card ID Must be 8 digits")]
         [Required]
         public string Passport { get; set; } = String.Empty;
         [Required]
@@ -85,16 +89,28 @@ namespace ESTA.ViewModels
         [Required]
         public string GradutionYear { get; set; } = String.Empty;
 
-        [Required]
+       // [Required]
         public string HighStudies { get; set; } = String.Empty;
-        public int LevelId { get; set; }
 
-        public IEnumerable<Level> Levels { get; set; }
+ 
+        public bool HaveRead { get; set; }
 
-        public IEnumerable<Question> Questions { get; set; }
+        public List<Question> Questions { get; set; }
 
-        public IEnumerable<UserAnswer> UserAnswers { get; set; }
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    if (HaveRead == false)
+        //      yield  return new ValidationResult("Confirm That You have Read To Continue", new[] { nameof(HaveRead) });
+     
+        //}
+
+
 
 
     }
+
+
+
+
+
 }

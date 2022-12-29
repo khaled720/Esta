@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
@@ -12,12 +13,19 @@ namespace ESTA.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<User> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
 
-        public AccountController(SignInManager<User> _signInManager, UserManager<User> userManager,IAppRep appRep)
+        public AccountController(
+            SignInManager<User> _signInManager,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<User> userManager,
+            IUnitOfWork appRep
+        )
         {
             signInManager = _signInManager;
+            this.roleManager = roleManager;
             this.userManager = userManager;
             this.appRep = appRep;
         }
@@ -25,6 +33,7 @@ namespace ESTA.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if (signInManager.IsSignedIn(User)) Redirect("/Home/Index");
             return View();
         }
 
@@ -41,9 +50,69 @@ namespace ESTA.Controllers
                 );
 
                 if (result.Succeeded)
-                {
+                {  
+                    
+            
+                    
                     return Redirect("/User/Profile");
                 }
+                else if (result.IsNotAllowed)
+                {
+                    var user = await userManager.FindByEmailAsync(
+                      LoginModel.Email
+                    );
+
+                    if (user!=null&&!user.EmailConfirmed)
+                    {
+                        var token = userManager.GenerateEmailConfirmationTokenAsync(
+                          user
+                        );
+                        var confirmEmailUrl = Url.Action(
+                            "ConfirmEmail",
+                            "Account",
+                            new
+                            {
+                                UserId = user.Id,
+                                Token = token.Result
+                            },
+                            Request.Scheme
+                        );
+                        var isEmailSent = EmailSender.Send_Mail(
+                           user.Email,
+                            "Click this link to confirm your <strong>Email</strong> <br> "
+                                + confirmEmailUrl,
+                            "Confirm Your Email",
+                            "Esta"
+                        );
+                        if (isEmailSent)
+                        {
+                            return View(
+                                "ConfirmEmail",
+                                new ErrorViewModel
+                                {
+                                    Title = "Email Confirmation Requested to login",
+                                    Description =
+                                        "We Have Emailed you with your confirmation link ,please confirm your Email!"
+                                }
+                            );
+                        }
+                        else
+                        {
+                            return View(
+                                "ConfirmEmail",
+                                new ErrorViewModel
+                                {
+                                    Title = "Email Confirmation Failed",
+                                    Description =
+                                        "Confirmation of your email has some issues ! please provide a valid Email"
+                                }
+                            );
+                        }
+                    }
+
+
+                }
+               
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.ToString());
@@ -57,12 +126,10 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Register()
         {
             RegisterViewModel registerModel = new RegisterViewModel();
-            registerModel.Levels =await appRep.LevelRep.GetAllLevels();
-            registerModel.Questions = await appRep.QuestionRep.GetAllQuestions();
 
+            var Questions = await appRep.QuestionRep.GetAllQuestions();
 
-
-
+            registerModel.Questions = Questions.ToList();
             return View(registerModel);
         }
 
@@ -71,42 +138,115 @@ namespace ESTA.Controllers
         {
             try
             {
+                var c = ModelState.Values;
+
                 if (ModelState.IsValid)
                 {
                     User user = new User();
-                    user.Email = registerModel.Email;
-                    user.UserName = registerModel.Email;
-                    user.FullName = "Khaled Samir2";
-                    user.LevelId = 2;
+                    user.ConvertRegisterModelToUser(registerModel);
 
                     var result = await userManager.CreateAsync(user, registerModel.Password);
                     if (result.Succeeded)
                     {
-                        return Redirect("/Account/Login");
+                        var token = userManager.GenerateEmailConfirmationTokenAsync(user);
+                        await userManager.AddToRoleAsync(user, "User");
+                        var confirmEmailUrl = Url.Action(
+                            "ConfirmEmail",
+                            "Account",
+                            new { UserId = user.Id, Token = token.Result },
+                            Request.Scheme
+                        );
+                        var isEmailSent = EmailSender.Send_Mail(
+                            user.Email,
+                            "Click this link to confirm your <strong>email</strong> <br> "
+                                + confirmEmailUrl,
+                            "Confirm Your Email",
+                            "Esta"
+                        );
+                        if (isEmailSent)
+                        {
+                            return View(
+                                "ConfirmEmail",
+                                new ErrorViewModel
+                                {
+                                    Title = "Email Confirmation Needed",
+                                    Description =
+                                        "We Have Emailed you with your activation link ,please confirm your email!"
+                                }
+                            );
+                        }
+
+                        else
+
+                        {
+                            return View(
+                                "ConfirmEmail",
+                                new ErrorViewModel
+                                {
+                                    Title = "Email Confirmation Failed",
+                                    Description =
+                                        "Confirmation of your email has some issues ! please provide a valid email"
+                                }
+                            );
+                        }
                     }
                     else
                     {
                         foreach (var item in result.Errors.ToList())
                         {
-                            ModelState.AddModelError(string.Empty,item.Description);
+                            ModelState.AddModelError(string.Empty, item.Description);
                         }
-                      
-                        return View();
+                        //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                        return View(registerModel);
                     }
-                   }
-                ModelState.AddModelError(string.Empty, "Registration did not complete");
-                return View();
+                }
+                //var errors = ModelState
+                //    .Select(x => x.Value.Errors)
+                //    .Where(y => y.Count > 0)
+                //    .ToList();
+                ModelState.AddModelError(string.Empty, "Oops,Registration Failed");
+                //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                return View(registerModel);
             }
             catch (Exception ex)
             {
-
                 ModelState.AddModelError(string.Empty, "Try Again Later !!!");
-                return View();
+                //        registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                return View(registerModel);
             }
-           
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string UserId, string Token)
+        {
+            if (String.IsNullOrEmpty(UserId) || String.IsNullOrEmpty(Token))
+            {
+                return View(new ErrorViewModel { Title = "Email Confirmation Failed " });
             }
-           
-        
+            var user = await userManager.FindByIdAsync(UserId);
+
+            var result = await userManager.ConfirmEmailAsync(user, Token);
+
+            if (result.Succeeded)
+            {
+                return View(
+                    new ErrorViewModel
+                    {
+                        Title = "Email Confirmation Success",
+                        Description = "Congratulations,Your Email was confirmed successfully"
+                    }
+                );
+            }
+            else
+            {
+                return View(
+                    new ErrorViewModel
+                    {
+                        Title = "Email Confirmation Failed",
+                        Description = "Oops,Your Email was not confirmed ,please use a valid email!"
+                    }
+                );
+            }
+        }
 
         public async Task<IActionResult> Logout()
         {
@@ -115,17 +255,9 @@ namespace ESTA.Controllers
             return Redirect("/Home/Index");
         }
 
-
-
         public IActionResult CreateUser(Level level)
         {
             return View();
         }
-
-
-
-
-
-
     }
 }

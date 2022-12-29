@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ESTA.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace ESTA.Models
@@ -140,6 +141,52 @@ namespace ESTA.Models
         public IEnumerable<UserForum>? Forums { get; set; }
 
         public IEnumerable<UserAnswer>? userAnswers { get; set; }
+
+
+
+
+     public void ConvertRegisterModelToUser(RegisterViewModel registerViewModel) 
+        {
+            this.UserName = registerViewModel.Email;
+            this.Email = registerViewModel.Email;
+            this.FullName = registerViewModel.FullName;
+            this.FullNameAr = registerViewModel.FullNameAr;
+            this.Birthdate=registerViewModel.Birthdate;
+            this.Passport = registerViewModel.Passport;
+            this.NationalCardID=registerViewModel.NationalCardID;
+            this.HomePhone=registerViewModel.HomePhone;
+            this.MobilePhone=registerViewModel.MobilePhone;
+            this.AcademicQualification = registerViewModel.AcademicQualification;
+            this.University = registerViewModel.University;
+            this.HighStudies = registerViewModel.HighStudies;
+
+            this.MessagingAddress=registerViewModel.MessagingAddress;
+            this.Job=registerViewModel.Job;
+            this.Company=registerViewModel.Company;
+            this.WorkPhone = registerViewModel.WorkPhone;
+            this.WorkFax = registerViewModel.WorkFax;
+            this.WorkAddress = registerViewModel.WorkAddress;
+            this.WorkLeavingReasons = registerViewModel.WorkLeavingReasons;
+            this.WorkLeavingDate=registerViewModel.WorkLeavingDate;
+            
+            this.Country = registerViewModel.Country;
+            this.Area=registerViewModel.Area;
+            this.City=registerViewModel.City;
+            this.Hometown=registerViewModel.Hometown;
+            this.IsMempershipPaid = false;
+     
+            this.EnglishReadingLevel=registerViewModel.EnglishReadingLevel;
+            this.EnglishWritingLevel=registerViewModel.EnglishWritingLevel;
+   
+            this.StreetName=registerViewModel.StreetName;       
+            this.BlockNumber=registerViewModel.BlockNumber;   
+            this.FlatNumber=registerViewModel.FlatNumber;
+            this.Floor=registerViewModel.Floor;
+            this.LevelId = 4;
+
+            return;
+
+        }
 
 
     }

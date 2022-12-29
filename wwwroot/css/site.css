@@ -47,7 +47,7 @@ width:70%;
 /* Style the Registration form */
 #regForm {
     background-color: #ffffff;
-    margin: 100px auto;
+    margin: 50px auto;
     padding: 40px;
     width: 70%;
     min-width: 300px;
@@ -77,7 +77,7 @@ input {
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: #bbbbbb;
+    background-color: green;
     border: none;
     border-radius: 50%;
     display: inline-block;

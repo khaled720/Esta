@@ -39,30 +39,38 @@ function nextPrev(n) {
         //...the form gets submitted:
         document.getElementById("regForm").submit();
         return false;
+    } else {
+
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
     }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
+
+
 }
 
 function validateForm() {
+
+   var s=$("#regForm").valid();
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value == "") {
-            // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false:
-            valid = false;
-        }
-    }
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
+
+   valid = s;
+    //x = document.getElementsByClassName("tab");
+    //y = x[currentTab].getElementsByTagName("input");
+    //// A loop that checks every input field in the current tab:
+    //for (i = 0; i < y.length; i++) {
+    //    // If a field is empty...
+    //    if (y[i].value == "") {
+    //        // add an "invalid" class to the field:
+    //        y[i].className += " invalid";
+    //        // and set the current valid status to false:
+    //        valid = false;
+    //    }
+    //}
+    //// If the valid status is true, mark the step as finished and valid:
+    //if (valid) {
+    //    document.getElementsByClassName("step")[currentTab].className += " finish";
+    //}
     return valid; // return the valid status
 }
 
@@ -74,4 +82,24 @@ function fixStepIndicator(n) {
     }
     //... and adds the "active" class to the current step:
     x[n].className += " active";
+}
+
+
+
+////////////////////////////////
+function Check(ans, Id)
+{
+ 
+    if (ans) {
+   
+        document.getElementById("t-" + Id).classList.remove("d-none");
+        $("#t-"+Id).prop('required', true);
+
+    } else
+    {
+
+        document.getElementById("t-" + Id).classList.add("d-none");
+        $("#t-" + Id).prop('required', false);
+    }
+
 }
