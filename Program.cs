@@ -56,7 +56,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
     var scope = app.Services.CreateScope();
     AppDbContext dbcontext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     //  dbcontext.Database.EnsureCreated();
-  //  dbcontext.Database.Migrate();
+    dbcontext.Database.Migrate();
     //CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
 });
 

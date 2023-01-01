@@ -126,10 +126,17 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Register()
         {
             RegisterViewModel registerModel = new RegisterViewModel();
-
-            var Questions = await appRep.QuestionRep.GetAllQuestions();
-
+            try
+            {
+var Questions = await appRep.QuestionRep.GetAllQuestions();
             registerModel.Questions = Questions.ToList();
+            }
+            catch (Exception)
+            {
+                registerModel.Questions = new List<Question>();
+            }
+            
+
             return View(registerModel);
         }
 
