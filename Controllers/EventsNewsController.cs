@@ -121,7 +121,7 @@ namespace ESTA.Controllers
             Event.TitleEn = EditEvent.TitleEn;
             if (EditEvent.Date != null)
             {
-                Event.Date = Event.Date;
+                Event.Date = EditEvent.Date;
             }
             await appRep.SaveChangesAsync();
 

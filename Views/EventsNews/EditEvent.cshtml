@@ -83,7 +83,7 @@
             {
                 <div class="col-6 mt-3">
                     <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
-                    <input class="form-control" id="formDate" type="date" asp-for="Date" value="@Model.Date.Value.ToString("yyyy-MM-dd")" />
+                    <input class="form-control" id="formDate" type="datetime-local" asp-for="Date" value="@Model.Date.Value.ToString("yyyy-MM-dd hh:mm:ss")" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
             }
@@ -91,7 +91,7 @@
             {
                 <div class="col-6 mt-3">
                     <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
-                    <input class="form-control" id="formDate" type="date" asp-for="Date" />
+                    <input class="form-control" id="formDate" type="datetime-local" asp-for="Date" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
             }
