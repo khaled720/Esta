@@ -9,6 +9,10 @@
 	  
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" />
+
   <ItemGroup>
     <Content Remove="StopWords\data\languages.json" />
   </ItemGroup>
@@ -36,7 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Images\Courses\" />
     <Folder Include="wwwroot\Images\News\" />
     <Folder Include="wwwroot\editor_images\" />

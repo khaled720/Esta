@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics;
-using AutoMapper;
-using ESTA.Migrations;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
@@ -13,14 +11,13 @@ namespace ESTA.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork Uow;
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly string culture;
-
-        public HomeController(ILogger<HomeController> logger, IAppRep appRep, IWebHostEnvironment hostEnvironment, IHttpContextAccessor contextAccessor)
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, IHttpContextAccessor contextAccessor)
         {
             _logger = logger;
-            this.appRep = appRep;
+            this.Uow = appRep;
             this.hostEnvironment = hostEnvironment;
 
             var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
@@ -32,7 +29,7 @@ namespace ESTA.Controllers
         {
 
 
-            List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+            List<Course> courses = (List<Course>)await Uow.CoursesRep.GetAllCourses();
             return View(courses);
         }
 
@@ -41,7 +38,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> CourseDetails(int id)
         {
-            var course = await appRep.CoursesRep.GetCourse(id);
+           var course =await Uow.CoursesRep.GetCourse(id);
 
 
             return View(course);
@@ -49,7 +46,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> GetEvents()
         {
-            List<EventsNews> EventNews = appRep.EventRep.GetOnlyEvents();
+            List<EventsNews> EventNews = Uow.EventRep.GetOnlyEvents();
             List<DisplayEvents> DisplayEvent = new();
             string title;
             foreach (var eventItem in EventNews)

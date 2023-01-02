@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<ESTA.Models.Director>
+
+
+<h2>Directors Page</h2>
+
+
+
+@Html.ActionLink("Add Director","AddDirector",null,null,new { @class="btn btn-primary"})
+
+<hr />
+
+
+
+<div id="courses-grid" style="display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
+    @foreach (var item in Model)
+    {
+       
+    <div class="card" style="height:fit-content; position:relative">
+  
+           
+    
+        <img src="@item.PhotoPath" height="200px" />
+
+
+        <div class="card-body">
+   @item.NameEn
+               <br><strong style="color:green"> @item.JobEn</strong>
+       </div>
+
+            @Html.ActionLink("Edit", "EditDirector", new { id = item.Id }, new { @class = "btn btn-primary" }) 
+             @Html.ActionLink("Delete", "DeleteDirector", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+
+
+
+
+        </div> 
+    }
+
+  
+
+
+
+
+
+
+   
+
+
+    </div>
+ <style>
+        .card{
+        transition:0.5s ease-in-out; overflow:hidden;
+        /*z-index:10;
+        */
+        }
+
+        .card:hover{
+        
+        transform:scale(1.1,1.1)
+        
+        }
+
+    </style>

@@ -18,12 +18,12 @@ namespace ESTA.Controllers
 {
     public class EventsNewsController : Controller
     {
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
         private readonly IMapper mapper;
         private readonly string culture;
         private readonly IWebHostEnvironment webHost;
 
-        public EventsNewsController(IWebHostEnvironment webHost, IAppRep appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
+        public EventsNewsController(IWebHostEnvironment webHost, IUnitOfWork appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             this.appRep = appRep;
             this.mapper = mapper;

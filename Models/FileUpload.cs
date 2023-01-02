@@ -8,7 +8,14 @@ namespace ESTA.Models
     {
       
 
-        public static async Task<string> SavePhotoAsync(IFormFile imgFile,string ImgName,string FullSavePath)
+        /// <summary>
+       ///Upload file or image
+        /// </summary>
+        /// <param name="imgFile">File to be Uploaded</param>
+        /// <param name="ImgName"> New Name for Image </param>
+        /// <param name="FullSavePath">Full Path to save image Like "wwwroot../Images/Directors/" note after it image name will be added</param>
+        /// <returns> Returns Name Of Uploaded Image As Follows  Image.jpg </returns>
+       public static async Task<string> SavePhotoAsync(IFormFile imgFile,string ImgName,string FullSavePath)
         {
 
             try

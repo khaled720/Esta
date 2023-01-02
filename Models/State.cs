@@ -10,5 +10,7 @@ namespace ESTA.Models
         public int Id { get; set; }
         public string StateName { get; set; }
 
+        public IEnumerable<UserCourse> userCourses { get; set; }
+
     }
 }

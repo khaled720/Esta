@@ -3,11 +3,11 @@ using ESTA.Repository.IRepository;
 
 namespace ESTA.Repository
 {
-    public class AppRep : IAppRep
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext appContext;
 
-        public AppRep(AppDbContext appContext)
+        public UnitOfWork(AppDbContext appContext)
         {
             this.appContext = appContext;
         }
@@ -16,6 +16,18 @@ namespace ESTA.Repository
         public ILevelRep LevelRep =>  new LevelsRep(appContext);
 
         public IUserRep UserRep =>  new UserRep(appContext);
+
+        public IQuestionRep QuestionRep => new QuestionRep(appContext);
+
+        public IContentRep ContentRep =>  new ContentRep(appContext);
+
+        public IDirectorRep DirectorRep => new DirectorRep(appContext);
+
+        public IContactRep ContactRep => new ContactRep(appContext);
+
+        public IUserAnswerRep UserAnswerRep => new UserAnswerRep(appContext);
+
+        public IUsersCoursesRep UsersCoursesRep => new UsersCoursesRep(appContext);
 
         public IForumRepository ForumRep => new ForumRepository(appContext);
         public IEventsRepo EventRep => new EventRepo(appContext);

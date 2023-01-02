@@ -1,0 +1,43 @@
+﻿@model IEnumerable<User>
+
+
+
+
+
+<table id="courses-table" class="table table-striped">
+    <thead>
+      @*  <tr>
+            <th>Title</th>
+
+            <th>Price</th>
+            <th>Starting Date</th>
+            <th></th>
+            <th>Actions</th>
+
+        </tr>*@
+
+    </thead>
+    <tbody>
+
+
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+               
+
+                    <td>
+                      @if (item.IsApproved)
+                      {
+                          @Html.ActionLink("Disapprove", "EditApproval", new { id = item.Id,isApproved=false }, new { @class = "btn btn-warning" }) ;
+                  
+                      }else{
+                       @Html.ActionLink("Approve", "EditApproval", new { id = item.Id,isApproved=true }, new { @class = "btn btn-danger" });
+                      
+                      }     </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

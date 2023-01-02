@@ -3,6 +3,7 @@ using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +11,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ESTA.Controllers
 {
-
+    [Authorize("RequireAdminRole")]
     [Route("Admin/{controller}/{action=Index}/{id?}")]
     public class CoursesController : Controller
     {
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
 
 
-        public CoursesController(IAppRep appRep, IWebHostEnvironment hostEnvironment)
+        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
@@ -248,10 +249,10 @@ namespace ESTA.Controllers
     public class CoursesApiController : ControllerBase
     {
 
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public CoursesApiController(IAppRep appRep, IWebHostEnvironment hostEnvironment)
+        public CoursesApiController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;

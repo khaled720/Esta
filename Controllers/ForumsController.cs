@@ -15,7 +15,7 @@ namespace ESTA.Controllers
     public class ForumsController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
         private readonly UserManager<User> _userManager;
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -23,7 +23,7 @@ namespace ESTA.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public ForumsController(IAppRep appRep, IMapper mapper, UserManager<User> userManager)
+        public ForumsController(IUnitOfWork appRep, IMapper mapper, UserManager<User> userManager)
         {
             this.appRep = appRep;
             _mapper = mapper;

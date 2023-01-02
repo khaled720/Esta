@@ -5,24 +5,28 @@ namespace ESTA.Models
 {
     public class UserCourse
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         public int Grade { get; set; }
         public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
         public Course course { get; set; }
 
-        [ForeignKey("CourseIdFK")]
+        [ForeignKey("CourseId")]
         public int CourseId { get; set; }
+
+
         public User user { get; set; }
 
-        [ForeignKey("UserIdFKey")]
+        [ForeignKey("UserId")]
         public string UserId { get; set; }
         public bool  isPaid { get; set; }
+        
 
+
+        [ForeignKey("StateId")]
         public State state { get; set; }
-        [ForeignKey("StateFK")]
+      
         public int StateId { get; set; }
     }
 }

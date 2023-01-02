@@ -6,9 +6,9 @@ namespace ESTA.Controllers
 {
     public class LevelsController : Controller
     {
-        private readonly IAppRep appRep;
+        private readonly IUnitOfWork appRep;
 
-        public LevelsController(IAppRep appRep)
+        public LevelsController(IUnitOfWork appRep)
         {
             this.appRep = appRep;
         }

@@ -25,6 +25,21 @@ namespace ESTA.Repository
             }
         }
 
+        public async Task<bool> EditLevel(Level level)
+        {
+            try
+            {
+            var lvl=await appContext.Levels.FirstAsync(y=>y.Id==level.Id);
+                lvl.TypeName=level.TypeName;
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public async Task<IEnumerable<Level>> GetAllLevels()
         {
             return await appContext.Levels.ToListAsync();
