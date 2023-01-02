@@ -8,6 +8,8 @@ namespace ESTA.Repository.IRepository
         public Task<IEnumerable<Level>> GetAllLevels();
         public Course GetLevel(int id);
 
+        public Task<bool> EditLevel(Level level);
+
         public Task<bool> AddLevel(Level level);
     }
 }

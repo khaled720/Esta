@@ -25,6 +25,10 @@ namespace ESTA.Repository
 
         public IContactRep ContactRep => new ContactRep(appContext);
 
+        public IUserAnswerRep UserAnswerRep => new UserAnswerRep(appContext);
+
+        public IUsersCoursesRep UsersCoursesRep => new UsersCoursesRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;

@@ -45,9 +45,9 @@ namespace ESTA.Controllers
 
 
         [HttpGet]
-        public IActionResult EditContact(int id)
+        public async Task<IActionResult> EditContact(int id)
         {
-            var contact = uow.ContactRep.GetContact(id);
+            var contact =await uow.ContactRep.GetContact(id);
 
             return View(contact);
         }

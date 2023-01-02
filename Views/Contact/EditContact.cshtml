@@ -5,21 +5,25 @@
 <form method="post" >
    @Html.HiddenFor(y=>y.Id)
 
+	<label asp-for="@Model.TitleAr"></label>
+	<input asp-for="@Model.TitleAr" class="form-control" />
+	<span asp-validation-for="@Model.TitleAr"></span>
+	<label asp-for="@Model.TitleEn"></label>
+	<input asp-for="@Model.TitleEn" class="form-control" />
+	<span asp-validation-for="@Model.TitleEn"></span>
     <label asp-for="@Model.AddressEn" ></label>
 <input asp-for="@Model.AddressEn" class="form-control" />
 <span asp-validation-for="@Model.AddressEn"></span>
+
     <label asp-for="@Model.AddressAr" ></label>
 <input asp-for="@Model.AddressAr" class="form-control" />
-
+	<span asp-validation-for="@Model.AddressAr"></span>
     <label asp-for="@Model.PhoneLines" ></label>
 <input asp-for="@Model.PhoneLines" class="form-control" />
-
-
-    <label asp-for="@Model.TitleAr" ></label>
-<input asp-for="@Model.TitleAr" class="form-control" />
-
-    <label asp-for="@Model.TitleEn" ></label>
-<input asp-for="@Model.TitleEn" class="form-control" />
+	<span asp-validation-for="@Model.PhoneLines"></span>
+	<label asp-for="@Model.Emails"></label>
+	<input asp-for="@Model.Emails" class="form-control" />
+	<span asp-validation-for="@Model.Emails"></span>
 
 <button type="submit" class="btn-primary btn">Save Changes</button>
 </form>

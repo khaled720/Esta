@@ -46,7 +46,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> EnrollCourse(int Id)
         {
 
-            if (User.Identity.IsAuthenticated)
+            if (User!=null&&User.Identity.IsAuthenticated)
             {
                 await appRep.UserRep.EnrollCourse(1, Id, User.FindFirstValue(ClaimTypes.NameIdentifier), false);
                 await appRep.SaveChangesAsync();

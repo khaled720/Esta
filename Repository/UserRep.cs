@@ -15,6 +15,23 @@ namespace ESTA.Repository
             this.appContext = appContext;
         }
 
+        public async Task<bool> EditUserApproval(string id, bool isApproved)
+        {
+            try
+            {
+                var user = await appContext.Users.AsTracking().Where(y => y.Id == id).FirstAsync();
+
+                user.IsApproved = isApproved;
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
+        }
+
         public async Task<bool> EnrollCourse(int StateId,int CourseId,string UserId,bool isPaymentCompleted)
 		{
 
@@ -37,6 +54,11 @@ namespace ESTA.Repository
 
            
 		}
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await appContext.Users.ToListAsync();
+        }
 
         public async Task<IEnumerable<UserCourse>> GetMyCourses(string UserId)
         {

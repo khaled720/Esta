@@ -23,7 +23,7 @@ namespace ESTA.Models
         [Required]
         public string FullNameAr { get; set; } = String.Empty;
 
-
+        public bool IsApproved { get; set; } = false;
 
 
         [Required]

@@ -33,7 +33,8 @@ namespace ESTA.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (signInManager.IsSignedIn(User)) Redirect("/Home/Index");
+            if (signInManager.IsSignedIn(User))
+                Redirect("/Home/Index");
             return View();
         }
 
@@ -50,35 +51,24 @@ namespace ESTA.Controllers
                 );
 
                 if (result.Succeeded)
-                {  
-                    
-            
-                    
+                {
                     return Redirect("/User/Profile");
                 }
                 else if (result.IsNotAllowed)
                 {
-                    var user = await userManager.FindByEmailAsync(
-                      LoginModel.Email
-                    );
+                    var user = await userManager.FindByEmailAsync(LoginModel.Email);
 
-                    if (user!=null&&!user.EmailConfirmed)
+                    if (user != null && !user.EmailConfirmed)
                     {
-                        var token = userManager.GenerateEmailConfirmationTokenAsync(
-                          user
-                        );
+                        var token = userManager.GenerateEmailConfirmationTokenAsync(user);
                         var confirmEmailUrl = Url.Action(
                             "ConfirmEmail",
                             "Account",
-                            new
-                            {
-                                UserId = user.Id,
-                                Token = token.Result
-                            },
+                            new { UserId = user.Id, Token = token.Result },
                             Request.Scheme
                         );
                         var isEmailSent = EmailSender.Send_Mail(
-                           user.Email,
+                            user.Email,
                             "Click this link to confirm your <strong>Email</strong> <br> "
                                 + confirmEmailUrl,
                             "Confirm Your Email",
@@ -109,10 +99,7 @@ namespace ESTA.Controllers
                             );
                         }
                     }
-
-
                 }
-               
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.ToString());
@@ -128,14 +115,13 @@ namespace ESTA.Controllers
             RegisterViewModel registerModel = new RegisterViewModel();
             try
             {
-var Questions = await appRep.QuestionRep.GetAllQuestions();
-            registerModel.Questions = Questions.ToList();
+                var Questions = await appRep.QuestionRep.GetAllQuestions();
+                registerModel.Questions = Questions.ToList();
             }
             catch (Exception)
             {
                 registerModel.Questions = new List<Question>();
             }
-            
 
             return View(registerModel);
         }
@@ -153,8 +139,13 @@ var Questions = await appRep.QuestionRep.GetAllQuestions();
                     user.ConvertRegisterModelToUser(registerModel);
 
                     var result = await userManager.CreateAsync(user, registerModel.Password);
+
                     if (result.Succeeded)
                     {
+                        await this.appRep.UserAnswerRep.AddAnswers(
+                            registerModel.ConvertQuestionsToUserAnswer(user.Id)
+                        );
+                        await this.appRep.SaveChangesAsync();
                         var token = userManager.GenerateEmailConfirmationTokenAsync(user);
                         await userManager.AddToRoleAsync(user, "User");
                         var confirmEmailUrl = Url.Action(
@@ -163,6 +154,7 @@ var Questions = await appRep.QuestionRep.GetAllQuestions();
                             new { UserId = user.Id, Token = token.Result },
                             Request.Scheme
                         );
+
                         var isEmailSent = EmailSender.Send_Mail(
                             user.Email,
                             "Click this link to confirm your <strong>email</strong> <br> "
@@ -182,9 +174,7 @@ var Questions = await appRep.QuestionRep.GetAllQuestions();
                                 }
                             );
                         }
-
                         else
-
                         {
                             return View(
                                 "ConfirmEmail",

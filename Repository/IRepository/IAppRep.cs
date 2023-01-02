@@ -12,7 +12,8 @@ namespace ESTA.Repository.IRepository
         IDirectorRep DirectorRep { get; }
         IContentRep ContentRep { get; }
         IQuestionRep QuestionRep { get; }
-
+        IUserAnswerRep UserAnswerRep { get; }
+        IUsersCoursesRep UsersCoursesRep { get; }
         IContactRep ContactRep { get; }
         Task<bool> SaveChangesAsync();
     }
