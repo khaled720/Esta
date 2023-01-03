@@ -179,10 +179,20 @@
                                         </li>
                                         <li>
                                             <a href="#">IFTA</a>
-
                                         </li>
                                         <li>
                                             <a href="contact_us.html">Contacts</a>
+                                        </li>
+                                        <li>
+                                            <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
+                                                  class="form-horizontal nav-link text-dark">
+                                                <select name="culture"
+                                                        class="form-select"
+                                                        onchange="this.form.submit();"
+                                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                                        asp-items="cultureItems">
+                                                </select>
+                                            </form>
                                         </li>
                                     </ul>
                                 </nav>
@@ -329,5 +339,33 @@
 <script src="~/js/site.js"></script>
     <script src="~/template/js/main.js"></script>
     @await RenderSectionAsync("Scripts",required: false);
+    <script>
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+        }
+
+        function formatDate(date) {
+            var newDate = new Date(date);
+            var fullDate = [
+                newDate.getFullYear(),
+                padTo2Digits(newDate.getMonth() + 1),
+                padTo2Digits(newDate.getDate()),
+            ].join('/') +
+                ' ' +
+                [
+                    padTo2Digits(newDate.getHours() % 12 || 12),
+                    padTo2Digits(newDate.getMinutes()),
+                    padTo2Digits(newDate.getSeconds()),
+                ].join(':');
+            if (newDate.getHours() > 12) {
+
+                fullDate += ' ' + 'PM'
+            }
+            else {
+                fullDate += ' ' + 'AM'
+            }
+            return fullDate;
+        }
+    </script>
 </body>
 </html>
