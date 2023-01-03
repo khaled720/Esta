@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Reflection.Emit;
-using Microsoft.AspNetCore.Identity;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations.Schema;
 
