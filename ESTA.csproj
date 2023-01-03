@@ -43,9 +43,20 @@
     <Folder Include="wwwroot\Images\Courses\" />
     <Folder Include="wwwroot\Images\News\" />
     <Folder Include="wwwroot\editor_images\" />
+    <Folder Include="wwwroot\template\img\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\template\aos\aos.js" />
+    <None Include="wwwroot\template\fonts\fa-brands-400.svg" />
+    <None Include="wwwroot\template\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\template\fonts\fa-regular-400.svg" />
+    <None Include="wwwroot\template\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\template\fonts\fa-solid-900.svg" />
+    <None Include="wwwroot\template\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\template\fonts\themify9f24.svg" />
+    <None Include="wwwroot\template\js\vendor\jquery-1.12.4.min.js" />
+    <None Include="wwwroot\template\js\vendor\modernizr-3.5.0.min.js" />
     <None Include="wwwroot\lib\fullcalendar-6.0.1\dist\index.global.js" />
     <None Include="wwwroot\lib\fullcalendar-6.0.1\dist\index.global.min.js" />
     <None Include="wwwroot\lib\fullcalendar-6.0.1\LICENSE.md" />
