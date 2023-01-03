@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace ESTA.Controllers
 {
-    [Authorize("RequireAdminRole")]
+   // [Authorize("RequireAdminRole")]
     [Route("Admin/{controller}/{action=Index}/{id?}")]
     public class DirectorController : Controller
     {

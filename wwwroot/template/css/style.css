@@ -435,6 +435,7 @@ border-radius:5px;
 .sticky {
     left: 0;
     right: 0;
+  
     margin: auto;
     position: fixed;
     top: 0;

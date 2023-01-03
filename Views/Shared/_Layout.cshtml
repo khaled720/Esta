@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="~/template/css/style.css">
 	<link rel="stylesheet" href="~/template/css/responsive.css">
 	<link href="~/css/site.css" rel="stylesheet" />
+    <link href="css/inner.css" rel="stylesheet" />
 </head>
 <body>
     <!--[if lte IE 9]>
@@ -122,23 +123,27 @@
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         <li>
-                                            <a href="index.html">Home</a>
+                                            <a href="/home/index">Home</a>
 
                                         </li>
                                         <li>
                                             <a href="#">About</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="about_us.html">About Esta</a>
+                                                  <a href="/Home/About?type=about">About Esta</a>
+
                                                 </li>
                                                 <li>
-                                                    <a href="about_us.html">About Technical Analysis</a>
+                                             
+                                                    <a href="/Home/About?type=ta">Technical Analysis</a>
+
+                                            </li>
+                                                <li>
+                                                
+                                                    <a href="/Home/About?type=ethics">Code of Ethics</a>
                                                 </li>
                                                 <li>
-                                                    <a href="about_us.html">Code Of Ethics "Bylaws"</a>
-                                                </li>
-                                                <li>
-                                                    <a href="board_directors.html">Board Of Directors</a>
+                                                    <a href="Admin/Director/Index">Board Of Directors</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -146,13 +151,13 @@
                                             <a href="#">Education</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="#">CETA</a>
+                                                    <a href="/courses/CetaCourses">CETA</a>
                                                 </li>
                                                 <li>
-                                                    <a href="courses.html">Other Courses</a>
+                                                    <a href="/courses/OtherCourses">Other Courses</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">CETA Holders</a>
+                                                    <a href="/courses/CetaHolders">CETA Holders</a>
                                                 </li>
 
                                             </ul>
@@ -208,7 +213,7 @@
         </div>
     </header>
 
-    <div class="container">
+    <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -338,7 +343,7 @@
     <script src="~/template/js/custom.min.js"></script>
 <script src="~/js/site.js"></script>
     <script src="~/template/js/main.js"></script>
-    @await RenderSectionAsync("Scripts",required: false);
+    @await RenderSectionAsync("Scripts",required: false)
     <script>
         function padTo2Digits(num) {
             return num.toString().padStart(2, '0');

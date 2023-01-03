@@ -7,6 +7,12 @@ namespace ESTA.Repository.IRepository
     {
 
        public Task<IEnumerable<Course>> GetAllCourses();
+        public  Task<IEnumerable<Course>> GetAllCoursesByLevel(int LevelId);
+        public  Task<IEnumerable<Course>> GetAllOtherCourses();
+        public  Task<IEnumerable<Course>> GetAllCetaCourses();
+
+        public Task<IEnumerable<User>> GetAllCetaHolders();
+
         public Task<Course> GetCourse(int id);
 
         public Task<bool> AddCourse(Course course);

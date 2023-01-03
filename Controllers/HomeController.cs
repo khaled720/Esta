@@ -34,7 +34,34 @@ namespace ESTA.Controllers
         }
 
 
+     
 
+        public async Task<IActionResult> About(string type)
+        {
+           
+            var  content = await Uow.ContentRep.GetContent(type);
+         
+            switch (type)
+            {
+                case "ta":
+                    ViewBag.about = "Technical Analysis";
+                    break;
+             
+                case "ethics":
+                    ViewBag.about = "Code Of Ethics \"Bylaws\"";
+                    break;
+                case "ifta":
+                    ViewBag.about = "IFTA";
+                    break;
+                case "benefits":
+                    ViewBag.about = "Technical Analysis";
+                    break;
+                default:
+                    ViewBag.about = "About";
+                    break;
+            }
+            return View(content);
+        }
 
         public async Task<IActionResult> CourseDetails(int id)
         {

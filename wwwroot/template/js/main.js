@@ -17,7 +17,7 @@
 
     $(window).on('scroll', function () {
         var scroll = $(window).scrollTop();
-        if (scroll < 300) {
+        if (scroll < 400) {
             $(".header-sticky").removeClass("sticky");
         } else {
             $(".header-sticky").addClass("sticky");

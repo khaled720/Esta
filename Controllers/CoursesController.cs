@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ESTA.Controllers
 {
-    [Authorize("RequireAdminRole")]
-    [Route("Admin/{controller}/{action=Index}/{id?}")]
+   
+  //  [Route("Admin/{controller}/{action=Index}/{id?}")]
     public class CoursesController : Controller
     {
         private readonly IUnitOfWork appRep;
@@ -32,7 +32,32 @@ namespace ESTA.Controllers
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
             return View(courses);
         }
+        public async Task<IActionResult> OtherCourses()
+        {
 
+
+            List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllOtherCourses();
+            return View(courses);
+        }
+        public async Task<IActionResult> CetaCourses()
+        {
+
+
+            List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCetaCourses();
+            return View(courses);
+        }
+
+        public async Task<IActionResult> CetaHolders()
+        {
+
+
+            List<User> users = (List<User>)await appRep.CoursesRep.GetAllCetaHolders();
+            return View(users);
+        }
+
+
+
+        [Authorize("RequireAdminRole")]
         [HttpGet]
         public async Task<IActionResult> AddCourse()
         {
@@ -47,7 +72,7 @@ namespace ESTA.Controllers
 
             return View(clvm);
         }
-
+        [Authorize("RequireAdminRole")]
         [HttpPost]
         public async Task<IActionResult> AddCourse(CourseLevelsViewModel clvm)
         {
@@ -110,7 +135,7 @@ namespace ESTA.Controllers
                 return View(clvm);
             }
         }
-
+        [Authorize("RequireAdminRole")]
         [HttpGet]
         public async Task<IActionResult> EditCourse(int id)
         {
@@ -124,7 +149,7 @@ namespace ESTA.Controllers
 
             return View(clvm);
         }
-
+        [Authorize("RequireAdminRole")]
         [HttpPost]
         public async Task<IActionResult> EditCourse(CourseLevelsViewModel clvm)
         {
@@ -181,7 +206,7 @@ namespace ESTA.Controllers
                 return View(clvm);
             }
         }
-
+        [Authorize("RequireAdminRole")]
         [HttpGet]
         public async Task<IActionResult> DeleteCourse(int id)
         {
@@ -203,7 +228,7 @@ namespace ESTA.Controllers
 
 
 
-
+        [Authorize("RequireAdminRole")]
         [HttpGet]
         public async Task<IActionResult> CourseInfo(int id)
         {

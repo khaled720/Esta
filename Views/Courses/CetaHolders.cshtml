@@ -1,0 +1,37 @@
+﻿
+
+
+@model List<ESTA.Models.User>
+
+
+
+	<h4>Ceta Holders</h4>
+
+@if (Model.Count == 0)
+{
+	<p>No Ceta Holders Found</p>
+}
+
+	<table>
+
+
+
+		<tbody>
+	@foreach (var item in Model)
+	{
+		<tr>
+
+
+				<td> @item.FullName
+				</td>
+
+
+		</tr>
+
+		
+
+	}
+
+	</tbody>
+
+	</table>
