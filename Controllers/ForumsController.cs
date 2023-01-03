@@ -120,7 +120,7 @@ namespace ESTA.Controllers
             if (Forum != null)
             {
                 appRep.ForumRep.DeleteForum(Forum);
-                appRep.SaveChangesAsync();
+                await appRep.SaveChangesAsync();
                 List<UserForum> commentList = appRep.ForumRep.GetComments(id, null);
                 appRep.ForumRep.DeleteComment(commentList);
                 await appRep.SaveChangesAsync();
@@ -247,7 +247,7 @@ namespace ESTA.Controllers
         public IActionResult GetForumStatistics(int? id)
         {
             //count of comment/ count of replies/ count of engaging users.
-            ForumStatisticsObj statisticsObj = new ForumStatisticsObj();
+            ForumStatisticsObj statisticsObj = new ();
             DateTime todayDate = DateTime.Now.Date;
             DateTime yesterday = DateTime.Now.AddDays(-1).Date;
             DateTime threeMonths = DateTime.Now.AddMonths(-3).Date;
