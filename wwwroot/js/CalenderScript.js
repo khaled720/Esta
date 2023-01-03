@@ -5,7 +5,8 @@ $(document).ready(function () {
         editable: false,
         selectable: false,
         initialView: 'dayGridMonth',
-        height: '600px',
+        height: '400px',
+        fixedWeekCount: false,
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
             $.ajax({
@@ -20,7 +21,6 @@ $(document).ready(function () {
                         events.push(
                             {
                                 title: data.title,
-                                description: data.desc,
                                 start: moment(data.date).format("YYYY-MM-DD"),
                                 url: '/EventsNews/GetEvent/' + data.id,
                                 backgroundColor: "cornflowerblue",
@@ -28,6 +28,7 @@ $(document).ready(function () {
                             });
                     });
                     successCallback(events);
+                    console.log(events)
                 }
             });
         }

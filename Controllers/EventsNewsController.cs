@@ -63,6 +63,7 @@ namespace ESTA.Controllers
                 {
                     Id = events.Id,
                     Image = events.Image,
+                    Date = events.Date,
                     Title = culture == "en" ? events.TitleEn : events.TitleAr,
                     Description = culture == "en" ? events.DetailsEn : events.DetailsAr
                 };
@@ -112,7 +113,7 @@ namespace ESTA.Controllers
             var DescEnDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsEn);
             if (EditEvent.ImageUpload != null)
             {
-                var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "/images/News/");
+                var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "images/News/");
                 Event.Image = "/images/News/" + imgName;
             }
             Event.DetailsAr = DescArDecoded;
@@ -153,12 +154,12 @@ namespace ESTA.Controllers
             {
                 if (culture == "en")
                 {
-                    details = RemoveHTMLTags(eventVar.DetailsEn).Trim().Substring(1, 20);
+                    details = RemoveHTMLTags(eventVar.DetailsEn).Substring(1, 20);
                     title = eventVar.TitleEn;
                 }
                 else
                 {
-                    details = RemoveHTMLTags(eventVar.DetailsAr).Trim().Substring(1, 20);
+                    details = RemoveHTMLTags(eventVar.DetailsAr).Substring(1, 20);
                     title = eventVar.TitleAr;
                 }
                 EventsNews.Add(new()
@@ -166,6 +167,7 @@ namespace ESTA.Controllers
                     Id = eventVar.Id,
                     Image = eventVar.Image,
                     Title = title,
+                    Date = eventVar.Date,
                     Flag = eventVar.Flag,
                     Description = details,
                 });

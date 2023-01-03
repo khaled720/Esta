@@ -32,7 +32,7 @@ namespace ESTA.Repository
             return context.EventsNews.Where(x => x.Id == Id).FirstOrDefault();
         }
 
-        public List<EventsNews> GetEvents(int page, int count = 4)
+        public List<EventsNews> GetEvents(int page, int count = 3)
         {
             return context.EventsNews
                 .OrderByDescending(x => x.Date)

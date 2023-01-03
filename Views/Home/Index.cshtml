@@ -64,29 +64,15 @@ background: rgba(100%,100%,100%,50%);
 
 
 </div>
-<div class="row">
 
-    <section class="col-md-12 col-md-push-0">
-        @{
-            await Html.RenderPartialAsync("_CalendarPartial");
-        }
-    </section>
-</div>
-<style>
-    .card {
-        transition: 0.5s ease-in-out;
-        overflow: hidden;
-        /*z-index:10;
-                */
-    }
 
-        .card:hover {
-            transform: scale(1.1,1.1)
-        }
 
-</style>
+@await Component.InvokeAsync("Events");
+@await Component.InvokeAsync("UpcomingEvents");
+
+
+
 @section Scripts{
-    <script src="~/js/course.js"></script>
     <script src="~/js/calenderscript.js"></script>
 }
 

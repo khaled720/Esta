@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
@@ -14,7 +15,7 @@ namespace ESTA.Controllers
         private readonly IUnitOfWork Uow;
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly string culture;
-        public HomeController(ILogger<HomeController> logger,IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, IHttpContextAccessor contextAccessor)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, IHttpContextAccessor contextAccessor)
         {
             _logger = logger;
             this.Uow = appRep;
@@ -38,31 +39,23 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> CourseDetails(int id)
         {
-           var course =await Uow.CoursesRep.GetCourse(id);
+            var course = await Uow.CoursesRep.GetCourse(id);
 
 
             return View(course);
         }
 
-        public async Task<IActionResult> GetEvents()
+        public IActionResult GetEvents()
         {
             List<EventsNews> EventNews = Uow.EventRep.GetOnlyEvents();
             List<DisplayEvents> DisplayEvent = new();
-            string title;
+
             foreach (var eventItem in EventNews)
             {
-                if (culture == "en")
-                {
-                    title = eventItem.TitleEn;
-                }
-                else
-                {
-                    title = eventItem.TitleAr;
-                }
                 DisplayEvent.Add(new DisplayEvents()
                 {
-                    Date= eventItem.Date,
-                    Title = title,
+                    Date = eventItem.Date,
+                    Title = culture == "en"? eventItem.TitleEn: eventItem.TitleAr,
                     Id = eventItem.Id
                 });
             }
@@ -91,3 +84,4 @@ namespace ESTA.Controllers
         }
     }
 }
+

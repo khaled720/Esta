@@ -5,28 +5,40 @@
 }
 @model ESTA.ViewModels.DisplayEventPartial
 
+@foreach (var eventObj in Model.Events)
+{
+    <div class="col-xl-4 col-lg-4 col-md-6">
+        <div class="blog-wrapper bg-grey mb-30">
+            <div class="blog-thumb mb-25">
+                <a href="news_details.html"><img src="@eventObj.Image" alt=""></a>
+                @if (eventObj.Flag == 0)
+                {
+                    <span class="blog-category">News</span>
+                }
+                else
+                {
+                    <span class="blog-category">Event</span>
+                }
 
-
-    @foreach (var eventObj in Model.Events)
-    {
-        <div class="col" id="cards">
-            <div class="card mb-2 h-100" style="width: 18rem;">
-                <img src="@eventObj.Image" class="card-img-top" alt="EventImg">
-                <div class="card-body">
-                    <h5 class="card-title">@eventObj.Title</h5>
-                    <p class="card-text">
-                        @eventObj.Description...
-                        <span>
-                            <a asp-action="GetEvent" asp-route-id="@eventObj.Id">@ESTA.Resources.EventsNews.readMore</a>
-                        </span>
-                    </p>
-
+            </div>
+            <div class="blog-content">
+                @if (eventObj.Date.HasValue)
+                {
+                    <div class="blog-meta">
+                        <span>@eventObj.Date.Value.ToString("yyyy-MMM-dd")</span>
                 </div>
-                <div class="row justify-content-lg-around row-cols-3 mb-2">
-                    <a asp-action="EditEvent" asp-route-id="@eventObj.Id" class="btn btn-secondary col" class="btn btn-primary">@ESTA.Resources.EventsNews.Edit</a>
-                    <a asp-action="DeleteEvent" asp-route-id="@eventObj.Id" class="btn btn-danger col">@ESTA.Resources.EventsNews.Delete</a>
+                }
+                <h5><a href="/EventsNews/GetEvent/@eventObj.Id">@eventObj.Title</a></h5>
+                <p>@eventObj.Description...</p>
+                <div class="read-more-btn">
+                    <a class="" href="/EventsNews/GetEvent/@eventObj.Id"><span class="">Read More</span></a>
                 </div>
             </div>
+@*            <div class="row justify-content-lg-around row-cols-3 mb-2">
+                <a asp-action="EditEvent" asp-route-id="@eventObj.Id" class="btn btn-secondary col" class="btn btn-primary">@ESTA.Resources.EventsNews.Edit</a>
+                <a asp-action="DeleteEvent" asp-route-id="@eventObj.Id" class="btn btn-danger col">@ESTA.Resources.EventsNews.Delete</a>
+            </div>*@
         </div>
-    }
+    </div>
+}
 
