@@ -5,26 +5,26 @@
 @{
 
 }
-<form class="row gy-3" onkeypress="submit()" asp-action="NewForum" asp-controller="Forums" method="post">
+<form onkeypress="submit()" asp-action="NewForum" asp-controller="Forums" method="post">
     <div asp-validation-summary="All" class="text-danger">
     </div>
-    <div class="col-12">
-        <labe for="formTitle" class="form-label">Forum Title</labe>
+    <div class="form-group">
+        <label for="formTitle" class="form-label">Forum Title</label>
         <input class="form-control" id="formTitle" type="text" asp-for="Title" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
-    <div class="col-12">
-        <labe for="formDescription" class="form-label">Forum Description</labe>
+    <div class="form-group">
+        <label for="formDescription" class="form-label">Forum Description</label>
         <input class="form-control" id="formDescription" type="text" asp-for="Description" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    <div class="col-12">
+    <div class="form-group">
         <label for="formLevel" class="form-label">Forum Level</label>
-        <select asp-for="levelId" class="form-select" id="formLevel" asp-items="ViewBag.LevelsListItem">
+        <select asp-for="levelId" class="form-control" id="formLevel" asp-items="ViewBag.LevelsListItem">
         </select>
         <span asp-validation-for="levelId" class="text-danger"></span>
     </div>
-    <div class="col-12">
+    <div class="form-group">
         <button type="submit" id="submit" class="btn btn-primary">submit</button>
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </div>

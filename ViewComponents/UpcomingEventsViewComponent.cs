@@ -21,15 +21,20 @@ namespace ESTA.ViewComponents
         public IViewComponentResult Invoke()
         {
             EventsNews eventItem = Uow.EventRep.GetLatestEvent();
-            DisplayEvents LatestEvent = new();
-
-            string details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
-            LatestEvent.Date = eventItem.Date;
-            LatestEvent.Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
-            LatestEvent.Description = RemoveHTMLTags(details).Substring(1, 20);
-            LatestEvent.Id = eventItem.Id;
-            LatestEvent.Image = eventItem.Image;
-            LatestEvent.Flag = eventItem.Flag;
+            DisplayEvents? LatestEvent;
+            if (eventItem != null)
+            {
+                LatestEvent = new();
+                string details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
+                LatestEvent.Date = eventItem.Date;
+                LatestEvent.Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
+                LatestEvent.Description = RemoveHTMLTags(details).Substring(1, 20);
+                LatestEvent.Id = eventItem.Id;
+                LatestEvent.Image = eventItem.Image;
+                LatestEvent.Flag = eventItem.Flag;
+            }
+            else
+                LatestEvent = null;
 
             return View("_upcomingEvent", LatestEvent);
         }

@@ -6,6 +6,7 @@
 @using ESTA.ViewModels
 @model DisplayEvents
 
+
 <div id="upComingEvents" class="events-area events-bg-height pt-70 pb-30">
     <div class="container">
         <div class="row">
@@ -21,42 +22,63 @@
         </div>
         <div class="events-list mb-30">
             <div class="row">
-
-                <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-up"
+                @if (Model != null)
+                {
+                    <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-up"
                          data-aos-duration="1500">
-                    <div class="single-events mb-30">
-                        <div class="events-wrapper">
-                            <div class="events-inner d-flex">
-                                <div class="events-thumb">
-                                    <img class="img-fluid""" src="@Model.Image" alt="">
-                                </div>
-                                <div class="events-text">
-                                    <div class="event-text-heading mb-20">
-                                        <div class="events-calendar text-center f-left">
-                                            <span class="date">@Model.Date.Value.Day</span>
-                                            <span class="month">
-                                                @Model.Date.Value.ToString("MMM-yyyy")
-                                            </span>
-                                        </div>
-                                        <div class="events-text-title clearfix">
-                                            <a href="/EventsNews/GetEvent/@Model.Id">
-                                                <h4>@Model.Title</h4>
-                                            </a>
-                                            <div class="time-area">
-                                                <span class="ti-time"></span>
-                                                <span class="published-time">@Model.Date.Value.ToString("hh:mm tt")</span>
+                        <div class="single-events mb-30">
+                            <div class="events-wrapper">
+                                <div class="events-inner d-flex">
+                                    <div class="events-thumb">
+                                        <img class="img-fluid" "" src="@Model.Image" alt="">
+                                    </div>
+                                    <div class="events-text">
+                                        <div class="event-text-heading mb-20">
+                                            <div class="events-calendar text-center f-left">
+                                                <span class="date">@Model.Date.Value.Day</span>
+                                                <span class="month">
+                                                    @Model.Date.Value.ToString("MMM-yyyy")
+                                                </span>
+                                            </div>
+                                            <div class="events-text-title clearfix">
+                                                <a href="/EventsNews/GetEvent/@Model.Id">
+                                                    <h4>@Model.Title</h4>
+                                                </a>
+                                                <div class="time-area">
+                                                    <span class="ti-time"></span>
+                                                    <span class="published-time">@Model.Date.Value.ToString("hh:mm tt")</span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="events-para">
+                                            <p>@Model.Description</p>
+                                        </div>
                                     </div>
-                                    <div class="events-para">
-                                        <p>@Model.Description</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-up"
+                         data-aos-duration="1500">
+                        <div class="single-events mb-30">
+                            <div class="events-wrapper">
+                                <div class="events-inner d-flex">
+                                    <div class="events-text">
+                                        <div class="event-text-heading mb-20">
+                                            <div class="events-text-title clearfix">
+                                                <h4>Stay Tuned!!</h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
+                }
                 <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-down"
                          data-aos-duration="1500">
                     <div class="calenderDiv">

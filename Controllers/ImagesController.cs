@@ -29,29 +29,29 @@ namespace ESTA.Controllers
         }
 
 
-    [HttpPost]
-    public async Task<string> PostAsync([FromForm] IFormFile file)
-    {
-        var path = webHost.WebRootPath;
-        var saveFile = Path.Combine(path + "/Images/Editor/");
-        var ImageName = await FileUpload.SavePhotoAsync(file, file.Name, saveFile);
-        var display = "../Images/Editor/" + ImageName;
-        return display;
+        [HttpPost]
+        public async Task<string> PostAsync([FromForm] IFormFile file)
+        {
+            var path = webHost.WebRootPath;
+            var saveFile = Path.Combine(path + "/Images/Editor/");
+            var ImageName = await FileUpload.SavePhotoAsync(file, file.Name, saveFile);
+            var display = "/Images/Editor/" + ImageName;
+            return display;
 
-    }
+        }
 
 
 
-    [HttpPost]
-    public string PostImg([FromForm] IFormFile file)
-    {
-        string ImageName = ImageHelper.UploadedFile(file, "editor_images");
-        var display = "/editor_images/" + ImageName;
-        return display;
+        //[HttpPost]
+        //public string PostImg([FromForm] IFormFile file)
+        //{
+        //    string ImageName = ImageHelper.UploadedFile(file, "editor_images");
+        //    var display = "/editor_images/" + ImageName;
+        //    return display;
 
-    }
+        //}
 
-    [HttpDelete]
+        [HttpDelete]
         public void Delete([FromForm] string imgPath)
         {
             var path = webHost.WebRootPath;

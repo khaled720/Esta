@@ -203,7 +203,7 @@
                                             <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
                                                   class="form-horizontal nav-link text-dark">
                                                 <select name="culture"
-                                                        class="form-select"
+                                                        class="form-control"
                                                         onchange="this.form.submit();"
                                                         asp-for="@requestCulture.RequestCulture.UICulture.Name"
                                                         asp-items="cultureItems">
@@ -355,6 +355,7 @@
     <script src="~/js/site.js"></script>
     <script src="~/lib/ckeditor/ckeditor.js"></script>
     <script src="~/lib/ckeditor/customckeditor.js"></script>
+    <script src="~/lib/ckeditor/ck-editor-initialize.js"></script>
     <script src="~/lib/ckeditor/plugins/insertimage/plugin.js"></script>
     <script src="~/template/js/main.js"></script>
     @await RenderSectionAsync("Scripts",required: false)
@@ -362,7 +363,16 @@
         function padTo2Digits(num) {
             return num.toString().padStart(2, '0');
         }
+        function copyToClipboard(id) {
+            var base_url = window.location.origin;
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(base_url + "/Forums/GetComment/" + id).select();
+            document.execCommand("copy");
+            $temp.remove();
 
+            alert("Copied the Link");
+        }
         function formatDate(date) {
             var newDate = new Date(date);
             var fullDate = [

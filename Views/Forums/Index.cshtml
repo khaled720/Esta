@@ -8,6 +8,27 @@
     var user = await userManager.GetUserAsync(User);
     var role = await userManager.IsInRoleAsync(user, "Admin");
 }
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">Forums</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                                    <li class="breadcrumb-item active"><a href="/Forums/Index">Forums</a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="card my-3 p-3">
     <div class="row">
@@ -21,7 +42,7 @@
 </div>
 
 <div class="row gy-3">
-    <div class="col-xl-9">
+    <div class="col-xl-8">
         @foreach (var forum in Model)
         {
             <div class="card w-75 mb-3">
@@ -37,15 +58,15 @@
                         <a asp-controller="Forums" asp-action="EditForum" asp-route-id="@forum.Id" class="btn btn-secondary">
                             Edit
                         </a>
-                        <a onclick="showModal(@forum.Id)" class="btn btn-danger">
+                        <button onclick="showModal(@forum.Id)" class="btn btn-danger">
                             Delete
-                        </a>
+                        </button>
                     </div>
                 }
             </div>
         }
     </div>
-    <div class="col-xl-3 align-self-center" id="stats">
+    <div class="col-xl-4 align-self-center" id="stats">
     </div>
 </div>
 
@@ -61,7 +82,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a onclick="deleteForum()" class="btn btn-danger">Delete</a>
+                <button onclick="deleteForum()" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>

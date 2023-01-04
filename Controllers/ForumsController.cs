@@ -65,9 +65,9 @@ namespace ESTA.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult NewForum()
+        public async Task<IActionResult> NewForum()
         {
-            ViewBag.LevelsListItem = GetLevelsAsync();
+            ViewBag.LevelsListItem = await GetLevelsAsync();
             return View();
         }
         [HttpPost]
@@ -143,8 +143,15 @@ namespace ESTA.Controllers
 
             newComment = appRep.ForumRep.GetCommentById(newComment.Id);
             GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
-
-            return Json(new { data = addedComment });
+            var commentList = new List<GetUserForums>();
+            commentList.Add(addedComment);
+            var renderComment = new RenderComment()
+            {
+                showAllLink = true,
+                showReply = false,
+                UserForums = commentList
+            };
+            return PartialView("_RenderComment", renderComment);
         }
         [HttpPost]
         [Authorize]
@@ -189,8 +196,13 @@ namespace ESTA.Controllers
             var forumsList = appRep.ForumRep.GetComments(forumId, page);
             List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
             getUserForums.ForEach(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id));
-
-            return Json(getUserForums);
+            var renderComment = new RenderComment()
+            {
+                showAllLink = true,
+                showReply = false,
+                UserForums = getUserForums
+            };
+            return PartialView("_RenderComment", renderComment);
         }
         [HttpGet]
         public IActionResult GetComment(int id)
@@ -232,8 +244,13 @@ namespace ESTA.Controllers
                 list = appRep.ForumRep.SearchComments(terms, user.LevelId, page);
 
             List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(list);
-
-            return Json(getComments);
+            var renderComment = new RenderComment()
+            {
+                showAllLink = true,
+                showReply = false,
+                UserForums = getComments
+            };
+            return PartialView("_RenderComment", renderComment);
         }
         [HttpGet]
         public IActionResult GetCommentReplies(int parentId, int? page = 0)
@@ -280,13 +297,13 @@ namespace ESTA.Controllers
             return PartialView("_ForumStatistics", statisticsObj);
         }
         [NonAction]
-        private async Task<List<SelectListItem>> GetLevelsAsync()
+        private async Task<IEnumerable<SelectListItem>> GetLevelsAsync()
         {
             IEnumerable<Level> level = await appRep.LevelRep.GetAllLevels();
-            List<SelectListItem> selectList = new();
+            IEnumerable<SelectListItem> selectList = new List<SelectListItem>();
             level.ToList().ForEach(l =>
             {
-                selectList.Add(new SelectListItem
+                selectList = selectList.Append(new SelectListItem
                 {
                     Value = l.Id.ToString(),
                     Text = l.TypeName

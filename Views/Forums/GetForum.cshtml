@@ -3,49 +3,106 @@
 *@
 
 @model ESTA.ViewModels.ForumsWithComments
-
-<div class="row gy-2 justify-content-around">
-    <div class="card col-xl-8">
-        <h5 class="card-header">@Model.Title</h5>
-        <div class="card-body">
-            <p class="card-text">@Model.Description</p>
-            <hr />
-            <div class="row">
-                <div class="col" id="CommentList">
-                    <partial />
-                    @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
-                    {
-                    showAllLink = true,
-                    showReply = false,
-                    UserForums = Model.UserForum
-                    })
-
-                </div>
-            </div>
-
-            <button onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
-            <div class="row p-2 justify-content-end">
-                <div class="col-8">
-                    <textarea wrap="hard" maxlength="500" class="form-control" id="comment" type="text" placeholder="write comment" aria-label="Write comment ..."></textarea>
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-primary" onclick="AddComment()">Comment</button>
+<style>
+    .delete {
+        color: red !important;
+    }
+</style>
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">@Model.Title</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="/Forums/Index">Forums</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <input type="hidden" value="@Model.Id" id="ForumId" />
-    </div>
-
-    <div class="col-xl-3 align-self-center" id="stats">
     </div>
 </div>
+
+
+<div class="news-details-area pt-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-12">
+                <div class="post-comments post-comments-padding white-bg">
+                    <div class="latest-comments">
+                        <ul>
+                            <li>
+                                <div class="comments-box main-comments d-flex">
+                                    <div class="comments-text">
+                                        <div class="avatar-name">
+                                            <h3>@Model.Title</h3>
+                                        </div>
+                                        <p>@Model.Description</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="news-details-area  pt-50 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-12">
+                <div class="post-comments post-comments-padding white-bg">
+                    <div class="latest-comments">
+                        <ul id="CommentList">
+
+                            @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
+                            {
+                            showAllLink = true,
+                            showReply = false,
+                            UserForums = Model.UserForum
+                            })
+                        </ul>
+                    </div>
+                    <button onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
+
+                    <div class="post-comments-form my-3">
+                        <div class="section-title mb-30">
+                            <h2>Leave a Comment</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <textarea wrap="hard" maxlength="500" name="comments" id="comment" cols="30" rows="5" class="form-control" placeholder="Your Comment"></textarea>
+                                <button class="btn btn-primary py-3 px-5 mt-3" onclick="AddComment()">send comment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 align-self-center" id="stats">
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" value="@Model.Id" id="ForumId" />
+
 @section Scripts{
+    <script src="~/js/forumsfuncs.js"></script>
     <script>
         $(document).ready(function () {
             var id = $('#ForumId').val();
             loadStats();
         });
-
         function loadStats() {
             $('#stats').load('@Url.Action("GetForumStatistics","Forums",new { id = ViewContext.RouteData.Values["id"]})');
         }
@@ -53,14 +110,13 @@
         function getNextPage() {
             $.ajax({
                 type: 'get',
-                dataType: 'JSON',
                 url: '/Forums/GetForumsComment',
                 data: {
                     forumId: $('#ForumId').val(),
                     page: commentPage++
                 },
                 success: function (data) {
-                    ListComments(data, true);
+                    $('#CommentList').append(data);
                 },
                 error: function (data) {
                     console.log(data)
@@ -70,7 +126,6 @@
         function AddComment() {
             $.ajax({
                 type: 'post',
-                dataType: 'JSON',
                 url: '/Forums/AddComment',
                 data: {
                     forumId: $('#ForumId').val(),
@@ -78,7 +133,7 @@
                 },
                 success: function (data) {
                     $('#comment').val('')
-                    ListComments(data, true);
+                    $('#CommentList').append(data);
                     loadStats();
                 },
                 error: function (data) {
@@ -89,4 +144,4 @@
 
 
     </script>
-    }
+                    }
