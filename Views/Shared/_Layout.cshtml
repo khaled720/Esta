@@ -69,10 +69,28 @@
                                     <span class="ti-email"></span>
                                     <p class="email-name">internal@estaegypt.org</p>
                                 </div>
-                                <div class="header-contact header-login">
+                                
+                                @if (User!=null&&User.Identity.IsAuthenticated) 
+                                {
+                               <div class="header-contact header-login">
+                                        <span class="ti-user"></span>
+                                        <a href="/User/Profile" class="loginBtn">
+                                        @User.FindFirstValue(ClaimTypes.Name)    
+                                        </a>
+                                         <a href="/Account/Logout" class="loginBtn">Logout</a>
+                                    </div>
+                                }
+                                else{
+                                       <div class="header-contact header-login">
                                     <span class="ti-user"></span>
-                                    <a href="#" target="_blank" class="loginBtn">Login</a>
-                                </div>
+                                    <a href="/Account/Login" class="loginBtn">Login</a>
+                               
+                                        <span class="ti-user"></span>
+                                        <a href="/Account/Register" class="loginBtn">Register</a>
+                                    </div>
+                                }
+                              
+
 
                             </div>
                         </div>
@@ -143,7 +161,7 @@
                                                     <a href="/Home/About?type=ethics">Code of Ethics</a>
                                                 </li>
                                                 <li>
-                                                    <a href="Admin/Director/Index">Board Of Directors</a>
+                                                    <a href="/Director/BoardofDirectors">Board Of Directors</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -175,18 +193,18 @@
                                                     <a href="#">Social Events</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Benefits Of Membership</a>
+                                                    <a href="/Home/About?type=benefits">Benefits Of Membership</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Become a Member</a>
+                                                    <a href="/Account/Register">Become a Member</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#">IFTA</a>
+                                            <a href="/Home/About?type=ifta" >IFTA</a>
                                         </li>
                                         <li>
-                                            <a href="contact_us.html">Contacts</a>
+                                            <a href="/Home/contact">Contacts</a>
                                         </li>
                                         <li>
                                             <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
@@ -336,7 +354,10 @@
     <script src="~/template/js/jquery.counterup.min.js"></script>
     <script src="~/template/js/waypoints.min.js"></script>
     <script src="~/template/js/jquery.magnific-popup.min.js"></script>
-
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/template/js/plugins.js"></script>
 	<script src="~/js/calenderscript.js"></script>
     <script src="~/template/js/custom.js"></script>

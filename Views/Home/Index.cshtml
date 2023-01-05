@@ -5,89 +5,502 @@
 
 
 
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Egyptian Society Technical Analysts</p>
-</div>
-
-Is User Authenticated ? : @User.Identity.IsAuthenticated
-
-<div style="display:flex;justify-content:space-between;align-items:center">
-    <h2>All Courses</h2>
-
-    @Html.ActionLink("Join Our bla bla", "Register",
-    "Courses",new {}, new { @class = "btn btn-primary" })
-</div>
-
-<input id="search" placeholder="Search for course.... " oninput="SearchForCourse()"
-       class="form-control" />
-
-<br />
-<div id="courses-grid" style="display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
-    @foreach (var item in Model)
-    {
-
-        <div class="card" style="height:fit-content; position:relative">
-            <a href="/home/coursedetails/@item.Id" class="btn btn-primary"
-           style="position:absolute;bottom:5px;right:5px">More</a>
-
-            <div class="card-header" style="
-position:absolute;top:0;left:0;right:0;
-
-background: rgba(100%,100%,100%,50%);
-    backdrop-filter: blur(5px);">
-                <h5>
-                    @item.Title
-
-                </h5>
-            </div>
-            @* <img src="data:image/jpeg;base64,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" />
-        *@     <img src="@item.PhotoPath" height="200px" />
-
-
-            <div class="card-body">
-                Starts at:    @item.StartDate.Value.ToShortDateString()
-                <br> Price: <strong style="color:green"> @item.Price.ToString("c")</strong>
+<!-- slider-start -->
+<div class="slider-area pos-relative">
+    <div class="slider-active">
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner1.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2">
+                        <div class="slider-content slider-content-2 slider-content-3 text-center">
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">Welcome To ESTA</h1>
+                            <p data-animation="fade-up" data-delay=".4s">The Egyptian Society of Technical Analysts</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    }
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner2.jpg);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2">
+                        <div class="slider-content slider-content-2 slider-content-3 text-center">
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">Education Get Light <br> In Human Life</h1>
+                            <p data-animation="fade-up" data-delay=".4s">Sorem ipsum dolor sit amet consectetur adipisicing elit sed do <br> eiusmod tempor incididunt ut labore </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner3.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2">
+                        <div class="slider-content slider-content-2 slider-content-3 text-center">
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">First Professional Technical Analysis Society</h1>
+                            <p data-animation="fade-up" data-delay=".4s">In The Middle East</p>
 
-
-
-
-
-
-
-
-
-
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner4.jpg);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2">
+                        <div class="slider-content slider-content-2 slider-content-3 text-center">
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">ESTA is welcoming  <br>any new volunteers</h1>
+                            <p data-animation="fade-up" data-delay=".4s">Join to  the ESTA  team </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="row">
+<!-- slider-end -->
+<!-- about start -->
+<div id="about" class="about-area pt-80 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7">
+                <div class="about-title-section mb-30 aos-init aos-animate" data-aos="flip-up" data-aos-duration="1200">
+                    <h1>About ESTA</h1>
+                    <h5>The Egyptian Society of Technical Analysts ( ESTA )</h5>
+                    <p>
+                        Technical analysis is a security analysis discipline for forecasting the future direction of prices through the study of charts of past market data, primarily price and volume.
 
-    <section class="col-md-12 col-md-push-0">
-        @{
-            await Html.RenderPartialAsync("_CalendarPartial");
-        }
-    </section>
+                        The Egyptian Society of Technical Analysts (ESTA) is the first professional technical analysis society in the Middle East.
+
+                        ESTA is a non-profit organization founded in 2000 by Mr. Amr Dabbous and Mr. Ayman Waked with the aim to disseminate & teach the science of technical analysis all around Egypt.
+
+                        ESTA is a full member of the International Federation of Technical Analysts (IFTA), and that placed the Egyptian Society of Technical Analysts (ESTA) as one of the top societies around the globe, along with STA (England), NTAA (Japan) & ATAA (Australia).
+                    </p>
+                 
+                    <a class="theme-btn blue-bg-border mt-20" href="about_us.html"><span class="btn-text">Read More</span></a>
+                    
+                    <!--<button class="theme-btn blue-bg-border mt-20"><span class="btn-text">Read More</span></button>-->
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 aos-init aos-animate" data-aos="flip-down" data-aos-duration="1200">
+                <div class="about-right-img mb-30">
+                    <img src="/template/img/about/about-right.png" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
-<style>
-    .card {
-        transition: 0.5s ease-in-out;
-        overflow: hidden;
-        /*z-index:10;
-                */
-    }
+<!-- about end -->
+<!-- latest_news start -->
+<div id="blog" class="latest_news-area gray-bg pt-70 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-md-8 offset-md-2 aos-init aos-animate" data-aos="fade-up"
+                      data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                <div class="section-title mb-50 text-center">
+                    <div class="section-title-heading mb-20">
+                        <h1 class="primary-color">News & Events</h1>
+                    </div>
 
-        .card:hover {
-            transform: scale(1.1,1.1)
-        }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                <div class="blog-wrapper mb-30">
+                    <div class="blog-thumb mb-25">
+                        <a href="news_details.html"><img src="/template/img/blog/blog_thumb_7.jpg" alt=""></a>
+                        <span class="blog-category">news</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>DEC 11, 2017</span>
+                        </div>
+                        <h5><a href="news_details.html">New CETA Level 2- DEC. 2017</a></h5>
+                        <p>
+                            The new CETA Level 2 classes will begin Monday, December 11th, 2017
 
-</style>
+                            For registration please call or visit our ESTA premises...
+                        </p>
+                        <div class="read-more-btn">
+                            <a class="" href="news_details.html"><span class="">Read More</span></a>
+                            <!--<button>Read more</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                <div class="blog-wrapper mb-30">
+                    <div class="blog-thumb mb-25">
+                        <a href="news_details.html"><img src="/template/img/blog/blog_thumb_8.jpg" alt=""></a>
+                        <span class="blog-category">event</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>May 25, 2018</span>
+                        </div>
+                        <h5><a href="news_details.html">New CETA Level 1- May 2017</a></h5>
+                        <p>
+                            The new CETA Level 1 classes will begin in May 2017
+
+                            The Deadline for registration is on Sunday, April 30th, 2017...
+                        </p>
+                        <div class="read-more-btn">
+                            <a class="" href="news_details.html"><span class="">Read More</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                <div class="blog-wrapper mb-30">
+                    <div class="blog-thumb mb-25">
+                        <a href="news_details.html"><img src="/template/img/blog/blog_thumb_4.jpg" alt=""></a>
+                        <span class="blog-category">news</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>Aug 25, 2018</span>
+                        </div>
+                        <h5><a href="news_details.html">Mubasher Stream</a></h5>
+                        <p>
+                            (28/7/2014)Throughout ESTA's continuous support to its members, ESTA proudly announces the availiablity ...
+
+                        </p>
+                        <div class="read-more-btn">
+                            <a class="" href="news_details.html"><span class="">Read More</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="courses-view-more-area mt-20 mb-30 text-center">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="courses-view-more-btn">
+                        <a class="btn gray-border-btn" href="grid_news.html"><span class="">view more</span></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- latest_blog end -->
+<!-- events start -->
+<!--<div id="events" class="events-area events-bg-height pt-70 pb-70 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                <div class="section-title mb-50 text-center">
+                    <div class="section-title-heading mb-20">
+                        <h1 class="primary-color">Events</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="events-list mb-30">
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-md-6">
+                    <div class="single-events mb-30">
+                        <div class="events-wrapper">
+                            <div class="events-inner d-flex">
+                                <div class="events-text events-text-3">
+                                    <div class="event-text-heading d-flex mb-20">
+                                        <div class="events-calendar text-center">
+                                            <span class="date">18</span>
+                                            <span class="month">Sep, 2018</span>
+                                        </div>
+                                        <div class="events-text-title events-text-title-3">
+                                            <a href="#">
+                                                <h4>Business Conferences</h4>
+                                            </a>
+                                            <div class="time-area">
+                                                <span class="ti-time"></span>
+                                                <span class="published-time">05:23 AM - 09:23 AM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="events-para">
+                                        <p>Event is veries fermentum consequat mi fonec has fermentum ellentesque malesuada.</p>
+                                    </div>
+                                    <div class="events-speaker">
+                                        <h2>Speaker : <span>Alexzender</span></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xl-4 col-md-6">
+                    <div class="single-events mb-30">
+                        <div class="events-wrapper">
+                            <div class="events-inner d-flex">
+                                <div class="events-text events-text-3">
+                                    <div class="event-text-heading d-flex mb-20">
+                                        <div class="events-calendar text-center">
+                                            <span class="date">30</span>
+                                            <span class="month">Sep, 2018</span>
+                                        </div>
+                                        <div class="events-text-title events-text-title-3">
+                                            <a href="#">
+                                                <h4>UX/UI Deisgn</h4>
+                                            </a>
+                                            <div class="time-area">
+                                                <span class="ti-time"></span>
+                                                <span class="published-time">05:23 AM - 09:23 AM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="events-para">
+                                        <p>Event is veries fermentum consequat mi fonec has fermentum ellentesque malesuada.</p>
+                                    </div>
+                                    <div class="events-speaker">
+                                        <h2>Speaker : <span>Alexzender</span></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="single-events mb-30">
+                        <div class="events-wrapper">
+                            <div class="events-inner d-flex">
+                                <div class="events-text events-text-3">
+                                    <div class="event-text-heading d-flex mb-20">
+                                        <div class="events-calendar text-center">
+                                            <span class="date">03</span>
+                                            <span class="month">Dec, 2018</span>
+                                        </div>
+                                        <div class="events-text-title events-text-title-3">
+                                            <a href="#">
+                                                <h4>Spoken English</h4>
+                                            </a>
+                                            <div class="time-area">
+                                                <span class="ti-time"></span>
+                                                <span class="published-time">05:23 AM - 09:23 AM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="events-para">
+                                        <p>Event is veries fermentum consequat mi fonec has fermentum ellentesque malesuada.</p>
+                                    </div>
+                                    <div class="events-speaker">
+                                        <h2>Speaker : <span>Alexzender</span></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="courses-view-more-area mt-20 mb-30 text-center">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="courses-view-more-btn">
+                        <button class="btn gray-border-btn">view more</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- events end -->
+<!-- choose section -->
+<div id="choose" class="visionMission events-bg-height pt-70 pb-20 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1  aos-init aos-animate" data-aos="fade-up"
+                      data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                <div class="section-title mb-50 text-center">
+                    <div class="section-title-heading mb-20">
+                        <h1 class="primary-color">Why Choose Us</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row missionVissonRow">
+            <div class="col-md-5 mb-5 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                <div class="choose_box">
+
+                    <div><img src="/template/img/vission_trans.png" alt="#" /><h3>Our Vission</h3></div>
+
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+
+                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" href="VissionMission.html"><span class="btn-text">Read More</span></a>
+                </div>
+            </div>
+            <div class="col-md-5 mb-5 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                <div class="choose_box">
+                    <div><img src="/template/img/mission_trans.png" alt="#" /><h3>Our Mission</h3></div>
+
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" href="VissionMission.html"><span class="btn-text">Read More</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end choose section -->
+<!-- courses start -->
+<div id="upComingCourses" class="events-area events-bg-height pt-100 pb-50" style="background-image: url(/template/img/shop_bg.jpg)">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 aos-init aos-animate" data-aos="fade-up"
+                      data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                <div class="section-title mb-50 text-center">
+                    <div class="section-title-heading mb-20">
+                        <h1 class="white-color">Upcoming Courses</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="events-list mb-30">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 mb-30 aos-init aos-animate" data-aos="fade-down"
+                          data-aos-duration="1500">
+
+                     <style>
+               #courses-calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color:white;
+  }
+
+                     </style>
+
+                   <div id="courses-calendar"></div>
+                
+
+
+                </div>
+                <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-up"
+                         data-aos-duration="1500">
+                    <div class="single-events mb-30">
+                        <div class="events-wrapper">
+                            <div class="events-inner d-flex">
+                                <div class="events-thumb">
+                                    <img src="/template/img/events/event2.png" alt="">
+                                </div>
+                                <div class="events-text white-bg">
+                                    <div class="event-text-heading mb-20">
+                                        <div class="events-calendar text-center f-left">
+                                            <span class="date">25</span>
+                                            <span class="month">Sep, 2018</span>
+                                        </div>
+                                        <div class="events-text-title clearfix">
+                                            <a href="course_details.html">
+                                                <h4>Admission Fair 2017</h4>
+                                            </a>
+                                            <div class="time-area">
+                                                <span class="ti-time"></span>
+                                                <span class="published-time">05:23 AM - 09:23 AM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="events-para">
+                                        <p>Event is veries fermentum consequat mi fonec has fermentum ellentesque malesuada.</p>
+                                    </div>
+                                    <div class="events-speaker">
+                                        <h2>Speaker : <span>Alexzender</span></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- courses end -->
+<!-- events start -->
+<div id="upComingEvents" class="events-area events-bg-height pt-70 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 aos-init aos-animate" data-aos="fade-up"
+                      data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                <div class="section-title mb-50 text-center">
+                    <div class="section-title-heading mb-20">
+                        <h1 class="primary-color">Upcoming Events</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="events-list mb-30">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-up"
+                         data-aos-duration="1500">
+                    <div class="single-events mb-30">
+                        <div class="events-wrapper">
+                            <div class="events-inner d-flex">
+                                <div class="events-thumb">
+                                    <img src="/template/img/events/event1.png" alt="">
+                                </div>
+                                <div class="events-text">
+                                    <div class="event-text-heading mb-20">
+                                        <div class="events-calendar text-center f-left">
+                                            <span class="date">25</span>
+                                            <span class="month">Sep, 2018</span>
+                                        </div>
+                                        <div class="events-text-title clearfix">
+                                            <a href="news_details.html">
+                                                <h4>Business Conferences</h4>
+                                            </a>
+                                            <div class="time-area">
+                                                <span class="ti-time"></span>
+                                                <span class="published-time">05:23 AM - 09:23 AM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="events-para">
+                                        <p>Event is veries fermentum consequat mi fonec has fermentum ellentesque malesuada.</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-down"
+                         data-aos-duration="1500">
+                    <div class="calenderDiv">
+                        <img src="/template/img/calender1.PNG" style="width:100%;border-radius:5px" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- events end -->
+
+
+
 @section Scripts{
+	<script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>
+	<script src="~/lib/fullcalendar-6.0.1/dist/index.global.js"></script>
     <script src="~/js/course.js"></script>
     <script src="~/js/calenderscript.js"></script>
-}
 
-
+}<a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/moment.js"></script>
+    <script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>

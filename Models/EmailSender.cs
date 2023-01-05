@@ -6,7 +6,7 @@ namespace ESTA.Models
     {
         public static  bool Send_Mail(string to, string body, string subject, string fromtitle)
         {
-            //to is not used instead we fetch it from webconfig
+            
 
             try
             {

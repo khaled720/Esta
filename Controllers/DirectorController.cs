@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 namespace ESTA.Controllers
 {
    // [Authorize("RequireAdminRole")]
-    [Route("Admin/{controller}/{action=Index}/{id?}")]
+   
     public class DirectorController : Controller
     {
         private readonly IUnitOfWork uow;
@@ -19,12 +19,27 @@ namespace ESTA.Controllers
             this.hostEnvironment = hostEnvironment;
         }
 
+
+
+
+   public async Task<IActionResult> BoardofDirectors()
+        {
+            var directors=await uow.DirectorRep.GetAllDirectors();
+
+            return View(directors);
+        }
+
+
         public async Task<IActionResult> Index()
         {
             var directors=await uow.DirectorRep.GetAllDirectors();
 
             return View(directors);
         }
+
+
+
+
 
         public IActionResult AddDirector()
         {

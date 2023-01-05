@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ESTA.Models.Director>
+
+
+
+
+
+<!-- slider-start -->
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">Board Of Directors</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="#" tabindex="0">About</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Board Of Directors</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider-end -->
+<!-- team start -->
+<div class="team-area pt-50 pb-50">
+    <div class="container">
+
+        <div class="team-list">
+            <div class="row">
+             @foreach (var item in Model)
+             {
+                 <div class="col-xl-3 col-lg-3 col-md-6">
+                    <div class="team-wrapper mb-30">
+                        <div class="team-thumb">
+                            <img src="@item.PhotoPath" alt="board" />
+                        </div>
+                        <div class="team-social-info text-center">
+                            <div class="team-social-para">
+                                <p>Belis nisl adipiscing sapien malesu diame lacus eget erats</p>
+                            </div>
+
+                        </div>
+                        <div class="team-teacher-info text-center">
+                            <h1>@item.NameEn</h1>
+                            <h2>@item.JobEn</h2>
+                        </div>
+                    </div>
+                </div> 
+             }
+                
+               
+              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- team end -->
+
+
+
+
+
