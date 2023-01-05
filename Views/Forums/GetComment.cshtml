@@ -52,6 +52,7 @@
                     pageNo = 1
                     ListReplies(data, false)
                     $('#replyToggle' + id).css('visibility', 'visible')
+                    $('#replyCollapse' + id).show();
                 },
                 error: function (data) {
                     console.log('hiii')
@@ -94,6 +95,7 @@
             }
             else
                 $('#replyList' + id).html(str);
+            
         }
 
     </script>

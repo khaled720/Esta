@@ -150,6 +150,9 @@
   <data name="News" xml:space="preserve">
     <value>خبر</value>
   </data>
+  <data name="News&amp;Events" xml:space="preserve">
+    <value>الاحداث والاخبار</value>
+  </data>
   <data name="NewsOrEvent" xml:space="preserve">
     <value>هل هذا حدث ام خبر؟</value>
   </data>
@@ -162,7 +165,16 @@
   <data name="readMore" xml:space="preserve">
     <value>قراءة المزيد</value>
   </data>
+  <data name="StayTuned!!" xml:space="preserve">
+    <value>StayTuned!!</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>تاكيد</value>
+  </data>
+  <data name="UpcomingEvents" xml:space="preserve">
+    <value>الاحداث القادمة</value>
+  </data>
+  <data name="viewMore" xml:space="preserve">
+    <value>مشاهدة المزيد</value>
   </data>
 </root>

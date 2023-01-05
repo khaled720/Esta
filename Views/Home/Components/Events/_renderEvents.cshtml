@@ -12,7 +12,7 @@
                       data-aos-anchor-placement="center-center" data-aos-duration="1000">
                 <div class="section-title mb-50 text-center">
                     <div class="section-title-heading mb-20">
-                        <h1 class="primary-color">News & Events</h1>
+                        <h1 class="primary-color">@ESTA.Resources.EventsNews.News_Events</h1>
                     </div>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                     <div class="blog-wrapper mb-30">
                         <div class="blog-thumb mb-25">
                             <a href="/EventsNews/GetEvent/@news.Id"><img src="@news.Image" alt=""></a>
-                            @if (news.Flag == 0)
+                            @if (news.Flag == 1)
                             {
-                                <span class="blog-category">News</span>
+                                <span class="blog-category">@ESTA.Resources.EventsNews.News</span>
                             }
                             else
                             {
-                                <span class="blog-category">Events</span>
+                                <span class="blog-category">@ESTA.Resources.EventsNews.Event</span>
                             }
                         </div>
                         <div class="blog-content">
@@ -41,11 +41,11 @@
 
 
                             <h5><a href="/EventsNews/GetEvent/@news.Id">@news.Title</a></h5>
-                            <p>
+                            <p style="word-break: break-word;">
                                 @news.Description...
                             </p>
                             <div class="read-more-btn">
-                                <a class="" href="/EventsNews/GetEvent/@news.Id"><span class="">Read More</span></a>
+                                <a class="" href="/EventsNews/GetEvent/@news.Id"><span class="">@ESTA.Resources.EventsNews.readMore</span></a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="courses-view-more-btn">
-                        <a class="btn gray-border-btn" href="/EventsNews/Index"><span class="">view more</span></a>
+                        <a class="btn gray-border-btn" href="/EventsNews/Index"><span class="">@ESTA.Resources.EventsNews.viewMore</span></a>
                     </div>
                 </div>
             </div>

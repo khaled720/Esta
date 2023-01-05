@@ -1,4 +1,5 @@
-﻿using ESTA.Models;
+﻿using ESTA.Helpers;
+using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Localization;
@@ -31,17 +32,13 @@ namespace ESTA.ViewComponents
                 {
                     Date = eventItem.Date,
                     Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr,
-                    Description = RemoveHTMLTags(details).Substring(1, 20),
+                    Description = HtmlHelper.RemoveHTMLTags(details),
                     Id = eventItem.Id,
                     Image = eventItem.Image,
                     Flag = eventItem.Flag
                 });
             }
             return View("_renderEvents", DisplayEvent);
-        }
-        private static string RemoveHTMLTags(string text)
-        {
-            return Regex.Replace(text.Trim(), "<.*?>", String.Empty);
         }
     }
 }

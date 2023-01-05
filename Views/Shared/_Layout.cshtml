@@ -15,13 +15,7 @@
         ? "~/"
         : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
 
-    var admin = false;
     var IsSigned = signInManager.IsSignedIn(User);
-    if (signInManager.IsSignedIn(User))
-    {
-        var user = await userManager.GetUserAsync(User);
-        admin = await userManager.IsInRoleAsync(user, "Admin");
-    }
 }
 
 <!DOCTYPE html>
@@ -37,7 +31,7 @@
     <!-- Place favicon.ico in the root directory -->
     <!-- CSS here -->
     <link href="~/template/css/bootstrap.min.css" rel="stylesheet" />
-
+    <link href="~/template/css/inner.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/owl.carousel.min.css">
     <link href="~/template/css/animate.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/magnific-popup.css">
@@ -71,7 +65,7 @@
                                 </div>
                                 <div class="header-contact header-login">
                                     <span class="ti-user"></span>
-                                    <a href="#" target="_blank" class="loginBtn">Login</a>
+                                    <a href="/Account/Login" target="_blank" class="loginBtn">Login</a>
                                 </div>
 
                             </div>
@@ -162,21 +156,10 @@
                                             <ul class="submenu">
                                                 @if (IsSigned)
                                                 {
-                                                    if (admin)
-                                                    {
-                                                        <li>
-                                                            <a href="/Forums/NewForum">New Forum</a>
-                                                        </li>
-                                                    }
+                                                    
                                                     <li>
                                                         <a href="/Forums/Index">Discussion Board "Forum"</a>
                                                     </li>
-                                                    if (admin)
-                                                    {
-                                                        <li>
-                                                            <a href="/EventsNews/CreateEvent">New Event</a>
-                                                        </li>
-                                                    }
                                                     <li>
                                                         <a href="/EventsNews/Index">ESTA Event "ESTA Days"</a>
                                                     </li>

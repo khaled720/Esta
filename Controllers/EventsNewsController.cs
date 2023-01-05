@@ -5,6 +5,7 @@ using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -73,10 +74,12 @@ namespace ESTA.Controllers
             else
                 return RedirectToAction("Error"); ;
         }
+        [Authorize(Roles ="Admin")]
         public IActionResult CreateEvent()
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateEventAsync(CreateEvent Event)
         {
@@ -93,6 +96,7 @@ namespace ESTA.Controllers
 
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult EditEvent(int id)
         {
             EventsNews Event = appRep.EventRep.GetEventById(id);
@@ -105,6 +109,7 @@ namespace ESTA.Controllers
             else
                 return RedirectToAction("Error");
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditEventAsync(EditEvents EditEvent)
         {
@@ -128,6 +133,7 @@ namespace ESTA.Controllers
 
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEventAsync(int id)
         {
             EventsNews events = appRep.EventRep.FindEvent(id);
@@ -138,10 +144,6 @@ namespace ESTA.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Error");
-        }
-        private static string RemoveHTMLTags(string text)
-        {
-            return Regex.Replace(text.Trim(), "<.*?>", String.Empty);
         }
         private List<DisplayEvents> EventsModelToEventsDisplay(int page)
         {
@@ -154,12 +156,12 @@ namespace ESTA.Controllers
             {
                 if (culture == "en")
                 {
-                    details = RemoveHTMLTags(eventVar.DetailsEn).Substring(1, 20);
+                    details = HtmlHelper.RemoveHTMLTags(eventVar.DetailsEn);
                     title = eventVar.TitleEn;
                 }
                 else
                 {
-                    details = RemoveHTMLTags(eventVar.DetailsAr).Substring(1, 20);
+                    details = HtmlHelper.RemoveHTMLTags(eventVar.DetailsAr);
                     title = eventVar.TitleAr;
                 }
                 EventsNews.Add(new()

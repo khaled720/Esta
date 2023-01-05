@@ -6,6 +6,7 @@ $(document).ready(function () {
         selectable: false,
         initialView: 'dayGridMonth',
         height: '400px',
+        moreLinkText:"more",
         fixedWeekCount: false,
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
@@ -21,7 +22,7 @@ $(document).ready(function () {
                         events.push(
                             {
                                 title: data.title,
-                                start: moment(data.date).format("YYYY-MM-DD"),
+                                start: moment(data.date).format(),
                                 url: '/EventsNews/GetEvent/' + data.id,
                                 backgroundColor: "cornflowerblue",
                                 borderColor: "black"

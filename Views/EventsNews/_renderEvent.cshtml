@@ -11,7 +11,7 @@
         <div class="blog-wrapper bg-grey mb-30">
             <div class="blog-thumb mb-25">
                 <a href="news_details.html"><img src="@eventObj.Image" alt=""></a>
-                @if (eventObj.Flag == 0)
+                @if (eventObj.Flag == 1)
                 {
                     <span class="blog-category">News</span>
                 }
@@ -29,7 +29,7 @@
                 </div>
                 }
                 <h5><a href="/EventsNews/GetEvent/@eventObj.Id">@eventObj.Title</a></h5>
-                <p>@eventObj.Description...</p>
+                <p style="word-break: break-word;">@eventObj.Description...</p>
                 <div class="read-more-btn">
                     <a class="" href="/EventsNews/GetEvent/@eventObj.Id"><span class="">Read More</span></a>
                 </div>

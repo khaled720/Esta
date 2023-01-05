@@ -150,6 +150,9 @@
   <data name="News" xml:space="preserve">
     <value>News</value>
   </data>
+  <data name="News&amp;Events" xml:space="preserve">
+    <value>News &amp; Events</value>
+  </data>
   <data name="NewsOrEvent" xml:space="preserve">
     <value>Is this an Event or News?</value>
   </data>
@@ -160,9 +163,18 @@
     <value>Previous</value>
   </data>
   <data name="readMore" xml:space="preserve">
-    <value>read more</value>
+    <value>Read More</value>
+  </data>
+  <data name="StayTuned!!" xml:space="preserve">
+    <value>StayTuned!!</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="UpcomingEvents" xml:space="preserve">
+    <value>Upcoming Events</value>
+  </data>
+  <data name="viewMore" xml:space="preserve">
+    <value>View More</value>
   </data>
 </root>

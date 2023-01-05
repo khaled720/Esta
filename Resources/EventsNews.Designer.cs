@@ -160,6 +160,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to News &amp; Events.
+        /// </summary>
+        public static string News_Events {
+            get {
+                return ResourceManager.GetString("News&Events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is this an Event or News?.
         /// </summary>
         public static string NewsOrEvent {
@@ -187,11 +196,20 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to read more.
+        ///   Looks up a localized string similar to Read More.
         /// </summary>
         public static string readMore {
             get {
                 return ResourceManager.GetString("readMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to StayTuned!!.
+        /// </summary>
+        public static string StayTuned__ {
+            get {
+                return ResourceManager.GetString("StayTuned!!", resourceCulture);
             }
         }
         
@@ -201,6 +219,24 @@ namespace ESTA.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upcoming Events.
+        /// </summary>
+        public static string UpcomingEvents {
+            get {
+                return ResourceManager.GetString("UpcomingEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View More.
+        /// </summary>
+        public static string viewMore {
+            get {
+                return ResourceManager.GetString("viewMore", resourceCulture);
             }
         }
     }

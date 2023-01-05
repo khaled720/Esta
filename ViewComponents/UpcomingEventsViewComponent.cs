@@ -1,4 +1,5 @@
-﻿using ESTA.Models;
+﻿using ESTA.Helpers;
+using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Localization;
@@ -28,7 +29,7 @@ namespace ESTA.ViewComponents
                 string details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
                 LatestEvent.Date = eventItem.Date;
                 LatestEvent.Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
-                LatestEvent.Description = RemoveHTMLTags(details).Substring(1, 20);
+                LatestEvent.Description = HtmlHelper.RemoveHTMLTags(details);
                 LatestEvent.Id = eventItem.Id;
                 LatestEvent.Image = eventItem.Image;
                 LatestEvent.Flag = eventItem.Flag;
@@ -37,10 +38,6 @@ namespace ESTA.ViewComponents
                 LatestEvent = null;
 
             return View("_upcomingEvent", LatestEvent);
-        }
-        private static string RemoveHTMLTags(string text)
-        {
-            return Regex.Replace(text.Trim(), "<.*?>", String.Empty);
         }
     }
 }
