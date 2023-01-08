@@ -41,10 +41,16 @@ namespace ESTA.Controllers
         }
 
      
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            List<Course> courses = (List<Course>)await Uow.CoursesRep.GetAllCourses();
-            return View(courses);
+            var hivm = new HomeIndexViewModel();
+            hivm.About = Uow.ContentRep.GetContent("about").GetAwaiter().GetResult().DescriptionEn;
+            hivm.Mission = "This is mission section This iThis is About section text coming from db bla blaThis is About section text coming from db bla bla section text coming from db bla bla";
+            hivm.Vission = "This is Vision section text coming from db bla blaThis is About section text coming from db bla blaThis is About section text coming from db bla blaThis is About section text coming from db bla bla";
+
+
+
+                return View(hivm);
         }
 
         public async Task<IActionResult> About(string type)

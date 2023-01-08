@@ -268,7 +268,8 @@ namespace ESTA.Controllers
         [HttpGet]
         public async Task<IEnumerable<Course>> Get()
         {
-            return await appRep.CoursesRep.GetAllCourses();
+             var courses=await appRep.CoursesRep.GetAllCourses();
+            return courses;
         }
 
         [HttpPost]

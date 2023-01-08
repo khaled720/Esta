@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model List<ESTA.Models.Course>
+@model ESTA.ViewModels.HomeIndexViewModel
 
 
 
@@ -69,16 +69,10 @@
                     <h1>About ESTA</h1>
                     <h5>The Egyptian Society of Technical Analysts ( ESTA )</h5>
                     <p>
-                        Technical analysis is a security analysis discipline for forecasting the future direction of prices through the study of charts of past market data, primarily price and volume.
-
-                        The Egyptian Society of Technical Analysts (ESTA) is the first professional technical analysis society in the Middle East.
-
-                        ESTA is a non-profit organization founded in 2000 by Mr. Amr Dabbous and Mr. Ayman Waked with the aim to disseminate & teach the science of technical analysis all around Egypt.
-
-                        ESTA is a full member of the International Federation of Technical Analysts (IFTA), and that placed the Egyptian Society of Technical Analysts (ESTA) as one of the top societies around the globe, along with STA (England), NTAA (Japan) & ATAA (Australia).
-                    </p>
+                 @Model.About
+                 </p>
                  
-                    <a class="theme-btn blue-bg-border mt-20" href="about_us.html"><span class="btn-text">Read More</span></a>
+                    <a class="theme-btn blue-bg-border mt-20" href="/Home/About?type=about"><span class="btn-text">Read More</span></a>
                     
                     <!--<button class="theme-btn blue-bg-border mt-20"><span class="btn-text">Read More</span></button>-->
                 </div>
@@ -333,7 +327,7 @@
 
                     <div><img src="/template/img/vission_trans.png" alt="#" /><h3>Our Vission</h3></div>
 
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+                    <p> @Model.Vission</p>
 
                     <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" href="VissionMission.html"><span class="btn-text">Read More</span></a>
                 </div>
@@ -342,7 +336,7 @@
                 <div class="choose_box">
                     <div><img src="/template/img/mission_trans.png" alt="#" /><h3>Our Mission</h3></div>
 
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+                    <p>@Model.Mission</p>
                     <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" href="VissionMission.html"><span class="btn-text">Read More</span></a>
                 </div>
             </div>
@@ -494,13 +488,15 @@
 
 
 @section Scripts{
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/moment.js"></script>
 	<script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>
 	<script src="~/lib/fullcalendar-6.0.1/dist/index.global.js"></script>
     <script src="~/js/course.js"></script>
     <script src="~/js/calenderscript.js"></script>
 
-}<a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/moment.js"></script>
-    <script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>
+ 
+}
+	
