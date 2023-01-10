@@ -95,11 +95,11 @@ namespace ESTA.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult EditForum(int id)
+        public async Task<IActionResult> EditForumAsync(int id)
         {
             Forum? Forum = appRep.ForumRep.GetForum(id, true);
 
-            ViewBag.LevelsListItem = GetLevelsAsync();
+            ViewBag.LevelsListItem = await GetLevelsAsync();
             if (Forum != null)
             {
                 EditForum editForum = _mapper.Map<Forum, EditForum>(Forum);

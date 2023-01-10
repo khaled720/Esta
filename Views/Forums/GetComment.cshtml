@@ -53,7 +53,7 @@
                     pageNo = 1
                     ListReplies(data, false)
                     $('#replyToggle' + id).css('visibility', 'visible')
-                    $('#replyCollapse' + id).show();
+                    
                     checkCommentReplies()
                 },
                 error: function (data) {
@@ -98,7 +98,7 @@
             }
             else
                 $('#replyList' + id).html(str);
-            
+            $('#replyCollapse' + id).collapse('show');
         }
 
         function checkCommentReplies() {
