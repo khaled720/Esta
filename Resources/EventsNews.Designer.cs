@@ -88,6 +88,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Esta Event.
+        /// </summary>
+        public static string EstaEvent {
+            get {
+                return ResourceManager.GetString("EstaEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
         public static string Event {
@@ -138,6 +147,15 @@ namespace ESTA.Resources {
         public static string EventTitleEn {
             get {
                 return ResourceManager.GetString("EventTitleEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event Type.
+        /// </summary>
+        public static string EventType {
+            get {
+                return ResourceManager.GetString("EventType", resourceCulture);
             }
         }
         
@@ -205,7 +223,16 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StayTuned!!.
+        ///   Looks up a localized string similar to Social Event.
+        /// </summary>
+        public static string SocialEvent {
+            get {
+                return ResourceManager.GetString("SocialEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stay Tuned!!.
         /// </summary>
         public static string StayTuned__ {
             get {

@@ -58,10 +58,18 @@ namespace ESTA.Controllers
                 {
                     ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
                     ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
+                    ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
+
                     return View(ViewForum);
                 }
             }
             return RedirectToAction("Error");
+        }
+        public IActionResult CheckMoreComments(int forumId, int page)
+        {
+            bool MoreComments = appRep.ForumRep.CheckMoreComments(page, ForumId: forumId);
+
+            return Json(MoreComments);
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -82,7 +90,7 @@ namespace ESTA.Controllers
             };
             appRep.ForumRep.AddForum(Newforum);
             await appRep.SaveChangesAsync();
-            
+
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Admin")]
@@ -143,8 +151,10 @@ namespace ESTA.Controllers
 
             newComment = appRep.ForumRep.GetCommentById(newComment.Id);
             GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
-            var commentList = new List<GetUserForums>();
-            commentList.Add(addedComment);
+            var commentList = new List<GetUserForums>
+            {
+                addedComment
+            };
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -173,7 +183,7 @@ namespace ESTA.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCommentAsync(int commentId)
         {
-            var Reply = appRep.ForumRep.GetReplies(commentId, null);
+            var Reply = appRep.ForumRep.GetReplies(commentId);
             Reply.Add(appRep.ForumRep.GetCommentById(commentId));
             appRep.ForumRep.DeleteComment(Reply);
             await appRep.SaveChangesAsync();
@@ -253,7 +263,7 @@ namespace ESTA.Controllers
             return PartialView("_RenderComment", renderComment);
         }
         [HttpGet]
-        public IActionResult GetCommentReplies(int parentId, int? page = 0)
+        public IActionResult GetCommentReplies(int parentId, int page = 0)
         {
             var forumsList = appRep.ForumRep.GetReplies(parentId, page);
             List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
@@ -261,10 +271,17 @@ namespace ESTA.Controllers
             return Json(getUserForums);
         }
         [HttpGet]
+        public IActionResult CheckCommentReplies(int parentId, int page = 0)
+        {
+            bool CheckReplies = appRep.ForumRep.CheckMoreComments(page, parentId);
+
+            return Json(CheckReplies);
+        }
+        [HttpGet]
         public IActionResult GetForumStatistics(int? id)
         {
             //count of comment/ count of replies/ count of engaging users.
-            ForumStatisticsObj statisticsObj = new ();
+            ForumStatisticsObj statisticsObj = new();
             DateTime todayDate = DateTime.Now.Date;
             DateTime yesterday = DateTime.Now.AddDays(-1).Date;
             DateTime threeMonths = DateTime.Now.AddMonths(-3).Date;

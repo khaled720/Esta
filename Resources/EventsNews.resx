@@ -126,6 +126,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EstaEvent" xml:space="preserve">
+    <value>Esta Event</value>
+  </data>
   <data name="Event" xml:space="preserve">
     <value>Event</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="EventTitleEn" xml:space="preserve">
     <value>Event English Title</value>
+  </data>
+  <data name="EventType" xml:space="preserve">
+    <value>Event Type</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Drag and drop a file or click to add Image</value>
@@ -165,8 +171,11 @@
   <data name="readMore" xml:space="preserve">
     <value>Read More</value>
   </data>
+  <data name="SocialEvent" xml:space="preserve">
+    <value>Social Event</value>
+  </data>
   <data name="StayTuned!!" xml:space="preserve">
-    <value>StayTuned!!</value>
+    <value>Stay Tuned!!</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>

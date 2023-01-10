@@ -36,16 +36,18 @@
             </div>
         </div>
     </div>
-    <div class="courses-view-more-area mt-20 mb-30 text-center">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="courses-view-more-btn">
-                    <button onclick="LoadMoreEvents()" class="btn gray-border-btn"><span class="">view more</span></button>
+    @if (ViewBag.EventCount)
+    {
+        <div id="MoreBtn" class="courses-view-more-area mt-20 mb-30 text-center">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="courses-view-more-btn">
+                        <button onclick="LoadMoreEvents()" class="btn gray-border-btn"><span class="">view more</span></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    }
 }
 else
 {
@@ -68,7 +70,7 @@ else
                 },
                 success: function (data) {
                     $('#cards').append(data);
-                    console.log(data)
+                    checkMoreEvents();
                 },
                 error: function (data) {
                     console.log(data)
@@ -76,5 +78,22 @@ else
             });
         }
 
+        function checkMoreEvents() {
+            $.ajax({
+                type: 'get',
+                url: '/EventsNews/CheckMoreEvents',
+                data: {
+                    page: page
+                },
+                success: function (data) {
+                    if (!data) {
+                        $('#MoreBtn').hide();
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
     </script>
     }

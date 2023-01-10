@@ -126,6 +126,9 @@
   <data name="Edit" xml:space="preserve">
     <value>تعديل</value>
   </data>
+  <data name="EstaEvent" xml:space="preserve">
+    <value>Esta حدث</value>
+  </data>
   <data name="Event" xml:space="preserve">
     <value>حدث</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="EventTitleEn" xml:space="preserve">
     <value>العنوان باللغة الانجليزية</value>
+  </data>
+  <data name="EventType" xml:space="preserve">
+    <value>نوع الحدث</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>اضغط لاضافة صورة او قم بسحب و اسقاط الصورة</value>
@@ -165,8 +171,11 @@
   <data name="readMore" xml:space="preserve">
     <value>قراءة المزيد</value>
   </data>
+  <data name="SocialEvent" xml:space="preserve">
+    <value>حدث اجتماعي</value>
+  </data>
   <data name="StayTuned!!" xml:space="preserve">
-    <value>StayTuned!!</value>
+    <value>Stay Tuned!!</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>تاكيد</value>

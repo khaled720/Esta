@@ -278,5 +278,27 @@ namespace ESTA.Repository
 
             return list.ToList();
         }
+
+        public bool CheckMoreComments(int page, int? parentId = null, int? ForumId = null, int count = 3)
+        {
+            if (parentId.HasValue)
+            {
+                return appContext.UsersForums
+                    .Where(u => u.ParentId == parentId.Value)
+                    .Skip(page * count)
+                    .Take(count)
+                    .Any();
+            }
+            else if (ForumId.HasValue && parentId == null)
+            {
+                return appContext.UsersForums
+                    .Where(u => u.forumId == ForumId.Value && u.ParentId == null)
+                    .Skip(page * count)
+                    .Take(count)
+                    .Any();
+            }
+
+            return false;
+        }
     }
 }

@@ -47,7 +47,10 @@
                     </div>
                     <div class="blog-content news-content">
                         <div class="blog-meta news-meta">
-                            <span>@Model.Date.Value.ToString("yyyy-MMM-dd")</span>
+                            @if (Model.Date.HasValue)
+                            {
+                                <span>@Model.Date.Value.ToString("yyyy-MMM-dd")</span>
+                            }
                         </div>
                         <h5>@Model.Title</h5>
                         <p>

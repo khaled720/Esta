@@ -7,7 +7,12 @@ html {
     font-size: 16px;
   }
 }
-
+@media (max-width: 992px) {
+    #langddl {
+        max-width: 90%;
+        margin:auto;
+    }
+}
 html {
   position: relative;
   min-height: 100%;

@@ -22,13 +22,11 @@ namespace ESTA.Controllers
         private readonly IUnitOfWork appRep;
         private readonly IMapper mapper;
         private readonly string culture;
-        private readonly IWebHostEnvironment webHost;
 
-        public EventsNewsController(IWebHostEnvironment webHost, IUnitOfWork appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
+        public EventsNewsController(IUnitOfWork appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             this.appRep = appRep;
             this.mapper = mapper;
-            this.webHost = webHost;
 
             var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
@@ -42,8 +40,15 @@ namespace ESTA.Controllers
         public IActionResult Index()
         {
             List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(0);
+            ViewBag.EventCount = appRep.EventRep.CheckEvents(1);
 
             return View(EventsNews);
+        }
+        public IActionResult CheckMoreEvents(int page)
+        {
+            bool CheckEvent = appRep.EventRep.CheckEvents(page + 1);
+
+            return Json(CheckEvent);
         }
         public IActionResult GetEventsPage(int page)
         {
@@ -52,7 +57,7 @@ namespace ESTA.Controllers
             {
                 Events = EventsNews,
             };
-            
+
             return PartialView("_renderEvent", displayEvent);
         }
         public IActionResult GetEvent(int id)
@@ -74,7 +79,7 @@ namespace ESTA.Controllers
             else
                 return RedirectToAction("Error"); ;
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateEvent()
         {
             return View();

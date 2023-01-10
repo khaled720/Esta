@@ -78,19 +78,19 @@
                 </div>
 
                 <div class="col-6">
-                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventTitleEn</label>
-                    <input class="form-control" id="formTitle" type="text" asp-for="TitleEn" />
+                    <label for="formTitleEn" class="form-label">@ESTA.Resources.EventsNews.EventTitleEn</label>
+                    <input class="form-control" id="formTitleEn" type="text" asp-for="TitleEn" />
                     <span asp-validation-for="TitleEn" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-6 mt-3">
-                <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
+                <label for="formDate" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
                 <input class="form-control" id="formDate" type="datetime-local" asp-for="Date" value="" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
 
             <div class="col-12 mt-3">
-                <label for="editor_en" class="form-label">@ESTA.Resources.EventsNews.EventDetailsAr</label>
+                <label for="editor_ar" class="form-label">@ESTA.Resources.EventsNews.EventDetailsAr</label>
                 <textarea class="form-control" id="editor_ar" asp-for="DetailsAr"></textarea>
                 <span asp-validation-for="DetailsAr" class="text-danger"></span>
             </div>
@@ -103,16 +103,34 @@
 
             <div class="col-12 mt-3">
                 <label class="form-label">@ESTA.Resources.EventsNews.NewsOrEvent</label>
-                <div class="form-check form-check-inline">
-                    @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input",@checked = "checked"})
+
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input", @id="flexRadioDefault1"})
                     <label class="form-check-label" for="flexRadioDefault1">
                         @ESTA.Resources.EventsNews.News
                     </label>
                 </div>
-                <div class="form-check form-check-inline">
-                    @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input"})
-                    <label class="form-check-label" for="flexRadioDefault1">
+
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input", @id="flexRadioDefault2"})
+                    <label class="form-check-label" for="flexRadioDefault2">
                         @ESTA.Resources.EventsNews.Event
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label class="form-label">@ESTA.Resources.EventsNews.EventType</label>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.EventType,1, new{@class="form-check-input", @id="flexRadioDefault3"})
+                    <label class="form-check-label" for="flexRadioDefault3">
+                        @ESTA.Resources.EventsNews.EstaEvent
+                    </label>
+                </div>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.EventType,0, new{@class="form-check-input", @id="flexRadioDefault4"})
+                    <label class="form-check-label" for="flexRadioDefault4">
+                        @ESTA.Resources.EventsNews.SocialEvent
                     </label>
                 </div>
             </div>

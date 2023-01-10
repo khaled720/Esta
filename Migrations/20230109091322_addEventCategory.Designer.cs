@@ -4,6 +4,7 @@ using ESTA.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESTA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230109091322_addEventCategory")]
+    partial class addEventCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,7 +191,7 @@ namespace ESTA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EventType")
+                    b.Property<int>("EventType")
                         .HasColumnType("int");
 
                     b.Property<int>("Flag")
@@ -709,15 +711,15 @@ namespace ESTA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "af2e99c7-7674-49de-8ccd-3e07353f6e6d",
-                            ConcurrencyStamp = "c1634d2f-d668-47ef-89be-495d687bd337",
+                            Id = "096edd9c-5f2d-409c-b231-7e95ee741064",
+                            ConcurrencyStamp = "bf94b753-142d-47f2-9ff4-8d7ca3f3fa14",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d9971ff2-577e-4fee-a728-8e6b6f32fadc",
-                            ConcurrencyStamp = "b60f60dc-597f-4ef1-b810-2943d65bdedc",
+                            Id = "a9bccd5d-84c5-4e9d-91af-bd614079e4ea",
+                            ConcurrencyStamp = "b49e9f81-ddbf-427d-8aa3-bc78676d1d99",
                             Name = "User",
                             NormalizedName = "USER"
                         });

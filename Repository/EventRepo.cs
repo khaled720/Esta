@@ -18,6 +18,13 @@ namespace ESTA.Repository
             context.Add(Event);
         }
 
+        public bool CheckEvents(int page, int count = 3)
+        {
+            return context.EventsNews
+                .Skip(page * count)
+                .Take(count).Any();
+        }
+
         public void DeleteEvent(EventsNews events)
         {
             context.EventsNews.Remove(events);
