@@ -39,26 +39,55 @@ namespace ESTA.Controllers
         }
         public IActionResult Index()
         {
-            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(0);
-            ViewBag.EventCount = appRep.EventRep.CheckEvents(1);
+            var flagNews = (int)Flag.News;
+            var flagEvents = (int)Flag.Events;
+            var Social = (int)EventType.Social;
+            var Esta = (int)EventType.Esta;
 
-            return View(EventsNews);
+            List<DisplayEvents> News = EventsModelToEventsDisplay(0, flagNews, null);
+            List<DisplayEvents> EstaEvent = EventsModelToEventsDisplay(0, flagEvents, Esta);
+            List<DisplayEvents> SocialEvent = EventsModelToEventsDisplay(0, flagEvents, Social);
+
+            List<DisplayEventPartial> eventPartial = new()
+            {
+                new DisplayEventPartial()
+                {
+                    EventsList = News,
+                    DivId = "News",
+                    Flag = flagNews,
+                    EventType = null,
+                    ViewMore = appRep.EventRep.CheckEvents(1, flagNews, null)
+                },
+                new DisplayEventPartial()
+                {
+                    EventsList = EstaEvent,
+                    DivId = "Esta",
+                    Flag = flagEvents,
+                    EventType = Esta,
+                    ViewMore = appRep.EventRep.CheckEvents(1, flagEvents, Esta)
+                },
+                new DisplayEventPartial()
+                {
+                    EventsList = SocialEvent,
+                    DivId = "Social",
+                    Flag = flagEvents,
+                    EventType = Social,
+                    ViewMore = appRep.EventRep.CheckEvents(1, flagEvents, Social)
+                }
+            };
+            return View(eventPartial);
         }
-        public IActionResult CheckMoreEvents(int page)
+        public IActionResult CheckMoreEvents(int page, int Flag, int EventType)
         {
-            bool CheckEvent = appRep.EventRep.CheckEvents(page + 1);
+            bool CheckEvent = appRep.EventRep.CheckEvents(page + 1, Flag, EventType);
 
             return Json(CheckEvent);
         }
-        public IActionResult GetEventsPage(int page)
+        public IActionResult GetEventsPage(int page, int Flag, int? EventType)
         {
-            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(page);
-            DisplayEventPartial displayEvent = new()
-            {
-                Events = EventsNews,
-            };
+            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(page, Flag, EventType);
 
-            return PartialView("_renderEvent", displayEvent);
+            return PartialView("_renderEvent", EventsNews);
         }
         public IActionResult GetEvent(int id)
         {
@@ -150,9 +179,9 @@ namespace ESTA.Controllers
             }
             return RedirectToAction("Error");
         }
-        private List<DisplayEvents> EventsModelToEventsDisplay(int page)
+        private List<DisplayEvents> EventsModelToEventsDisplay(int page, int Flag, int? Eventtype)
         {
-            List<EventsNews> EventsList = appRep.EventRep.GetEvents(page);
+            List<EventsNews> EventsList = appRep.EventRep.GetEvents(page, Flag, Eventtype);
 
             List<DisplayEvents> EventsNews = new();
             string details;
@@ -181,5 +210,7 @@ namespace ESTA.Controllers
             }
             return EventsNews;
         }
+
+
     }
 }

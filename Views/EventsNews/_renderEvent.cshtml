@@ -3,23 +3,23 @@
 *@
 @{
 }
-@model ESTA.ViewModels.DisplayEventPartial
+@model List<ESTA.ViewModels.DisplayEvents>
 
-@foreach (var eventObj in Model.Events)
+@foreach (var eventObj in Model)
 {
     <div class="col-xl-4 col-lg-4 col-md-6">
         <div class="blog-wrapper bg-grey mb-30">
             <div class="blog-thumb mb-25">
-                <a href="news_details.html">
+                <a href="/EventsNews/GetEvent/@eventObj.Id">
                     <img src="@eventObj.Image" style="height: 202px;" alt="">
                 </a>
                 @if (eventObj.Flag == 1)
                 {
-                    <span class="blog-category">News</span>
+                    <span class="blog-category">@ESTA.Resources.EventsNews.News</span>
                 }
                 else
                 {
-                    <span class="blog-category">Event</span>
+                    <span class="blog-category">@ESTA.Resources.EventsNews.Event</span>
                 }
 
             </div>
@@ -33,13 +33,11 @@
                 <h5><a href="/EventsNews/GetEvent/@eventObj.Id">@eventObj.Title</a></h5>
                 <p style="word-break: break-word;">@eventObj.Description...</p>
                 <div class="read-more-btn">
-                    <a class="" href="/EventsNews/GetEvent/@eventObj.Id"><span class="">Read More</span></a>
+                    <a class="" href="/EventsNews/GetEvent/@eventObj.Id"><span class="">
+                        @ESTA.Resources.EventsNews.readMore
+                    </span></a>
                 </div>
             </div>
-@*            <div class="row justify-content-lg-around row-cols-3 mb-2">
-                <a asp-action="EditEvent" asp-route-id="@eventObj.Id" class="btn btn-secondary col" class="btn btn-primary">@ESTA.Resources.EventsNews.Edit</a>
-                <a asp-action="DeleteEvent" asp-route-id="@eventObj.Id" class="btn btn-danger col">@ESTA.Resources.EventsNews.Delete</a>
-            </div>*@
         </div>
     </div>
 }

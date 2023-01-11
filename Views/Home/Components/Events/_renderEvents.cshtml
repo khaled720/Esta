@@ -20,36 +20,40 @@
         <div class="row">
             @foreach (var news in Model)
             {
-                <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
-                    <div class="blog-wrapper mb-30">
-                        <div class="blog-thumb mb-25">
-                            <a href="/EventsNews/GetEvent/@news.Id"><img style="height: 202px;" src="@news.Image" alt=""></a>
-                            @if (news.Flag == 1)
-                            {
-                                <span class="blog-category">@ESTA.Resources.EventsNews.News</span>
-                            }
-                            else
-                            {
-                                <span class="blog-category">@ESTA.Resources.EventsNews.Event</span>
-                            }
-                        </div>
-                        <div class="blog-content">
-
-                            <div class="blog-meta">
-                                <span>@news.Date.Value.ToString("yyyy-MMM-dd")</span>
+                if (news != null)
+                {
+                    <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                        <div class="blog-wrapper mb-30">
+                            <div class="blog-thumb mb-25">
+                                <a href="/EventsNews/GetEvent/@news.Id"><img style="height: 202px;" src="@news.Image" alt=""></a>
+                                @if (news.Flag == 1)
+                                {
+                                    <span class="blog-category">@ESTA.Resources.EventsNews.News</span>
+                                }
+                                else
+                                {
+                                    <span class="blog-category">@ESTA.Resources.EventsNews.Event</span>
+                                }
                             </div>
+                            <div class="blog-content">
+                                @if (@news.Date.HasValue)
+                                {
+                                    <div class="blog-meta">
+                                        <span>@news.Date.Value.ToString("yyyy-MMM-dd")</span>
+                                    </div>
+                                }
 
-
-                            <h5><a href="/EventsNews/GetEvent/@news.Id">@news.Title</a></h5>
-                            <p style="word-break: break-word;">
-                                @news.Description...
-                            </p>
-                            <div class="read-more-btn">
-                                <a class="" href="/EventsNews/GetEvent/@news.Id"><span class="">@ESTA.Resources.EventsNews.readMore</span></a>
+                                <h5><a href="/EventsNews/GetEvent/@news.Id">@news.Title</a></h5>
+                                <p style="word-break: break-word;">
+                                    @news.Description...
+                                </p>
+                                <div class="read-more-btn">
+                                    <a class="" href="/EventsNews/GetEvent/@news.Id"><span class="">@ESTA.Resources.EventsNews.readMore</span></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         </div>
 

@@ -22,21 +22,34 @@ namespace ESTA.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            List<EventsNews> EventNews = Uow.EventRep.GetEvents(0);
+            var flagNews = (int)Flag.News;
+            var flagEvents = (int)Flag.Events;
+            var Social = (int)EventType.Social;
+            var Esta = (int)EventType.Esta;
+
             List<DisplayEvents> DisplayEvent = new();
+            List<EventsNews> EventNews = new()
+            {
+                Uow.EventRep.GetLatestEvent(flagNews,null),
+                Uow.EventRep.GetLatestEvent(flagEvents,Social),
+                Uow.EventRep.GetLatestEvent(flagEvents,Esta)
+            };
             string details;
             foreach (var eventItem in EventNews)
             {
-                details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
-                DisplayEvent.Add(new DisplayEvents()
+                if (eventItem != null)
                 {
-                    Date = eventItem.Date,
-                    Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr,
-                    Description = HtmlHelper.RemoveHTMLTags(details),
-                    Id = eventItem.Id,
-                    Image = eventItem.Image,
-                    Flag = eventItem.Flag
-                });
+                    details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
+                    DisplayEvent.Add(new DisplayEvents()
+                    {
+                        Date = eventItem.Date,
+                        Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr,
+                        Description = HtmlHelper.RemoveHTMLTags(details),
+                        Id = eventItem.Id,
+                        Image = eventItem.Image,
+                        Flag = eventItem.Flag
+                    });
+                }
             }
             return View("_renderEvents", DisplayEvent);
         }

@@ -56,7 +56,8 @@ namespace ESTA.Controllers
                 {
                     Date = eventItem.Date,
                     Title = culture == "en"? eventItem.TitleEn: eventItem.TitleAr,
-                    Id = eventItem.Id
+                    Id = eventItem.Id,
+                    EventType = eventItem.EventType
                 });
             }
 

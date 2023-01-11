@@ -3,7 +3,13 @@
 *@
 @{
 }
-@model List<ESTA.ViewModels.DisplayEvents>
+@model List<ESTA.ViewModels.DisplayEventPartial>
+
+<style>
+    .nav-pills .nav-link {
+        border: 0px
+    }
+</style>
 <div class="slider-area">
     <div class="page-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
@@ -11,7 +17,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="slider-content slider-content-breadcrumb text-center">
-                            <h1 class="white-color f-700">News</h1>
+                            <h1 class="white-color f-700">@ESTA.Resources.EventsNews.News_Events</h1>
                         </div>
                     </div>
                 </div>
@@ -20,57 +26,52 @@
     </div>
 </div>
 
-@if (Model.Count > 0)
-{
-    <div class="blog-grid-area pt-50 pb-50">
-        <div class="container">
-            <div class="blog-grid-list">
-                <div id="cards" class="row">
-                    @{
-                        await Html.RenderPartialAsync("_renderEvent", new ESTA.ViewModels.DisplayEventPartial()
-                {
-                    Events = Model
-                });
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    @if (ViewBag.EventCount)
-    {
-        <div id="MoreBtn" class="courses-view-more-area mt-20 mb-30 text-center">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="courses-view-more-btn">
-                        <button onclick="LoadMoreEvents()" class="btn gray-border-btn"><span class="">view more</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-}
-else
-{
-    <div>
-        <h2>There's no events</h2>
-    </div>
-}
 
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills mt-50" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news" type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">News</button>
+            <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social" type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">Social events</button>
+            <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta" type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">Esta days</button>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
+                @{
+                    await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x=>x.DivId == "News").FirstOrDefault());
+                }
+            </div>
+            <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
+                @{
+                    await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x => x.DivId == "Social").FirstOrDefault());
+                }
+            </div>
+            <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
+                @{
+                    await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x => x.DivId == "Esta").FirstOrDefault());
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts{
     <script>
         var page = 0
-        function LoadMoreEvents() {
+        function LoadMoreEvents(div, flag, event) {
             $.ajax({
                 type: 'get',
                 url: '/EventsNews/GetEventsPage',
                 data: {
-                    page: ++page
+                    page: ++page,
+                    Flag: flag,
+                    EventType: event
                 },
                 success: function (data) {
-                    $('#cards').append(data);
-                    checkMoreEvents();
+                    $('#cards' + div).append(data);
+                    checkMoreEvents(div, flag, event);
                 },
                 error: function (data) {
                     console.log(data)
@@ -78,16 +79,18 @@ else
             });
         }
 
-        function checkMoreEvents() {
+        function checkMoreEvents(div, flag, event) {
             $.ajax({
                 type: 'get',
                 url: '/EventsNews/CheckMoreEvents',
                 data: {
-                    page: page
+                    page: page,
+                    Flag: flag,
+                    EventType: event
                 },
                 success: function (data) {
                     if (!data) {
-                        $('#MoreBtn').hide();
+                        $('#MoreBtn' + div).hide();
                     }
                 },
                 error: function (data) {
