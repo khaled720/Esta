@@ -164,6 +164,7 @@ p {
     color: var(--secondary-color);
     margin-bottom: 15px;
     font-family: 'Open Sans', sans-serif;
+    
 }
 
 hr {
@@ -2600,7 +2601,7 @@ span.published-time.published-location {
 }
 
 .comments-box {
-    margin-bottom: 50px;
+    /*margin-bottom: 50px;*/
 }
 
 .comments-text a {
@@ -2880,8 +2881,11 @@ span.published-time.published-location {
     color: var(--secondary-color);
     margin-bottom: 4px;
     height: 100px;
+    word-break: break-word;
 }
-
+.events-para {
+    word-break: break-word;
+}
 .blog-wrapper {
     background-color: #fff;
     border-radius: 5px;
@@ -3077,7 +3081,7 @@ transform: translateY(-6px);
 
 .post-comments-padding {
     padding: 30px;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
 }
 
 .section-title h2 {

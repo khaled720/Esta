@@ -62,7 +62,7 @@
             </div>
             <div class="file-upload my-2">
                 <div class="image-upload-wrap">
-                    <input class="file-upload-input" asp-for="Image" type='file' onchange="readURL(this);" accept="image/*" />
+                    <input class="file-upload-input" accept="image/jpeg, image/png" asp-for="Image" type='file' onchange="readURL(this);" />
                     <img class="img-fluid" id="imgSrc" src="#" alt="your image" style="display:none;" />
 
                     <div class="drag-text">
@@ -111,12 +111,15 @@
                     </label>
                 </div>
 
+
                 <div class="form-check">
                     @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input", @id="flexRadioDefault2"})
                     <label class="form-check-label" for="flexRadioDefault2">
                         @ESTA.Resources.EventsNews.Event
                     </label>
                 </div>
+                <span asp-validation-for="Flag" class="text-danger"></span>
+
             </div>
 
             <div class="col-12 mt-3">

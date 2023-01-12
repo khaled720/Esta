@@ -10,6 +10,7 @@ using ESTA.Helpers;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +57,21 @@ builder.Services
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events = new CookieAuthenticationEvents
+    {
+        OnRedirectToLogin = x =>
+        {
+            x.Response.Redirect("/Account/Login");
+            return Task.CompletedTask;
+        }
+    };
+
+});
+
 var app = builder.Build();
+
 //tell app to use the resources.
 app.UseRequestLocalization(
     app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value
@@ -75,7 +90,7 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
-;
+
 
 app.UseAuthorization();
 

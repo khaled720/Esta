@@ -62,7 +62,7 @@
             </div>
             <div class="file-upload my-2">
                 <div class="image-upload-wrap">
-                    <input class="file-upload-input" asp-for="ImageUpload" type='file' onchange="readURL(this);" accept="image/*" />
+                    <input class="file-upload-input" asp-for="ImageUpload" type='file' onchange="readURL(this);" accept="image/jpeg, image/png" />
                     <img class="img-fluid" id="imgSrc" src="@Model.Image" alt="your image" />
                 </div>
             </div>
@@ -122,6 +122,7 @@
                         @ESTA.Resources.EventsNews.Event
                     </label>
                 </div>
+                <span asp-validation-for="Flag" class="text-danger"></span>
             </div>
 
             <div class="col-12 mt-3">

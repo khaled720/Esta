@@ -48,7 +48,9 @@ width:70%;
 
 
 
-
+p {
+    word-break: break-word !important
+}
 
 /* Style the Registration form */
 #regForm {

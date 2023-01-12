@@ -56,7 +56,7 @@
     </div>
 </div>
 <hr />
-<div class="news-details-area  pt-50 pb-50">
+<div class="news-details-area">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-12">
@@ -86,6 +86,9 @@
                                 <textarea wrap="hard" maxlength="500" name="comments" id="comment" cols="30" rows="5" class="form-control" placeholder="Your Comment"></textarea>
                                 <button class="btn btn-primary py-3 px-5 mt-3" onclick="AddComment()">send comment</button>
                             </div>
+                        </div>
+                        <div id="cmntErr" class="text-danger">
+
                         </div>
                     </div>
                 </div>
@@ -146,23 +149,28 @@
         }
 
         function AddComment() {
-            $.ajax({
-                type: 'post',
-                url: '/Forums/AddComment',
-                data: {
-                    forumId: $('#ForumId').val(),
-                    comment: $('#comment').val()
-                },
-                success: function (data) {
-                    $('#comment').val('')
-                    $('#CommentList').append(data);
-                    checkMoreComments()
-                    loadStats();
-                },
-                error: function (data) {
-                    console.log('hiii')
-                }
-            });
+            if ($('#comment').val()) {
+                $.ajax({
+                    type: 'post',
+                    url: '/Forums/AddComment',
+                    data: {
+                        forumId: $('#ForumId').val(),
+                        comment: $('#comment').val()
+                    },
+                    success: function (data) {
+                        $('#comment').val('')
+                        $('#CommentList').append(data);
+                        checkMoreComments()
+                        loadStats();
+                    },
+                    error: function (data) {
+                        console.log('hiii')
+                    }
+                });
+            }
+            else{
+                $('#cmntErr').text('Enter valid comment')
+            }
         }
 
 

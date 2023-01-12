@@ -30,8 +30,14 @@
                         <span>@eventObj.Date.Value.ToString("yyyy-MMM-dd")</span>
                 </div>
                 }
+                else
+                {
+                                    <div class="blog-meta">
+                                        <span>-</span>
+                                    </div>
+                }
                 <h5><a href="/EventsNews/GetEvent/@eventObj.Id">@eventObj.Title</a></h5>
-                <p style="word-break: break-word;">@eventObj.Description...</p>
+                <p>@eventObj.Description...</p>
                 <div class="read-more-btn">
                     <a class="" href="/EventsNews/GetEvent/@eventObj.Id"><span class="">
                         @ESTA.Resources.EventsNews.readMore

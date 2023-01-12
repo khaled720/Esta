@@ -36,15 +36,21 @@
                                 }
                             </div>
                             <div class="blog-content">
-                                @if (@news.Date.HasValue)
+                                @if (news.Date.HasValue)
                                 {
                                     <div class="blog-meta">
                                         <span>@news.Date.Value.ToString("yyyy-MMM-dd")</span>
                                     </div>
                                 }
 
+                                else{
+                                <div class="blog-meta">
+                                    <span>-</span>
+                                </div>
+                                }
+
                                 <h5><a href="/EventsNews/GetEvent/@news.Id">@news.Title</a></h5>
-                                <p style="word-break: break-word;">
+                                <p>
                                     @news.Description...
                                 </p>
                                 <div class="read-more-btn">

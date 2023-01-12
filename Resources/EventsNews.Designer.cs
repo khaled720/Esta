@@ -79,6 +79,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arabic details is rquired.
+        /// </summary>
+        public static string DetailsArError {
+            get {
+                return ResourceManager.GetString("DetailsArError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English details is reqiured.
+        /// </summary>
+        public static string DetailsEnError {
+            get {
+                return ResourceManager.GetString("DetailsEnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -160,11 +178,29 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Events or news field is required.
+        /// </summary>
+        public static string FlagError {
+            get {
+                return ResourceManager.GetString("FlagError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drag and drop a file or click to add Image.
         /// </summary>
         public static string Image {
             get {
                 return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image is reqiured.
+        /// </summary>
+        public static string ImgError {
+            get {
+                return ResourceManager.GetString("ImgError", resourceCulture);
             }
         }
         
@@ -246,6 +282,24 @@ namespace ESTA.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic title is required.
+        /// </summary>
+        public static string TitleArError {
+            get {
+                return ResourceManager.GetString("TitleArError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English title is required.
+        /// </summary>
+        public static string TitleEnError {
+            get {
+                return ResourceManager.GetString("TitleEnError", resourceCulture);
             }
         }
         
