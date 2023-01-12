@@ -39,7 +39,7 @@
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
                 @{
-                    await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x=>x.DivId == "News").FirstOrDefault());
+                    await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x => x.DivId == "News").FirstOrDefault());
                 }
             </div>
             <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
@@ -53,24 +53,30 @@
                 }
             </div>
         </div>
+        <input type="hidden" value="1" id="pageNews" />
+        <input type="hidden" value="1" id="pageSocial" />
+        <input type="hidden" value="1" id="pageEsta" />
     </div>
 </div>
 
 
 @section Scripts{
     <script>
-        var page = 0
+
         function LoadMoreEvents(div, flag, event) {
+            var page = $('#page' + div).val();
+            page = parseInt(page)
             $.ajax({
                 type: 'get',
                 url: '/EventsNews/GetEventsPage',
                 data: {
-                    page: ++page,
+                    page: page,
                     Flag: flag,
                     EventType: event
                 },
                 success: function (data) {
                     $('#cards' + div).append(data);
+                    $('#page' + div).val(page + 1);
                     checkMoreEvents(div, flag, event);
                 },
                 error: function (data) {
@@ -80,6 +86,7 @@
         }
 
         function checkMoreEvents(div, flag, event) {
+            var page = $('#page' + div).val();
             $.ajax({
                 type: 'get',
                 url: '/EventsNews/CheckMoreEvents',

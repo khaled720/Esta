@@ -198,6 +198,8 @@ namespace ESTA.Controllers
                     details = HtmlHelper.RemoveHTMLTags(eventVar.DetailsAr);
                     title = eventVar.TitleAr;
                 }
+                if(title.Length > 25)
+                    title = title.Substring(0, 25) + "...";
                 EventsNews.Add(new()
                 {
                     Id = eventVar.Id,

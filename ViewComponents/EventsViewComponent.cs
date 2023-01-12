@@ -35,15 +35,19 @@ namespace ESTA.ViewComponents
                 Uow.EventRep.GetLatestEvent(flagEvents,Esta)
             };
             string details;
+            string title;
             foreach (var eventItem in EventNews)
             {
                 if (eventItem != null)
                 {
                     details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
+                    title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
+                    if (title.Length > 25)
+                        title = title.Substring(0, 25);
                     DisplayEvent.Add(new DisplayEvents()
                     {
                         Date = eventItem.Date,
-                        Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr,
+                        Title = title,
                         Description = HtmlHelper.RemoveHTMLTags(details),
                         Id = eventItem.Id,
                         Image = eventItem.Image,

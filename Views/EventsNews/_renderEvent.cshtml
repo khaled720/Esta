@@ -28,20 +28,22 @@
                 {
                     <div class="blog-meta">
                         <span>@eventObj.Date.Value.ToString("yyyy-MMM-dd")</span>
-                </div>
+                    </div>
                 }
                 else
                 {
-                                    <div class="blog-meta">
-                                        <span>-</span>
-                                    </div>
+                    <div class="blog-meta">
+                        <span>-</span>
+                    </div>
                 }
                 <h5><a href="/EventsNews/GetEvent/@eventObj.Id">@eventObj.Title</a></h5>
                 <p>@eventObj.Description...</p>
                 <div class="read-more-btn">
-                    <a class="" href="/EventsNews/GetEvent/@eventObj.Id"><span class="">
-                        @ESTA.Resources.EventsNews.readMore
-                    </span></a>
+                    <a class="" href="/EventsNews/GetEvent/@eventObj.Id">
+                        <span class="">
+                            @ESTA.Resources.EventsNews.readMore
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>

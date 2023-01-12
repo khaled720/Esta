@@ -27,8 +27,12 @@ namespace ESTA.ViewComponents
             {
                 LatestEvent = new();
                 string details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
+                string title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
+                if (title.Length > 25)
+                    title = title.Substring(0, 25);
+
                 LatestEvent.Date = eventItem.Date;
-                LatestEvent.Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
+                LatestEvent.Title = title;
                 LatestEvent.Description = HtmlHelper.RemoveHTMLTags(details);
                 LatestEvent.Id = eventItem.Id;
                 LatestEvent.Image = eventItem.Image;
