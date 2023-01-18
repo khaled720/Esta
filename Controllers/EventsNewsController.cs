@@ -124,7 +124,7 @@ namespace ESTA.Controllers
 
             NewEvent.DetailsAr = DescArDecoded;
             NewEvent.DetailsEn = DescEnDecoded;
-            NewEvent.Image = "../images/News/" + imgName;
+            NewEvent.Image = "images/News/" + imgName;
             appRep.EventRep.AddEvent(NewEvent);
             await appRep.SaveChangesAsync();
 
@@ -153,7 +153,7 @@ namespace ESTA.Controllers
             if (EditEvent.ImageUpload != null)
             {
                 var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "images/News/");
-                Event.Image = "../images/News/" + imgName;
+                Event.Image = "images/News/" + imgName;
             }
             Event.DetailsAr = DescArDecoded;
             Event.DetailsEn = DescEnDecoded;

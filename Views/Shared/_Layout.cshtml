@@ -366,7 +366,7 @@
         function changeLang(lang) {
             $.ajax({
                 type: 'post',
-                url: '@Url.Action("Lang","SetCulture")',
+                url: '@Url.Action("SetCulture","Lang")',
                 data: {
                     culture: lang
                 },
