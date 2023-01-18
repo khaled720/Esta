@@ -40,13 +40,17 @@
 
 
     <div class="card my-3 p-3">
-        <div class="row">
-            <form asp-action="SearchComment">
-                    <input class="form-control" type="text" id="search" name="query"/>
-                    <button type="submit" style="padding:12px" class="btn btn-secondary">Search</button>
-            </form>
-            
-        </div>
+
+        <form asp-action="SearchComment">
+            <div class="row">
+                <div class="col-10">
+                    <input class="form-control" type="text" id="search" name="query" />
+                </div>
+                <button type="submit" style="padding:12px" class="btn btn-secondary">Search</button>
+            </div>
+        </form>
+
+
     </div>
 
     <div class="row gy-3">
