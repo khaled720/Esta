@@ -25,7 +25,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                         <div class="blog-wrapper mb-30">
                             <div class="blog-thumb mb-25">
-                                <a href="/EventsNews/GetEvent/@news.Id"><img style="height: 202px;" src="@news.Image" alt=""></a>
+                                <a asp-controller="EventsNews" asp-action="GetEvent" asp-route-id="@news.Id"><img style="height: 202px;" src="@Url.Content("~/"+news.Image)" alt=""></a>
                                 @if (news.Flag == 1)
                                 {
                                     <span class="blog-category">@ESTA.Resources.EventsNews.News</span>
@@ -49,12 +49,12 @@
                                 </div>
                                 }
 
-                                <h5><a href="/EventsNews/GetEvent/@news.Id">@news.Title</a></h5>
+                                <h5><a asp-controller="EventsNews" asp-action="GetEvent" asp-route-id="@news.Id">@news.Title</a></h5>
                                 <p>
                                     @news.Description...
                                 </p>
                                 <div class="read-more-btn">
-                                    <a class="" href="/EventsNews/GetEvent/@news.Id"><span class="">@ESTA.Resources.EventsNews.readMore</span></a>
+                                    <a asp-controller="EventsNews" asp-action="GetEvent" asp-route-id="@news.Id"><span class="">@ESTA.Resources.EventsNews.readMore</span></a>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="courses-view-more-btn">
-                        <a class="btn gray-border-btn" href="/EventsNews/Index"><span class="">@ESTA.Resources.EventsNews.viewMore</span></a>
+                        <a class="btn gray-border-btn" asp-controller="EventsNews" asp-action="Index"><span class="">@ESTA.Resources.EventsNews.viewMore</span></a>
                     </div>
                 </div>
             </div>

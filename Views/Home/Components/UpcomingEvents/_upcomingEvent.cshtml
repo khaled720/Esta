@@ -30,7 +30,7 @@
                             <div class="events-wrapper">
                                 <div class="events-inner d-flex" style="max-height: 194px;">
                                     <div class="events-thumb">
-                                        <img class="img-fluid rounded-left" src="@Model.Image" alt="" style="height:195px">
+                                        <img class="img-fluid rounded-left" src="@Url.Content("~/"+Model.Image)" alt="" style="height:195px">
                                     </div>
                                     <div class="events-text">
                                         <div class="event-text-heading mb-20">
@@ -45,7 +45,7 @@
 
                                             </div>
                                             <div class="events-text-title clearfix">
-                                                <a href="/EventsNews/GetEvent/@Model.Id">
+                                                <a asp-controller="EventsNews" asp-action="GetEvent" asp-route-id="@Model.Id">
                                                     <h4>@Model.Title</h4>
                                                 </a>
                                                 @if (Model.Date.HasValue)
@@ -101,7 +101,3 @@
 
     </div>
 </div>
-
-@section Scripts{
-    <script src="~/js/course.js"></script>
-}

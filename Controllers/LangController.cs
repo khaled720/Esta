@@ -6,14 +6,14 @@ namespace ESTA.Controllers
     public class LangController : Controller
     {
         [HttpPost]
-        public IActionResult SetCulture(string culture, string returnUrl)
+        public IActionResult SetCulture(string culture)
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(30) }
             );
-            return LocalRedirect(returnUrl);
+            return Json(true);
         }
     }
 }

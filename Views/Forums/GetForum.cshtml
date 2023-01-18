@@ -10,7 +10,7 @@
 </style>
 <div class="slider-area">
     <div class="pages-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(../../template/img/inner-bg.png);">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -18,7 +18,7 @@
                             <h1 class="white-color f-700">@Model.Title</h1>
                             <nav class="text-center" aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item"><a href="/Forums/Index">Forums</a></li>
+                                    <li class="breadcrumb-item"><a asp-controller="Forums" asp-action="Index">Forums</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
                                 </ol>
                             </nav>
@@ -74,7 +74,7 @@
                     </div>
                     @if (ViewBag.CheckMoreComments)
                     {
-                        <button id="MoreBtn" onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
+                        <button id="MoreBtn" @*onclick="getNextPage()"*@ class="btn btn-link my-2">Load more...</button>
                     }
 
                     <div class="post-comments-form my-3">
@@ -99,7 +99,8 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
+<input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
 <input type="hidden" value="@Model.Id" id="ForumId" />
 
 @section Scripts{
@@ -116,7 +117,7 @@
         function getNextPage() {
             $.ajax({
                 type: 'get',
-                url: '/Forums/GetForumsComment',
+                url: '@this.Url.Action("GetForumsComment","Forums")',
                 data: {
                     forumId: $('#ForumId').val(),
                     page: commentPage++
@@ -133,7 +134,7 @@
         function checkMoreComments() {
             $.ajax({
                 type: 'get',
-                url: '/Forums/CheckMoreComments',
+                url: '@this.Url.Action("CheckMoreComments","Forums")',
                 data: {
                     forumId: $('#ForumId').val(),
                     page: commentPage
@@ -152,7 +153,7 @@
             if ($('#comment').val()) {
                 $.ajax({
                     type: 'post',
-                    url: '/Forums/AddComment',
+                    url: '@this.Url.Action("AddComment","Forums")',
                     data: {
                         forumId: $('#ForumId').val(),
                         comment: $('#comment').val()

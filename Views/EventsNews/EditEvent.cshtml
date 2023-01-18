@@ -40,30 +40,19 @@
         color: black;
     }
 
-    .drag-text {
-        text-align: center;
-    }
-
-        .drag-text h3 {
-            font-weight: 100;
-            text-transform: uppercase;
-            color: black;
-            padding: 60px 0;
-        }
-
 </style>
 <input type="file" id="ck_imageUploader" accept="image/gif, image/jpeg, image/png" style="display:none;" />
 
 <div class="card">
     <div class="card-footer">
         <input type="hidden" value="@Model.Id" asp-for="Id" />
-        <form asp-action="EditEvent" method="post" enctype="multipart/form-data">
+        <form onkeypress="submitForm(event)" asp-action="EditEvent" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger">
             </div>
             <div class="file-upload my-2">
                 <div class="image-upload-wrap">
                     <input class="file-upload-input" asp-for="ImageUpload" type='file' onchange="readURL(this);" accept="image/gif, image/jpeg, image/png" />
-                    <img class="img-fluid" id="imgSrc" src="@Model.Image" alt="your image" />
+                    <img class="img-fluid" id="imgSrc" src="@Url.Content("../../"+Model.Image)" alt="your image" />
                 </div>
             </div>
             <div class="row">
@@ -154,7 +143,13 @@
         await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
     }
     <script>
-
+        function submitForm(e) {
+            keycode = e.keyCode || e.charCode || e.which //for cross browser
+            if (keycode == 13)    //keyCode for enter key
+            {
+                $('#submit').trigger('click');
+            }
+        }
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var formData = new FormData();
@@ -163,7 +158,6 @@
                 console.log(url)
                 $('#imgSrc').attr('src', url);
                 $('#imgSrc').css('display', 'block');
-                $('.drag-text').hide();
             }
         }
 

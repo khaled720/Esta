@@ -3,9 +3,15 @@
 *@
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<User> userManager;
+@inject SignInManager<User> signInManager;
 @{
-    var user = await userManager.GetUserAsync(User);
-    var role = await userManager.IsInRoleAsync(user, "Admin");
+    var IsSigned = signInManager.IsSignedIn(User);
+    var role = false;
+    if (IsSigned)
+    {
+        var user = await userManager.GetUserAsync(User);
+        role = await userManager.IsInRoleAsync(user, "Admin");
+    }
     var admin = role.ToString().ToLower();
 }
 @model ESTA.ViewModels.RenderComment
@@ -82,7 +88,7 @@
             </ul>
             @if (Model.showReply)
             {
-                <button id="MoreBtn" onclick="getReplies()" class="btn btn-link my-2">Load more...</button>
+                <button id="MoreBtn"@* onclick="getReplies()"*@ class="btn btn-link my-2">Load more...</button>
             }
 
         </div>
@@ -99,6 +105,8 @@
             <div id="rplyErr" class="text-danger">
             </div>
         }
+
+        <input type="hidden" value="@Url.Action("GetComment", new{id = comment.Id})" id="CopyToClip@(comment.Id)">
     </li>
 }
 

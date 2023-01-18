@@ -1,21 +1,24 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Localization;
 @inject SignInManager<User> signInManager;
 @inject UserManager<User> userManager;
-@using Microsoft.AspNetCore.Localization
-@using Microsoft.Extensions.Options
-@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject IHttpContextAccessor contextAccessor
 @{
-    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var cultureItems = LocalizationOptions.Value.SupportedUICultures
-        .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
-        .ToList();
-    var returnUrl = string.IsNullOrEmpty(Context.Request.Path)
-        ? "~/"
-        : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
-
     var IsSigned = signInManager.IsSignedIn(User);
+    var IsAdmin = false;
+    if (IsSigned)
+    {
+        var user = await userManager.GetUserAsync(User);
+        IsAdmin = await userManager.IsInRoleAsync(user, "Admin");
+    }
+    var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+    // Culture contains the information of the requested culture
+    var culture = rqf.RequestCulture.Culture.Name;
+    string langTooltip = "en";
+    if (culture == "en")
+        langTooltip = "ar";
 }
 
 <!DOCTYPE html>
@@ -53,6 +56,7 @@
         <![endif]-->
     <!-- Add your site or application content here -->
     <!-- header-start -->
+    <input type="hidden" id="langddl" value="@culture" />
     <header id="home">
         <div class="header-area">
             <!-- header-top -->
@@ -67,7 +71,7 @@
                                 </div>
                                 <div class="header-contact header-login">
                                     <span class="ti-user"></span>
-                                    <a href="/Account/Login" target="_blank" class="loginBtn">Login</a>
+                                    <a asp-controller="Account" asp-action="Login" target="_blank" class="loginBtn">Login</a>
                                 </div>
 
                             </div>
@@ -79,7 +83,11 @@
                                     <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
                                     <li><a href="#"><span class="ti-google"></span></a></li>
                                     <li><a href="#"><span class="ti-linkedin"></span></a></li>
-                                    <li><a href="#"><span class="ti-world"></span></a></li>
+                                    <li>
+                                        <a href="#" data-toggle="tooltip" title="@langTooltip" onclick="changeLang('@langTooltip')">
+                                            <span class="ti-world"></span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -93,7 +101,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-2 col-md-10 col-6">
                             <div class="logo">
-                                <a href="/Home/Index">
+                                <a asp-controller="Home" asp-action="Index">
                                     <img src="~/template/img/logo/esta_logo3.png" alt="">
                                 </a>
                             </div>
@@ -119,22 +127,22 @@
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         <li>
-                                            <a href="/Home/Index">Home</a>
+                                            <a asp-controller="Home" asp-action="Index">Home</a>
                                         </li>
                                         <li>
                                             <a href="#">About</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="about_us.html">About Esta</a>
+                                                    <a asp-controller="Home" asp-action="About">About Esta</a>
                                                 </li>
                                                 <li>
-                                                    <a href="about_us.html">About Technical Analysis</a>
+                                                    <a asp-controller="Home" asp-action="About">About Technical Analysis</a>
                                                 </li>
                                                 <li>
-                                                    <a href="about_us.html">Code Of Ethics "Bylaws"</a>
+                                                    <a asp-controller="Home" asp-action="About">Code Of Ethics "Bylaws"</a>
                                                 </li>
                                                 <li>
-                                                    <a href="board_directors.html">Board Of Directors</a>
+                                                    <a asp-controller="Home" asp-action="Directors">Board Of Directors</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -142,13 +150,13 @@
                                             <a href="#">Education</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="#">CETA</a>
+                                                    <a asp-controller="Home" asp-action="courses">CETA</a>
                                                 </li>
                                                 <li>
-                                                    <a href="courses.html">Other Courses</a>
+                                                    <a asp-controller="Home" asp-action="courses">Other Courses</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">CETA Holders</a>
+                                                    <a asp-controller="Home" asp-action="courses">CETA Holders</a>
                                                 </li>
 
                                             </ul>
@@ -156,40 +164,53 @@
                                         <li>
                                             <a href="#">Membership</a>
                                             <ul class="submenu">
-                                                @if (IsSigned)
+
+                                                @*@if (IsSigned && IsAdmin)
                                                 {
-                                                    <li>
-                                                        <a href="/Forums/Index">Discussion Board "Forum"</a>
-                                                    </li>
-                                                }
                                                 <li>
-                                                    <a href="/EventsNews/Index">Events &amp; News</a>
+                                                <a href="/Forums/NewForum">New Forum</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Benefits Of Membership</a>
+                                                <a href="/EventsNews/CreateEvent">New Event</a>
+                                                </li>
+                                                }*@
+
+
+                                                @*@if (IsSigned)
+                                                {*@
+                                                <li>
+                                                    <a asp-controller="Forums" asp-action="Index">Discussion Board "Forum"</a>
+                                                </li>
+                                                @*}*@
+                                                <li>
+                                                    <a asp-controller="EventsNews" asp-action="Index">Events &amp; News</a>
+                                                </li>
+
+                                                @*<li>
+                                                <a href="#">Benefits Of Membership</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Become a Member</a>
-                                                </li>
+                                                <a href="#">Become a Member</a>
+                                                </li>*@
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#">IFTA</a>
                                         </li>
                                         <li>
-                                            <a href="contact_us.html">Contacts</a>
+                                            <a asp-controller="Home" asp-action="ContactUs">Contacts</a>
                                         </li>
-                                        <li>
-                                            <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
-                                                  class="form-horizontal nav-link text-dark row">
-                                                <select id="langddl" name="culture"
-                                                        class="form-control"
-                                                        onchange="this.form.submit();"
-                                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
-                                                        asp-items="cultureItems">
-                                                </select>
-                                            </form>
-                                        </li>
+                                        @*<li>
+                                        <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
+                                        class="form-horizontal nav-link text-dark row">
+                                        <select id="langddl" name="culture"
+                                        class="form-control"
+                                        onchange="this.form.submit();"
+                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                        asp-items="cultureItems">
+                                        </select>
+                                        </form>
+                                        </li>*@
                                     </ul>
                                 </nav>
                             </div>
@@ -204,7 +225,7 @@
         </div>
     </header>
 
-    <div class="container">
+    <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -342,14 +363,33 @@
     @await RenderSectionAsync("Scripts",required: false)
     <script>
 
+        function changeLang(lang) {
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("Lang","SetCulture")',
+                data: {
+                    culture: lang
+                },
+                success: function (data) {
+                    if (data)
+                        window.location.reload();
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
         function padTo2Digits(num) {
             return num.toString().padStart(2, '0');
         }
         function copyToClipboard(id) {
             var base_url = window.location.origin;
+            var cmntLink = $('#CopyToClip' + id).val();
+
             var $temp = $("<input>");
             $("body").append($temp);
-            $temp.val(base_url + "/Forums/GetComment/" + id).select();
+
+            $temp.val(base_url + cmntLink).select();
             document.execCommand("copy");
             $temp.remove();
 

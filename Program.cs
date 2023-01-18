@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +22,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession( /*opt=>opt.IdleTimeout=TimeSpan.FromMinutes(1)*/
 );
 builder.Services.AddDbContext<AppDbContext>(
-    opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("dev_conn"))
-);
+    opt => opt.UseSqlServer(
+        builder.Configuration.GetConnectionString("dev_conn"))
+    );
 
 
 //configure localization
@@ -85,7 +88,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
@@ -94,8 +97,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
-
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {

@@ -24,12 +24,12 @@ namespace ESTA.Repository
             {
                 return context.EventsNews
                 .Where(x => x.Flag == Flag)
-                .Skip(page * count)
+                //.Skip(page * count)
                 .Take(count).Any();
             }
             return context.EventsNews
                 .Where(x => x.Flag == Flag && x.EventType == EventType)
-                .Skip(page * count)
+                //.Skip(page * count)
                 .Take(count).Any();
         }
 
@@ -54,14 +54,14 @@ namespace ESTA.Repository
                 return context.EventsNews
                .Where(x => x.Flag == Flag)
                .OrderByDescending(x => x.Date)
-               .Skip(page * count)
+               //.Skip(page * count)
                .Take(count)
                .ToList();
             }
             return context.EventsNews
                 .Where(x => x.Flag == Flag && x.EventType == EventType)
                 .OrderByDescending(x => x.Date)
-                .Skip(page * count)
+                //.Skip(page * count)
                 .Take(count)
                 .ToList();
         }

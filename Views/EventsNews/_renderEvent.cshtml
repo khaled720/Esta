@@ -11,7 +11,7 @@
         <div class="blog-wrapper bg-grey mb-30">
             <div class="blog-thumb mb-25">
                 <a href="/EventsNews/GetEvent/@eventObj.Id">
-                    <img src="@eventObj.Image" style="height: 202px;" alt="">
+                    <img src="@Url.Content(eventObj.Image)" style="height: 202px;" alt="">
                 </a>
                 @if (eventObj.Flag == 1)
                 {
@@ -36,10 +36,10 @@
                         <span>-</span>
                     </div>
                 }
-                <h5><a href="/EventsNews/GetEvent/@eventObj.Id">@eventObj.Title</a></h5>
+                <h5><a asp-controller="EventsNews" asp-action="GetEvent" asp-route-id="@eventObj.Id">@eventObj.Title</a></h5>
                 <p>@eventObj.Description...</p>
                 <div class="read-more-btn">
-                    <a class="" href="/EventsNews/GetEvent/@eventObj.Id">
+                    <a class="" asp-controller="EventsNews" asp-action="GetEvent" asp-route-id="@eventObj.Id">
                         <span class="">
                             @ESTA.Resources.EventsNews.readMore
                         </span>

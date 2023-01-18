@@ -35,7 +35,7 @@ namespace ESTA.Controllers
             var path = webHost.WebRootPath;
             var saveFile = Path.Combine(path + "/Images/Editor/");
             var ImageName = await FileUpload.SavePhotoAsync(file, file.Name, saveFile);
-            var display = "/Images/Editor/" + ImageName;
+            var display = "../../Images/Editor/" + ImageName;
             return display;
 
         }

@@ -4,9 +4,15 @@
 @model ESTA.ViewModels.GetUserForums
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<User> userManager;
+@inject SignInManager<User> signInManager;
 @{
-    var user = await userManager.GetUserAsync(User);
-    var role = await userManager.IsInRoleAsync(user, "Admin");
+    var IsSigned = signInManager.IsSignedIn(User);
+    var role = false;
+    if (IsSigned)
+    {
+        var user = await userManager.GetUserAsync(User);
+        role = await userManager.IsInRoleAsync(user, "Admin");
+    }
     var admin = role.ToString().ToLower();
     ICollection<ESTA.ViewModels.GetUserForums> commentList = new List<ESTA.ViewModels.GetUserForums>();
     commentList.Add(Model);
@@ -16,19 +22,22 @@
         color: red !important;
     }
 </style>
-<div class="card x-75">
-    <div class="card-body">
-        @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
-        {
-        showAllLink = false,
-        showReply = true,
-        UserForums = commentList
-        })
-        <input type="hidden" value="@Model.Id" id="ParentId" />
-        <input type="hidden" value="@Model.forumId" id="ForumId" />
+<div class="container">
+    <div class="card x-75">
+        <div class="card-body">
+            @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
+            {
+            showAllLink = false,
+            showReply = true,
+            UserForums = commentList
+            })
+            <input type="hidden" value="@Model.Id" id="ParentId" />
+            <input type="hidden" value="@Model.forumId" id="ForumId" />
+            <input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
+            <input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
+        </div>
     </div>
 </div>
-
 @section Scripts{
     <script src="~/js/forumsfuncs.js"></script>
     <script>
@@ -42,7 +51,7 @@
                 $.ajax({
                     type: 'post',
                     dataType: 'JSON',
-                    url: '/Forums/AddReply',
+                    url: '@this.Url.Action("AddReply","Forums")',
                     data: {
                         forumId: $('#ForumId').val(),
                         comment: $('#reply' + id).val(),
@@ -70,7 +79,7 @@
             $.ajax({
                 type: 'get',
                 dataType: 'JSON',
-                url: '/Forums/GetCommentReplies',
+                url: '@this.Url.Action("GetCommentReplies","Forums")',
                 data: {
                     parentId: $('#ParentId').val(),
                     page: pageNo++
@@ -109,7 +118,7 @@
             $.ajax({
                 type: 'get',
                 dataType: 'JSON',
-                url: '/Forums/CheckCommentReplies',
+                url: '@this.Url.Action("CheckCommentReplies","Forums")',
                 data: {
                     parentId: $('#ParentId').val(),
                     page: pageNo

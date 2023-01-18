@@ -1,5 +1,6 @@
 ﻿
 document.addEventListener('DOMContentLoaded', function () {
+    var getEventUrl = $('#GetEventUrl').val();
     var localeSelectorEl = document.getElementById('langddl');
     var calendarEl = document.getElementById('calendar');
     var lang = localeSelectorEl.value
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
             $.ajax({
-                url: '/Home/GetEvents',
+                url: $('#AjaxUrl').val(),
                 type: "GET",
                 dataType: "JSON",
 
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 {
                                     title: data.title,
                                     start: moment(data.date).format(),
-                                    url: '/EventsNews/GetEvent/' + data.id,
+                                    url: getEventUrl + '/'+ data.id,
                                     backgroundColor: "cornflowerblue",
                                 }
                             );
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 {
                                     title: data.title,
                                     start: moment(data.date).format(),
-                                    url: '/EventsNews/GetEvent/' + data.id,
+                                    url: getEventUrl + '/' + data.id,
                                     backgroundColor: "darkcyan",
                                 }
                             );
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         },
-        
+
     });
     //
     calendar.render();

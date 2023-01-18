@@ -3,7 +3,7 @@
     $.ajax({
         type: 'post',
         dataType: 'JSON',
-        url: '/Forums/DeleteComment',
+        url: $('#AjaxDelCmnt').val(),
         data: {
             commentId: id
         },
@@ -21,7 +21,7 @@ function DeleteReply(id) {
     $.ajax({
         type: 'post',
         dataType: 'JSON',
-        url: '/Forums/DeleteReply',
+        url: $('#AjaxDelRpl').val(),
         data: {
             commentId: id
         },

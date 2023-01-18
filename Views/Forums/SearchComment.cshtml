@@ -50,7 +50,7 @@ else
         function getNextPage() {
             $.ajax({
                 type: 'get',
-                url: '/Forums/GetNextSearchComment',
+                url: '@this.Url.Action("GetNextSearchComment","Forums")',
                 data: {
                     query: $('#query').val(),
                     page: commentPage++,
