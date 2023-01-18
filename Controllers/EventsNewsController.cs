@@ -122,6 +122,9 @@ namespace ESTA.Controllers
             var imgName = ImageHelper.UploadedFile(Event.Image, "images/News/");
             EventsNews NewEvent = mapper.Map<CreateEvent, EventsNews>(Event);
 
+            if (Event.Flag == (int)Flag.Events && !Event.EventType.HasValue)
+                NewEvent.EventType = (int)EventType.Esta;
+
             NewEvent.DetailsAr = DescArDecoded;
             NewEvent.DetailsEn = DescEnDecoded;
             NewEvent.Image = "images/News/" + imgName;
@@ -159,6 +162,10 @@ namespace ESTA.Controllers
             Event.DetailsEn = DescEnDecoded;
             Event.TitleAr = EditEvent.TitleAr;
             Event.TitleEn = EditEvent.TitleEn;
+
+            if (Event.Flag == (int)Flag.Events && !Event.EventType.HasValue)
+                Event.EventType = (int)EventType.Esta;
+
             if (EditEvent.Date != null)
             {
                 Event.Date = EditEvent.Date;
