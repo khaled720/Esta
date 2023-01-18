@@ -29,45 +29,41 @@ namespace ESTA.Controllers
             _mapper = mapper;
             _userManager = userManager;
         }
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> IndexAsync()
         {
             var lists = appRep.ForumRep.GetAllForums();
             List<GetForum> forumList = _mapper.Map<List<Forum>, List<GetForum>>(lists);
-            //if (forumList != null)
-            //{
-            //    var user = await _userManager.GetUserAsync(User);
-            //    var roles = await _userManager.IsInRoleAsync(user, "Admin");
+            if (forumList != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var roles = await _userManager.IsInRoleAsync(user, "Admin");
 
-            //    if (!roles)
-            //        forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
-            //}
+                if (!roles)
+                    forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
+            }
             return View(forumList);
         }
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetForumAsync(int id)
         {
             var Forum = appRep.ForumRep.GetForum(id, true);
             Forum.UserForum = appRep.ForumRep.GetComments(id, 0);
-            ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
-            ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
-            ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
-            return View(ViewForum);
-            //if (Forum != null)
-            //{
-            //    var user = await _userManager.GetUserAsync(User);
-            //    var roles = await _userManager.IsInRoleAsync(user, "Admin");
+            if (Forum != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var roles = await _userManager.IsInRoleAsync(user, "Admin");
 
-            //    if (roles || user.LevelId >= Forum.LevelId)
-            //    {
-            //        ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
-            //        ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
-            //        ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
+                if (roles || user.LevelId >= Forum.LevelId)
+                {
+                    ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
+                    ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
+                    ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
 
-            //        return View(ViewForum);
-            //    }
-            //}
-            //return RedirectToAction("Error");
+                    return View(ViewForum);
+                }
+            }
+            return RedirectToAction("Error");
         }
         public IActionResult CheckMoreComments(int forumId, int page)
         {

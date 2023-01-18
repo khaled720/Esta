@@ -41,12 +41,11 @@
 
     <div class="card my-3 p-3">
         <div class="row">
-            <div class="col-6">
-                <input class="form-control" type="text" id="search" />
-            </div>
-            <div class="col-4">
-                <button onclick="Search()" style="padding:12px" class="btn btn-secondary">Search</button>
-            </div>
+            <form asp-action="SearchComment">
+                    <input class="form-control" type="text" id="search" name="query"/>
+                    <button type="submit" style="padding:12px" class="btn btn-secondary">Search</button>
+            </form>
+            
         </div>
     </div>
 
@@ -102,9 +101,6 @@
         $(document).ready(function () {
             $('#stats').load('@Url.Action("GetForumStatistics","Forums")');
         });
-        function Search(e) {
-            window.location.href = '/Forums/SearchComment?query=' + $('#search').val()
-        }
         var forumId;
         function showModal(id) {
             forumId = id;
@@ -114,12 +110,12 @@
             $.ajax({
                 type: 'post',
                 dataType: 'JSON',
-                url: '/Forums/DeleteForum',
+                url: '@Url.Action("DeleteForum","Forums")',
                 data: {
                     id: forumId
                 },
                 success: function (data) {
-                    window.location.href = '/Forums/Index'
+                    window.location.href = '@Url.Action("Index","Forums")'
                 },
                 error: function (data) {
                     console.log(data)

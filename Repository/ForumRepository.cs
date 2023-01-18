@@ -60,7 +60,7 @@ namespace ESTA.Repository
                 .Include(c => c.Replies)
                 .Include(x => x.user)
                 .OrderByDescending(x => x.Id)
-                //.Skip(count * page.Value)
+                .Skip(count * page.Value)
                 .Take(count)
                 .ToList();
             foreach (var comment in list)
@@ -95,7 +95,7 @@ namespace ESTA.Repository
                     .Where(x => x.ParentId == parentId)
                     .Include(x => x.user)
                     .OrderByDescending(x => x.Id)
-                    //.Skip(page.Value * count)
+                    .Skip(page.Value * count)
                     .Take(count)
                     .ToList();
             }
@@ -272,7 +272,7 @@ namespace ESTA.Repository
             list = list
                 .Distinct()
                 .OrderByDescending(x => x.Id)
-                //.Skip(count * page)
+                .Skip(count * page)
                 .Take(count);
 
             foreach (var comment in list)
@@ -291,7 +291,7 @@ namespace ESTA.Repository
             {
                 return appContext.UsersForums
                     .Where(u => u.ParentId == parentId.Value)
-                    //.Skip(page * count)
+                    .Skip(page * count)
                     .Take(count)
                     .Any();
             }
@@ -299,7 +299,7 @@ namespace ESTA.Repository
             {
                 return appContext.UsersForums
                     .Where(u => u.forumId == ForumId.Value && u.ParentId == null)
-                    //.Skip(page * count)
+                    .Skip(page * count)
                     .Take(count)
                     .Any();
             }

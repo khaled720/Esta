@@ -165,33 +165,33 @@
                                             <a href="#">Membership</a>
                                             <ul class="submenu">
 
-                                                @*@if (IsSigned && IsAdmin)
+                                                @if (IsSigned && IsAdmin)
                                                 {
-                                                <li>
-                                                <a href="/Forums/NewForum">New Forum</a>
-                                                </li>
-                                                <li>
-                                                <a href="/EventsNews/CreateEvent">New Event</a>
-                                                </li>
-                                                }*@
+                                                    <li>
+                                                        <a href="/Forums/NewForum">New Forum</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/EventsNews/CreateEvent">New Event</a>
+                                                    </li>
+                                                }
 
 
-                                                @*@if (IsSigned)
-                                                {*@
-                                                <li>
-                                                    <a asp-controller="Forums" asp-action="Index">Discussion Board "Forum"</a>
-                                                </li>
-                                                @*}*@
+                                                @if (IsSigned)
+                                                {
+                                                    <li>
+                                                        <a asp-controller="Forums" asp-action="Index">Discussion Board "Forum"</a>
+                                                    </li>
+                                                }
                                                 <li>
                                                     <a asp-controller="EventsNews" asp-action="Index">Events &amp; News</a>
                                                 </li>
 
-                                                @*<li>
-                                                <a href="#">Benefits Of Membership</a>
+                                                <li>
+                                                    <a href="#">Benefits Of Membership</a>
                                                 </li>
                                                 <li>
-                                                <a href="#">Become a Member</a>
-                                                </li>*@
+                                                    <a href="#">Become a Member</a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>
@@ -366,7 +366,7 @@
         function changeLang(lang) {
             $.ajax({
                 type: 'post',
-                url: '@Url.Action("Lang","SetCulture")',
+                url: '@Url.Action("SetCulture","Lang")',
                 data: {
                     culture: lang
                 },

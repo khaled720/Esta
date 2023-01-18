@@ -44,39 +44,6 @@ namespace ESTA.Controllers
 
             return View(course);
         }
-        /// <summary>
-        /// design demonstration!!!
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult About()
-        {
-            return View();
-        }
-        public IActionResult VisionMission()
-        {
-            return View();
-        }
-        public IActionResult Directors()
-        {
-            return View();
-        }
-        public IActionResult courses()
-        {
-            return View();
-        }
-        public IActionResult ContactUs()
-        {
-            return View();
-        }
-        
-        public IActionResult CourseDetail()
-        {
-            return View();
-        }
-        /// <summary>
-        /// end of design demonstration!!!
-        /// </summary>
-        /// <returns></returns>
         public IActionResult GetEvents()
         {
             List<EventsNews> EventNews = Uow.EventRep.GetOnlyEvents();
