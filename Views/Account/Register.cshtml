@@ -1,9 +1,45 @@
-﻿
+﻿@{
+	Layout = "";
+}
 @using ESTA.ViewModels
 @model RegisterViewModel
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ESTA - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<h1>Register</h1>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+<link href="~/template/css/bootstrap.min.css" rel="stylesheet" />
+
+  
+    <link href="~/template/aos/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/template/css/style.css">
+	<link rel="stylesheet" href="~/template/css/responsive.css">
+	<link href="~/css/site.css" rel="stylesheet" />
+    <link href="css/inner.css" rel="stylesheet" />
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+		<h1>Register</h1>
 
 
 <form id="regForm" style="" asp-action="Register" asp-controller="Account">
@@ -511,7 +547,7 @@
 
 </form>
 
-
+</div>
 
 
 
@@ -933,15 +969,15 @@
 
 
 
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+	<script src="~/template/js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="~/template/aos/aos.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="~/js/registration.js"></script>
 
 
-
-
-
-
-
-
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+</body>
+       </html>

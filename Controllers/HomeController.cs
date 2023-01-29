@@ -5,6 +5,7 @@ using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace ESTA.Controllers
 {
@@ -15,19 +16,21 @@ namespace ESTA.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork Uow;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly IStringLocalizer localizer;
         private readonly string culture;
 
         public HomeController(
             ILogger<HomeController> logger,
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment,
-            IHttpContextAccessor contextAccessor
+            IHttpContextAccessor contextAccessor,
+            IStringLocalizer localizer
         )
         {
             _logger = logger;
             this.Uow = appRep;
             this.hostEnvironment = hostEnvironment;
-
+            this.localizer = localizer;
             var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
             culture = rqf.RequestCulture.Culture.Name;
@@ -41,16 +44,25 @@ namespace ESTA.Controllers
         }
 
      
+
         public  IActionResult Index()
         {
+            ViewBag.welcome = localizer["hi"];
             var hivm = new HomeIndexViewModel();
+            try
+            {
             hivm.About = Uow.ContentRep.GetContent("about").GetAwaiter().GetResult().DescriptionEn;
-            hivm.Mission = "This is mission section This iThis is About section text coming from db bla blaThis is About section text coming from db bla bla section text coming from db bla bla";
-            hivm.Vission = "This is Vision section text coming from db bla blaThis is About section text coming from db bla blaThis is About section text coming from db bla blaThis is About section text coming from db bla bla";
+            hivm.Mission = Uow.ContentRep.GetContent("mission").GetAwaiter().GetResult().DescriptionEn;
+            hivm.Vission = Uow.ContentRep.GetContent("vission").GetAwaiter().GetResult().DescriptionEn;
 
+            }
+            catch (Exception)
+            {
 
+            }
+        
 
-                return View(hivm);
+            return View(hivm);
         }
 
         public async Task<IActionResult> About(string type)

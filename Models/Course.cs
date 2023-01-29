@@ -4,10 +4,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 
+
 namespace ESTA.Models
 {
     public class Course
     {
+
         [Key]
         public int Id { get; set; }
 

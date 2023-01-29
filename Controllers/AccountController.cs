@@ -52,7 +52,37 @@ namespace ESTA.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Redirect("/User/Profile");
+                    var user = await userManager.FindByEmailAsync(LoginModel.Email);
+
+                    if (user.IsApproved == true)
+                    {
+
+                        if (await userManager.IsInRoleAsync(user,"Admin"))
+                        {
+                            return Redirect("/Admin/Index");
+                        }
+                        else {
+                         return Redirect("/User/Profile");
+                        }
+                   
+
+                    }
+                    else 
+                    {
+                     
+                    return View(
+                                    "ConfirmEmail",
+                                    new ErrorViewModel
+                                    {
+                                        Title = "Waiting for Approval",
+                                        Description =
+                                            "We are checking your registration info once we finish will Email you , this proccess may take 2 or 3 days !"
+                                    }
+                                );
+                    }
+
+                  
+
                 }
                 else if (result.IsNotAllowed)
                 {

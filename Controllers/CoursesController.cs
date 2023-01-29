@@ -26,6 +26,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Index()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+         //   PaginatedList<Course> dd;
             return View(courses);
         }
 

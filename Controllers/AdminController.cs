@@ -17,24 +17,6 @@ namespace ESTA.Controllers
         }
 
 
-        public async Task<IActionResult> UsersApproval()
-        {
-            var users=await uow.UserRep.GetAllUsers();
-
-
-
-
-            return View(users);
-        }
-        public async Task<IActionResult> EditApproval(string id,bool isApproved)
-        {
-           await uow.UserRep.EditUserApproval(id,isApproved);
-          await  uow.SaveChangesAsync();
-
-
-
-            return RedirectToAction("Index");
-        }
-
+    
     }
 }

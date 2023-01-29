@@ -3,16 +3,17 @@
     Layout = "_AdminLayout";
 
 }
+
 @model Content
 
 
-<h3>Technical Analysis </h3>
+<h3>Mission </h3>
 
 <input type="file" id="ck_imageUploader" accept="image/gif, image/jpeg, image/png"
        style="display:none;" />
 
 
-<form asp-action="Ifta" asp-controller="Content">
+<form asp-action="Benefits" asp-controller="Content">
     @Html.HiddenFor(y=>y.Id)
     <h5>English Description</h5>
 <textarea id="editor" asp-for="@Model.DescriptionEn"></textarea>

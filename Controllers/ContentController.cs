@@ -193,9 +193,6 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Benefits()
         {
             var benefits = await appRep.ContentRep.GetContent("benefits");
-
-
-
             return View(benefits);
         }
         [HttpPost]
@@ -207,6 +204,84 @@ namespace ESTA.Controllers
                 if (content.Id == 0)
                 {
                     content.Type = "benefits";
+                    await appRep.ContentRep.AddContent(content);
+                    await appRep.SaveChangesAsync();
+                }
+                else
+                {
+                    await appRep.ContentRep.UpdateContent(content);
+                    await appRep.SaveChangesAsync();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View();
+            }
+
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+          [HttpGet]
+        public async Task<IActionResult> Vission()
+        {
+            var benefits = await appRep.ContentRep.GetContent("vission");
+            return View(benefits);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Vission(Content content)
+        {
+
+            try
+            {
+                if (content.Id == 0)
+                {
+                    content.Type = "vission";
+                    await appRep.ContentRep.AddContent(content);
+                    await appRep.SaveChangesAsync();
+                }
+                else
+                {
+                    await appRep.ContentRep.UpdateContent(content);
+                    await appRep.SaveChangesAsync();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View();
+            }
+
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Mission()
+        {
+            var benefits = await appRep.ContentRep.GetContent("mission");
+
+
+
+            return View(benefits);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Mission(Content content)
+        {
+
+            try
+            {
+                if (content.Id == 0)
+                {
+                    content.Type = "mission";
                     await appRep.ContentRep.AddContent(content);
                     await appRep.SaveChangesAsync();
                 }
@@ -227,12 +302,6 @@ namespace ESTA.Controllers
 
             return RedirectToAction("Index");
         }
-
-
-
-
-
-
 
 
     }

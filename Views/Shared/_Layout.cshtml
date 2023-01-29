@@ -9,7 +9,7 @@
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
     var cultureItems = LocalizationOptions.Value.SupportedUICultures
-        .Select(c => new SelectListItem { Value = c.Name, Text = c.Name })
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
         .ToList();
     var returnUrl = string.IsNullOrEmpty(Context.Request.Path)
         ? "~/"
@@ -22,9 +22,13 @@
         admin = await userManager.IsInRoleAsync(user, "Admin");
     }
 }
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization
+
+@inject IViewLocalizer localizer
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir='@(CultureInfo.CurrentCulture.Name.StartsWith("ar")?"ltr":"ltr")'>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,8 +53,10 @@
     <link rel="stylesheet" href="~/template/css/style.css">
 	<link rel="stylesheet" href="~/template/css/responsive.css">
 	<link href="~/css/site.css" rel="stylesheet" />
-    <link href="css/inner.css" rel="stylesheet" />
+	<link href="css/inner.css" rel="stylesheet" />
+	<link href="~/template/aos/aos.css" rel="stylesheet" />
 </head>
+
 <body>
     <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
@@ -141,24 +147,24 @@
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         <li>
-                                            <a href="/home/index">Home</a>
+                                            <a href="/home/index">@localizer["home"]</a>
 
                                         </li>
                                         <li>
-                                            <a href="#">About</a>
+                                            <a href="#">@localizer["about"]</a>
                                             <ul class="submenu">
                                                 <li>
-                                                  <a href="/Home/About?type=about">About Esta</a>
+                                                  <a href="/Home/About?type=about">@localizer["about"] ESTA</a>
 
                                                 </li>
                                                 <li>
                                              
-                                                    <a href="/Home/About?type=ta">Technical Analysis</a>
+                                                    <a href="/Home/About?type=ta">@localizer["ta"]</a>
 
                                             </li>
                                                 <li>
                                                 
-                                                    <a href="/Home/About?type=ethics">Code of Ethics</a>
+                                                    <a href="/Home/About?type=ethics">@localizer["ethics"]</a>
                                                 </li>
                                                 <li>
                                                     <a href="/Director/BoardofDirectors">Board Of Directors</a>
@@ -363,7 +369,7 @@
 	<script src="~/js/calenderscript.js"></script>
     <script src="~/template/js/custom.js"></script>
     <script src="~/template/js/custom.min.js"></script>
-
+	<script src="~/template/aos/aos.js"></script>
   
 
 <script src="~/js/site.js"></script>

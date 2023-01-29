@@ -3,13 +3,13 @@ using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
 using AutoMapper;
 using ESTA.Mappers;
 using ESTA.Helpers;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,16 +22,13 @@ builder.Services.AddDbContext<AppDbContext>(
     opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("dev_conn"))
 );
 
-
 //configure localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-//configure supported languages.
-var supportedCultures = new[]
+builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    new CultureInfo("en"),
-    new CultureInfo("ar")
-};
-builder.Services.Configure<RequestLocalizationOptions>(options => {
+    //configure supported languages.
+    var supportedCultures = new[] { new CultureInfo("en"), new CultureInfo("ar") };
+
     options.DefaultRequestCulture = new RequestCulture("en");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
@@ -45,7 +42,17 @@ var config = new MapperConfiguration(cfg =>
 var mapper = config.CreateMapper();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton(mapper);
+builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+builder.Services.AddSingleton<IStringLocalizer, JsonStringLocalizer>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services
+    .AddMvc()
+    .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization(
+        opt =>
+            opt.DataAnnotationLocalizerProvider = (type, factory) =>
+                factory.Create(typeof(JsonStringLocalizerFactory))
+    );
 
 builder.Services.AddAuthorization(
     opt => opt.AddPolicy("RequireAdminRole", p => p.RequireRole("Admin"))
@@ -57,11 +64,13 @@ builder.Services
     .AddDefaultTokenProviders();
 
 var app = builder.Build();
+
 //tell app to use the resources.
 app.UseRequestLocalization(
     app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value
-    );
+);
 ImageHelper.Configure(app.Environment);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -73,14 +82,21 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
+var supportedCultures = new[] { "en", "ar" };
+var localizationOptions = new RequestLocalizationOptions()
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures)
+    .SetDefaultCulture("en");
+
+app.UseRequestLocalization(localizationOptions);
+
 app.UseRouting();
 app.UseAuthentication();
-;
+
 
 app.UseAuthorization();
 
-app.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
-
+app.MapControllerRoute(name: "default", pattern: "{controller=home}/{action=index}/{id?}");
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
