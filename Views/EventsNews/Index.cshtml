@@ -3,44 +3,82 @@
 *@
 @{
 }
-@model List<ESTA.ViewModels.DisplayEvents>
+@model List<ESTA.ViewModels.DisplayEventPartial>
 
-
-@if (Model.Count > 0)
-{
-    <div id="cards" class="row row-cols-1 row-cols-md-4 g-4">
-        @{
-            await Html.RenderPartialAsync("_renderEvent", new ESTA.ViewModels.DisplayEventPartial()
-                {
-                    Events = Model
-                });
-        }
+<style>
+    .nav-pills .nav-link {
+        border: 0px
+    }
+</style>
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(template/img/inner-bg.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">@ESTA.Resources.EventsNews.News_Events</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <button style="margin: auto;" class="btn btn-link mt-2" onclick="LoadMoreEvents()">Load More</button>
+</div>
 
-}
-else
-{
-    <div>
-        <h2>There's no events</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills mt-50" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news" type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">@ESTA.Resources.EventsNews.News</button>
+                <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social" type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">@ESTA.Resources.EventsNews.SocialEvent</button>
+                <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta" type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">@ESTA.Resources.EventsNews.EstaEvent</button>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
+                    @{
+                        await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x => x.DivId == "News").FirstOrDefault());
+                    }
+                </div>
+                <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
+                    @{
+                        await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x => x.DivId == "Social").FirstOrDefault());
+                    }
+                </div>
+                <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
+                    @{
+                        await Html.RenderPartialAsync("_DisplayEvent", Model.Where(x => x.DivId == "Esta").FirstOrDefault());
+                    }
+                </div>
+            </div>
+            <input type="hidden" value="1" id="pageNews" />
+            <input type="hidden" value="1" id="pageSocial" />
+            <input type="hidden" value="1" id="pageEsta" />
+        </div>
     </div>
-}
-
-
+</div>
 
 @section Scripts{
+
     <script>
-        var page = 0
-        function LoadMoreEvents() {
+
+        function LoadMoreEvents(div, flag, event) {
+            var page = $('#page' + div).val();
+            page = parseInt(page)
             $.ajax({
                 type: 'get',
-                url: '/EventsNews/GetEventsPage',
+                url: '@this.Url.Action("GetEventsPage","EventsNews")',
                 data: {
-                    page: ++page
+                    page: page,
+                    Flag: flag,
+                    EventType: event
                 },
                 success: function (data) {
-                    $('#cards').append(data);
-                    console.log(data)
+                    $('#cards' + div).append(data);
+                    $('#page' + div).val(page + 1);
+                    checkMoreEvents(div, flag, event);
                 },
                 error: function (data) {
                     console.log(data)
@@ -48,5 +86,25 @@ else
             });
         }
 
+        function checkMoreEvents(div, flag, event) {
+            var page = $('#page' + div).val();
+            $.ajax({
+                type: 'get',
+                url: '@this.Url.Action("CheckMoreEvents","EventsNews")',
+                data: {
+                    page: page,
+                    Flag: flag,
+                    EventType: event
+                },
+                success: function (data) {
+                    if (!data) {
+                        $('#MoreBtn' + div).hide();
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
     </script>
-}
+    }

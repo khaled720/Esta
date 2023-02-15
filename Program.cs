@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +22,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession( /*opt=>opt.IdleTimeout=TimeSpan.FromMinutes(1)*/
 );
 builder.Services.AddDbContext<AppDbContext>(
-    opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("dev_conn"))
-);
+    opt => opt.UseSqlServer(
+        builder.Configuration.GetConnectionString("dev_conn"))
+    );
 
 //configure localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -32,6 +36,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.DefaultRequestCulture = new RequestCulture("en");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
+    options.ApplyCurrentCultureToResponseHeaders = true;
 });
 
 var config = new MapperConfiguration(cfg =>
@@ -62,6 +67,19 @@ builder.Services
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events = new CookieAuthenticationEvents
+    {
+        OnRedirectToLogin = x =>
+        {
+            x.Response.Redirect("/Account/Login");
+            return Task.CompletedTask;
+        }
+    };
+
+});
 
 var app = builder.Build();
 
@@ -96,14 +114,35 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(name: "default", pattern: "{controller=home}/{action=index}/{id?}");
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "AdminArea",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    ).RequireAuthorization("RequireAdminRole");
+
+    endpoints.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=home}/{action=index}/{id?}"
+  );
+   
+});
 app.Lifetime.ApplicationStarted.Register(() =>
 {
     var scope = app.Services.CreateScope();
     AppDbContext dbcontext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     //  dbcontext.Database.EnsureCreated();
-    dbcontext.Database.Migrate();
+    try
+    {
+  dbcontext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+
+        throw;
+    }
+  
     CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
 });
 

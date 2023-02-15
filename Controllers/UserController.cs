@@ -78,19 +78,7 @@ namespace ESTA.Controllers
         }
 
 
-        [Authorize("RequireAdminRole")]
-        public async Task<IActionResult> UsersApproval()
-        {
-            var users = await appRep.UserRep.GetAllUsers();
-            return View(users);
-        }
-        [Authorize("RequireAdminRole")]
-        public async Task<IActionResult> EditApproval(string id, bool isApproved)
-        {
-            await appRep.UserRep.EditUserApproval(id, isApproved);
-            await appRep.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        
 
     }
 }

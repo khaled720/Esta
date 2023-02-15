@@ -2,7 +2,7 @@
 using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ESTA.Controllers
+namespace ESTA.Areas.Admin.Controllers
 {
     public class LevelsController : Controller
     {
@@ -14,7 +14,7 @@ namespace ESTA.Controllers
         }
         public async Task<IActionResult> Index()
         {
-          var levels =await appRep.LevelRep.GetAllLevels();
+            var levels = await appRep.LevelRep.GetAllLevels();
             return View(levels);
         }
 

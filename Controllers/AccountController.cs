@@ -59,7 +59,7 @@ namespace ESTA.Controllers
 
                         if (await userManager.IsInRoleAsync(user,"Admin"))
                         {
-                            return Redirect("/Admin/Index");
+                            return Redirect("/Admin/Home/Index");
                         }
                         else {
                          return Redirect("/User/Profile");
@@ -187,7 +187,7 @@ namespace ESTA.Controllers
 
                         var isEmailSent = EmailSender.Send_Mail(
                             user.Email,
-                            "Click this link to confirm your <strong>email</strong> <br> "
+                            "Click this link to confirm your <strong>Email</strong> <br> "
                                 + confirmEmailUrl,
                             "Confirm Your Email",
                             "Esta"

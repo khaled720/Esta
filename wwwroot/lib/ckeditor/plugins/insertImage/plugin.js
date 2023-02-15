@@ -44,7 +44,7 @@ $('#ck_imageUploader').change(function () {
             var Form_data = new FormData();
             Form_data.append('file', file);
             $.ajax({
-                url: "/api/Images",
+                url: '/api/Images',
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -56,7 +56,7 @@ $('#ck_imageUploader').change(function () {
                     img.setAttribute('src', result);
                     CurrentEditor.insertElement(img);
                     input.val('');
-                    setTimeout(() => addEvent(result), 20);
+                    setTimeout(() => addEvent(), 20);
                 },
                 failure: function (ex) {
                     //  alert(JSON.stringify(ex));
@@ -77,7 +77,7 @@ $('#ck_imageUploader').change(function () {
     }
 });
 
-function addEvent(src) {
+function addEvent() {
     //var img = $(CurrentEditor).find("img[src='" + src + "'");
     //console.log(img)
     //img.addEventListener('DOMNodeRemoved', OnNodeRemoved, false);
@@ -91,12 +91,14 @@ CKEDITOR.on('instanceReady', function (event) {
 
     event.editor.on('focus', function () {
         CurrentEditor = this;
+        addEvent();
     });
+    
 });
 
 function OnNodeRemoved(event) {
     console.log(event);
-    debugger;
+    //debugger;
     var img = event.target;
     var imgSrc = img.attributes['src'].nodeValue;
     /// var input = $('#ck_imageUploader');
@@ -108,7 +110,7 @@ function OnNodeRemoved(event) {
         console.log(key[0] + ', ' + key[1]);
     }
     $.ajax({
-        url: "/api/Images",
+        url: '/api/Images',
         type: 'delete',
         processData: false,
         contentType: false,

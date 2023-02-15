@@ -79,11 +79,38 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arabic details is rquired.
+        /// </summary>
+        public static string DetailsArError {
+            get {
+                return ResourceManager.GetString("DetailsArError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English details is reqiured.
+        /// </summary>
+        public static string DetailsEnError {
+            get {
+                return ResourceManager.GetString("DetailsEnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esta Event.
+        /// </summary>
+        public static string EstaEvent {
+            get {
+                return ResourceManager.GetString("EstaEvent", resourceCulture);
             }
         }
         
@@ -142,6 +169,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event Type.
+        /// </summary>
+        public static string EventType {
+            get {
+                return ResourceManager.GetString("EventType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Events or news field is required.
+        /// </summary>
+        public static string FlagError {
+            get {
+                return ResourceManager.GetString("FlagError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drag and drop a file or click to add Image.
         /// </summary>
         public static string Image {
@@ -151,11 +196,29 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image is reqiured.
+        /// </summary>
+        public static string ImgError {
+            get {
+                return ResourceManager.GetString("ImgError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to News.
         /// </summary>
         public static string News {
             get {
                 return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to News &amp; Events.
+        /// </summary>
+        public static string News_Events {
+            get {
+                return ResourceManager.GetString("News&Events", resourceCulture);
             }
         }
         
@@ -187,11 +250,29 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to read more.
+        ///   Looks up a localized string similar to Read More.
         /// </summary>
         public static string readMore {
             get {
                 return ResourceManager.GetString("readMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Social Event.
+        /// </summary>
+        public static string SocialEvent {
+            get {
+                return ResourceManager.GetString("SocialEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stay Tuned!!.
+        /// </summary>
+        public static string StayTuned__ {
+            get {
+                return ResourceManager.GetString("StayTuned!!", resourceCulture);
             }
         }
         
@@ -201,6 +282,42 @@ namespace ESTA.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic title is required.
+        /// </summary>
+        public static string TitleArError {
+            get {
+                return ResourceManager.GetString("TitleArError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English title is required.
+        /// </summary>
+        public static string TitleEnError {
+            get {
+                return ResourceManager.GetString("TitleEnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upcoming Events.
+        /// </summary>
+        public static string UpcomingEvents {
+            get {
+                return ResourceManager.GetString("UpcomingEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View More.
+        /// </summary>
+        public static string viewMore {
+            get {
+                return ResourceManager.GetString("viewMore", resourceCulture);
             }
         }
     }

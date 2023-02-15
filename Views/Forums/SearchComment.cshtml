@@ -2,25 +2,36 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model List<ESTA.ViewModels.GetUserForums>
-
+<style>
+    .delete {
+        color: red !important;
+    }
+</style>
 @if (Model.Count > 0)
 {
-    <div class="card x-75">
-        <div class="card-body">
+    <div class="news-details-area  pt-50 pb-50">
+        <div class="container">
             <div class="row">
-                <div class="col" id="CommentList">
-                    @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
-                {
-                showAllLink = true,
-                showReply = false,
-                UserForums = Model
-                })
+                <div class="col-xl-8 col-lg-12">
+                    <div class="post-comments post-comments-padding white-bg">
+                        <div class="latest-comments">
+                            <ul id="CommentList">
+                                @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
+                            {
+                            showAllLink = true,
+                            showReply = false,
+                            UserForums = Model
+                            })
+                            </ul>
+                        </div>
+                        <button onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
+                    </div>
                 </div>
-                <input type="hidden" value="@ViewBag.query" id="query">
             </div>
-            <button onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
         </div>
+        <input type="hidden" value="@ViewBag.query" id="query">
     </div>
+
 }
 else
 {
@@ -31,6 +42,7 @@ else
     </div>
 }
 @section Scripts{
+    <script src="~/js/forumsfuncs.js"></script>
     <script>
         $(document).ready(function () {
         });
@@ -38,15 +50,13 @@ else
         function getNextPage() {
             $.ajax({
                 type: 'get',
-                dataType: 'JSON',
-                url: '/Forums/GetNextSearchComment',
+                url: '@this.Url.Action("GetNextSearchComment","Forums")',
                 data: {
                     query: $('#query').val(),
                     page: commentPage++,
                 },
                 success: function (data) {
-                    console.log(data)
-                    ListComments(data, true);
+                    $('#CommentList').append(data);
                 },
                 error: function (data) {
                     console.log(data)
@@ -54,4 +64,4 @@ else
             });
         }
     </script>
-}
+    }

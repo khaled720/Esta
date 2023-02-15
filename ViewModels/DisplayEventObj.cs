@@ -2,7 +2,8 @@
 {
     public class DisplayEventObj
     {
-        public List<DisplayEvents> Events { get; set; }
+        public List<DisplayEvents> EstaEvent { get; set; }
+        public List<DisplayEvents> SocailEvent { get; set; }
         public List<DisplayEvents> News { get; set; }
     }
 }

@@ -18,6 +18,21 @@ namespace ESTA.Repository
             context.Add(Event);
         }
 
+        public bool CheckEvents(int page, int Flag, int? EventType, int count = 3)
+        {
+            if (Flag == 1)
+            {
+                return context.EventsNews
+                .Where(x => x.Flag == Flag)
+                .Skip(page * count)
+                .Take(count).Any();
+            }
+            return context.EventsNews
+                .Where(x => x.Flag == Flag && x.EventType == EventType)
+                .Skip(page * count)
+                .Take(count).Any();
+        }
+
         public void DeleteEvent(EventsNews events)
         {
             context.EventsNews.Remove(events);
@@ -32,10 +47,20 @@ namespace ESTA.Repository
             return context.EventsNews.Where(x => x.Id == Id).FirstOrDefault();
         }
 
-        public List<EventsNews> GetEvents(int page, int count = 4)
+        public List<EventsNews> GetEvents(int page, int Flag, int? EventType, int count = 3)
         {
+            if (Flag == 1)
+            {
+                return context.EventsNews
+               .Where(x => x.Flag == Flag)
+               .OrderBy(x => x.Date)
+               .Skip(page * count)
+               .Take(count)
+               .ToList();
+            }
             return context.EventsNews
-                .OrderByDescending(x => x.Date)
+                .Where(x => x.Flag == Flag && x.EventType == EventType)
+                .OrderBy(x => x.Date)
                 .Skip(page * count)
                 .Take(count)
                 .ToList();
@@ -43,7 +68,7 @@ namespace ESTA.Repository
 
         public EventsNews GetLatestEvent()
         {
-            return context.EventsNews.Where(x => x.Date >= DateTime.Now.Date)
+            return context.EventsNews.Where(x => x.Date >= DateTime.Now.Date && x.Flag == 0)
                 .OrderBy(x => x.Date)
                 .FirstOrDefault();
         }
@@ -51,6 +76,35 @@ namespace ESTA.Repository
         public List<EventsNews> GetOnlyEvents()
         {
             return context.EventsNews.Where(x => x.Flag == 0).ToList();
+        }
+        public EventsNews GetLatestEvent(int Flag, int? EventType)
+        {
+            EventsNews? eventsNews = new() ;
+            if (Flag == 1)
+            {
+                eventsNews = context.EventsNews.Where(x => x.Date >= DateTime.Now.Date && x.Flag == Flag)
+                    .OrderBy(x => x.Date)
+                    .FirstOrDefault();
+
+                eventsNews ??= context.EventsNews.Where(x => x.Flag == Flag)
+                    .OrderBy(x => x.Date)
+                    .FirstOrDefault();
+            }
+
+            else
+            {
+                eventsNews = context.EventsNews.Where(x => x.Date >= DateTime.Now.Date && x.Flag == Flag && x.EventType == EventType)
+                    .OrderBy(x => x.Date)
+                    .FirstOrDefault();
+
+                eventsNews ??= context.EventsNews.Where(x => x.Flag == Flag && x.EventType == EventType)
+                    .OrderBy(x => x.Date)
+                    .FirstOrDefault();
+            }
+
+
+            return eventsNews;
+
         }
     }
 }

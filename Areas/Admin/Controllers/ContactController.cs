@@ -2,7 +2,7 @@
 using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ESTA.Controllers
+namespace ESTA.Areas.Admin.Controllers
 {
     public class ContactController : Controller
     {
@@ -10,11 +10,11 @@ namespace ESTA.Controllers
 
         public ContactController(IUnitOfWork Uow)
         {
-            this.uow = Uow;
+            uow = Uow;
         }
         public async Task<IActionResult> Index()
         {
-          var contacts=await  uow.ContactRep.GetAllContacts();
+            var contacts = await uow.ContactRep.GetAllContacts();
             return View(contacts);
         }
 
@@ -22,7 +22,7 @@ namespace ESTA.Controllers
         [HttpGet]
         public IActionResult AddContact()
         {
-            
+
             return View();
         }
         [HttpPost]
@@ -30,24 +30,24 @@ namespace ESTA.Controllers
         {
             try
             {
-  await uow.ContactRep.AddContact(contact);
+                await uow.ContactRep.AddContact(contact);
                 await uow.SaveChangesAsync();
-              return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {
                 return View(contact);
-              
+
             }
-          
-          
+
+
         }
 
 
         [HttpGet]
         public async Task<IActionResult> EditContact(int id)
         {
-            var contact =await uow.ContactRep.GetContact(id);
+            var contact = await uow.ContactRep.GetContact(id);
 
             return View(contact);
         }
@@ -74,15 +74,15 @@ namespace ESTA.Controllers
         {
 
 
-            this.uow.ContactRep.DeleteContact(id);
+            uow.ContactRep.DeleteContact(id);
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
 
-        
-            
-            
 
-           
+
+
+
+
         }
 
 

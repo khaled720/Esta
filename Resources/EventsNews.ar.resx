@@ -123,8 +123,17 @@
   <data name="Delete" xml:space="preserve">
     <value>حذف</value>
   </data>
+  <data name="DetailsArError" xml:space="preserve">
+    <value>يجب ادخال التفاصيل باللغة العربية</value>
+  </data>
+  <data name="DetailsEnError" xml:space="preserve">
+    <value>يجب ادخال التفاصيل باللغة الانجليزية</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>تعديل</value>
+  </data>
+  <data name="EstaEvent" xml:space="preserve">
+    <value>Esta حدث</value>
   </data>
   <data name="Event" xml:space="preserve">
     <value>حدث</value>
@@ -144,11 +153,23 @@
   <data name="EventTitleEn" xml:space="preserve">
     <value>العنوان باللغة الانجليزية</value>
   </data>
+  <data name="EventType" xml:space="preserve">
+    <value>نوع الحدث</value>
+  </data>
+  <data name="FlagError" xml:space="preserve">
+    <value>يجب ادخال هل هذا حدث ام خبر؟  </value>
+  </data>
   <data name="Image" xml:space="preserve">
     <value>اضغط لاضافة صورة او قم بسحب و اسقاط الصورة</value>
   </data>
+  <data name="ImgError" xml:space="preserve">
+    <value>يجب ادخال الصورة</value>
+  </data>
   <data name="News" xml:space="preserve">
     <value>خبر</value>
+  </data>
+  <data name="News&amp;Events" xml:space="preserve">
+    <value>الاحداث والاخبار</value>
   </data>
   <data name="NewsOrEvent" xml:space="preserve">
     <value>هل هذا حدث ام خبر؟</value>
@@ -160,9 +181,27 @@
     <value>السابق</value>
   </data>
   <data name="readMore" xml:space="preserve">
-    <value>قراءة المزيد</value>
+    <value>اقرأ المزيد</value>
+  </data>
+  <data name="SocialEvent" xml:space="preserve">
+    <value>حدث اجتماعي</value>
+  </data>
+  <data name="StayTuned!!" xml:space="preserve">
+    <value>Stay Tuned!!</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>تاكيد</value>
+  </data>
+  <data name="TitleArError" xml:space="preserve">
+    <value>يجب ادخال العنوان باللغة العربية</value>
+  </data>
+  <data name="TitleEnError" xml:space="preserve">
+    <value>يجب ادخال العنوان باللغة الانجليزية</value>
+  </data>
+  <data name="UpcomingEvents" xml:space="preserve">
+    <value>الاحداث القادمة</value>
+  </data>
+  <data name="viewMore" xml:space="preserve">
+    <value>مشاهدة المزيد</value>
   </data>
 </root>

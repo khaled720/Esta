@@ -56,7 +56,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Content", b =>
@@ -81,7 +81,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contents");
+                    b.ToTable("Contents", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Course", b =>
@@ -131,7 +131,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Director", b =>
@@ -164,7 +164,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Directors", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.EventsNews", b =>
@@ -189,6 +189,9 @@ namespace ESTA.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("EventType")
+                        .HasColumnType("int");
+
                     b.Property<int>("Flag")
                         .HasColumnType("int");
 
@@ -208,7 +211,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventsNews");
+                    b.ToTable("EventsNews", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Forum", b =>
@@ -239,7 +242,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Forums");
+                    b.ToTable("Forums", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Level", b =>
@@ -256,7 +259,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels");
+                    b.ToTable("Levels", (string)null);
 
                     b.HasData(
                         new
@@ -302,7 +305,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
 
                     b.HasData(
                         new
@@ -384,7 +387,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("States");
+                    b.ToTable("States", (string)null);
 
                     b.HasData(
                         new
@@ -608,7 +611,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("UserAnswers");
+                    b.ToTable("UserAnswers", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
@@ -637,7 +640,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserCourses");
+                    b.ToTable("UserCourses", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.UserForum", b =>
@@ -674,7 +677,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("UsersForums");
+                    b.ToTable("UsersForums", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -706,15 +709,15 @@ namespace ESTA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6a8ba475-bc2d-40ad-9a89-4444a519ed66",
-                            ConcurrencyStamp = "34acf6d7-2fe5-4f27-bf7e-8f9e6c4c4af7",
+                            Id = "af2e99c7-7674-49de-8ccd-3e07353f6e6d",
+                            ConcurrencyStamp = "c1634d2f-d668-47ef-89be-495d687bd337",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5c4858b5-586d-42da-ad8c-aa25c902ceb5",
-                            ConcurrencyStamp = "b97df0cd-f867-424f-bdba-c71eb1a46396",
+                            Id = "d9971ff2-577e-4fee-a728-8e6b6f32fadc",
+                            ConcurrencyStamp = "b60f60dc-597f-4ef1-b810-2943d65bdedc",
                             Name = "User",
                             NormalizedName = "USER"
                         });

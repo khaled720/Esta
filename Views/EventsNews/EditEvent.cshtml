@@ -40,30 +40,19 @@
         color: black;
     }
 
-    .drag-text {
-        text-align: center;
-    }
-
-        .drag-text h3 {
-            font-weight: 100;
-            text-transform: uppercase;
-            color: black;
-            padding: 60px 0;
-        }
-
 </style>
 <input type="file" id="ck_imageUploader" accept="image/gif, image/jpeg, image/png" style="display:none;" />
 
 <div class="card">
     <div class="card-footer">
         <input type="hidden" value="@Model.Id" asp-for="Id" />
-        <form asp-action="EditEvent" method="post" enctype="multipart/form-data">
+        <form onkeypress="submitForm(event)" asp-action="EditEvent" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger">
             </div>
             <div class="file-upload my-2">
                 <div class="image-upload-wrap">
-                    <input class="file-upload-input" asp-for="ImageUpload" type='file' onchange="readURL(this);" accept="image/*" />
-                    <img class="img-fluid" id="imgSrc" src="@Model.Image" alt="your image" />
+                    <input class="file-upload-input" asp-for="ImageUpload" type='file' onchange="readURL(this);" accept="image/gif, image/jpeg, image/png" />
+                    <img class="img-fluid" id="imgSrc" src="@Url.Content("../../"+Model.Image)" alt="your image" />
                 </div>
             </div>
             <div class="row">
@@ -74,15 +63,15 @@
                 </div>
 
                 <div class="col-6">
-                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventTitleEn</label>
-                    <input class="form-control" id="formTitle" type="text" asp-for="TitleEn" />
+                    <label for="formTitleEn" class="form-label">@ESTA.Resources.EventsNews.EventTitleEn</label>
+                    <input class="form-control" id="formTitleEn" type="text" asp-for="TitleEn" />
                     <span asp-validation-for="TitleEn" class="text-danger"></span>
                 </div>
             </div>
-            @if(Model.Date != null)
+            @if (Model.Date != null)
             {
                 <div class="col-6 mt-3">
-                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
+                    <label for="formDate" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
                     <input class="form-control" id="formDate" type="datetime-local" asp-for="Date" value="@Model.Date.Value.ToString("yyyy-MM-dd hh:mm:ss")" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
@@ -90,14 +79,14 @@
             else
             {
                 <div class="col-6 mt-3">
-                    <label for="formTitle" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
+                    <label for="formDate" class="form-label">@ESTA.Resources.EventsNews.EventDate</label>
                     <input class="form-control" id="formDate" type="datetime-local" asp-for="Date" />
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </div>
             }
 
             <div class="col-12 mt-3">
-                <label for="editor_en" class="form-label">@ESTA.Resources.EventsNews.EventDetailsAr</label>
+                <label for="editor_ar" class="form-label">@ESTA.Resources.EventsNews.EventDetailsAr</label>
                 <textarea class="form-control" id="editor_ar" asp-for="DetailsAr"></textarea>
                 <span asp-validation-for="DetailsAr" class="text-danger"></span>
             </div>
@@ -108,42 +97,38 @@
                 <span asp-validation-for="DetailsEn" class="text-danger"></span>
             </div>
 
-            @if(Model.Flag == 1)
-            {
-                <div class="col-12 mt-3">
-                    <label class="form-label">@ESTA.Resources.EventsNews.NewsOrEvent</label>
-                    <div class="form-check form-check-inline">
-                        @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input", @checked="checked"})
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            @ESTA.Resources.EventsNews.News
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input"})
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            @ESTA.Resources.EventsNews.Event
-                        </label>
-                    </div>
+            <div class="col-12 mt-3">
+                <label class="form-label">@ESTA.Resources.EventsNews.NewsOrEvent</label>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input",@id="flexRadioDefault1"})
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        @ESTA.Resources.EventsNews.News
+                    </label>
                 </div>
-            }
-            else
-            {
-                <div class="col-12 mt-3">
-                    <label class="form-label">@ESTA.Resources.EventsNews.NewsOrEvent</label>
-                    <div class="form-check form-check-inline">
-                        @Html.RadioButtonFor(m=>m.Flag,1, new{@class="form-check-input"})
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            @ESTA.Resources.EventsNews.News
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input", @checked="checked"})
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            @ESTA.Resources.EventsNews.Event
-                        </label>
-                    </div>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.Flag,0, new{@class="form-check-input",@id="flexRadioDefault2"})
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        @ESTA.Resources.EventsNews.Event
+                    </label>
                 </div>
-            }
+                <span asp-validation-for="Flag" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label class="form-label">@ESTA.Resources.EventsNews.EventType</label>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.EventType,1, new{@class="form-check-input",@id="flexRadioDefault3"})
+                    <label class="form-check-label" for="flexRadioDefault3">
+                        @ESTA.Resources.EventsNews.EstaEvent
+                    </label>
+                </div>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m=>m.EventType,0, new{@class="form-check-input",@id="flexRadioDefault4"})
+                    <label class="form-check-label" for="flexRadioDefault4">
+                        @ESTA.Resources.EventsNews.SocialEvent
+                    </label>
+                </div>
+            </div>
 
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary">@ESTA.Resources.EventsNews.Submit</button>
@@ -158,7 +143,13 @@
         await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
     }
     <script>
-
+        function submitForm(e) {
+            keycode = e.keyCode || e.charCode || e.which //for cross browser
+            if (keycode == 13)    //keyCode for enter key
+            {
+                $('#submit').trigger('click');
+            }
+        }
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var formData = new FormData();
@@ -167,7 +158,6 @@
                 console.log(url)
                 $('#imgSrc').attr('src', url);
                 $('#imgSrc').css('display', 'block');
-                $('.drag-text').hide();
             }
         }
 

@@ -2,13 +2,14 @@
 using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ESTA.Controllers
+namespace ESTA.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ContentController : Controller
     {
         private readonly IUnitOfWork appRep;
 
-        public ContentController(IUnitOfWork appRep) 
+        public ContentController(IUnitOfWork appRep)
         {
             this.appRep = appRep;
         }
@@ -21,7 +22,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> About()
         {
 
-            var about = await  appRep.ContentRep.GetContent("about");
+            var about = await appRep.ContentRep.GetContent("about");
 
 
             return View(about);
@@ -29,7 +30,7 @@ namespace ESTA.Controllers
         [HttpPost]
         public async Task<IActionResult> About(Content content)
         {
-           
+
 
             try
             {
@@ -39,17 +40,18 @@ namespace ESTA.Controllers
                     await appRep.ContentRep.AddContent(content);
                     await appRep.SaveChangesAsync();
                 }
-                else {
+                else
+                {
 
                     await appRep.ContentRep.UpdateContent(content);
                     await appRep.SaveChangesAsync();
-                
+
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Error", ex.Message);
-                return View();  
+                return View();
             }
 
 
@@ -62,10 +64,10 @@ namespace ESTA.Controllers
         [HttpGet]
         public async Task<IActionResult> TechnicalAnalysis()
         {
-            var ta =  await  appRep.ContentRep.GetContent("ta");
+            var ta = await appRep.ContentRep.GetContent("ta");
 
 
-        
+
             return View(ta);
         }
         [HttpPost]
@@ -107,7 +109,7 @@ namespace ESTA.Controllers
         [HttpGet]
         public async Task<IActionResult> Ethics()
         {
-            var ethics = await  appRep.ContentRep.GetContent("ethics");
+            var ethics = await appRep.ContentRep.GetContent("ethics");
 
 
 
@@ -227,7 +229,7 @@ namespace ESTA.Controllers
 
 
 
-          [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Vission()
         {
             var benefits = await appRep.ContentRep.GetContent("vission");

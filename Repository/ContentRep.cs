@@ -21,7 +21,10 @@ namespace ESTA.Repository
 
         public async Task<Content> GetContent(string type)
         {
-          return  await appContext.Contents.Where(y => y.Type == type).FirstOrDefaultAsync();
+         
+                var content=await appContext.Contents.Where(y => y.Type == type).FirstOrDefaultAsync();
+     return  content!=null? content:new Content();
+        
         }
 
         public async Task<bool> UpdateContent(Content content)

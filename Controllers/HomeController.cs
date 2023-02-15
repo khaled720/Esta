@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
@@ -90,27 +91,33 @@ namespace ESTA.Controllers
             }
             return View(content);
         }
-
-        public async Task<IActionResult> GetEvents()
+        public IActionResult GetEvents()
         {
             List<EventsNews> EventNews = Uow.EventRep.GetOnlyEvents();
             List<DisplayEvents> DisplayEvent = new();
-            string title;
+
             foreach (var eventItem in EventNews)
             {
-                if (culture == "en")
+                DisplayEvent.Add(new DisplayEvents()
                 {
-                    title = eventItem.TitleEn;
-                }
-                else
-                {
-                    title = eventItem.TitleAr;
-                }
-              
+                    Date = eventItem.Date,
+                    Title = culture == "en"? eventItem.TitleEn: eventItem.TitleAr,
+                    Id = eventItem.Id,
+                    EventType = eventItem.EventType
+                });
             }
-         
-            return Json(EventNews);
+
+            return Json(DisplayEvent);
         }
+
+
+
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {

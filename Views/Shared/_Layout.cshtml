@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Localization;
 @inject SignInManager<User> signInManager;
 @inject UserManager<User> userManager;
-@using Microsoft.AspNetCore.Localization
-@using Microsoft.Extensions.Options
+@inject IHttpContextAccessor contextAccessor
 @inject IOptions<RequestLocalizationOptions> LocalizationOptions
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
@@ -16,33 +16,45 @@
         : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
 
     var admin = false;
-    if (signInManager.IsSignedIn(User))
+   
+    var IsSigned = signInManager.IsSignedIn(User);
+    var IsAdmin = false;
+    if (IsSigned)
     {
         var user = await userManager.GetUserAsync(User);
-        admin = await userManager.IsInRoleAsync(user, "Admin");
+        IsAdmin = await userManager.IsInRoleAsync(user, "Admin");
     }
+    var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+    // Culture contains the information of the requested culture
+    var culture = rqf.RequestCulture.Culture.Name;
+    string langTooltip = "en";
+    if (culture == "en")
+        langTooltip = "ar";
 }
 @using Microsoft.AspNetCore.Mvc.Localization
 @using System.Globalization
+@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
 
 @inject IViewLocalizer localizer
 
 <!DOCTYPE html>
 <html lang="en" dir='@(CultureInfo.CurrentCulture.Name.StartsWith("ar")?"ltr":"ltr")'>
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>ESTA - Home</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="~/template/img/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
     <!-- CSS here -->
-<link href="~/template/css/bootstrap.min.css" rel="stylesheet" />
-
+    <link href="~/template/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/template/css/inner.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/template/animate.min.css">
+    <link href="~/template/css/animate.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/magnific-popup.css">
     <link rel="stylesheet" href="~/template/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="~/template/css/themify-icons.css">
@@ -63,6 +75,7 @@
         <![endif]-->
     <!-- Add your site or application content here -->
     <!-- header-start -->
+    <input type="hidden" id="langddl" value="@culture" />
     <header id="home">
         <div class="header-area">
             <!-- header-top -->
@@ -107,7 +120,11 @@
                                     <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
                                     <li><a href="#"><span class="ti-google"></span></a></li>
                                     <li><a href="#"><span class="ti-linkedin"></span></a></li>
-                                    <li><a href="#"><span class="ti-world"></span></a></li>
+                                    <li>
+                                        <a href="#" data-toggle="tooltip" title="@langTooltip" onclick="changeLang('@langTooltip')">
+                                            <span class="ti-world"></span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -121,7 +138,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-2 col-md-10 col-6">
                             <div class="logo">
-                                <a href="index.html">
+                                <a asp-controller="Home" asp-action="Index">
                                     <img src="~/template/img/logo/esta_logo3.png" alt="">
                                 </a>
                             </div>
@@ -175,13 +192,13 @@
                                             <a href="#">Education</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a href="/courses/CetaCourses">CETA</a>
+                                                    <a asp-controller="courses" asp-action="courses">CETA</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/courses/OtherCourses">Other Courses</a>
+                                                    <a asp-controller="courses" asp-action="courses">Other Courses</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/courses/CetaHolders">CETA Holders</a>
+                                                    <a asp-controller="courses" asp-action="courses">CETA Holders</a>
                                                 </li>
 
                                             </ul>
@@ -189,15 +206,28 @@
                                         <li>
                                             <a href="#">Membership</a>
                                             <ul class="submenu">
+
+                                                @if (IsSigned && IsAdmin)
+                                                {
+                                                    <li>
+                                                        <a href="/Forums/NewForum">New Forum</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/EventsNews/CreateEvent">New Event</a>
+                                                    </li>
+                                                }
+
+
+                                                @if (IsSigned)
+                                                {
+                                                    <li>
+                                                        <a asp-controller="Forums" asp-action="Index">Discussion Board "Forum"</a>
+                                                    </li>
+                                                }
                                                 <li>
-                                                    <a href="#">Discussion Board "Forum"</a>
+                                                    <a asp-controller="EventsNews" asp-action="Index">Events &amp; News</a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">ESTA Event "ESTA Days"</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Social Events</a>
-                                                </li>
+
                                                 <li>
                                                     <a href="/Home/About?type=benefits">Benefits Of Membership</a>
                                                 </li>
@@ -212,17 +242,17 @@
                                         <li>
                                             <a href="/Home/contact">Contacts</a>
                                         </li>
-                                        <li>
-                                            <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
-                                                  class="form-horizontal nav-link text-dark">
-                                                <select name="culture"
-                                                        class="form-select"
-                                                        onchange="this.form.submit();"
-                                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
-                                                        asp-items="cultureItems">
-                                                </select>
-                                            </form>
-                                        </li>
+                                        @*<li>
+                                        <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
+                                        class="form-horizontal nav-link text-dark row">
+                                        <select id="langddl" name="culture"
+                                        class="form-control"
+                                        onchange="this.form.submit();"
+                                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                        asp-items="cultureItems">
+                                        </select>
+                                        </form>
+                                        </li>*@
                                     </ul>
                                 </nav>
                             </div>
@@ -361,25 +391,61 @@
     <script src="~/template/js/jquery.counterup.min.js"></script>
     <script src="~/template/js/waypoints.min.js"></script>
     <script src="~/template/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>
+    <script src="~/js/moment.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/template/js/plugins.js"></script>
-	<script src="~/js/calenderscript.js"></script>
     <script src="~/template/js/custom.js"></script>
     <script src="~/template/js/custom.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckeditor/customckeditor.js"></script>
+    <script src="~/lib/ckeditor/ck-editor-initialize.js"></script>
+    <script src="~/lib/ckeditor/plugins/insertimage/plugin.js"></script>
 	<script src="~/template/aos/aos.js"></script>
   
 
 <script src="~/js/site.js"></script>
     <script src="~/template/js/main.js"></script>
+
     @await RenderSectionAsync("Scripts",required: false)
     <script>
+
+        function changeLang(lang) {
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("SetCulture","Lang")',
+                data: {
+                    culture: lang
+                },
+                success: function (data) {
+                    if (data)
+                        window.location.reload();
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
         function padTo2Digits(num) {
             return num.toString().padStart(2, '0');
         }
+        function copyToClipboard(id) {
+            var base_url = window.location.origin;
+            var cmntLink = $('#CopyToClip' + id).val();
 
+            var $temp = $("<input>");
+            $("body").append($temp);
+
+            $temp.val(base_url + cmntLink).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            alert("Copied the Link");
+        }
         function formatDate(date) {
             var newDate = new Date(date);
             var fullDate = [

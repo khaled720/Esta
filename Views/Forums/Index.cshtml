@@ -4,51 +4,84 @@
 @model List<ESTA.ViewModels.GetForum>
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<User> userManager;
+@inject SignInManager<User> signInManager;
 @{
-    var user = await userManager.GetUserAsync(User);
-    var role = await userManager.IsInRoleAsync(user, "Admin");
+    var IsSigned = signInManager.IsSignedIn(User);
+    var role = false;
+    if (IsSigned)
+    {
+        var user = await userManager.GetUserAsync(User);
+        role = await userManager.IsInRoleAsync(user, "Admin");
+    }
 }
-
-<div class="card my-3 p-3">
-    <div class="row">
-        <div class="col-6">
-            <input class="form-control" type="text" id="search" />
-        </div>
-        <div class="col-4">
-            <button onclick="Search()" class="btn btn-secondary">Search</button>
-        </div>
-    </div>
-</div>
-
-<div class="row gy-3">
-    <div class="col-xl-9">
-        @foreach (var forum in Model)
-        {
-            <div class="card w-75 mb-3">
-                <h5 class="card-header">
-                    <a asp-action="GetForum" asp-route-id="@forum.Id">@forum.Title</a>
-                </h5>
-                <div class="card-body">
-                    <p class="card-text">@forum.Description</p>
-                </div>
-                @if (role)
-                {
-                    <div class="card-footer">
-                        <a asp-controller="Forums" asp-action="EditForum" asp-route-id="@forum.Id" class="btn btn-secondary">
-                            Edit
-                        </a>
-                        <a onclick="showModal(@forum.Id)" class="btn btn-danger">
-                            Delete
-                        </a>
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(template/img/inner-bg.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">Forums</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li class="breadcrumb-item active"><a asp-controller="Forums" asp-action="Index">Forums</a></li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
-                }
+                </div>
             </div>
-        }
-    </div>
-    <div class="col-xl-3 align-self-center" id="stats">
+        </div>
     </div>
 </div>
 
+<div class="container">
+
+
+    <div class="card my-3 p-3">
+
+        <form asp-action="SearchComment">
+            <div class="row">
+                <div class="col-10">
+                    <input class="form-control" type="text" id="search" name="query" />
+                </div>
+                <button type="submit" style="padding:12px" class="btn btn-secondary">Search</button>
+            </div>
+        </form>
+
+
+    </div>
+
+    <div class="row gy-3">
+        <div class="col-xl-8">
+            @foreach (var forum in Model)
+            {
+                <div class="card mb-3">
+                    <h5 class="card-header">
+                        <a asp-action="GetForum" asp-route-id="@forum.Id">@forum.Title</a>
+                    </h5>
+                    <div class="card-body">
+                        <p class="card-text">@forum.Description</p>
+                    </div>
+                    @if (role)
+                    {
+                        <div class="card-footer">
+                            <a asp-controller="Forums" asp-action="EditForum" asp-route-id="@forum.Id" class="btn btn-secondary">
+                                Edit
+                            </a>
+                            <button onclick="showModal(@forum.Id)" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-xl-4 align-self-center" id="stats">
+        </div>
+    </div>
+</div>
 <div class="modal" tabindex="-1" id="exampleModalToggle">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -61,7 +94,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a onclick="deleteForum()" class="btn btn-danger">Delete</a>
+                <button onclick="deleteForum()" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
@@ -72,9 +105,6 @@
         $(document).ready(function () {
             $('#stats').load('@Url.Action("GetForumStatistics","Forums")');
         });
-        function Search(e) {
-            window.location.href = '/Forums/SearchComment?query=' + $('#search').val()
-        }
         var forumId;
         function showModal(id) {
             forumId = id;
@@ -84,12 +114,12 @@
             $.ajax({
                 type: 'post',
                 dataType: 'JSON',
-                url: '/Forums/DeleteForum',
+                url: '@Url.Action("DeleteForum","Forums")',
                 data: {
                     id: forumId
                 },
                 success: function (data) {
-                    window.location.href = '/Forums/Index'
+                    window.location.href = '@Url.Action("Index","Forums")'
                 },
                 error: function (data) {
                     console.log(data)

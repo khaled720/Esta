@@ -5,6 +5,7 @@ using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +22,11 @@ namespace ESTA.Controllers
         private readonly IUnitOfWork appRep;
         private readonly IMapper mapper;
         private readonly string culture;
-        private readonly IWebHostEnvironment webHost;
 
-        public EventsNewsController(IWebHostEnvironment webHost, IUnitOfWork appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
+        public EventsNewsController(IUnitOfWork appRep, IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             this.appRep = appRep;
             this.mapper = mapper;
-            this.webHost = webHost;
 
             var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
@@ -40,19 +39,55 @@ namespace ESTA.Controllers
         }
         public IActionResult Index()
         {
-            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(0);
+            var flagNews = (int)Flag.News;
+            var flagEvents = (int)Flag.Events;
+            var Social = (int)EventType.Social;
+            var Esta = (int)EventType.Esta;
 
-            return View(EventsNews);
-        }
-        public IActionResult GetEventsPage(int page)
-        {
-            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(page);
-            DisplayEventPartial displayEvent = new()
+            List<DisplayEvents> News = EventsModelToEventsDisplay(0, flagNews, null);
+            List<DisplayEvents> EstaEvent = EventsModelToEventsDisplay(0, flagEvents, Esta);
+            List<DisplayEvents> SocialEvent = EventsModelToEventsDisplay(0, flagEvents, Social);
+
+            List<DisplayEventPartial> eventPartial = new()
             {
-                Events = EventsNews,
+                new DisplayEventPartial()
+                {
+                    EventsList = News,
+                    DivId = "News",
+                    Flag = flagNews,
+                    EventType = null,
+                    ViewMore = appRep.EventRep.CheckEvents(1, flagNews, null)
+                },
+                new DisplayEventPartial()
+                {
+                    EventsList = EstaEvent,
+                    DivId = "Esta",
+                    Flag = flagEvents,
+                    EventType = Esta,
+                    ViewMore = appRep.EventRep.CheckEvents(1, flagEvents, Esta)
+                },
+                new DisplayEventPartial()
+                {
+                    EventsList = SocialEvent,
+                    DivId = "Social",
+                    Flag = flagEvents,
+                    EventType = Social,
+                    ViewMore = appRep.EventRep.CheckEvents(1, flagEvents, Social)
+                }
             };
-            
-            return PartialView("_renderEvent", displayEvent);
+            return View(eventPartial);
+        }
+        public IActionResult CheckMoreEvents(int page, int Flag, int EventType)
+        {
+            bool CheckEvent = appRep.EventRep.CheckEvents(page + 1, Flag, EventType);
+
+            return Json(CheckEvent);
+        }
+        public IActionResult GetEventsPage(int page, int Flag, int? EventType)
+        {
+            List<DisplayEvents> EventsNews = EventsModelToEventsDisplay(page, Flag, EventType);
+
+            return PartialView("_renderEvent", EventsNews);
         }
         public IActionResult GetEvent(int id)
         {
@@ -63,6 +98,7 @@ namespace ESTA.Controllers
                 {
                     Id = events.Id,
                     Image = events.Image,
+                    Date = events.Date,
                     Title = culture == "en" ? events.TitleEn : events.TitleAr,
                     Description = culture == "en" ? events.DetailsEn : events.DetailsAr
                 };
@@ -72,10 +108,12 @@ namespace ESTA.Controllers
             else
                 return RedirectToAction("Error"); ;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateEvent()
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateEventAsync(CreateEvent Event)
         {
@@ -84,14 +122,18 @@ namespace ESTA.Controllers
             var imgName = ImageHelper.UploadedFile(Event.Image, "images/News/");
             EventsNews NewEvent = mapper.Map<CreateEvent, EventsNews>(Event);
 
+            if (Event.Flag == (int)Flag.Events && !Event.EventType.HasValue)
+                NewEvent.EventType = (int)EventType.Esta;
+
             NewEvent.DetailsAr = DescArDecoded;
             NewEvent.DetailsEn = DescEnDecoded;
-            NewEvent.Image = "/images/News/" + imgName;
+            NewEvent.Image = "images/News/" + imgName;
             appRep.EventRep.AddEvent(NewEvent);
             await appRep.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult EditEvent(int id)
         {
             EventsNews Event = appRep.EventRep.GetEventById(id);
@@ -104,6 +146,7 @@ namespace ESTA.Controllers
             else
                 return RedirectToAction("Error");
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditEventAsync(EditEvents EditEvent)
         {
@@ -112,13 +155,17 @@ namespace ESTA.Controllers
             var DescEnDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsEn);
             if (EditEvent.ImageUpload != null)
             {
-                var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "/images/News/");
-                Event.Image = "/images/News/" + imgName;
+                var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "images/News/");
+                Event.Image = "images/News/" + imgName;
             }
             Event.DetailsAr = DescArDecoded;
             Event.DetailsEn = DescEnDecoded;
             Event.TitleAr = EditEvent.TitleAr;
             Event.TitleEn = EditEvent.TitleEn;
+
+            if (Event.Flag == (int)Flag.Events && !Event.EventType.HasValue)
+                Event.EventType = (int)EventType.Esta;
+
             if (EditEvent.Date != null)
             {
                 Event.Date = EditEvent.Date;
@@ -127,6 +174,7 @@ namespace ESTA.Controllers
 
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEventAsync(int id)
         {
             EventsNews events = appRep.EventRep.FindEvent(id);
@@ -138,13 +186,9 @@ namespace ESTA.Controllers
             }
             return RedirectToAction("Error");
         }
-        private static string RemoveHTMLTags(string text)
+        private List<DisplayEvents> EventsModelToEventsDisplay(int page, int Flag, int? Eventtype)
         {
-            return Regex.Replace(text.Trim(), "<.*?>", String.Empty);
-        }
-        private List<DisplayEvents> EventsModelToEventsDisplay(int page)
-        {
-            List<EventsNews> EventsList = appRep.EventRep.GetEvents(page);
+            List<EventsNews> EventsList = appRep.EventRep.GetEvents(page, Flag, Eventtype);
 
             List<DisplayEvents> EventsNews = new();
             string details;
@@ -153,24 +197,29 @@ namespace ESTA.Controllers
             {
                 if (culture == "en")
                 {
-                    details = RemoveHTMLTags(eventVar.DetailsEn).Trim().Substring(1, 20);
+                    details = HtmlHelper.RemoveHTMLTags(eventVar.DetailsEn);
                     title = eventVar.TitleEn;
                 }
                 else
                 {
-                    details = RemoveHTMLTags(eventVar.DetailsAr).Trim().Substring(1, 20);
+                    details = HtmlHelper.RemoveHTMLTags(eventVar.DetailsAr);
                     title = eventVar.TitleAr;
                 }
+                if(title.Length > 25)
+                    title = title.Substring(0, 25) + "...";
                 EventsNews.Add(new()
                 {
                     Id = eventVar.Id,
                     Image = eventVar.Image,
                     Title = title,
+                    Date = eventVar.Date,
                     Flag = eventVar.Flag,
                     Description = details,
                 });
             }
             return EventsNews;
         }
+
+
     }
 }
