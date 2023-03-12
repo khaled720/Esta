@@ -149,7 +149,7 @@ namespace ESTA.Areas.Admin.Controllers
                             }
                         }
                     }
-                    catch (Exception) { }
+                    catch (Exception ex) { }
 
                     isEdited = await appRep.CoursesRep.EditCourse(clvm.course);
 

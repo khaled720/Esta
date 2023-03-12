@@ -3,13 +3,29 @@
 
 @model List<ESTA.Models.User>
 
+@using Microsoft.Extensions.Localization
+@using System.Globalization
 
-
-	<h4>Ceta Holders</h4>
+@inject IStringLocalizer<SharedResource> localizer;
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">@localizer["cetaholders"]</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if (Model.Count == 0)
 {
-	<p>No Ceta Holders Found</p>
+    <p style="padding:40px" sty>  @localizer["notfound"]</p>
 }
 
 	<table>
@@ -22,7 +38,15 @@
 		<tr>
 
 
-				<td> @item.FullName
+                <td>
+                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                    {
+                        @item.FullNameAr
+                    }
+                    else
+                    {
+                        @item.FullName
+                    }
 				</td>
 
 

@@ -1,19 +1,28 @@
-﻿
+﻿@using Microsoft.Extensions.Localization
+@using System.Text.RegularExpressions
+
 @{
     ViewData["Title"] = "Home Page";
 }
+
 @model ESTA.ViewModels.HomeIndexViewModel
+
+@inject IStringLocalizer<ESTA.SharedResource> localizer;
+
+
+
+
 
 <!-- slider-start -->
 <div class="slider-area pos-relative">
     <div class="slider-active">
         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner1.png);">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 offset-xl-2">
+                <div class="row  justify-content-center">
+                    <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">Welcome To ESTA</h1>
-                            <p data-animation="fade-up" data-delay=".4s">The Egyptian Society of Technical Analysts</p>
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@localizer["wel"]</h1>
+                            <p data-animation="fade-up" data-delay=".4s">@localizer["esta"]</p>
                         </div>
                     </div>
                 </div>
@@ -21,11 +30,11 @@
         </div>
         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner2.jpg);">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 offset-xl-2">
+                <div class="row  justify-content-center">
+                    <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">Education Get Light <br> In Human Life</h1>
-                            <p data-animation="fade-up" data-delay=".4s">Sorem ipsum dolor sit amet consectetur adipisicing elit sed do <br> eiusmod tempor incididunt ut labore </p>
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel2"])  </h1>
+                            <p data-animation="fade-up" data-delay=".4s">   @localizer["wel2desc"]                  </p>
                         </div>
                     </div>
                 </div>
@@ -33,11 +42,11 @@
         </div>
         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner3.png);">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 offset-xl-2">
+                <div class="row  justify-content-center">
+                    <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">First Professional Technical Analysis Society</h1>
-                            <p data-animation="fade-up" data-delay=".4s">In The Middle East</p>
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel3"])  </h1>
+                            <p data-animation="fade-up" data-delay=".4s">         @localizer["wel3desc"]                   </p>
 
                         </div>
                     </div>
@@ -46,11 +55,11 @@
         </div>
         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner4.jpg);">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 offset-xl-2">
+                <div class="row justify-content-center">
+                    <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">ESTA is welcoming  <br>any new volunteers</h1>
-                            <p data-animation="fade-up" data-delay=".4s">Join to  the ESTA  team </p>
+                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel4"])  </h1>
+                            <p data-animation="fade-up" data-delay=".4s">           @localizer["wel4desc"]                    </p>
                         </div>
                     </div>
                 </div>
@@ -64,19 +73,24 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-7 col-lg-7">
-                <div class="about-title-section mb-30 aos-init aos-animate" data-aos="flip-up" data-aos-duration="1200">
-                    <h1>About ESTA</h1>
-                    <h5>The Egyptian Society of Technical Analysts ( ESTA )</h5>
+                <div class="about-title-section mb-30 aos-init  aos-animate"  data-aos="flip-up" data-aos-duration="1200">
+                    <h1>@localizer["about"] ESTA</h1>
+                    <h5>@localizer["esta"] ( ESTA )</h5>
                     <p>
-                 @Model.About
+            
+                     
+                            @Model.About 
+                          
+                  
+                       
                  </p>
                  
-                    <a class="theme-btn blue-bg-border mt-20" href="/Home/About?type=about"><span class="btn-text">Read More</span></a>
+                    <a class="theme-btn blue-bg-border mt-20" href="/Home/About?type=about"><span class="btn-text">@localizer["readmore"]</span></a>
                     
                     <!--<button class="theme-btn blue-bg-border mt-20"><span class="btn-text">Read More</span></button>-->
                 </div>
             </div>
-            <div class="col-xl-5 col-lg-5 aos-init aos-animate" data-aos="flip-down" data-aos-duration="1200">
+            <div class="col-xl-5 col-lg-5 aos-init aos-animate" data-aos="flip-down"  data-aos-duration="1200">
                 <div class="about-right-img mb-30">
                     <img src="/template/img/about/about-right.png" alt="">
                 </div>
@@ -93,11 +107,11 @@
 <div id="choose" class="visionMission events-bg-height pt-70 pb-20 ">
     <div class="container">
         <div class="row">
-            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1  aos-init aos-animate" data-aos="fade-up"
+            <div class="col-12  aos-init aos-animate" data-aos="fade-up"
                       data-aos-anchor-placement="center-center" data-aos-duration="1000">
                 <div class="section-title mb-50 text-center">
                     <div class="section-title-heading mb-20">
-                        <h1 class="primary-color">Why Choose Us</h1>
+                        <h1 class="primary-color">@localizer["whyus"]</h1>
                     </div>
 
                 </div>
@@ -107,19 +121,19 @@
             <div class="col-md-5 mb-5 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                 <div class="choose_box">
 
-                    <div><img src="/template/img/vission_trans.png" alt="#" /><h3>Our Vission</h3></div>
+                    <div><img src="/template/img/vission_trans.png" alt="#" /><h3>@localizer["ourvission"]</h3></div>
 
-                    <p> @Model.Vission</p>
+                    <p> @Model.Vission ...</p> 
 
-                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" href="VissionMission.html"><span class="btn-text">Read More</span></a>
+                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" asp-action="About" asp-route-type="vission" asp-controller="Home"><span class="btn-text">@localizer["readmore"]</span></a>
                 </div>
             </div>
             <div class="col-md-5 mb-5 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                 <div class="choose_box">
-                    <div><img src="/template/img/mission_trans.png" alt="#" /><h3>Our Mission</h3></div>
+                    <div><img src="/template/img/mission_trans.png" alt="#" /><h3>@localizer["ourmission"]</h3></div>
 
-                    <p>@Model.Mission</p>
-                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" href="VissionMission.html"><span class="btn-text">Read More</span></a>
+                    <p>@Model.Mission ...</p> 
+                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" asp-action="About" asp-route-type="mission" asp-controller="Home"><span class="btn-text">@localizer["readmore"]</span></a>
                 </div>
             </div>
         </div>
@@ -130,11 +144,11 @@
 <div id="upComingCourses" class="events-area events-bg-height pt-100 pb-50" style="background-image: url(/template/img/shop_bg.jpg)">
     <div class="container">
         <div class="row">
-            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 aos-init aos-animate" data-aos="fade-up"
+            <div class=" col-12 aos-init aos-animate" data-aos="fade-up"
                  data-aos-anchor-placement="center-center" data-aos-duration="1000">
                 <div class="section-title mb-50 text-center">
                     <div class="section-title-heading mb-20">
-                        <h1 class="white-color">Upcoming Courses</h1>
+                        <h1 class="white-color">@localizer["upcourses"]</h1>
                     </div>
 
                 </div>
@@ -143,7 +157,7 @@
 
         <div class="events-list mb-30">
             <div class="row">
-                <div class="col-xl-6 col-lg-6 mb-30 aos-init aos-animate" data-aos="fade-down"
+                <div class="col-lg-6 aos-init aos-animate" data-aos="fade-down"
                      data-aos-duration="1500">
 
                     <style>
@@ -159,23 +173,40 @@
 
 
                 </div>
-                <div class="col-xl-6 col-lg-6 aos-init aos-animate" data-aos="fade-up"
+                <div class="col-lg-6 col-sm-12 aos-init aos-animate" data-aos="fade-up"
                      data-aos-duration="1500">
                     <div class="single-events mb-30">
                         <div class="events-wrapper">
                             <div class="events-inner d-flex">
                                 <div class="events-thumb">
-                                    <img src="/template/img/events/event2.png" alt="">
+                                    <img style="width: 165px;
+    height: 100%;" src="@Model.UpcomingCourse.PhotoPath" alt="">
                                 </div>
                                 <div class="events-text white-bg">
                                     <div class="event-text-heading mb-20">
                                         <div class="events-calendar text-center f-left">
-                                            <span class="date">25</span>
-                                            <span class="month">Sep, 2018</span>
+                                            <span class="date">
+                                                @Model.UpcomingCourse.StartDate.Value.Day
+                                            </span>
+                                            <span class="month">      @Model.UpcomingCourse.StartDate.Value.ToString("MMM") ,       @Model.UpcomingCourse.StartDate.Value.Year</span>
                                         </div>
                                         <div class="events-text-title clearfix">
-                                            <a href="course_details.html">
-                                                <h4>Admission Fair 2017</h4>
+                                            <a asp-action="CourseDetails" asp-controller="Courses" asp-route-id="@Model.UpcomingCourse.Id">
+
+                                              
+                                   
+
+                                                        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                        {
+                                                         <h4>  @Model.UpcomingCourse.TitleAr  </h4>
+                                                        }
+                                                        else {
+                                                        <h4>  @Model.UpcomingCourse.Title  </h4>
+                                                                                                }
+
+                                            
+                                                
+                                              
                                             </a>
                                             <div class="time-area">
                                                 <span class="ti-time"></span>
@@ -184,10 +215,18 @@
                                         </div>
                                     </div>
                                     <div class="events-para">
-                                        <p>Event is veries fermentum consequat mi fonec has fermentum ellentesque malesuada.</p>
+
+                                        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                        {
+                                            <p>  @Model.UpcomingCourse.DescriptionAr.Substring(0,100)  </p>
+                                        }
+                                        else
+                                        {
+                                            <p>  @Model.UpcomingCourse.Description.Substring(0,100)  </p>
+                                        }
                                     </div>
                                     <div class="events-speaker">
-                                        <h2>Speaker : <span>Alexzender</span></h2>
+                                  @*      <h2>Speaker : <span>Alexzender</span></h2>*@
                                     </div>
                                 </div>
                             </div>
@@ -201,6 +240,10 @@
     </div>
 </div>
 <!-- courses end -->
+
+<input type="hidden" value="@Url.Action("GetEvents")" id="AjaxUrl" />
+
+<input type="hidden" value="@Url.Action("GetEvent","EventsNews")" id="GetEventUrl" />
 
 <!-- events start -->
 @await Component.InvokeAsync("UpcomingEvents")
@@ -231,9 +274,9 @@
 	<script src="~/lib/fullcalendar-6.0.1/dist/index.global.js"></script>
     <script src="~/js/course.js"></script>
     <script src="~/js/calenderscript.js"></script>
-
   <script src="~/js/coursecalendar.js"></script>
 
 
  
 }
+@*    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>*@

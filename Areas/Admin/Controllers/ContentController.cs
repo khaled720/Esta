@@ -19,10 +19,10 @@ namespace ESTA.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> About()
+        public  IActionResult About()
         {
 
-            var about = await appRep.ContentRep.GetContent("about");
+            var about =  appRep.ContentRep.GetContent("about");
 
 
             return View(about);
@@ -62,9 +62,9 @@ namespace ESTA.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> TechnicalAnalysis()
+        public IActionResult TechnicalAnalysis()
         {
-            var ta = await appRep.ContentRep.GetContent("ta");
+            var ta =  appRep.ContentRep.GetContent("ta");
 
 
 
@@ -79,13 +79,13 @@ namespace ESTA.Areas.Admin.Controllers
                 if (content.Id == 0)
                 {
                     content.Type = "ta";
-                    await appRep.ContentRep.AddContent(content);
+                   await  appRep.ContentRep.AddContent(content);
                     await appRep.SaveChangesAsync();
                 }
                 else
                 {
 
-                    await appRep.ContentRep.UpdateContent(content);
+                await     appRep.ContentRep.UpdateContent(content);
                     await appRep.SaveChangesAsync();
 
                 }
@@ -107,9 +107,9 @@ namespace ESTA.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Ethics()
+        public IActionResult Ethics()
         {
-            var ethics = await appRep.ContentRep.GetContent("ethics");
+            var ethics =  appRep.ContentRep.GetContent("ethics");
 
 
 
@@ -147,9 +147,9 @@ namespace ESTA.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Ifta()
+        public IActionResult Ifta()
         {
-            var ifta = await appRep.ContentRep.GetContent("ifta");
+            var ifta =  appRep.ContentRep.GetContent("ifta");
 
 
 
@@ -192,9 +192,9 @@ namespace ESTA.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Benefits()
+        public IActionResult Benefits()
         {
-            var benefits = await appRep.ContentRep.GetContent("benefits");
+            var benefits =  appRep.ContentRep.GetContent("benefits");
             return View(benefits);
         }
         [HttpPost]
@@ -230,9 +230,9 @@ namespace ESTA.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Vission()
+        public IActionResult Vission()
         {
-            var benefits = await appRep.ContentRep.GetContent("vission");
+            var benefits =  appRep.ContentRep.GetContent("vission");
             return View(benefits);
         }
         [HttpPost]
@@ -267,9 +267,9 @@ namespace ESTA.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Mission()
+        public IActionResult Mission()
         {
-            var benefits = await appRep.ContentRep.GetContent("mission");
+            var benefits =  appRep.ContentRep.GetContent("mission");
 
 
 

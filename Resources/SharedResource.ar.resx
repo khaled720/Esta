@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="about" xml:space="preserve">
+    <value>من نحن</value>
+  </data>
+  <data name="addnewcourse" xml:space="preserve">
+    <value>إضافة دورة جديدة</value>
+  </data>
+  <data name="addressinfo" xml:space="preserve">
+    <value>معلومات العنوان</value>
+  </data>
+  <data name="becamemember" xml:space="preserve">
+    <value>كن عضوا</value>
+  </data>
+  <data name="benefits" xml:space="preserve">
+    <value>مميزات العضوية</value>
+  </data>
+  <data name="board" xml:space="preserve">
+    <value>مجلس الإدارة</value>
+  </data>
+  <data name="callus" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="ceta" xml:space="preserve">
+    <value>CETA</value>
+  </data>
+  <data name="cetacourses" xml:space="preserve">
+    <value>CETA دورات</value>
+  </data>
+  <data name="cetaholders" xml:space="preserve">
+    <value>CETA حاملى</value>
+  </data>
+  <data name="codeofethics" xml:space="preserve">
+    <value> قانون أخلاقيات المهنة</value>
+  </data>
+  <data name="contacts" xml:space="preserve">
+    <value>وسائل الإتصال</value>
+  </data>
+  <data name="contactus" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="content" xml:space="preserve">
+    <value>المحتوي</value>
+  </data>
+  <data name="copyrights" xml:space="preserve">
+    <value> ESTA جميع الحقوق محفوظة©</value>
+  </data>
+  <data name="coursedetails" xml:space="preserve">
+    <value>تفاصيل الدورة</value>
+  </data>
+  <data name="courses" xml:space="preserve">
+    <value>الدورات</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>عرض التفاصيل</value>
+  </data>
+  <data name="discussionbf" xml:space="preserve">
+    <value>"منتدي لوحة "النقاش</value>
+  </data>
+  <data name="edu" xml:space="preserve">
+    <value>التعليم</value>
+  </data>
+  <data name="eduinfo" xml:space="preserve">
+    <value>معلومات التعليم</value>
+  </data>
+  <data name="emailus" xml:space="preserve">
+    <value>البريد الالكتروني</value>
+  </data>
+  <data name="esta" xml:space="preserve">
+    <value>الجمعية المصرية للمحللين الفنيين</value>
+  </data>
+  <data name="ethics" xml:space="preserve">
+    <value>أخلاقيات</value>
+  </data>
+  <data name="events&amp;news" xml:space="preserve">
+    <value>الأحداث و الأخبار</value>
+  </data>
+  <data name="followus" xml:space="preserve">
+    <value>تابعنا</value>
+  </data>
+  <data name="forums" xml:space="preserve">
+    <value>النقاشات</value>
+  </data>
+  <data name="haveread" xml:space="preserve">
+    <value>لقد قرأت كل شئ بحرص و أوافق</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>هل تحتاج لمساعدة؟</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="ifta" xml:space="preserve">
+    <value>IFTA</value>
+  </data>
+  <data name="join" xml:space="preserve">
+    <value>الانضمام الأن</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="level" xml:space="preserve">
+    <value>مستوى</value>
+  </data>
+  <data name="levels" xml:space="preserve">
+    <value>المستويات</value>
+  </data>
+  <data name="membership" xml:space="preserve">
+    <value>العضوية</value>
+  </data>
+  <data name="mist" xml:space="preserve">
+    <value>ميست</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="notfound" xml:space="preserve">
+    <value>لا يوجد بيانات للعرض</value>
+  </data>
+  <data name="othercourses" xml:space="preserve">
+    <value>الدورات الاخرى</value>
+  </data>
+  <data name="ourlocation" xml:space="preserve">
+    <value>موقعنا</value>
+  </data>
+  <data name="ourmission" xml:space="preserve">
+    <value>مهمتنا</value>
+  </data>
+  <data name="ourvission" xml:space="preserve">
+    <value>رؤيتنا</value>
+  </data>
+  <data name="overview" xml:space="preserve">
+    <value>نظرة عامة</value>
+  </data>
+  <data name="personalinfo" xml:space="preserve">
+    <value>المعلومات الشخصية</value>
+  </data>
+  <data name="powerdby" xml:space="preserve">
+    <value>مدعوم بواسطة</value>
+  </data>
+  <data name="prev" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="quicklinks" xml:space="preserve">
+    <value>روابط سريعة</value>
+  </data>
+  <data name="readmore" xml:space="preserve">
+    <value>قراءة المزيد</value>
+  </data>
+  <data name="remember" xml:space="preserve">
+    <value>تذكرني</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="selectlevel" xml:space="preserve">
+    <value> ..... اختر مستوي</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>ارسل رسالة</value>
+  </data>
+  <data name="sendusmessage" xml:space="preserve">
+    <value>ارسل لنا رسالة</value>
+  </data>
+  <data name="signin" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="signout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="signup" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
+  <data name="stdate" xml:space="preserve">
+    <value>تاريخ البدء</value>
+  </data>
+  <data name="subject" xml:space="preserve">
+    <value>الموضوع</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ta" xml:space="preserve">
+    <value>التحليل الفني</value>
+  </data>
+  <data name="upcourses" xml:space="preserve">
+    <value>الدورات القادمة</value>
+  </data>
+  <data name="uremail" xml:space="preserve">
+    <value>بريدك الالكتروني</value>
+  </data>
+  <data name="urmsg" xml:space="preserve">
+    <value>رسالتك</value>
+  </data>
+  <data name="urname" xml:space="preserve">
+    <value>اسمك</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>المستخدمين</value>
+  </data>
+  <data name="wel" xml:space="preserve">
+    <value> ESTA اهلا بكم في </value>
+  </data>
+  <data name="wel2" xml:space="preserve">
+    <value>التعليم يضئ حياة الإنسان</value>
+  </data>
+  <data name="wel2desc" xml:space="preserve">
+    <value>التعليم اساس بناء الحضارة</value>
+  </data>
+  <data name="wel3" xml:space="preserve">
+    <value>أول جمعية مصرية للتحليل الفني</value>
+  </data>
+  <data name="wel3desc" xml:space="preserve">
+    <value>تم إنشاءها في عام 1988</value>
+  </data>
+  <data name="wel4" xml:space="preserve">
+    <value> ترحب بأي متطوعيين ESTA </value>
+  </data>
+  <data name="wel4desc" xml:space="preserve">
+    <value>المتطوعيين الجدد هم سر قوتنا</value>
+  </data>
+  <data name="whyus" xml:space="preserve">
+    <value>لماذا تختارنا ؟</value>
+  </data>
+  <data name="workinfo" xml:space="preserve">
+    <value>معلومات العمل</value>
+  </data>
+</root>

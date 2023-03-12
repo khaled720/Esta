@@ -14,13 +14,26 @@ namespace ESTA.Controllers
         private readonly IWebHostEnvironment hostEnvironment;
 
 
-
+        public DirectorController(IUnitOfWork uow, IWebHostEnvironment hostEnvironment)
+        {
+            this.uow = uow;
+            this.hostEnvironment = hostEnvironment;
+        }
 
         public async Task<IActionResult> BoardofDirectors()
         {
-            var directors=await uow.DirectorRep.GetAllDirectors();
+            try
+            {
+ 
 
-            return View(directors);
+            return View(await uow.DirectorRep.GetAllDirectors());
+            }
+            catch (Exception)
+            {
+                return View(new List<Director>());
+
+            }
+         
         }
 
 

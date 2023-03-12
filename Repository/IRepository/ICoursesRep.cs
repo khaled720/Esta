@@ -14,6 +14,7 @@ namespace ESTA.Repository.IRepository
         public Task<IEnumerable<User>> GetAllCetaHolders();
 
         public Task<Course> GetCourse(int id);
+        public Task<Course> GetUpcomingCourse();
 
         public Task<bool> AddCourse(Course course);
 

@@ -35,11 +35,16 @@
                 }
             </div>
             <div class="col-md-4" style="margin:auto;">
-                @if (Model.showAllLink)
+                @if (Model.showAllLink && comment.RepliesCount>0)
                 {
                     <div class="row">
                         <a asp-action="GetComment" asp-route-id="@comment.Id" id="repliesCountText@(comment.Id)" class="my-2">Show All @(comment.RepliesCount) Replies...</a>
                     </div>
+                }else{
+                    <div class="row">
+                        <a asp-action="GetComment" asp-route-id="@comment.Id" id="repliesCountText@(comment.Id)" class="my-2">Replay</a>
+                    </div>
+                
                 }
                 <div class="row">
                     <a href="#" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="copy link to clipboard" onclick="copyToClipboard(@comment.Id)">

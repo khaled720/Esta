@@ -10,19 +10,34 @@ namespace ESTA.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "namear")]
         public string  NameAr { get; set; }
 
-        [Required]
+        [Required(
+             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+             ErrorMessageResourceName = "required"
+         )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "nameen")]
         public string NameEn { get; set; }
 
 
         public string PhotoPath { get; set; } = String.Empty;
-
-        [Required]
+        [Required(
+                  ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+                  ErrorMessageResourceName = "required"
+              )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "jobar")]
         public string JobAr { get; set; }
 
-        [Required]
+        [Required(
+              ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+              ErrorMessageResourceName = "required"
+          )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "joben")]
         public string JobEn { get; set; }
 
         [NotMapped]

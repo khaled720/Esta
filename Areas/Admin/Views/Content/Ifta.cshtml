@@ -12,7 +12,7 @@
        style="display:none;" />
 
 
-<form asp-action="Ifta" asp-controller="Content">
+<form asp-action="Ifta" asp-controller="Content" asp-area="Admin">
     @Html.HiddenFor(y=>y.Id)
     <h5>English Description</h5>
 <textarea id="editor" asp-for="@Model.DescriptionEn"></textarea>
@@ -22,7 +22,7 @@
 
 
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 

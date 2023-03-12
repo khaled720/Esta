@@ -1,14 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using System.Security.Claims
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> localizer;
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang=@Thread.CurrentThread.CurrentCulture.Name >
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> ESTA</title>
+    <title>@localizer["esta"] </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ESTA.styles.css" asp-append-version="true" />
+    @if (Thread.CurrentThread.CurrentCulture.Name=="ar")
+    {
+       <link href="~/template/css/style-ar.css" rel="stylesheet" /> 
+    }
+
+
 </head>
 <body>
     <header>
@@ -22,33 +33,33 @@
                 <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Home" asp-action="Index">@localizer["home"]</a>
                         </li>
                         <li class="nav-item-link">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">Courses</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
                         </li>
                     
                         <li class="nav-item-link">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">Levels</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">Content</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
                         </li>
                       
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">Directors</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">Contacts</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="User" asp-action="Index">Users</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="User" asp-action="Index">@localizer["users"]</a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="NewForum">New Forum</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="CreateEvent">New Event</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                         </li>
                  
                     </ul>
@@ -107,7 +118,8 @@
             @RenderBody()
         </main>
     </div>
-
+    <br />
+    <br />
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - ESTA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -116,7 +128,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
+	<script src="~/js/site.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

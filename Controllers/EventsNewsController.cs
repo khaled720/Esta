@@ -37,6 +37,14 @@ namespace ESTA.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+    
+
+
+
         public IActionResult Index()
         {
             var flagNews = (int)Flag.News;
@@ -108,84 +116,7 @@ namespace ESTA.Controllers
             else
                 return RedirectToAction("Error"); ;
         }
-        [Authorize(Roles = "Admin")]
-        public IActionResult CreateEvent()
-        {
-            return View();
-        }
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> CreateEventAsync(CreateEvent Event)
-        {
-            var DescArDecoded = HttpUtility.HtmlDecode(Event.DetailsAr);
-            var DescEnDecoded = HttpUtility.HtmlDecode(Event.DetailsEn);
-            var imgName = ImageHelper.UploadedFile(Event.Image, "images/News/");
-            EventsNews NewEvent = mapper.Map<CreateEvent, EventsNews>(Event);
 
-            if (Event.Flag == (int)Flag.Events && !Event.EventType.HasValue)
-                NewEvent.EventType = (int)EventType.Esta;
-
-            NewEvent.DetailsAr = DescArDecoded;
-            NewEvent.DetailsEn = DescEnDecoded;
-            NewEvent.Image = "images/News/" + imgName;
-            appRep.EventRep.AddEvent(NewEvent);
-            await appRep.SaveChangesAsync();
-
-            return RedirectToAction("Index");
-        }
-        [Authorize(Roles = "Admin")]
-        public IActionResult EditEvent(int id)
-        {
-            EventsNews Event = appRep.EventRep.GetEventById(id);
-            if (Event != null)
-            {
-                EditEvents editEvent = mapper.Map<EventsNews, EditEvents>(Event);
-
-                return View(editEvent);
-            }
-            else
-                return RedirectToAction("Error");
-        }
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> EditEventAsync(EditEvents EditEvent)
-        {
-            EventsNews Event = appRep.EventRep.GetEventById(EditEvent.Id);
-            var DescArDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsAr);
-            var DescEnDecoded = HttpUtility.HtmlDecode(EditEvent.DetailsEn);
-            if (EditEvent.ImageUpload != null)
-            {
-                var imgName = ImageHelper.UploadedFile(EditEvent.ImageUpload, "images/News/");
-                Event.Image = "images/News/" + imgName;
-            }
-            Event.DetailsAr = DescArDecoded;
-            Event.DetailsEn = DescEnDecoded;
-            Event.TitleAr = EditEvent.TitleAr;
-            Event.TitleEn = EditEvent.TitleEn;
-
-            if (Event.Flag == (int)Flag.Events && !Event.EventType.HasValue)
-                Event.EventType = (int)EventType.Esta;
-
-            if (EditEvent.Date != null)
-            {
-                Event.Date = EditEvent.Date;
-            }
-            await appRep.SaveChangesAsync();
-
-            return RedirectToAction("Index");
-        }
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteEventAsync(int id)
-        {
-            EventsNews events = appRep.EventRep.FindEvent(id);
-            if (events != null)
-            {
-                appRep.EventRep.DeleteEvent(events);
-                await appRep.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Error");
-        }
         private List<DisplayEvents> EventsModelToEventsDisplay(int page, int Flag, int? Eventtype)
         {
             List<EventsNews> EventsList = appRep.EventRep.GetEvents(page, Flag, Eventtype);
@@ -205,7 +136,7 @@ namespace ESTA.Controllers
                     details = HtmlHelper.RemoveHTMLTags(eventVar.DetailsAr);
                     title = eventVar.TitleAr;
                 }
-                if(title.Length > 25)
+                if (title.Length > 25)
                     title = title.Substring(0, 25) + "...";
                 EventsNews.Add(new()
                 {
@@ -219,6 +150,7 @@ namespace ESTA.Controllers
             }
             return EventsNews;
         }
+
 
 
     }

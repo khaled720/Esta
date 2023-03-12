@@ -1,11 +1,16 @@
-﻿@*
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 @model ESTA.Models.Course
+@using Microsoft.Extensions.Localization
+@using System.Globalization
 
-
+@inject IStringLocalizer<SharedResource> localizer;
+@inject SignInManager<User> signInManager;
 <!--This View For User-->
 
 
@@ -47,11 +52,11 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="slider-content slider-content-breadcrumb text-center">
-                            <h1 class="white-color f-700">Course Details</h1>
+                            <h1 class="white-color f-700">@localizer["coursedetails"]</h1>
                             <nav class="text-center" aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Course Details</li>
+                                    <li class="breadcrumb-item"><a href="#">@localizer["home"]</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@localizer["coursedetails"] </li>
                                 </ol>
                             </nav>
                         </div>
@@ -62,7 +67,7 @@
     </div>
 </div>
 <!-- slider-end -->
-<div class="course-details-are pt-50 pb-50">
+<div class="course-details-are pt-50 pb-50 ar" >
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-lg-12">
@@ -71,15 +76,25 @@
                         <img src="@Model.PhotoPath" alt="">
                     </div>
                     <div class="single-course-details white-bg">
-                        <div class="course-details-title mb-20">
-                            <h1>@Model.Title</h1>
+                        <div class="course-details-title mb-20" style="display:flex;justify-content:space-between">
+                            <h1>     @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                    {
+                                                        @Model.TitleAr
+                                                    }
+                                                    else
+                                                    {
+                                                        @Model.Title
+                                                    }
+                                                </h1>
+                         
+                            <h4 class="text-danger">@Model.Price.ToString("c",CultureInfo.GetCultureInfo("en-US"))</h4>
                         </div>
                         <div class="course-details-tabs">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Overview</a>
+                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">@localizer["overview"]</a>
                                 </li>
-                                <li class="nav-item">
+                              @*  <li class="nav-item">
                                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Curriculum</a>
                                 </li>
                                 <li class="nav-item">
@@ -87,25 +102,36 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-contact" aria-selected="false">Reviews</a>
-                                </li>
+                                </li>*@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                     <div class="course-details-overview-top">
-                                        <p class="course-details-overview-para">@Model.Description</p>
+                                        <p class="course-details-overview-para">
+
+                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                            {
+                                                @Model.DescriptionAr
+                                            }
+                                            else
+                                            {
+                                                @Model.Description
+                                            }
+
+                                        </p>
                                     </div>
                                     <div class="course-details-overview-bottom d-flex justify-content-between mt-25">
                                         <div class="course-overview-info-left">
-                                            <div class="course-overview-info-advisor mt-10">
+                                            @*<div class="course-overview-info-advisor mt-10">
                                                 <span class="gray-color">Advisor : <span class="primary-color">Alexzender Alex</span></span>
-                                            </div>
+                                            </div>*@
                                             <div class="course-overview-student-lecture mt-10">
-                                                <span class="gray-color">Level : <span class="primary-color">@Model.level.TypeName</span></span>
-                                                <span class="student-lecture-number gray-color">Start Date: <span class="primary-color">@Model.StartDate.Value.ToShortDateString()</span></span>
+                                                <span class="gray-color">@localizer["level"] : <span class="primary-color">@Model.level.TypeName</span></span>
+                                                <span class="student-lecture-number gray-color">@localizer["stdate"]: <span class="primary-color">@Model.StartDate.Value.ToShortDateString()</span></span>
                                             </div>
-                                            <div class="course-overview-time-delay mt-10">
+                                          @*  <div class="course-overview-time-delay mt-10">
                                                 <span class="gray-color">Price : <span class="primary-color">$@Model.Price.ToString()</span></span>
-                                            </div>
+                                            </div>*@
                                         </div>
                                         <div class="course-overview-info-right">
                                             <div class="course-overview-info-category mt-10">
@@ -117,7 +143,11 @@
                                         </div>
 
                                     </div>
-                                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()"><span class="btn-text bg-red">Buy Now</span></a>
+                                    @if (signInManager.IsSignedIn(User))
+                                    {
+                                        <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()"><span class="btn-text bg-red">@localizer["join"]</span></a>
+                             
+                                    }
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <p class="course-details-curiculum-para">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expoune.</p>

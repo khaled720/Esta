@@ -1,4 +1,7 @@
 ﻿@model ESTA.Models.Content
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> localizer;
+
 <div class="slider-area">
     <div class="page-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
@@ -9,8 +12,8 @@
                             <h1 class="white-color f-700">@ViewBag.about</h1>
                             <nav class="text-center" aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">About</li>
+                                    <li class="breadcrumb-item"><a href="#">@localizer["home"]</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@localizer["about"]</li>
                                 </ol>
                             </nav>
                         </div>
@@ -21,14 +24,22 @@
     </div>
 </div>
 <br>
-<div class="container">
+<div class="container" style="margin:50px auto 50px auto">
 
    
 
  
-@if (Model!=null)
+@if (Model.DescriptionEn!=null )
 {
-         @Model.DescriptionEn.ToString()
+        if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+        {
+            @Html.Raw(Model.DescriptionAr)
+        }
+        else
+        {
+            @Html.Raw(Model.DescriptionEn)
+        }
+       
 }
                        else{
                        

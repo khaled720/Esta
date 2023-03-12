@@ -6,6 +6,7 @@ using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ESTA.Controllers
@@ -56,33 +57,28 @@ namespace ESTA.Controllers
 
                     if (user.IsApproved == true)
                     {
-
-                        if (await userManager.IsInRoleAsync(user,"Admin"))
+                        if (await userManager.IsInRoleAsync(user, "Admin"))
                         {
-                            return Redirect("/Admin/Home/Index");
-                        }
-                        else {
-                         return Redirect("/User/Profile");
-                        }
-                   
 
+                            return RedirectToAction("index", "home", new { area = "Admin" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("profile", "user");
+                        }
                     }
-                    else 
+                    else
                     {
-                     
-                    return View(
-                                    "ConfirmEmail",
-                                    new ErrorViewModel
-                                    {
-                                        Title = "Waiting for Approval",
-                                        Description =
-                                            "We are checking your registration info once we finish will Email you , this proccess may take 2 or 3 days !"
-                                    }
-                                );
+                        return View(
+                            "ConfirmEmail",
+                            new ErrorViewModel
+                            {
+                                Title = "Waiting for Approval",
+                                Description =
+                                    "We are checking your registration info once we finish will Email you , this proccess may take 2 or 3 days !"
+                            }
+                        );
                     }
-
-                  
-
                 }
                 else if (result.IsNotAllowed)
                 {
@@ -147,6 +143,10 @@ namespace ESTA.Controllers
             {
                 var Questions = await appRep.QuestionRep.GetAllQuestions();
                 registerModel.Questions = Questions.ToList();
+                registerModel.codeofEthics =
+                    Thread.CurrentThread.CurrentCulture.Name == "ar"
+                        ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                        : appRep.ContentRep.GetContent("ethics").DescriptionEn;
             }
             catch (Exception)
             {
@@ -161,7 +161,7 @@ namespace ESTA.Controllers
         {
             try
             {
-                var c = ModelState.Values;
+                var validationStatesValues = ModelState.Values;
 
                 if (ModelState.IsValid)
                 {
@@ -221,19 +221,35 @@ namespace ESTA.Controllers
                     {
                         foreach (var item in result.Errors.ToList())
                         {
-                            ModelState.AddModelError(string.Empty, item.Description);
+                            ModelState.AddModelError("", item.Description);
                         }
                         //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
                         return View(registerModel);
                     }
                 }
-                //var errors = ModelState
-                //    .Select(x => x.Value.Errors)
-                //    .Where(y => y.Count > 0)
-                //    .ToList();
-                ModelState.AddModelError(string.Empty, "Oops,Registration Failed");
-                //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
-                return View(registerModel);
+                else
+                {
+                    //var errors = ModelState
+                    //    .Select(x => x.Value.Errors)
+                    //    .Where(y => y.Count > 0)
+                    //    .ToList();
+                    var invalidStatesValues = validationStatesValues
+                        .Where(y => y.ValidationState == ModelValidationState.Invalid)
+                        .ToList();
+                    for (int i = 0; i < invalidStatesValues.Count(); i++)
+                    {
+                        for (int j = 0; j < invalidStatesValues[i].Errors.Count(); j++)
+                        {
+                            ModelState.AddModelError(
+                                string.Empty,
+                                invalidStatesValues[i].Errors[j].ErrorMessage
+                            );
+                        }
+                    }
+
+                    //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                    return View(registerModel);
+                }
             }
             catch (Exception ex)
             {

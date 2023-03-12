@@ -1,27 +1,26 @@
-﻿@{
+﻿@using Microsoft.Extensions.Localization
 
-    Layout = "_AdminLayout";
-}
+
+
+
+    @inject IStringLocalizer<SharedResource> localizer;
+
 @model IEnumerable<ESTA.Models.Director>
-
-
-
-
-
 
 <!-- slider-start -->
 <div class="slider-area">
     <div class="page-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center"
+        style="background-image: url(/template/img/inner-bg.png);">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="slider-content slider-content-breadcrumb text-center">
-                            <h1 class="white-color f-700">Board Of Directors</h1>
+                            <h1 class="white-color f-700">@localizer["board"]</h1>
                             <nav class="text-center" aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item"><a href="#" tabindex="0">About</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Board Of Directors</li>
+                                    <li class="breadcrumb-item"><a href="#" tabindex="0">@localizer["about"] </a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@localizer["board"]</li>
                                 </ol>
                             </nav>
                         </div>
@@ -47,13 +46,22 @@
                         </div>
                         <div class="team-social-info text-center">
                             <div class="team-social-para">
-                                <p>Belis nisl adipiscing sapien malesu diame lacus eget erats</p>
+                                <p>            </p>
                             </div>
 
                         </div>
                         <div class="team-teacher-info text-center">
-                            <h1>@item.NameEn</h1>
+
+                                @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                {
+                                    <h1>@item.NameAr</h1>
+                                    <h2>@item.JobAr</h2>
+                                }else{
+                                    <h1>@item.NameEn</h1>
                             <h2>@item.JobEn</h2>
+                                }
+                        
+                        
                         </div>
                     </div>
                 </div> 

@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
+using ESTA.Resources;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +11,13 @@ using Microsoft.Extensions.Localization;
 
 namespace ESTA.Controllers
 {
-   
-
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork Uow;
         private readonly IWebHostEnvironment hostEnvironment;
-        private readonly IStringLocalizer localizer;
+
+           private readonly IStringLocalizer<ESTA.SharedResource> localizer;
         private readonly string culture;
 
         public HomeController(
@@ -25,16 +25,16 @@ namespace ESTA.Controllers
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment,
             IHttpContextAccessor contextAccessor,
-            IStringLocalizer localizer
+                IStringLocalizer<ESTA.SharedResource> localizer
         )
         {
             _logger = logger;
             this.Uow = appRep;
             this.hostEnvironment = hostEnvironment;
-            this.localizer = localizer;
+               this.localizer = localizer;
             var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
-            culture = rqf.RequestCulture.Culture.Name;
+            //   culture = rqf.RequestCulture.Culture.Name;
         }
 
         public async Task<IActionResult> Contact()
@@ -44,80 +44,158 @@ namespace ESTA.Controllers
             return View(contact);
         }
 
-     
-
-        public  IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.welcome = localizer["hi"];
+
             var hivm = new HomeIndexViewModel();
             try
             {
-            hivm.About = Uow.ContentRep.GetContent("about").GetAwaiter().GetResult().DescriptionEn;
-            hivm.Mission = Uow.ContentRep.GetContent("mission").GetAwaiter().GetResult().DescriptionEn;
-            hivm.Vission = Uow.ContentRep.GetContent("vission").GetAwaiter().GetResult().DescriptionEn;
+                if (Thread.CurrentThread.CurrentCulture.Name == "ar") {
+
+
+
+                    hivm.About = Regex.Replace(
+                        Uow.ContentRep.GetContent("about").DescriptionAr ?? "",
+                        "<.*?>",
+                        String.Empty
+                    );
+                    hivm.Mission = Regex.Replace(
+                        Uow.ContentRep.GetContent("mission").DescriptionAr ?? "",
+                        "<.*?>",
+                        String.Empty
+                    );
+                    hivm.Vission = Regex.Replace(
+                        Uow.ContentRep.GetContent("vission").DescriptionAr ?? "",
+                        "<.*?>",
+                        String.Empty
+                    );
+
+
+                }
+
+                else
+                {
+
+
+
+                hivm.About = Regex.Replace(
+                    Uow.ContentRep.GetContent("about").DescriptionEn??"",
+                    "<.*?>",
+                    String.Empty
+                );
+                hivm.Mission = Regex.Replace(
+                    Uow.ContentRep.GetContent("mission").DescriptionEn??"",
+                    "<.*?>",
+                    String.Empty
+                );
+                hivm.Vission = Regex.Replace(
+                    Uow.ContentRep.GetContent("vission").DescriptionEn??"",
+                    "<.*?>",
+                    String.Empty
+                );
+
+
+                }
+
+
+
+
+
+
+
+                if ( hivm.About.Length > 400) 
+                {
+
+                    hivm.About = hivm.About.Substring(0,400);
+               
+                }
+                if (hivm.Vission.Length > 400)
+                {
+
+                    hivm.Vission = hivm.Vission.Substring(0, 400);
+
+                }
+                if (hivm.Mission.Length > 400)
+                {
+
+                    hivm.Mission = hivm.Mission.Substring(0, 400);
+
+                }
+
+
+
+
+
+                hivm.UpcomingCourse = await this.Uow.CoursesRep.GetUpcomingCourse();
+
+
+
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                hivm.About = String.Empty;
+                hivm.Mission = String.Empty;
+                hivm.Vission = String.Empty;
             }
-        
 
             return View(hivm);
         }
 
         public async Task<IActionResult> About(string type)
         {
-            var content = await Uow.ContentRep.GetContent(type);
+            var content = Uow.ContentRep.GetContent(type);
 
             switch (type)
             {
                 case "ta":
-                    ViewBag.about = "Technical Analysis";
+                    ViewBag.about = localizer["ta"];
+                    break;
+                case "mission":
+                    ViewBag.about = localizer["ourmission"];
+                    break;
+
+                case "vission":
+                    ViewBag.about = localizer["ourvission"];
                     break;
 
                 case "ethics":
-                    ViewBag.about = "Code Of Ethics \"Bylaws\"";
+                    ViewBag.about = localizer["ethics"];
                     break;
                 case "ifta":
-                    ViewBag.about = "IFTA";
+                    ViewBag.about = localizer["ifta"];
                     break;
                 case "benefits":
-                    ViewBag.about = "Benefits Of Membership";
+                    ViewBag.about = localizer["benefits"];
                     break;
                 default:
-                    ViewBag.about = "About";
+                    ViewBag.about = localizer["about"];
                     break;
             }
+
             return View(content);
         }
+
         public IActionResult GetEvents()
         {
-            List<EventsNews> EventNews = Uow.EventRep.GetOnlyEvents();
+            List<ESTA.Models.EventsNews> EventNews = Uow.EventRep.GetOnlyEvents();
             List<DisplayEvents> DisplayEvent = new();
 
             foreach (var eventItem in EventNews)
             {
-                DisplayEvent.Add(new DisplayEvents()
-                {
-                    Date = eventItem.Date,
-                    Title = culture == "en"? eventItem.TitleEn: eventItem.TitleAr,
-                    Id = eventItem.Id,
-                    EventType = eventItem.EventType
-                });
+                DisplayEvent.Add(
+                    new DisplayEvents()
+                    {
+                        Date = eventItem.Date,
+                        Title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr,
+                        Id = eventItem.Id,
+                        EventType = eventItem.EventType
+                    }
+                );
             }
 
             return Json(DisplayEvent);
         }
-
-
-
-
-
-
-
-
-
 
         public IActionResult Privacy()
         {

@@ -12,6 +12,7 @@ using System.Diagnostics;
 
 namespace ESTA.Controllers
 {
+    [Authorize]
     public class ForumsController : Controller
     {
         private readonly IMapper _mapper;

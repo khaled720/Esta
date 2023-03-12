@@ -9,7 +9,10 @@ namespace ESTA.Models
     {
 
         [Display(Name ="Full Name In English")]
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
         public string FullName { get; set; } = String.Empty;
 
 
@@ -20,74 +23,130 @@ namespace ESTA.Models
         /// 
 
         [Display(Name = "Full Name In Arabic")]
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
         public string FullNameAr { get; set; } = String.Empty;
 
         public bool IsApproved { get; set; } = false;
 
-
-        [Required]
+        [Required(
+         ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+         ErrorMessageResourceName = "required"
+     )]
         public DateTime Birthdate { get; set; }
 
 
-        [Required]
+        [Required(
+             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+             ErrorMessageResourceName = "required"
+         )]
         public string MobilePhone { get; set; } = String.Empty;
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string HomePhone { get; set; } = String.Empty;
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
         public string EnglishReadingLevel { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
         public string EnglishWritingLevel { get; set; } = String.Empty;
 
 
-
-        [Required]
+        [Required(
+                 ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+                 ErrorMessageResourceName = "required"
+             )]
         public string Hometown { get; set; } = String.Empty;
         //  [Display(Name = "Street Name")]
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string StreetName { get; set; } = String.Empty;
 
 
-        [Required]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
         public string BlockNumber { get; set; } = String.Empty;
 
-
-        [Required]
+        [Required(
+                 ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+                 ErrorMessageResourceName = "required"
+             )]
         public string Floor { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+               ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+               ErrorMessageResourceName = "required"
+           )]
         public string FlatNumber { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+              ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+              ErrorMessageResourceName = "required"
+          )]
         public string Area { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+                ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+                ErrorMessageResourceName = "required"
+            )]
         public string City { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string Country { get; set; } = String.Empty;
 
 
 
-        [Required]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
         public string Job { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
         public string Company { get; set; } = String.Empty;
-        [Required]
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
         public string WorkAddress { get; set; } = String.Empty;
-        [Required]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
         public string WorkPhone { get; set; } = String.Empty;
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string WorkFax { get; set; } = String.Empty;
 
 
         public DateTime? WorkLeavingDate { get; set; }
 
         public string? WorkLeavingReasons { get; set; }
-
-        [Required]
+        [Required(
+                 ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+                 ErrorMessageResourceName = "required"
+             )]
         public string MessagingAddress { get; set; } = String.Empty;
 
 
@@ -95,20 +154,35 @@ namespace ESTA.Models
 
 
 
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string NationalCardID { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
         public string Passport { get; set; } = String.Empty;
 
 
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string AcademicQualification { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
         public string University { get; set; } = String.Empty;
 
-        [Required]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
         public string HighStudies { get; set; } = String.Empty;
 
 
@@ -117,9 +191,10 @@ namespace ESTA.Models
         /// </summary>
 
 
-
-
-        [Required]
+        [Required(
+         ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+         ErrorMessageResourceName = "required"
+     )]
         public bool IsMempershipPaid { get; set; }
 
 

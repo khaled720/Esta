@@ -1,11 +1,14 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@using ESTA.Resources
+@using Microsoft.AspNetCore.Http;
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Identity;
 @using Microsoft.AspNetCore.Localization;
+
 @inject SignInManager<User> signInManager;
-@inject UserManager<User> userManager;
-@inject IHttpContextAccessor contextAccessor
-@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject UserManager<User> userManager; 
+
+@inject IHttpContextAccessor contextAccessor;
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions;
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
     var cultureItems = LocalizationOptions.Value.SupportedUICultures
@@ -36,10 +39,10 @@
 @using Microsoft.Extensions.Localization
 @using Microsoft.Extensions.Options
 
-@inject IViewLocalizer localizer
+@inject IStringLocalizer<SharedResource>  localizer;
 
 <!DOCTYPE html>
-<html lang="en" dir='@(CultureInfo.CurrentCulture.Name.StartsWith("ar")?"ltr":"ltr")'>
+<html lang="@CultureInfo.CurrentCulture.Name" >
 <head>
 
     <meta charset="utf-8">
@@ -51,7 +54,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/template/img/favicon.ico">
     <!-- Place favicon.ico in the root directory -->
     <!-- CSS here -->
+
     <link href="~/template/css/bootstrap.min.css" rel="stylesheet" />
+    
     <link href="~/template/css/inner.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/owl.carousel.min.css">
     <link href="~/template/css/animate.min.css" rel="stylesheet" />
@@ -67,6 +72,14 @@
 	<link href="~/css/site.css" rel="stylesheet" />
 	<link href="css/inner.css" rel="stylesheet" />
 	<link href="~/template/aos/aos.css" rel="stylesheet" />
+    @if(Thread.CurrentThread.CurrentCulture.Name=="ar"){
+	<link href="~/template/css/style-ar.css" rel="stylesheet" />
+    <h4>Arabic Style Loaded</h4>
+    }else{
+       <h4>Arabic Style Not Loaded</h4>
+    }
+
+
 </head>
 
 <body>
@@ -81,8 +94,8 @@
             <!-- header-top -->
             <div class="header-top primary-bg">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="row  justify-content-between mr-5 ml-5">
+                        <div class="">
                             <div class="header-contact-info d-flex">
                                 <div class="header-contact header-contact-email">
                                     <span class="ti-email"></span>
@@ -91,29 +104,46 @@
                                 
                                 @if (User!=null&&User.Identity.IsAuthenticated) 
                                 {
-                               <div class="header-contact header-login">
+                                    <div class="header-contact header-login">
                                         <span class="ti-user"></span>
-                                        <a href="/User/Profile" class="loginBtn">
-                                        @User.FindFirstValue(ClaimTypes.Name)    
-                                        </a>
-                                         <a href="/Account/Logout" class="loginBtn">Logout</a>
+                                        @if (User.IsInRole("Admin")) {
+
+                                            <a asp-action="index" asp-area="admin" asp-controller="home" class="loginBtn">
+                                                @User.FindFirstValue(ClaimTypes.Name)    
+                                            </a>
+                                        }
+                                        else{
+                                            <a asp-action="profile" asp-controller="user" class="loginBtn">
+                                                @User.FindFirstValue(ClaimTypes.Name)
+                                            </a>
+                                        
+                                        }
+                                        
+                                        <a href="/Account/Logout" class="loginBtn">@localizer["signout"]</a>
                                     </div>
                                 }
                                 else{
-                                       <div class="header-contact header-login">
-                                    <span class="ti-user"></span>
-                                    <a href="/Account/Login" class="loginBtn">Login</a>
+                                       <div class=" row header-contact header-login">
+                                       
+                                       <div class=""> 
+                                      
+                                       <span class="ti-user"></span>
+                                    <a href="/Account/Login" class="loginBtn">@localizer["signin"]</a>
                                
+                                       </div>
+                                <div>
                                         <span class="ti-user"></span>
-                                        <a href="/Account/Register" class="loginBtn">Register</a>
+                                        <a href="/Account/Register" class="loginBtn">@localizer["signup"]</a>
                                     </div>
+                                        </div>
                                 }
                               
 
+                                 
 
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="">
                             <div class="header-social-icon-list">
                                 <ul>
                                     <li><a href="#"><span class="ti-facebook"></span></a></li>
@@ -121,9 +151,23 @@
                                     <li><a href="#"><span class="ti-google"></span></a></li>
                                     <li><a href="#"><span class="ti-linkedin"></span></a></li>
                                     <li>
-                                        <a href="#" data-toggle="tooltip" title="@langTooltip" onclick="changeLang('@langTooltip')">
-                                            <span class="ti-world"></span>
+                                    @if(Thread.CurrentThread.CurrentCulture.Name=="ar")
+                                    {
+                                    
+                                     
+                                     <a onclick="changeLang('en')"  
+                                          data-toggle="tooltip" title="@langTooltip">
+                                            <span style="color:aquamarine" class="ti-world"></span>
                                         </a>
+                                    
+                                    }else{
+
+                                            <a onclick="changeLang('ar')"
+                                           data-toggle="tooltip" title="@langTooltip">
+                                                <span style="color:mintcream" class="ti-world"></span>
+                                            </a>
+                                    }
+                                       
                                     </li>
                                 </ul>
                             </div>
@@ -135,16 +179,18 @@
             <!-- header-bottom -->
             <div class="header-bottom-area header-sticky" style="transition: .2s;">
                 <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-xl-2 col-lg-2 col-md-10 col-6">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="">
                             <div class="logo">
                                 <a asp-controller="Home" asp-action="Index">
                                     <img src="~/template/img/logo/esta_logo3.png" alt="">
                                 </a>
                             </div>
                         </div>
-                        <div class="col-xl-10 col-lg-10 col-md-1 col-6">
-                            <div class="header-bottom-icon f-right">
+
+                       
+                        <div class="">
+                           <!-- <div class="header-bottom-icon f-right">
                                 <ul>
                                     <li class="toggle-search-icon">
                                         <a href="#">
@@ -159,7 +205,7 @@
                                     </li>
 
                                 </ul>
-                            </div>
+                            </div> -->
                             <div class="main-menu f-right">
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
@@ -184,64 +230,59 @@
                                                     <a href="/Home/About?type=ethics">@localizer["ethics"]</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/Director/BoardofDirectors">Board Of Directors</a>
+                                                    <a href="/Director/BoardofDirectors">@localizer["board"]</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#">Education</a>
+                                            <a href="#">@localizer["edu"]</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a asp-controller="courses" asp-action="courses">CETA</a>
+                                                    <a asp-controller="courses" asp-action="CetaCourses">@localizer["ceta"]</a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="courses" asp-action="courses">Other Courses</a>
+                                                    <a asp-controller="courses" asp-action="OtherCourses">@localizer["othercourses"]</a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="courses" asp-action="courses">CETA Holders</a>
+                                                    <a asp-controller="courses" asp-action="CetaHolders">@localizer["cetaholders"]</a>
                                                 </li>
 
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="#">Membership</a>
+                                            <a href="#">@localizer["membership"]</a>
                                             <ul class="submenu">
 
-                                                @if (IsSigned && IsAdmin)
-                                                {
-                                                    <li>
-                                                        <a href="/Forums/NewForum">New Forum</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="/EventsNews/CreateEvent">New Event</a>
-                                                    </li>
-                                                }
+                                       
 
 
-                                                @if (IsSigned)
-                                                {
+                                               
                                                     <li>
-                                                        <a asp-controller="Forums" asp-action="Index">Discussion Board "Forum"</a>
+                                                    <a asp-controller="Forums" asp-action="Index">@localizer["discussionbf"]</a>
                                                     </li>
-                                                }
+                                                
                                                 <li>
-                                                    <a asp-controller="EventsNews" asp-action="Index">Events &amp; News</a>
+                                                    <a asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                                                 </li>
 
                                                 <li>
-                                                    <a href="/Home/About?type=benefits">Benefits Of Membership</a>
+                                                    <a href="/Home/About?type=benefits">@localizer["benefits"]</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/Account/Register">Become a Member</a>
+                                                    <a href="/Account/Register">@localizer["becamemember"]</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="/Home/About?type=ifta" >IFTA</a>
+                                            <a href="/Home/About?type=ifta" >@localizer["ifta"]</a>
                                         </li>
                                         <li>
-                                            <a href="/Home/contact">Contacts</a>
+                                            <a href="/Home/contact">@localizer["contacts"]</a>
                                         </li>
+
+
+                                      
+
                                         @*<li>
                                         <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
                                         class="form-horizontal nav-link text-dark row">
@@ -289,16 +330,16 @@
                         </div><div class="col-xl-4 col-lg-3 col-md-4">
                             <div class="footer-widget mb-30">
                                 <div class="footer-heading">
-                                    <h1>Quick Links</h1>
+                                    <h1>@localizer["quicklinks"]</h1>
                                 </div>
                                 <div class="footer-menu clearfix">
                                     <ul>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">Home</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">Membership</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">About</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">IFTA</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">Education</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">Contacts</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["home"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["membership"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["about"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["ifta"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["edu"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["contacts"]</a></p></li>
 
                                     </ul>
                                 </div>
@@ -306,7 +347,7 @@
                         </div><div class="col-xl-4 col-lg-4  col-md-5">
                             <div class="footer-widget mb-30">
                                 <div class="footer-heading">
-                                    <h1>Contact Us</h1>
+                                    <h1>@localizer["contactus"]</h1>
                                 </div>
                                 <div class="footer-contact-list">
                                     <div class="single-footer-contact-info">
@@ -328,7 +369,7 @@
                         </div><div class="col-xl-2 col-lg-2  col-md-12">
                             <div class="footer-widget mb-30">
                                 <div class="footer-heading">
-                                    <h1>Follow Us</h1>
+                                    <h1>@localizer["followus"]</h1>
                                 </div>
                                 <div class="footer-social-icon-list">
                                     <ul>
@@ -355,11 +396,11 @@
                                 <div class="footer-copyright text-center">
                                     <div class="container">
                                         <div class="copyright">
-                                            <span>© Copyright ESTA All Rights Reserved.</span>
+                                            <span>@localizer["copyrights"]</span>
                                         </div>
                                         <div class="credits">
-                                            <span>Powred By</span>
-                                            <a href="https://www.mist-net.com" target="_blank">MIST</a>
+                                            <span>@localizer["powerdby"]</span>
+                                            <a href="https://www.mist-net.com" target="_blank">@localizer["mist"]</a>
                                         </div>
                                     </div>
 
@@ -373,6 +414,8 @@
     </footer>
     <!-- footer end -->
     <!-- JS here -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/template/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="~/template/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="~/template/aos/aos.js"></script>
@@ -412,62 +455,6 @@
     <script src="~/template/js/main.js"></script>
 
     @await RenderSectionAsync("Scripts",required: false)
-    <script>
-
-        function changeLang(lang) {
-            $.ajax({
-                type: 'post',
-                url: '@Url.Action("SetCulture","Lang")',
-                data: {
-                    culture: lang
-                },
-                success: function (data) {
-                    if (data)
-                        window.location.reload();
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
-        }
-        function padTo2Digits(num) {
-            return num.toString().padStart(2, '0');
-        }
-        function copyToClipboard(id) {
-            var base_url = window.location.origin;
-            var cmntLink = $('#CopyToClip' + id).val();
-
-            var $temp = $("<input>");
-            $("body").append($temp);
-
-            $temp.val(base_url + cmntLink).select();
-            document.execCommand("copy");
-            $temp.remove();
-
-            alert("Copied the Link");
-        }
-        function formatDate(date) {
-            var newDate = new Date(date);
-            var fullDate = [
-                newDate.getFullYear(),
-                padTo2Digits(newDate.getMonth() + 1),
-                padTo2Digits(newDate.getDate()),
-            ].join('/') +
-                ' ' +
-                [
-                    padTo2Digits(newDate.getHours() % 12 || 12),
-                    padTo2Digits(newDate.getMinutes()),
-                    padTo2Digits(newDate.getSeconds()),
-                ].join(':');
-            if (newDate.getHours() > 12) {
-
-                fullDate += ' ' + 'PM'
-            }
-            else {
-                fullDate += ' ' + 'AM'
-            }
-            return fullDate;
-        }
-    </script>
+  
 </body>
 </html>

@@ -6,7 +6,7 @@ namespace ESTA.Repository.IRepository
     {
 
         public Task<IEnumerable<Level>> GetAllLevels();
-        public Course GetLevel(int id);
+        public Level GetLevel(int id);
 
         public Task<bool> EditLevel(Level level);
 

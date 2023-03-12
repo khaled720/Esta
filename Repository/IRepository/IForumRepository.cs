@@ -20,5 +20,7 @@ namespace ESTA.Repository.IRepository
         public int GetCommentCountByDate(int? id, DateTime? date = null, bool Equal = true);
         public int GetUsersCountByDate(int? id, DateTime? date = null, bool Equal = true);
         public bool CheckMoreComments(int page, int? parentId = null, int? ForumId = null, int count = 3);
-    }
+        public List<Forum> GetSpecificUserForums(int userId);
+        
+        }
 }

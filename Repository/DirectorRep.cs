@@ -62,7 +62,17 @@ namespace ESTA.Repository
 
         public async Task<IEnumerable<Director>> GetAllDirectors()
         {
-            return await appContext.Directors.ToListAsync();
+            try
+            {
+var directors= await appContext.Directors.ToListAsync();
+                return directors;
+            }
+            catch (Exception ex)
+            {
+
+                return new List<Director>();
+            }
+           
         }
 
         public async Task<Director> GetDirector(int id)
@@ -74,7 +84,7 @@ namespace ESTA.Repository
             }
             catch (Exception)
             {
-                return null;
+                return new Director();
             }
         }
     }

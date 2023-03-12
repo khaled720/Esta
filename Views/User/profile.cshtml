@@ -1,15 +1,75 @@
 ﻿@using System.Security.Claims
+@using ESTA.ViewComponents
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> userManager;
+
+
+
+
+<style>
+    .nav-pills .nav-link {
+        border: 0px
+    }
+</style>
+<div class="container">
+
+
+	<br />
+
+	<br />
+
+	<br />
+
+
+	<h3>My Profile  </h3>
+
+
 @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+    <a href="/User/Courses" class="btn btn-primary">My Courses</a>*@
 
 
-<h3>My Profile</h3>
-
-@User.FindFirstValue(ClaimTypes.Name)
-
+	<br />
+	<br />
 
 
-<a  href="/User/Courses" class="btn btn-primary">My Courses</a>
+	<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-3 col-lg-3">
+            <div class="nav flex-column nav-pills mt-50" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news"
+                type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">My Courses</button>
+                <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social" 
+                type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">Results</button>
+                <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta" 
+                type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">Forums</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
+                    Courses
+                        
+                            @await Component.InvokeAsync("UserCourses",new{ id=User.FindFirstValue(ClaimTypes.NameIdentifier) });
+                        
+
+                   </div>
+                <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
+                        @await Component.InvokeAsync("UserResults");
+                </div>
+                <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
+                        @await Component.InvokeAsync("UserForums",new {userlevelId=3});
+                </div>
+            </div>
+            <input type="hidden" value="1" id="pageNews" />
+            <input type="hidden" value="1" id="pageSocial" />
+            <input type="hidden" value="1" id="pageEsta" />
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</div>

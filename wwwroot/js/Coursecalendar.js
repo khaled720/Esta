@@ -1,7 +1,11 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('Coursecalendar');
     var localeSelectorEl = document.getElementById('langddl');
-    var lang = localeSelectorEl.value
+    var lang = document.getElementsByTagName("html")[0]["lang"]
+
+
+    debugger;
+
     var dir = 'ltr'
     if (lang == 'ar')
         dir = 'rtl'
@@ -9,9 +13,9 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
         editable: false,
         selectable: false,
-        direction: dir,
+        direction: 'rtl',
         eventDisplay: 'block',
-        locale: lang,
+        locale: 'ar',
         initialView: 'dayGridMonth',
         height: '450px',
         moreLinkText: "More",

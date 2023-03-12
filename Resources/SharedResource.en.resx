@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="about" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="addnewcourse" xml:space="preserve">
+    <value>Add New Course</value>
+  </data>
+  <data name="addressinfo" xml:space="preserve">
+    <value>Address Info</value>
+  </data>
+  <data name="becamemember" xml:space="preserve">
+    <value>Became a Member</value>
+  </data>
+  <data name="benefits" xml:space="preserve">
+    <value>Benefits of Membership</value>
+  </data>
+  <data name="board" xml:space="preserve">
+    <value>Board Of Directors</value>
+  </data>
+  <data name="callus" xml:space="preserve">
+    <value>Call Us</value>
+  </data>
+  <data name="ceta" xml:space="preserve">
+    <value>CETA</value>
+  </data>
+  <data name="cetacourses" xml:space="preserve">
+    <value>CETA Courses</value>
+  </data>
+  <data name="cetaholders" xml:space="preserve">
+    <value>CETA Holders</value>
+  </data>
+  <data name="codeofethics" xml:space="preserve">
+    <value>Code of professional Ethics</value>
+  </data>
+  <data name="contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="contactus" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="copyrights" xml:space="preserve">
+    <value>© Copyright ESTA All Rights Reserved.</value>
+  </data>
+  <data name="coursedetails" xml:space="preserve">
+    <value>Course Details</value>
+  </data>
+  <data name="courses" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+  <data name="discussionbf" xml:space="preserve">
+    <value>Discussion Board "Forum"</value>
+  </data>
+  <data name="edu" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="eduinfo" xml:space="preserve">
+    <value>Education Info</value>
+  </data>
+  <data name="emailus" xml:space="preserve">
+    <value>Email Us</value>
+  </data>
+  <data name="esta" xml:space="preserve">
+    <value>The Egyptian Society of Technical Analysts</value>
+  </data>
+  <data name="ethics" xml:space="preserve">
+    <value>Ethics</value>
+  </data>
+  <data name="events&amp;news" xml:space="preserve">
+    <value>Events &amp; News</value>
+  </data>
+  <data name="followus" xml:space="preserve">
+    <value>Follow Us</value>
+  </data>
+  <data name="forums" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="haveread" xml:space="preserve">
+    <value>I've Read Everything Carefully and I Accept</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>Need Help?</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ifta" xml:space="preserve">
+    <value>IFTA</value>
+  </data>
+  <data name="join" xml:space="preserve">
+    <value>Join Now</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>العربية</value>
+  </data>
+  <data name="level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="levels" xml:space="preserve">
+    <value>Levels</value>
+  </data>
+  <data name="membership" xml:space="preserve">
+    <value>Membership</value>
+  </data>
+  <data name="mist" xml:space="preserve">
+    <value>MIST</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="notfound" xml:space="preserve">
+    <value>No Data to display</value>
+  </data>
+  <data name="othercourses" xml:space="preserve">
+    <value>Other Courses</value>
+  </data>
+  <data name="ourlocation" xml:space="preserve">
+    <value>Our Location</value>
+  </data>
+  <data name="ourmission" xml:space="preserve">
+    <value>Our Mission</value>
+  </data>
+  <data name="ourvission" xml:space="preserve">
+    <value>Our Vission</value>
+  </data>
+  <data name="overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="personalinfo" xml:space="preserve">
+    <value>Personal Info</value>
+  </data>
+  <data name="powerdby" xml:space="preserve">
+    <value>Powered By</value>
+  </data>
+  <data name="prev" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="quicklinks" xml:space="preserve">
+    <value>Quick Links</value>
+  </data>
+  <data name="readmore" xml:space="preserve">
+    <value>Read More</value>
+  </data>
+  <data name="remember" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="selectlevel" xml:space="preserve">
+    <value>Select Level .....</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Send a message</value>
+  </data>
+  <data name="sendusmessage" xml:space="preserve">
+    <value>Send Us A Message</value>
+  </data>
+  <data name="signin" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="signout" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="signup" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="stdate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="ta" xml:space="preserve">
+    <value>Technical Analysis</value>
+  </data>
+  <data name="upcourses" xml:space="preserve">
+    <value>Upcoming Courses</value>
+  </data>
+  <data name="uremail" xml:space="preserve">
+    <value>Your Email</value>
+  </data>
+  <data name="urmsg" xml:space="preserve">
+    <value>Your Massage</value>
+  </data>
+  <data name="urname" xml:space="preserve">
+    <value>Your Name</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="wel" xml:space="preserve">
+    <value>Welcome to ESTA</value>
+  </data>
+  <data name="wel2" xml:space="preserve">
+    <value>Education Gets Light &lt;br&gt; In Human Life</value>
+  </data>
+  <data name="wel2desc" xml:space="preserve">
+    <value>Civilization will not be without Education</value>
+  </data>
+  <data name="wel3" xml:space="preserve">
+    <value>First Professional &lt;br&gt; Technical Analysis Society</value>
+  </data>
+  <data name="wel3desc" xml:space="preserve">
+    <value>was created since 1988</value>
+  </data>
+  <data name="wel4" xml:space="preserve">
+    <value>ESTA is welcoming  &lt;br&gt;any new volunteers</value>
+  </data>
+  <data name="wel4desc" xml:space="preserve">
+    <value>New volunteers are our main power</value>
+  </data>
+  <data name="whyus" xml:space="preserve">
+    <value>Why Choose Us?</value>
+  </data>
+  <data name="workinfo" xml:space="preserve">
+    <value>Work Info</value>
+  </data>
+</root>

@@ -1,5 +1,5 @@
 ﻿
-document.addEventListener('DOMContentLoaded', function () {
+$(document).ready( function () {
     var getEventUrl = $('#GetEventUrl').val();
     var localeSelectorEl = document.getElementById('langddl');
     var calendarEl = document.getElementById('calendar');
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var dir = 'ltr'
     if (lang == 'ar')
         dir = 'rtl'
-
+   
     var calendar = new FullCalendar.Calendar(calendarEl, {
         editable: false,
         selectable: false,
@@ -16,21 +16,22 @@ document.addEventListener('DOMContentLoaded', function () {
         locale: lang,
         initialView: 'dayGridMonth',
         height: '450px',
-        eventDidMount: function (info) {
-            $(info.el).popover({
-                title: info.event.title,
-                placement: 'top',
-                trigger: 'hover',
-                content: formatDate(info.event.start),
-                container: 'body'
-            });
-        },
+        //eventDidMount: function (info) {
+        //    $(info.el).popover({
+        //        title: info.event.title,
+        //        placement: 'top',
+        //        trigger: 'hover',
+        //        content: formatDate(info.event.start),
+        //        container: 'body'
+        //    });
+        //},
         moreLinkText: "More",
         displayEventTime: false,
         fixedWeekCount: false,
         eventColor: 'white',
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
+            debugger
             $.ajax({
                 url: $('#AjaxUrl').val(),
                 type: "GET",
@@ -63,6 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
                     successCallback(events);
+                },
+                error: function (err) {
+                    console.log(err);
                 }
             });
         },
@@ -81,11 +85,18 @@ document.addEventListener('DOMContentLoaded', function () {
 $(document).ready(function () {
     var calendarEl = document.getElementById('courses-calendar');
    // calendarEl.innerHTML = "<p>Loading Courses Calendar...</p>";
+    var dir = 'ltr';
+
+    if (document.getElementsByTagName("html")[0]["lang"] == 'ar') dir = 'rtl';
+
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         editable: false,
         selectable: false,
+        locale: document.getElementsByTagName("html")[0]["lang"],
+        direction:dir,
         initialView: 'dayGridMonth',
-        height: '600px',
+        height: '450px',
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
             $.ajax({
@@ -106,8 +117,8 @@ $(document).ready(function () {
                                 description: data.description,
                                 start: moment(data.startDate).format("YYYY-MM-DD"),
                                 url: '/Courses/CourseDetails/' + data.id,
-                                backgroundColor: "green",
-                                borderColor: "black"
+                                backgroundColor: "blueviolet",
+                                borderColor: "white"
 
                             });
                     });

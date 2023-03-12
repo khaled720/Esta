@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class LevelsController : Controller
-    {
+	{
         private readonly IUnitOfWork appRep;
 
         public LevelsController(IUnitOfWork appRep)
@@ -44,6 +45,27 @@ namespace ESTA.Areas.Admin.Controllers
 
         }
 
+
+        [HttpGet]
+        public IActionResult EditLevel(int id)
+        {
+
+           var level= appRep.LevelRep.GetLevel(id); 
+
+            return View(level);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditLevel(Level level)
+        {
+           
+         await   appRep.LevelRep.EditLevel(level);
+         await   appRep.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+          
+
+        }
 
 
     }

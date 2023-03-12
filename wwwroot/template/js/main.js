@@ -39,19 +39,46 @@
             ).find("[data-animation]");
             doAnimations($animatingElements);
         });
+
+  
+        //$.ajax({
+        //    type: 'get',
+        //    url: "Lang/GetLocalizedString?key=prev",
+          
+        //    success: function (data) {
+        //        document.getElementById("pre").innerText = data.value;
+        //    },
+        //    error: function (data) {
+       
+        //    }
+        //});
+        //$.ajax({
+        //    type: 'get',
+        //    url: "Lang/GetLocalizedString?key=next",
+
+        //    success: function (data) {
+        //        document.getElementById("nex").innerText = data.value;
+        //    },
+        //    error: function (data) {
+             
+        //    }
+        //});
+
+
         BasicSlider.slick({
             autoplay: true,
-            autoplaySpeed: 8000,
+            autoplaySpeed: 4000,
             dots: true,
+         
             fade: true,
-            arrows: true,
-            prevArrow: "<button type='button' class='slick-prev pull-left'>prev</button>",
-            nextArrow: "<button type='button' class='slick-next pull-right'>next</button>",
+            arrows: false,
+            prevArrow: "<button type='button' id='pre' class='slick-prev pull-left'> PREV</button>",
+            nextArrow: "<button type='button' id='nex' class='slick-next pull-right'> NEXT</button>",
             responsive: [
                 { breakpoint: 767, settings: { dots: false, arrows: false } }
             ]
         });
-
+       
         function doAnimations(elements) {
             var animationEndEvents =
                 "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";
@@ -74,12 +101,12 @@
     // slider-active
     $('.slider-active-3').slick({
         dots: true,
-        arrows: true,
+        arrows: false,
         prevArrow: '<button type="button" class="slick-prev"><span class="ti-angle-left"></span></button>',
         nextArrow: '<button type="button" class="slick-next"><span class="ti-angle-right"></span></button>',
         infinite: true,
         fade: true,
-        speed: 800,
+        speed: 100,
         slidesToShow: 1,
         slidesToScroll: 1,
         responsive: [

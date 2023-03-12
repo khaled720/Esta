@@ -24,7 +24,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Profile()
         {
 
-            await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
+          //  await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
             
             
             return View();
@@ -32,6 +32,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Courses()
         {
+  
             // user corses shuild be lodd her
             //User Id Must be Dynamic
       var courses=    await  appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));

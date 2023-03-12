@@ -306,5 +306,45 @@ namespace ESTA.Repository
 
             return false;
         }
+
+
+        ////////////////////////// added by me
+
+
+
+
+        public List<Forum> GetSpecificUserForums(int  userLevelId)
+        {
+            try
+            {
+
+           return
+                    appContext.Forums.Where(y => y.LevelId >= userLevelId).Include(y=>y.level).ToList();
+
+
+            }
+            catch (Exception)
+            {
+
+                return new  List<Forum>();
+            }
+    
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

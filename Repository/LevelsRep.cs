@@ -45,9 +45,18 @@ namespace ESTA.Repository
             return await appContext.Levels.ToListAsync();
         }
 
-        public Course GetLevel(int id)
+        public Level GetLevel(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+       return appContext.Levels.First(y=>y.Id==id);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+     
         }
     }
 }

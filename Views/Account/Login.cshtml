@@ -1,18 +1,28 @@
-﻿@{
-    Layout = "";
-}
+﻿
 
 @using ESTA.ViewModels
 @model LoginViewModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> localizer;
 
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-<div class="row" style="justify-content:center">
+<style>
+    .form-label{
+    top:-15px !important;
+    color:blueviolet;
+    
+    }
+
+
+</style>
+
+<div class="row" style="justify-content:center ; height:100%;align-items:center">
     <div class="col-md-4">
+        <br /><br />
         <section>
             <form id="account" asp-action="Login" method="post">
-                <h2>Use a local account to log in.</h2>
+                <h2> @localizer["wel"] </h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -27,26 +37,27 @@
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
                 <div>
-                    <div class="checkbox">
+                  @*  <div class="checkbox">
                         <label asp-for="@Model.RememberMe" class="form-label">
-                            <input class="form-check-input" asp-for="@Model.RememberMe" />
+                      
                             @Html.DisplayNameFor(m => m.RememberMe)
+                            <input class="form-check-input" asp-for="@Model.RememberMe" />
                         </label>
-                    </div>
+                    </div>*@
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@localizer["signin"]</button>
                 </div>
                 <div>
-                    <p>
+               @*     <p>
                         <a id="forgot-password" href="/Register">Forgot your password?</a>
-                    </p>
+                    </p>*@
                     <p>
-                        <a href="/Register" >Register as a new user</a>
+                        <a asp-action="register" asp-controller="account" >@localizer["signup"]</a>
                     </p>
-                    <p>
+                   @* <p>
                         <a id="resend-confirmation" href="/Register">Resend email confirmation</a>
-                    </p>
+                    </p>*@
                 </div>
             </form>
         </section>

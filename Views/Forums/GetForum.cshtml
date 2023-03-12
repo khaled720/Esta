@@ -58,9 +58,29 @@
 <hr />
 <div class="news-details-area">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-8 col-lg-12">
+        <div class="row" style="justify-content: center;">
+            <div class="col-12">
                 <div class="post-comments post-comments-padding white-bg">
+
+
+
+                    <div class="post-comments-form my-3">
+                        <div class="section-title mb-30">
+                            <h2>Leave a Comment</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <textarea wrap="hard" maxlength="500" name="comments" style="border-radius:10px" id="comment" cols="30" rows="5" class="form-control" placeholder="Your Comment"></textarea>
+                                <button class="btn btn-primary py-3 px-5 mt-3" onclick="AddComment()">send comment</button>
+                            </div>
+                        </div>
+                        <div id="cmntErr" class="text-danger">
+                        </div>
+                    </div>
+
+
+
+
                     <div class="latest-comments">
                         <ul id="CommentList">
 
@@ -77,25 +97,12 @@
                         <button id="MoreBtn" onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
                     }
 
-                    <div class="post-comments-form my-3">
-                        <div class="section-title mb-30">
-                            <h2>Leave a Comment</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-8">
-                                <textarea wrap="hard" maxlength="500" name="comments" id="comment" cols="30" rows="5" class="form-control" placeholder="Your Comment"></textarea>
-                                <button class="btn btn-primary py-3 px-5 mt-3" onclick="AddComment()">send comment</button>
-                            </div>
-                        </div>
-                        <div id="cmntErr" class="text-danger">
-
-                        </div>
-                    </div>
+                 
                 </div>
             </div>
 
-            <div class="col-xl-4 align-self-center" id="stats">
-            </div>
+         @*   <div class="col-xl-4 align-self-center" id="stats">
+            </div>*@
         </div>
     </div>
 </div>

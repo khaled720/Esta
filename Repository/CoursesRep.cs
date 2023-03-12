@@ -58,6 +58,7 @@ namespace ESTA.Repository
                 DbCourse.DescriptionAr = UpdatedCourse.DescriptionAr;
                 DbCourse.TitleAr = UpdatedCourse.TitleAr;
                 DbCourse.PhotoPath = UpdatedCourse.PhotoPath;
+               
 
                 this.appContext.SaveChanges();
 
@@ -97,7 +98,7 @@ namespace ESTA.Repository
         public async Task<Course> GetCourse(int id)
         {
             return await appContext.Courses
-                .AsNoTracking()
+                //.AsNoTracking()
                 .Include(y => y.level)
                 .Where(y => y.Id == id)
                 .FirstAsync();
@@ -140,6 +141,24 @@ namespace ESTA.Repository
                 }
             }
             return CetaHolders;
+        }
+
+        public async Task<Course> GetUpcomingCourse()
+        {
+
+            try
+            {
+            
+                var course =await appContext.Courses.OrderBy(y=>y.StartDate).Where(y => y.StartDate > DateTime.Now).FirstAsync();
+                return course;
+
+            }
+            catch (Exception)
+            {
+                return new Course();
+            }
+
+
         }
     }
 }

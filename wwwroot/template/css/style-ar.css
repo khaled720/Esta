@@ -1,0 +1,80 @@
+﻿
+
+@font-face {
+    font-family: 'noto kufi arabic regular';
+    src: url('../fonts/noto kufi arabic regular.ttf') format('truetype');
+}
+
+body {
+    text-align: right !important;
+    font-family: 'noto kufi arabic regular', sans-serif !important;
+}
+
+p,h1,h2,h3,h4,h5,h6,a{
+
+    font-family: 'noto kufi arabic regular', sans-serif !important;
+}
+
+.main-menu ul li a {
+    font-size: 17px;
+    font-weight: 600;
+}
+.courses-heading {
+
+    flex-direction:row-reverse;
+}
+
+.ti-angle-double-right {
+    transform: rotateY(180deg) !important;
+}
+
+.row {
+    flex-direction: row-reverse !important;
+}
+
+.ar {
+    direction:rtl;
+}
+
+.mean-container a.meanmenu-reveal {
+left: 0 !important;
+
+}
+
+
+.main-menu ul li ul.submenu li a {
+text-align:right !important;
+
+}
+
+.form-label {
+    right: 0 !important;
+    left: auto !important;
+}
+
+
+nav {
+    direction: rtl
+}
+
+.mean-container .mean-nav ul li a {
+    text-align: right !important;
+}
+
+    .mean-container .mean-nav ul li a.mean-expand {
+    left:0;
+    right:auto
+    
+    }
+
+
+
+.about-title-section p {
+
+    padding-right: initial !important;
+    text-align: right !important;
+}
+
+.contactUs-section {
+    direction:rtl;
+}

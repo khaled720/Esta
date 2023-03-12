@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ContactController : Controller
     {
         private readonly IUnitOfWork uow;

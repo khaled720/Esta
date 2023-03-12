@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="academicqualification" xml:space="preserve">
+    <value>Academic Qualification</value>
+  </data>
+  <data name="area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="birth" xml:space="preserve">
+    <value>BirthDate</value>
+  </data>
+  <data name="blockno" xml:space="preserve">
+    <value>Block Number</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="confirmpassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="confirmpassworderr" xml:space="preserve">
+    <value>The password and confirmation password do not match </value>
+  </data>
+  <data name="country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="descar" xml:space="preserve">
+    <value>Description in Arabic</value>
+  </data>
+  <data name="descen" xml:space="preserve">
+    <value>Description in English</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="emailerr" xml:space="preserve">
+    <value>This Email Address Is not Valid</value>
+  </data>
+  <data name="emailformaterr" xml:space="preserve">
+    <value>Not Supported Email Format</value>
+  </data>
+  <data name="englishrl" xml:space="preserve">
+    <value>English Reading Level</value>
+  </data>
+  <data name="englishwl" xml:space="preserve">
+    <value>English WritingLevel</value>
+  </data>
+  <data name="flatno" xml:space="preserve">
+    <value>Flat Number</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="fngrade" xml:space="preserve">
+    <value>Final Grade</value>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>Full Name In English</value>
+  </data>
+  <data name="fullnamear" xml:space="preserve">
+    <value>Full Name In Arabic</value>
+  </data>
+  <data name="gradutionyear" xml:space="preserve">
+    <value>Gradution Year</value>
+  </data>
+  <data name="haveread" xml:space="preserve">
+    <value>Have You Read ?</value>
+  </data>
+  <data name="highstudies" xml:space="preserve">
+    <value>High Studies</value>
+  </data>
+  <data name="homephone" xml:space="preserve">
+    <value>Home Phone</value>
+  </data>
+  <data name="hometown" xml:space="preserve">
+    <value>Hometown</value>
+  </data>
+  <data name="idno" xml:space="preserve">
+    <value>National Card Id</value>
+  </data>
+  <data name="job" xml:space="preserve">
+    <value>Job</value>
+  </data>
+  <data name="jobar" xml:space="preserve">
+    <value>Job In Arabic</value>
+  </data>
+  <data name="joben" xml:space="preserve">
+    <value>Job in English</value>
+  </data>
+  <data name="level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="levelname" xml:space="preserve">
+    <value>Level Name</value>
+  </data>
+  <data name="meassagingaddress" xml:space="preserve">
+    <value>Messaging Address</value>
+  </data>
+  <data name="mobile" xml:space="preserve">
+    <value>Mobile Phone</value>
+  </data>
+  <data name="namear" xml:space="preserve">
+    <value>Name in Arabic</value>
+  </data>
+  <data name="nameen" xml:space="preserve">
+    <value>Name in English</value>
+  </data>
+  <data name="nationalidcons" xml:space="preserve">
+    <value>National Card ID Must be 14 digits</value>
+  </data>
+  <data name="passport" xml:space="preserve">
+    <value>Passport Id</value>
+  </data>
+  <data name="passportcons" xml:space="preserve">
+    <value>Passport ID Must be 14 digits</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="passwordcons" xml:space="preserve">
+    <value>Password must be 8 digits or more having one lower char and one upper char and one number</value>
+  </data>
+  <data name="paylink" xml:space="preserve">
+    <value>Payment Link</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="pricerange" xml:space="preserve">
+    <value>Price should be between 0 - 10000</value>
+  </data>
+  <data name="remember" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="required" xml:space="preserve">
+    <value>This field is Required !</value>
+  </data>
+  <data name="stdate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="stname" xml:space="preserve">
+    <value>Street Name</value>
+  </data>
+  <data name="titlear" xml:space="preserve">
+    <value>Title in Arabic</value>
+  </data>
+  <data name="titleen" xml:space="preserve">
+    <value>Title in English</value>
+  </data>
+  <data name="university" xml:space="preserve">
+    <value>University</value>
+  </data>
+  <data name="workaddress" xml:space="preserve">
+    <value>Work Address</value>
+  </data>
+  <data name="workfax" xml:space="preserve">
+    <value>Work Fax</value>
+  </data>
+  <data name="workleavedate" xml:space="preserve">
+    <value>Work Leaving Date</value>
+  </data>
+  <data name="workleavereasons" xml:space="preserve">
+    <value>Work Leaving Reasons</value>
+  </data>
+  <data name="workphone" xml:space="preserve">
+    <value>Work Phone</value>
+  </data>
+</root>

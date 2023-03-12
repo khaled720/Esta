@@ -6,7 +6,7 @@ namespace ESTA.Repository.IRepository
     {
 
 
-        public Task<Content> GetContent(string type);
+        public Content GetContent(string type);
 
         public Task<bool> AddContent(Content content);
         public Task<bool> UpdateContent(Content content);
