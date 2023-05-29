@@ -2,7 +2,18 @@
 
 
 
+//document.onload = function () {
 
+//  var tables=  document.getElementsByTagName("table");
+
+//    for (var i = 0; i < tables.length; i++)
+//    {
+
+//        tables
+//        [i].classList.add("animate__flipInX");
+
+//    }
+//}
 
 
 
@@ -65,7 +76,7 @@ function SendEmail() {
     function changeLang(lang) {
         $.ajax({
             type: 'post',
-            url: "/Lang/SetCulture",
+            url: $('#langUrl').val(),
             data: {
                 culture: lang
             },

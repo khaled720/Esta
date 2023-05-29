@@ -1,4 +1,5 @@
-﻿using ESTA.Models;
+﻿using ESTA.Helpers;
+using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -22,12 +23,47 @@ namespace ESTA.Areas.Admin.Controllers
 
         [Authorize("RequireAdminRole")]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(PagerViewModel<Course> pagerViewModel,int page=1)
         {
-            List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+            //if (pagerViewModel.lengthOfFullList == 0) 
+            //{ 
+            pagerViewModel.CurrentPage = page;
+            var courses =(List<Course>)await appRep.CoursesRep.GetAllCourses();
+            
+            //pagerViewModel.lengthOfFullList = courses.Count;
+            //}
 
-            return View(courses);
+            pagerViewModel.Update(courses);
+
+         
+
+
+
+        //    var courseList = appRep.GetPaginatedList<Course>(currentPage,pageSize);
+
+
+
+
+            return View(pagerViewModel);
         }
+
+
+        //[Authorize("RequireAdminRole")]
+        //[HttpPost]
+        //public IActionResult Index(PagerViewModel<Course> pagerViewModel)
+        //{
+        //  //  List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+
+
+
+
+
+
+
+        //    return View(pagerViewModel);
+        //}
+
+
 
         [Authorize("RequireAdminRole")]
         [HttpGet]
@@ -218,5 +254,24 @@ namespace ESTA.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpGet]
+        public  IActionResult UpdateCoursePaymentStatuse(int cid,string uid,bool paymentstate)
+        {
+            try
+            {
+                appRep.UsersCoursesRep.UpdateUserCoursePaymentStatus(uid, cid, paymentstate);
+                appRep.SaveChangesAsync().Wait();
+
+                return RedirectToAction("CourseInfo", new {id=cid });
+            }
+            catch (Exception e )
+            {
+                return RedirectToAction("CourseInfo", new { id = cid });
+            }
+        }
+
+
+
     }
 }

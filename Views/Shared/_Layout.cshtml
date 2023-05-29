@@ -73,10 +73,9 @@
 	<link href="css/inner.css" rel="stylesheet" />
 	<link href="~/template/aos/aos.css" rel="stylesheet" />
     @if(Thread.CurrentThread.CurrentCulture.Name=="ar"){
+
 	<link href="~/template/css/style-ar.css" rel="stylesheet" />
-    <h4>Arabic Style Loaded</h4>
-    }else{
-       <h4>Arabic Style Not Loaded</h4>
+   
     }
 
 
@@ -119,21 +118,21 @@
                                         
                                         }
                                         
-                                        <a href="/Account/Logout" class="loginBtn">@localizer["signout"]</a>
+                                        <a  asp-action="Logout" asp-controller="Account" class="loginBtn">@localizer["signout"]</a>
                                     </div>
                                 }
                                 else{
-                                       <div class=" row header-contact header-login">
+                                       <div class=" row header-contact header-login header-contact1 ">
                                        
                                        <div class=""> 
                                       
                                        <span class="ti-user"></span>
-                                    <a href="/Account/Login" class="loginBtn">@localizer["signin"]</a>
+                                    <a asp-action="Login" asp-controller="Account"  class="loginBtn">@localizer["signin"]</a>
                                
                                        </div>
                                 <div>
                                         <span class="ti-user"></span>
-                                        <a href="/Account/Register" class="loginBtn">@localizer["signup"]</a>
+                                        <a asp-action="Register" asp-controller="Account" class="loginBtn">@localizer["signup"]</a>
                                     </div>
                                         </div>
                                 }
@@ -146,29 +145,88 @@
                         <div class="">
                             <div class="header-social-icon-list">
                                 <ul>
-                                    <li><a href="#"><span class="ti-facebook"></span></a></li>
+                                   @if(Thread.CurrentThread.CurrentCulture.Name=="ar")
+                                    {
+
+                                        <li>
+                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                            {
+
+
+                                                <a onclick="changeLang('en')"
+                                           data-toggle="tooltip" title="@langTooltip">
+                                                    <span style="color:aquamarine" class="ti-world"></span>
+                                                </a>
+
+                                            }
+                                            else
+                                            {
+
+
+
+
+
+                                                <a onclick="changeLang('ar')"
+                                           data-toggle="tooltip" title="@langTooltip">
+                                                    <span style="color:mintcream" class="ti-world"></span>
+                                                </a>
+                                            }
+
+
+                                            <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
+                                        </li>
+
+                                <li><a href="#"><span class="ti-facebook"></span></a></li>
                                     <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
                                     <li><a href="#"><span class="ti-google"></span></a></li>
                                     <li><a href="#"><span class="ti-linkedin"></span></a></li>
-                                    <li>
-                                    @if(Thread.CurrentThread.CurrentCulture.Name=="ar")
-                                    {
-                                    
-                                     
-                                     <a onclick="changeLang('en')"  
-                                          data-toggle="tooltip" title="@langTooltip">
-                                            <span style="color:aquamarine" class="ti-world"></span>
-                                        </a>
+                                  
+                          
                                     
                                     }else{
 
-                                            <a onclick="changeLang('ar')"
+                                   
+
+                                      <li><a href="#"><span class="ti-linkedin"></span></a></li>
+  <li><a href="#"><span class="ti-google"></span></a></li> 
+  <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
+                                      <li><a href="#"><span class="ti-facebook"></span></a></li>
+
+                                        <li>
+                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                            {
+
+
+                                                <a onclick="changeLang('en')"
                                            data-toggle="tooltip" title="@langTooltip">
-                                                <span style="color:mintcream" class="ti-world"></span>
-                                            </a>
+                                                    <span style="color:aquamarine" class="ti-world"></span>
+                                                </a>
+
+                                            }
+                                            else
+                                            {
+
+
+
+
+
+                                                <a onclick="changeLang('ar')"
+                                           data-toggle="tooltip" title="@langTooltip">
+                                                    <span style="color:mintcream" class="ti-world"></span>
+                                                </a>
+                                            }
+
+
+                                            <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
+                                        </li>
+
+                                  
+                                    
                                     }
-                                       
-                                    </li>
+                                    
+                                    
+                                    
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -210,27 +268,27 @@
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         <li>
-                                            <a href="/home/index">@localizer["home"]</a>
+                                            <a asp-controller="Home" asp-action="Index" >@localizer["home"]</a>
 
                                         </li>
                                         <li>
                                             <a href="#">@localizer["about"]</a>
                                             <ul class="submenu">
                                                 <li>
-                                                  <a href="/Home/About?type=about">@localizer["about"] ESTA</a>
+                                                    <a asp-controller="Home" asp-action="About" asp-route-type="about">@localizer["about"] ESTA</a>
 
                                                 </li>
                                                 <li>
                                              
-                                                    <a href="/Home/About?type=ta">@localizer["ta"]</a>
+                                                    <a asp-controller="Home" asp-action="About" asp-route-type="ta">@localizer["ta"]</a>
 
                                             </li>
                                                 <li>
                                                 
-                                                    <a href="/Home/About?type=ethics">@localizer["ethics"]</a>
+                                                    <a asp-controller="Home" asp-action="About" asp-route-type="ethics">@localizer["ethics"]</a>
                                                 </li>
                                                 <li>
-                                                    <a href="/Director/BoardofDirectors">@localizer["board"]</a>
+                                                    <a asp-controller="Director" asp-action="BoardofDirectors">@localizer["board"]</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -266,18 +324,20 @@
                                                 </li>
 
                                                 <li>
-                                                    <a href="/Home/About?type=benefits">@localizer["benefits"]</a>
+                                                    <a asp-controller="Home" asp-action="About" asp-route-type="benefits">
+                                                    @localizer["benefits"]
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <a href="/Account/Register">@localizer["becamemember"]</a>
+                                                    <a asp-controller="Account" asp-action="Register" >@localizer["becamemember"]</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="/Home/About?type=ifta" >@localizer["ifta"]</a>
+                                            <a asp-controller="Home" asp-action="About" asp-route-type="ifta" >@localizer["ifta"]</a>
                                         </li>
                                         <li>
-                                            <a href="/Home/contact">@localizer["contacts"]</a>
+                                            <a asp-controller="Home" asp-action="contact" >@localizer["contacts"]</a>
                                         </li>
 
 
@@ -350,17 +410,19 @@
                                     <h1>@localizer["contactus"]</h1>
                                 </div>
                                 <div class="footer-contact-list">
-                                    <div class="single-footer-contact-info">
-                                        <span class="ti-headphone "></span>
+                                    <div class="single-footer-contact-info row">
+                                        <span class="ti-headphone col-1 "></span>
                                      
                                         <span class="footer-contact-list-text">+202 - 37629820/  +202 - 37629830</span>
                                     </div>
-                                    <div class="single-footer-contact-info">
-                                        <span class="ti-email "></span>
+                                    <br />
+                                    <div class="single-footer-contact-info row">
+                                        <span class="ti-email col-1 "></span>
                                         <span class="footer-contact-list-text">internal@estaegypt.org</span>
                                     </div>
-                                    <div class="single-footer-contact-info">
-                                        <span class="ti-location-pin"></span>
+                                    <br />
+                                    <div class="single-footer-contact-info row">
+                                        <span class="ti-location-pin col-1"></span>
                                         <span class="footer-contact-list-text">45 , Mossadak St. , Dokki , 6th floor, Appartment 11</span>
                                     </div>
                                 </div>

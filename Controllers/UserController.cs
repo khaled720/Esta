@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUnitOfWork appRep;
@@ -40,7 +41,11 @@ namespace ESTA.Controllers
             return View(courses);
         }
 
-        
+
+
+
+
+        //enroll & pay later
         public async Task<IActionResult> EnrollCourse(int Id)
         {
 
@@ -52,9 +57,11 @@ namespace ESTA.Controllers
             }
             else
             {
-                return Redirect("/Account/Login");
+                return Redirect("Account/Login");
             }
         }
+
+        //course Id Enroll + pay now
         public async Task<IActionResult> PayEnrollCourse(int Id)
         {
             if (User.Identity.IsAuthenticated)
@@ -65,7 +72,7 @@ namespace ESTA.Controllers
             }
             else
             {
-                return Redirect("/Account/Login");
+                return Redirect("Account/Login");
             }
          
 

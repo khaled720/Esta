@@ -23,7 +23,8 @@ namespace ESTA.Models
             ErrorMessageResourceName = "required"
         )]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "paylink")]
-        public string PaymentLink { get; set; }
+        public string PaymentLink { get; set; } = "";
+
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "level")]
 
         public virtual Level? level { get; set; }

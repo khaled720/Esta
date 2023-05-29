@@ -7,6 +7,7 @@ namespace ESTA.Repository
     public class ForumRepository : IForumRepository
     {
         private AppDbContext appContext;
+
         public ForumRepository(AppDbContext appContext)
         {
             this.appContext = appContext;
@@ -19,44 +20,45 @@ namespace ESTA.Repository
 
         public List<Forum> GetAllForums()
         {
-            return appContext.Forums
-                .Include(f => f.level)
-                .ToList();
+            return appContext.Forums.Include(f => f.level).ToList();
         }
+
         public void DeleteForum(Forum forum)
         {
             appContext.Forums.Remove(forum);
         }
+
         public Forum GetForum(int id, bool levels, bool comments = false)
         {
             if (levels && comments)
             {
                 return appContext.Forums
-                .Where(x => x.Id == id)
-                .Include(x => x.level)
-                .Include(x => x.UserForum)
-                .SingleOrDefault();
+                    .Where(x => x.Id == id)
+                    .Include(x => x.level)
+                    .Include(x => x.UserForum)
+                    .SingleOrDefault();
             }
             else if (levels && !comments)
             {
                 return appContext.Forums
-                .Where(f => f.Id == id)
-                .Include(x => x.level)
-                .SingleOrDefault();
+                    .Where(f => f.Id == id)
+                    .Include(x => x.level)
+                    .SingleOrDefault();
             }
-            return appContext.Forums
-                .Where(f => f.Id == id)
-                .SingleOrDefault();
+            return appContext.Forums.Where(f => f.Id == id).SingleOrDefault();
         }
+
         public List<UserForum> GetComments(int forumId, int? page, int count = 3)
         {
             if (!page.HasValue)
             {
-                return appContext.UsersForums.Where(x => x.forumId == forumId && x.ParentId == null)
-                .Include(c => c.Replies)
-                .ToList();
+                return appContext.UsersForums
+                    .Where(x => x.forumId == forumId && x.ParentId == null)
+                    .Include(c => c.Replies)
+                    .ToList();
             }
-            var list = appContext.UsersForums.Where(x => x.forumId == forumId && x.ParentId == null)
+            var list = appContext.UsersForums
+                .Where(x => x.forumId == forumId && x.ParentId == null)
                 .Include(c => c.Replies)
                 .Include(x => x.user)
                 .OrderByDescending(x => x.Id)
@@ -69,15 +71,21 @@ namespace ESTA.Repository
             }
             return list;
         }
+
         public int GetRepliesCount(int ParentId)
         {
             var Comments = appContext.UsersForums.Where(x => x.ParentId == ParentId).ToList();
             return Comments.Count;
         }
+
         public UserForum GetCommentById(int commentId)
         {
-            return appContext.UsersForums.Where(x => x.Id == commentId).Include(x => x.user).SingleOrDefault();
+            return appContext.UsersForums
+                .Where(x => x.Id == commentId)
+                .Include(x => x.user)
+                .SingleOrDefault();
         }
+
         public void AddComment(UserForum userForum)
         {
             appContext.UsersForums.Add(userForum);
@@ -87,7 +95,10 @@ namespace ESTA.Repository
         {
             if (!page.HasValue)
             {
-                return appContext.UsersForums.Where(x => x.ParentId == parentId).Include(x => x.user).ToList();
+                return appContext.UsersForums
+                    .Where(x => x.ParentId == parentId)
+                    .Include(x => x.user)
+                    .ToList();
             }
             else
             {
@@ -100,10 +111,12 @@ namespace ESTA.Repository
                     .ToList();
             }
         }
+
         public void DeleteComment(List<UserForum> userForum)
         {
             appContext.RemoveRange(userForum);
         }
+
         public void DeleteReply(UserForum userForum)
         {
             appContext.Remove(userForum);
@@ -126,22 +139,24 @@ namespace ESTA.Repository
                         .Count();
                 }
                 else
-                    return appContext.UsersForums
-                        .Where(x => x.ParentId != null)
-                        .Count();
+                    return appContext.UsersForums.Where(x => x.ParentId != null).Count();
             }
             else
             {
                 if (date.HasValue && Equal)
                 {
                     return appContext.UsersForums
-                        .Where(x => x.ParentId != null && x.CreatedDate.Date == date && x.forumId == id)
+                        .Where(
+                            x => x.ParentId != null && x.CreatedDate.Date == date && x.forumId == id
+                        )
                         .Count();
                 }
                 else if (date.HasValue && !Equal)
                 {
                     return appContext.UsersForums
-                        .Where(x => x.ParentId != null && x.CreatedDate.Date >= date && x.forumId == id)
+                        .Where(
+                            x => x.ParentId != null && x.CreatedDate.Date >= date && x.forumId == id
+                        )
                         .Count();
                 }
                 else
@@ -168,22 +183,30 @@ namespace ESTA.Repository
                         .Count();
                 }
                 else
-                    return appContext.UsersForums
-                        .Where(x => x.ParentId == null)
-                        .Count();
+                    return appContext.UsersForums.Where(x => x.ParentId == null).Count();
             }
             else
             {
                 if (date.HasValue && Equal)
                 {
                     return appContext.UsersForums
-                        .Where(x => x.ParentId == null && x.CreatedDate.Date == date.Value && x.forumId == id)
+                        .Where(
+                            x =>
+                                x.ParentId == null
+                                && x.CreatedDate.Date == date.Value
+                                && x.forumId == id
+                        )
                         .Count();
                 }
                 else if (date.HasValue && !Equal)
                 {
                     return appContext.UsersForums
-                        .Where(x => x.ParentId == null && x.CreatedDate.Date >= date.Value && x.forumId == id)
+                        .Where(
+                            x =>
+                                x.ParentId == null
+                                && x.CreatedDate.Date >= date.Value
+                                && x.forumId == id
+                        )
                         .Count();
                 }
                 else
@@ -201,20 +224,20 @@ namespace ESTA.Repository
                 {
                     return appContext.UsersForums
                         .Where(x => x.CreatedDate.Date == date)
-                        .Select(x => x.userId).Distinct()
+                        .Select(x => x.userId)
+                        .Distinct()
                         .Count();
                 }
                 else if (date.HasValue && !Equal)
                 {
                     return appContext.UsersForums
                         .Where(x => x.CreatedDate.Date >= date)
-                        .Select(x => x.userId).Distinct()
+                        .Select(x => x.userId)
+                        .Distinct()
                         .Count();
                 }
                 else
-                    return appContext.UsersForums
-                        .Select(x => x.userId).Distinct()
-                        .Count();
+                    return appContext.UsersForums.Select(x => x.userId).Distinct().Count();
             }
             else
             {
@@ -222,24 +245,33 @@ namespace ESTA.Repository
                 {
                     return appContext.UsersForums
                         .Where(x => x.CreatedDate.Date == date && x.forumId == id)
-                        .Select(x => x.userId).Distinct()
+                        .Select(x => x.userId)
+                        .Distinct()
                         .Count();
                 }
                 else if (date.HasValue && !Equal)
                 {
                     return appContext.UsersForums
                         .Where(x => x.CreatedDate.Date >= date && x.forumId == id)
-                        .Select(x => x.userId).Distinct()
+                        .Select(x => x.userId)
+                        .Distinct()
                         .Count();
                 }
                 else
                     return appContext.UsersForums
                         .Where(x => x.forumId == id)
-                        .Select(x => x.userId).Distinct()
+                        .Select(x => x.userId)
+                        .Distinct()
                         .Count();
             }
         }
-        public List<UserForum> SearchComments(string[] query, int userLevel, int page, int count = 3)
+
+        public List<UserForum> SearchComments(
+            string[] query,
+            int userLevel,
+            int page,
+            int count = 3
+        )
         {
             IEnumerable<UserForum> list = new List<UserForum>();
 
@@ -248,12 +280,14 @@ namespace ESTA.Repository
                 foreach (string term in query)
                 {
                     list = list.Concat(
-                    (IEnumerable<UserForum>)appContext.UsersForums
-                    .Include(x => x.forum)
-                    .Include(c => c.Replies)
-                    .Include(x => x.user)
-                    .Where(x => x.Comment.Contains(term) && x.ParentId == null)
-                    ).ToList();
+                            (IEnumerable<UserForum>)
+                                appContext.UsersForums
+                                    .Include(x => x.forum)
+                                    .Include(c => c.Replies)
+                                    .Include(x => x.user)
+                                    .Where(x => x.Comment.Contains(term) && x.ParentId == null)
+                        )
+                        .ToList();
                 }
             }
             else
@@ -261,31 +295,37 @@ namespace ESTA.Repository
                 foreach (string term in query)
                 {
                     list = list.Concat(
-                    (IEnumerable<UserForum>)appContext.UsersForums
-                    .Include(x => x.forum)
-                    .Include(c => c.Replies)
-                    .Include(x => x.user)
-                    .Where(x => x.Comment.Contains(term) && x.ParentId == null && x.forum.LevelId <= userLevel)
-                    ).ToList();
+                            (IEnumerable<UserForum>)
+                                appContext.UsersForums
+                                    .Include(x => x.forum)
+                                    .Include(c => c.Replies)
+                                    .Include(x => x.user)
+                                    .Where(
+                                        x =>
+                                            x.Comment.Contains(term)
+                                            && x.ParentId == null
+                                            && x.forum.LevelId <= userLevel
+                                    )
+                        )
+                        .ToList();
                 }
             }
-            list = list
-                .Distinct()
-                .OrderByDescending(x => x.Id)
-                .Skip(count * page)
-                .Take(count);
+            list = list.Distinct().OrderByDescending(x => x.Id).Skip(count * page).Take(count);
 
             foreach (var comment in list)
             {
-                comment.Replies = comment.Replies.OrderByDescending(x => x.Id)
-                    .Take(count)
-                    .ToList();
+                comment.Replies = comment.Replies.OrderByDescending(x => x.Id).Take(count).ToList();
             }
 
             return list.ToList();
         }
 
-        public bool CheckMoreComments(int page, int? parentId = null, int? ForumId = null, int count = 3)
+        public bool CheckMoreComments(
+            int page,
+            int? parentId = null,
+            int? ForumId = null,
+            int count = 3
+        )
         {
             if (parentId.HasValue)
             {
@@ -307,44 +347,24 @@ namespace ESTA.Repository
             return false;
         }
 
-
         ////////////////////////// added by me
 
 
 
 
-        public List<Forum> GetSpecificUserForums(int  userLevelId)
+        public List<Forum> GetSpecificUserForums(int userlevelId)
         {
             try
             {
-
-           return
-                    appContext.Forums.Where(y => y.LevelId >= userLevelId).Include(y=>y.level).ToList();
-
-
+                return appContext.Forums
+                    .Where(y => y.LevelId >= userlevelId || y.LevelId==4)
+                    .Include(y => y.level)
+                    .ToList();
             }
             catch (Exception)
             {
-
-                return new  List<Forum>();
+                return new List<Forum>();
             }
-    
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

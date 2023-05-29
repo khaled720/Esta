@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using AutoMapper.Configuration.Annotations;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Repository
@@ -74,8 +75,22 @@ namespace ESTA.Repository
 
         public async Task<IEnumerable<Course>> GetAllCourses()
         {
-            return await appContext.Courses.AsNoTracking().ToListAsync();
+            try
+            {
+       return await appContext.Courses.AsNoTracking().ToListAsync();
+        
+     
+            }
+            catch (Exception)
+            {
+
+          return Enumerable.Empty<Course>();
+            }
+         
         }
+
+    
+
 
         public async Task<IEnumerable<Course>> GetAllCoursesByLevel(int LevelId)
         {
@@ -149,7 +164,8 @@ namespace ESTA.Repository
             try
             {
             
-                var course =await appContext.Courses.OrderBy(y=>y.StartDate).Where(y => y.StartDate > DateTime.Now).FirstAsync();
+                var course =await appContext.Courses.OrderBy(y=>y.StartDate)
+                    .Where(y => y.StartDate > DateTime.Now).FirstOrDefaultAsync();
                 return course;
 
             }

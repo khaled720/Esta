@@ -1,0 +1,121 @@
+﻿@using ESTA.ViewModels
+@model ESTA.Models.User
+
+@{
+    ViewData["Title"] = "UserDetails";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<h2>  @Model.FullName</h2>
+
+
+
+
+
+
+<div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <ul class="nav nav-tabs">
+
+        <li class="active"><a data-toggle="tab" href="#menu">@localizer["personalinfo"]</a></li>
+ 
+        <li><a data-toggle="tab" href="#menu1">@localizer["addressinfo"]</a></li>
+   
+        <li><a data-toggle="tab" href="#menu2">@localizer["workinfo"]</a></li>
+        
+        <li><a data-toggle="tab" href="#menu3">@localizer["eduinfo"]</a></li>
+
+        <li><a data-toggle="tab" href="#menu4">@localizer["regCourses"]</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="menu" class="tab-pane fade in active">
+
+       
+            @{
+
+
+                var mapped = mapper.Map<User, EditUserPersonalInfoViewModel>(Model);
+
+                        <partial name="_EditUserPersonalInfo" model="mapped"></partial>
+       
+        
+            }
+          
+        
+        </div>
+     
+
+
+        <div id="menu1" class="tab-pane fade">
+
+            @{
+                var mapped2 = mapper.Map<User, EditUserAddressInfoViewModel>(Model);
+
+
+                    <partial name="_EditUserAddressInfo" model="mapped2"></partial>
+
+
+            }
+
+        </div>
+     
+        
+
+        <div id="menu2" class="tab-pane fade">
+
+            @{
+                var mapped3 = mapper.Map<User, EditUserWorkInfoViewModel>(Model);
+
+
+                    <partial name="_EditUserWorkInfo" model="mapped3"></partial>
+
+
+            }
+
+        </div>
+  
+        <div id="menu3" class="tab-pane fade">
+       
+            
+            @{
+                var mapped4 = mapper.Map<User, EditUserEducationInfoViewModel>(Model);
+
+
+                    <partial name="_EditUserEducationInfo" model="mapped4"></partial>
+
+             
+
+            }
+
+
+        </div>
+        <div id="menu4" class="tab-pane fade">
+            <br>
+            @{
+
+                @await Component.InvokeAsync("UserCourses",new {userId=@Model.Id });
+
+            }
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<br />
+
+<span>
+
+    <a asp-action="Index" class="btn btn-success">Back</a>
+</span>
+
+                <br />
+                <br />
+

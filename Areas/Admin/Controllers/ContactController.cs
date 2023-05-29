@@ -71,11 +71,12 @@ namespace ESTA.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteContact(int id)
+        public async Task<IActionResult> DeleteContact(int id)
         {
 
 
             uow.ContactRep.DeleteContact(id);
+          await  uow.SaveChangesAsync();
 
             return RedirectToAction("Index");
 

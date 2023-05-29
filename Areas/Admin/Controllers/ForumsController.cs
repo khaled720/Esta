@@ -55,7 +55,7 @@ namespace ESTA.Areas.Admin.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 var roles = await _userManager.IsInRoleAsync(user, "Admin");
 
-                if (roles || user.LevelId >= Forum.LevelId)
+                if (roles || user.LevelId >= Forum.LevelId ||Forum.LevelId==4)
                 {
                     ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
                     ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
@@ -189,7 +189,7 @@ namespace ESTA.Areas.Admin.Controllers
             appRep.ForumRep.DeleteComment(Reply);
             await appRep.SaveChangesAsync();
 
-            return Json(true);
+            return RedirectToAction("GetForum",new { id=Reply[0].forumId });
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]

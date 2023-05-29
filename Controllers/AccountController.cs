@@ -35,7 +35,7 @@ namespace ESTA.Controllers
         public IActionResult Login()
         {
             if (signInManager.IsSignedIn(User))
-                Redirect("/Home/Index");
+                RedirectToAction("Index","Home");
             return View();
         }
 
@@ -55,12 +55,12 @@ namespace ESTA.Controllers
                 {
                     var user = await userManager.FindByEmailAsync(LoginModel.Email);
 
-                    if (user.IsApproved == true)
+                    if (/*user.IsApproved == true*/ 1==1)
                     {
                         if (await userManager.IsInRoleAsync(user, "Admin"))
                         {
 
-                            return RedirectToAction("index", "home", new { area = "Admin" });
+                            return RedirectToAction("index", "courses", new { area = "Admin" });
                         }
                         else
                         {
@@ -75,7 +75,7 @@ namespace ESTA.Controllers
                             {
                                 Title = "Waiting for Approval",
                                 Description =
-                                    "We are checking your registration info once we finish will Email you , this proccess may take 2 or 3 days !"
+                                    "We are checking your registration Info once we finish will Email you , this proccess may take 2 or 3 days !"
                             }
                         );
                     }
@@ -94,7 +94,7 @@ namespace ESTA.Controllers
                             Request.Scheme
                         );
                         var isEmailSent = EmailSender.Send_Mail(
-                            user.Email,
+                           user.Email,
                             "Click this link to confirm your <strong>Email</strong> <br> "
                                 + confirmEmailUrl,
                             "Confirm Your Email",
@@ -108,7 +108,7 @@ namespace ESTA.Controllers
                                 {
                                     Title = "Email Confirmation Requested to login",
                                     Description =
-                                        "We Have Emailed you with your confirmation link ,please confirm your Email!"
+                                        "We Have Emailed you  with your confirmation link ,please confirm your Email!"
                                 }
                             );
                         }
@@ -200,7 +200,7 @@ namespace ESTA.Controllers
                                 {
                                     Title = "Email Confirmation Needed",
                                     Description =
-                                        "We Have Emailed you with your activation link ,please confirm your email!"
+                                        "We Have Emailed you with your activation link ,please confirm your Email!"
                                 }
                             );
                         }
@@ -224,11 +224,15 @@ namespace ESTA.Controllers
                             ModelState.AddModelError("", item.Description);
                         }
                         //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                        registerModel.codeofEthics =
+                  Thread.CurrentThread.CurrentCulture.Name == "ar"
+                      ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                      : appRep.ContentRep.GetContent("ethics").DescriptionEn;
                         return View(registerModel);
                     }
                 }
                 else
-                {
+                { // Model not valid
                     //var errors = ModelState
                     //    .Select(x => x.Value.Errors)
                     //    .Where(y => y.Count > 0)
@@ -248,6 +252,10 @@ namespace ESTA.Controllers
                     }
 
                     //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                    registerModel.codeofEthics =
+                  Thread.CurrentThread.CurrentCulture.Name == "ar"
+                      ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                      : appRep.ContentRep.GetContent("ethics").DescriptionEn;
                     return View(registerModel);
                 }
             }
@@ -255,6 +263,10 @@ namespace ESTA.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Try Again Later !!!");
                 //        registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
+                registerModel.codeofEthics =
+                  Thread.CurrentThread.CurrentCulture.Name == "ar"
+                      ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                      : appRep.ContentRep.GetContent("ethics").DescriptionEn;
                 return View(registerModel);
             }
         }
@@ -295,7 +307,7 @@ namespace ESTA.Controllers
         {
             await this.signInManager.SignOutAsync();
             HttpContext.Session.Clear();
-            return Redirect("/Home/Index");
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult CreateUser(Level level)

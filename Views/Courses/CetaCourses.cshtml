@@ -12,7 +12,7 @@
     @inject IStringLocalizer<SharedResource> localizer;
    <div class="slider-area">
         <div class="page-title">
-            <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+            <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png") );">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
@@ -45,7 +45,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                             <div class="courses-wrapper courses-wrapper-3 mb-30">
                                 <div class="courses-thumb">
-                                    <a href="course_details.html"><img src="@item.PhotoPath" alt=""></a>
+                                    <a href="#"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
                                 </div>
                                 <div class="courses-content courses-content-3 clearfix">
                                     <div class="courses-heading mt-25 d-flex">
@@ -71,9 +71,23 @@
 
                                     @if (Thread.CurrentThread.CurrentCulture.Name=="ar")
                                     {
-                                            <p>@item.DescriptionAr.Substring(0,50) ..</p>
+                                            @if (item.DescriptionAr.Count() > 45)
+                                            {
+                                                <p>@item.DescriptionAr.Substring(0,45) ..</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@item.DescriptionAr</p>
+                                            }
                                         }else{
-                                        <p>@item.Description.Substring(0,50) ..</p>
+                                            @if (item.Description.Count() > 45)
+                                            {
+                                                <p>@item.Description.Substring(0,45) ..</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@item.Description</p>
+                                            }
                                     }
                                     
                                     
@@ -86,7 +100,7 @@
                                     </div>
                                     <div class="courses-wrapper-bottom clearfix mt-35">
                                         <div class="courses-button">
-                                            <a href="/courses/coursedetails/@item.Id">@localizer["details"]</a>
+                                            <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id" >@localizer["details"]</a>
 
 
                                         </div>

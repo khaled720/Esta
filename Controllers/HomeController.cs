@@ -32,9 +32,9 @@ namespace ESTA.Controllers
             this.Uow = appRep;
             this.hostEnvironment = hostEnvironment;
                this.localizer = localizer;
-            var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+         //   var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
-            //   culture = rqf.RequestCulture.Culture.Name;
+               culture = Thread.CurrentThread.CurrentCulture.Name;
         }
 
         public async Task<IActionResult> Contact()

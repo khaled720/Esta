@@ -120,11 +120,23 @@
   <data name="about" xml:space="preserve">
     <value>من نحن</value>
   </data>
+  <data name="actions" xml:space="preserve">
+    <value>اجراءات</value>
+  </data>
+  <data name="addcontact" xml:space="preserve">
+    <value>إضافة وسائل للإتصال</value>
+  </data>
+  <data name="adddirector" xml:space="preserve">
+    <value>إضافة مسئول</value>
+  </data>
   <data name="addnewcourse" xml:space="preserve">
     <value>إضافة دورة جديدة</value>
   </data>
   <data name="addressinfo" xml:space="preserve">
     <value>معلومات العنوان</value>
+  </data>
+  <data name="approve" xml:space="preserve">
+    <value>موافقة</value>
   </data>
   <data name="becamemember" xml:space="preserve">
     <value>كن عضوا</value>
@@ -150,6 +162,9 @@
   <data name="codeofethics" xml:space="preserve">
     <value> قانون أخلاقيات المهنة</value>
   </data>
+  <data name="confirmemail" xml:space="preserve">
+    <value>تأكيد البريد الإلكتروني</value>
+  </data>
   <data name="contacts" xml:space="preserve">
     <value>وسائل الإتصال</value>
   </data>
@@ -165,14 +180,44 @@
   <data name="coursedetails" xml:space="preserve">
     <value>تفاصيل الدورة</value>
   </data>
+  <data name="coursegrade" xml:space="preserve">
+    <value>الدرجة</value>
+  </data>
+  <data name="coursename" xml:space="preserve">
+    <value>اسم الدورة</value>
+  </data>
   <data name="courses" xml:space="preserve">
     <value>الدورات</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>شاشة التحكم</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="descar" xml:space="preserve">
+    <value>الوصف باللغة العربية</value>
+  </data>
+  <data name="descen" xml:space="preserve">
+    <value>الوصف باللغة الانجليزية</value>
   </data>
   <data name="details" xml:space="preserve">
     <value>عرض التفاصيل</value>
   </data>
+  <data name="disapprove" xml:space="preserve">
+    <value>رفض</value>
+  </data>
   <data name="discussionbf" xml:space="preserve">
     <value>"منتدي لوحة "النقاش</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>تم</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="editlevel" xml:space="preserve">
+    <value>تعديل المستوي</value>
   </data>
   <data name="edu" xml:space="preserve">
     <value>التعليم</value>
@@ -183,6 +228,12 @@
   <data name="emailus" xml:space="preserve">
     <value>البريد الالكتروني</value>
   </data>
+  <data name="enrolldate" xml:space="preserve">
+    <value>تاريخ التسجيل</value>
+  </data>
+  <data name="enrolledusers" xml:space="preserve">
+    <value>المستخدمين المسجلين للدورة</value>
+  </data>
   <data name="esta" xml:space="preserve">
     <value>الجمعية المصرية للمحللين الفنيين</value>
   </data>
@@ -192,11 +243,20 @@
   <data name="events&amp;news" xml:space="preserve">
     <value>الأحداث و الأخبار</value>
   </data>
+  <data name="excellent" xml:space="preserve">
+    <value>ممتاز</value>
+  </data>
   <data name="followus" xml:space="preserve">
     <value>تابعنا</value>
   </data>
   <data name="forums" xml:space="preserve">
     <value>النقاشات</value>
+  </data>
+  <data name="fullname" xml:space="preserve">
+    <value>الاسم كاملا</value>
+  </data>
+  <data name="good" xml:space="preserve">
+    <value>جيد</value>
   </data>
   <data name="haveread" xml:space="preserve">
     <value>لقد قرأت كل شئ بحرص و أوافق</value>
@@ -210,6 +270,18 @@
   <data name="ifta" xml:space="preserve">
     <value>IFTA</value>
   </data>
+  <data name="imgclick" xml:space="preserve">
+    <value>اضغط هنا لتحميل صورة</value>
+  </data>
+  <data name="inter" xml:space="preserve">
+    <value>متوسط</value>
+  </data>
+  <data name="jobar" xml:space="preserve">
+    <value>الوظيفة بالعربية</value>
+  </data>
+  <data name="joben" xml:space="preserve">
+    <value>الوظيفة بالانجليزية</value>
+  </data>
   <data name="join" xml:space="preserve">
     <value>الانضمام الأن</value>
   </data>
@@ -222,14 +294,35 @@
   <data name="levels" xml:space="preserve">
     <value>المستويات</value>
   </data>
+  <data name="markpaid" xml:space="preserve">
+    <value>تاكيد الدفع</value>
+  </data>
   <data name="membership" xml:space="preserve">
     <value>العضوية</value>
   </data>
   <data name="mist" xml:space="preserve">
     <value>ميست</value>
   </data>
+  <data name="mycourses" xml:space="preserve">
+    <value>دوراتي</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="namear" xml:space="preserve">
+    <value>الاسم بالعربية</value>
+  </data>
+  <data name="nameen" xml:space="preserve">
+    <value>الاسم بالإنجليزية</value>
+  </data>
+  <data name="newlevel" xml:space="preserve">
+    <value>إضافة مستوي جديد</value>
+  </data>
   <data name="next" xml:space="preserve">
     <value>التالي</value>
+  </data>
+  <data name="non" xml:space="preserve">
+    <value>لا اجيد</value>
   </data>
   <data name="notfound" xml:space="preserve">
     <value>لا يوجد بيانات للعرض</value>
@@ -249,6 +342,15 @@
   <data name="overview" xml:space="preserve">
     <value>نظرة عامة</value>
   </data>
+  <data name="pagesc" xml:space="preserve">
+    <value>عدد الصفحات</value>
+  </data>
+  <data name="paystate" xml:space="preserve">
+    <value>حالة الدفع</value>
+  </data>
+  <data name="pending" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
   <data name="personalinfo" xml:space="preserve">
     <value>المعلومات الشخصية</value>
   </data>
@@ -258,14 +360,35 @@
   <data name="prev" xml:space="preserve">
     <value>السابق</value>
   </data>
+  <data name="price" xml:space="preserve">
+    <value>السعر</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>حسابي</value>
+  </data>
   <data name="quicklinks" xml:space="preserve">
     <value>روابط سريعة</value>
   </data>
   <data name="readmore" xml:space="preserve">
     <value>قراءة المزيد</value>
   </data>
+  <data name="regCourses" xml:space="preserve">
+    <value>الدورات المسجلة</value>
+  </data>
+  <data name="regdate" xml:space="preserve">
+    <value>تاريخ التسجيل</value>
+  </data>
+  <data name="rejectemail" xml:space="preserve">
+    <value>رفض البريد الإلكتروني</value>
+  </data>
   <data name="remember" xml:space="preserve">
     <value>تذكرني</value>
+  </data>
+  <data name="results" xml:space="preserve">
+    <value>النتائج</value>
+  </data>
+  <data name="revokepaid" xml:space="preserve">
+    <value>إبطال الدفع</value>
   </data>
   <data name="search" xml:space="preserve">
     <value>بحث</value>
@@ -288,6 +411,9 @@
   <data name="signup" xml:space="preserve">
     <value>إنشاء حساب</value>
   </data>
+  <data name="state" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
   <data name="stdate" xml:space="preserve">
     <value>تاريخ البدء</value>
   </data>
@@ -299,6 +425,12 @@
   </data>
   <data name="ta" xml:space="preserve">
     <value>التحليل الفني</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>اسم الدورة بالانجليزية</value>
+  </data>
+  <data name="titlear" xml:space="preserve">
+    <value>اسم الدورة بالعربية</value>
   </data>
   <data name="upcourses" xml:space="preserve">
     <value>الدورات القادمة</value>
@@ -314,6 +446,12 @@
   </data>
   <data name="users" xml:space="preserve">
     <value>المستخدمين</value>
+  </data>
+  <data name="usersmanagement" xml:space="preserve">
+    <value>إدارة المستخدمين</value>
+  </data>
+  <data name="vgood" xml:space="preserve">
+    <value>جيد جدا</value>
   </data>
   <data name="wel" xml:space="preserve">
     <value> ESTA اهلا بكم في </value>

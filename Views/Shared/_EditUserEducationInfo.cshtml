@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ESTA.ViewModels.EditUserEducationInfoViewModel
+
+
+<form method="post" action="EditEducationInfo">
+
+
+    @Html.HiddenFor(y=>y.Id)
+
+<h3>Education</h3>
+
+<div class="row">
+
+    <div class="form-group col-lg-4 col-sm-12">
+        <label asp-for="@Model.AcademicQualification"></label>
+        <input asp-for="@Model.AcademicQualification" class="form-control"
+               autocomplete="username" />
+
+        <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-lg-4 col-sm-12">
+        <label asp-for="@Model.University"></label>
+        <input asp-for="@Model.University" class="form-control"
+               autocomplete="username" />
+
+        <span asp-validation-for="@Model.University" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-lg-4 col-sm-12">
+    <label asp-for="@Model.GradutionYear"></label>
+    <input asp-for="@Model.GradutionYear" class="form-control"
+    autocomplete="username" />
+
+    <span asp-validation-for="@Model.GradutionYear" class="text-danger"></span>
+    </div>
+
+
+</div>
+
+<div class="form-group">
+    <label asp-for="@Model.HighStudies"></label>
+    <input asp-for="@Model.HighStudies" class="form-control" />
+
+    <span asp-validation-for="@Model.HighStudies" class="text-danger"></span>
+</div>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>

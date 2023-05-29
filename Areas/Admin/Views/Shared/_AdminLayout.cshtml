@@ -12,20 +12,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@localizer["esta"] </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ESTA.styles.css" asp-append-version="true" />
     @if (Thread.CurrentThread.CurrentCulture.Name=="ar")
     {
-       <link href="~/template/css/style-ar.css" rel="stylesheet" /> 
+    <link href="~/css/admin-style-ar.css" rel="stylesheet" />
     }
 
 
 </head>
 <body>
+
+
+
+    <div @*style="display:flex;flex-direction:row"*@>
+
+@*<div class="side-menu">
+<ul style="list-style:none;">
+
+    <li>
+
+        Home
+    </li>
+    
+    <li>
+
+        Index
+    </li>
+    
+    <li>
+
+        Contact
+    </li>
+
+                <li>
+
+                    Registry
+                </li>
+
+
+</ul>
+
+</div>
+*@
+    <div @*style="width:fil;display:flex;flex-direction:column"*@>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="admin" asp-controller="Home" asp-action="Index">ADMIN</a>
+           @*  <a class="navbar-brand" asp-area="admin" asp-controller="Home" asp-action="Index">ADMIN</a>*@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +69,7 @@
                 <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Home" asp-action="Index">@localizer["home"]</a>
+                                    <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
                         </li>
                         <li class="nav-item-link">
                             <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
@@ -53,7 +89,7 @@
                             <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="User" asp-action="Index">@localizer["users"]</a>
+                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a>
                         </li>
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
@@ -61,7 +97,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                         </li>
-                 
+
+
+                             
                     </ul>
 
        
@@ -118,6 +156,12 @@
             @RenderBody()
         </main>
     </div>
+
+    </div>
+    </div>
+
+    
+    
     <br />
     <br />
     <footer class="border-top footer text-muted">
@@ -131,6 +175,7 @@
 	<script src="~/js/site.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <input type="hidden" asp-area="" value="@Url.Content("~/api/Images")" id="GetPostEditorImagesUrl" />
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

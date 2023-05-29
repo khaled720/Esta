@@ -3,11 +3,56 @@
    Layout="_AdminLayout";
 
 }
-<h2>Hello Content Conrolller</h2>
+
+
+<style>
 
 
 
 
+	.content-grid{
+	display:grid;
+	grid-template-columns:1fr 1fr 1fr ;
+	/*//  height: calc(100vh - 10px);*/
+	  grid-gap:5px
+	
+	}
+
+
+	.content-grid-child
+	{
+		padding:50px;
+	background:white;
+	 border:0.5px solid #80808026;
+	pointer:cursor;
+
+	transition:200ms ease-in;
+	
+	border-radius:10px;
+	display:flex;
+	
+	justify-content: center;
+	align-items: center; 
+
+	text-decoration: none;
+	color:purple;
+	}
+
+	.content-grid-child:hover
+	{
+	background:green;
+   color:white;
+
+	}
+	
+</style>
+
+
+<div class="content-grid" >
+
+
+
+@*
 @Html.ActionLink("About","About",null,null,new { @class="btn btn-primary"})
 
 @Html.ActionLink("Technical Analysis","TechnicalAnalysis",null,null,new { @class="btn btn-primary"})
@@ -19,4 +64,60 @@
 @Html.ActionLink("IFTA","Ifta",null,null,new { @class="btn btn-primary"})
 @Html.ActionLink("Vission","Vission",null,null,new { @class="btn btn-primary"})
 @Html.ActionLink("Mission","Mission",null,null,new { @class="btn btn-primary"})
+*@
+
+
+
+	<a class="content-grid-child" asp-action="About" >
+	
+	<h3>
+			@localizer["about"]
+
+	</h3>	
+	</a>
+
+	<a class="content-grid-child" asp-action="TechnicalAnalysis">
+		<h3>
+			@localizer["ta"]
+
+		</h3>
+	</a>
+
+	<a class="content-grid-child" asp-action="Ethics" >
+		<h3>
+			@localizer["ethics"]
+
+		</h3>
+	</a>
+	<a class="content-grid-child" asp-action="Benefits" >
+		<h3>
+			@localizer["benefits"]
+
+		</h3>
+	</a>
+	<a class="content-grid-child" asp-action="Ifta" >
+		<h3>
+			@localizer["ifta"]
+
+		</h3>
+	</a>
+	<a class="content-grid-child" asp-action="Vission" >
+		<h3>
+			@localizer["ourvission"]
+
+		</h3>
+	</a>
+	<a class="content-grid-child" asp-action="Mission">
+		<h3>
+			@localizer["ourmission"]
+
+		</h3>
+	</a>
+
+
+
+
+</div>
+
+
 

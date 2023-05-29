@@ -30,7 +30,7 @@ namespace ESTA.ViewModels
 
         [DataType(DataType.Password)]
         [RegularExpression(
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,}$",
           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "passwordcons")]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "password")]
         public string Password { get; set; }
@@ -73,7 +73,7 @@ namespace ESTA.ViewModels
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
-        public DateTime Birthdate { get; set; }
+        public DateTime Birthdate { get; set; } = DateTime.Now;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -229,14 +229,14 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "idno")]
         public string NationalCardID { get; set; } = String.Empty;
 
-        [RegularExpression(@"(.{8})", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "passportcons")]
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[RegularExpression(@"(.{8})", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "passportcons")]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "passport")]
-        public string Passport { get; set; } = String.Empty;
+        public string? Passport { get; set; } = String.Empty;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -276,8 +276,10 @@ namespace ESTA.ViewModels
         public string HighStudies { get; set; } = String.Empty;
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "haveread")]
+        [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
         public bool HaveRead { get; set; }
-        public string codeofEthics { get; set; }
+
+        public string? codeofEthics { get; set; }
 
 
         public List<Question> Questions { get; set; }

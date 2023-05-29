@@ -10,6 +10,12 @@ body {
     font-family: 'noto kufi arabic regular', sans-serif !important;
 }
 
+.form-control {
+direction:rtl;
+
+}
+
+
 p,h1,h2,h3,h4,h5,h6,a{
 
     font-family: 'noto kufi arabic regular', sans-serif !important;
@@ -32,8 +38,10 @@ p,h1,h2,h3,h4,h5,h6,a{
     flex-direction: row-reverse !important;
 }
 
-.ar {
-    direction:rtl;
+
+
+.ar, .header-contact {
+    direction: rtl;
 }
 
 .mean-container a.meanmenu-reveal {
@@ -77,4 +85,27 @@ nav {
 
 .contactUs-section {
     direction:rtl;
+}
+
+.profile-section {
+    direction: rtl;
+}
+
+
+.single-footer-contact-info {
+
+
+}
+
+
+.header-contact span {
+  
+    vertical-align: sub !important;
+  
+}
+
+
+.register-english-levels {
+direction:rtl
+
 }

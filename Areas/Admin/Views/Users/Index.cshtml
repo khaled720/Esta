@@ -1,0 +1,218 @@
+﻿@{
+
+    Layout = "_AdminLayout";
+
+}
+
+
+
+@model ESTA.ViewModels.PagerViewModel<User>
+
+<h2>@localizer["usersmanagement"]</h2>
+
+
+
+
+<div class="rounded-div" >
+
+
+	<table id="courses-table" class="table table-striped animate__fadeIn " style="animation-duration:1s">
+		<thead>
+			<tr>
+				<th>@localizer["fullname"]</th>
+
+				<th>@localizer["regdate"]</th>
+
+				<th>@localizer["actions"]</th>
+
+
+
+
+
+			</tr>
+
+		</thead>
+		<tbody>
+
+
+			@{
+				foreach (var item in Model.PaginatedList)
+				{
+					<tr>
+						<td>@item.FullName</td>
+
+						<td>@item.JoinDate.ToShortDateString()</td>
+
+						<td>
+							@if (item.IsApproved)
+							{
+								@Html.ActionLink(localizer["disapprove"], "EditApproval", new { id = item.Id,isApproved=false }, new { @class = "btn btn-danger" })
+								;
+
+							}
+							else
+							{
+								@Html.ActionLink(localizer["approve"], "EditApproval", new { id = item.Id,isApproved=true }, new { @class = "btn btn-success" })
+								;
+
+							}
+
+						</td>
+
+
+
+						<td>
+
+							@if (item.EmailConfirmed)
+							{
+								@Html.ActionLink(localizer["rejectemail"],  "EditEmailConfirmation", new { id = item.Id,isConfirmed=false }, new { @class = "btn btn-danger" })
+								;
+
+							}
+							else
+							{
+								@Html.ActionLink(localizer["confirmemail"], "EditEmailConfirmation", new { id = item.Id,isConfirmed=true }, new { @class = "btn btn-primary" })
+								;
+
+							}
+
+							@Html.ActionLink(localizer["details"], "UserDetails", new { userId =item.Id }, new { @class = "btn btn-Info" })
+
+
+						</td>
+
+
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>
+
+
+         
+
+<nav aria-label="Page navigation example">
+
+<span>
+		@localizer["pagesc"] :        @Model.TotalPages
+</span>
+
+    <ul class="pagination justify-content-end">
+
+        @if (@Model.CurrentPage > 1)
+        {
+            <li class="page-item ">
+                <a class="page-link"
+               asp-action="index"
+               asp-controller="users" asp-area="admin"
+               asp-route-page="@(Model.CurrentPage-1)">@localizer["prev"]</a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+
+
+            if (Model.TotalPages == 1) break;
+            @if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+
+                    <a class="page-link" asp-action="index"
+               asp-controller="users" asp-area="admin"
+               asp-route-page="@i">
+                        @i
+                    </a>
+                </li>
+            }
+            else
+            {
+                @if ((Model.CurrentPage - i) < 3 && (Model.CurrentPage - i) > -3)
+                {
+                    <li class="page-item">
+
+                        <a class="page-link" asp-action="index"
+               asp-controller="users" asp-area="admin"
+               asp-route-page="@i">
+                            @i
+                        </a>
+                    </li>
+                }
+            }
+
+
+        }
+        @if (@Model.CurrentPage != Model.TotalPages && Model.TotalPages > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="index"
+               asp-controller="users" asp-area="admin"
+               asp-route-page="@(Model.CurrentPage+1)">@localizer["next"]</a>
+            </li>
+        }
+    </ul>
+
+</nav>
+
+
+
+
+@*
+<div id="courses-grid" style="display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
+
+                            @foreach (var item in Model.PaginatedList)
+                            {
+
+
+
+
+        <div class="card animate__fadeIn" style="height:fit-content; position:relative">
+
+
+
+        <img src="~/Images/Directors/person.jpg" height="200px" />
+
+
+        <div class="card-body">
+         
+                <strong style="color:green"> @item.FullName</strong><br>
+               Joined since @item.JoinDate.ToShortDateString()
+
+        </div>
+
+   
+
+        @if (item.EmailConfirmed)
+        {
+            @Html.ActionLink("Reject Email",  "EditEmailConfirmation", new { id = item.Id,isConfirmed=false }, new { @class = "btn btn-warning" })
+            ;
+
+        }
+        else
+        {
+            @Html.ActionLink("Confirm Email", "EditEmailConfirmation", new { id = item.Id,isConfirmed=true }, new { @class = "btn btn-primary" })
+            ;
+
+        }
+
+             @Html.ActionLink("Details", "UserDetails", new { userId =item.Id }, new { @class = "btn btn-Info" })
+
+
+        @if (item.IsApproved)
+        {
+            @Html.ActionLink("Disapprove", "EditApproval", new { id = item.Id,isApproved=false }, new { @class = "btn btn-warning" })
+            ;
+
+        }
+        else
+        {
+            @Html.ActionLink("Approve", "EditApproval", new { id = item.Id,isApproved=true }, new { @class = "btn btn-danger" })
+            ;
+
+        }
+
+
+    </div>
+
+}
+    </div>*@

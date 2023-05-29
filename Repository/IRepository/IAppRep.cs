@@ -18,5 +18,8 @@ namespace ESTA.Repository.IRepository
         IForumRepository ForumRep { get; }
         IEventsRepo EventRep { get; }
         Task<bool> SaveChangesAsync();
+        public List<T> GetPaginatedList<T>(int pageSize = 5, int currentPage = 1) where T : class;
+
+
     }
 }

@@ -160,11 +160,11 @@ namespace ESTA.Models
        )]
         public string NationalCardID { get; set; } = String.Empty;
 
-        [Required(
-          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-          ErrorMessageResourceName = "required"
-      )]
-        public string Passport { get; set; } = String.Empty;
+      //  [Required(
+      //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+      //    ErrorMessageResourceName = "required"
+      //)]
+        public string? Passport { get; set; } 
 
 
         [Required(
@@ -187,6 +187,15 @@ namespace ESTA.Models
 
 
 
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
+        [Display(
+            ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            Name = "gradutionyear"
+        )]
+        public string GradutionYear { get; set; } = String.Empty;
 
         /// </summary>
 
@@ -228,7 +237,7 @@ namespace ESTA.Models
             this.FullName = registerViewModel.FullName;
             this.FullNameAr = registerViewModel.FullNameAr;
             this.Birthdate=registerViewModel.Birthdate;
-            this.Passport = registerViewModel.Passport;
+         //   this.Passport = registerViewModel.Passport;
             this.NationalCardID=registerViewModel.NationalCardID;
             this.HomePhone=registerViewModel.HomePhone;
             this.MobilePhone=registerViewModel.MobilePhone;

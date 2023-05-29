@@ -11,7 +11,7 @@
 <div class="slider-area">
     <div class="page-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center"
-        style="background-image: url(/template/img/inner-bg.png);">
+        style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -42,7 +42,7 @@
                  <div class="col-xl-3 col-lg-3 col-md-6">
                     <div class="team-wrapper mb-30">
                         <div class="team-thumb">
-                            <img src="@item.PhotoPath" alt="board" />
+                            <img src="@Url.Content("~"+@item.PhotoPath)" alt="board" />
                         </div>
                         <div class="team-social-info text-center">
                             <div class="team-social-para">

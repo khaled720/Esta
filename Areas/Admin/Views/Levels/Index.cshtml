@@ -4,11 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h2>@localizer["levels"]</h2>
 
 <p>
-    <a asp-action="AddLevel">Create New Level</a>
+    <a class="btn btn-primary" asp-action="AddLevel">@localizer["newlevel"]</a>
 </p>
+
+
+<div class="rounded-div">
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -31,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.TypeName)
             </td>
             <td>
-                    @Html.ActionLink("Edit", "EditLevel",new { id=item.Id},new { @class="btn btn-primary"})
+                    @Html.ActionLink(localizer["edit"], "EditLevel",new { id=item.Id},new { @class="btn btn-success"})
                 @*|
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
@@ -40,3 +46,4 @@
 }
     </tbody>
 </table>
+</div>

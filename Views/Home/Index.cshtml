@@ -16,7 +16,7 @@
 <!-- slider-start -->
 <div class="slider-area pos-relative">
     <div class="slider-active">
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner1.png);">
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner1.png"))">
             <div class="container">
                 <div class="row  justify-content-center">
                     <div class="">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner2.jpg);">
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner2.jpg"))">
             <div class="container">
                 <div class="row  justify-content-center">
                     <div class="">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner3.png);">
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner3.png"))">
             <div class="container">
                 <div class="row  justify-content-center">
                     <div class="">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(/template/img/slider/banner4.jpg);">
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner4.jpg"))">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="">
@@ -85,14 +85,14 @@
                        
                  </p>
                  
-                    <a class="theme-btn blue-bg-border mt-20" href="/Home/About?type=about"><span class="btn-text">@localizer["readmore"]</span></a>
+                    <a class="theme-btn blue-bg-border mt-20" asp-action="About" asp-controller="Home" asp-route-type="about" ><span class="btn-text">@localizer["readmore"]</span></a>
                     
                     <!--<button class="theme-btn blue-bg-border mt-20"><span class="btn-text">Read More</span></button>-->
                 </div>
             </div>
             <div class="col-xl-5 col-lg-5 aos-init aos-animate" data-aos="flip-down"  data-aos-duration="1200">
                 <div class="about-right-img mb-30">
-                    <img src="/template/img/about/about-right.png" alt="">
+                    <img src="@Url.Content("~/template/img/about/about-right.png")" alt="">
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
             <div class="col-md-5 mb-5 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                 <div class="choose_box">
 
-                    <div><img src="/template/img/vission_trans.png" alt="#" /><h3>@localizer["ourvission"]</h3></div>
+                    <div><img src=" @Url.Content("~/template/img/vission_trans.png") " alt="#" /><h3>@localizer["ourvission"]</h3></div>
 
                     <p> @Model.Vission ...</p> 
 
@@ -130,7 +130,7 @@
             </div>
             <div class="col-md-5 mb-5 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                 <div class="choose_box">
-                    <div><img src="/template/img/mission_trans.png" alt="#" /><h3>@localizer["ourmission"]</h3></div>
+                    <div><img src="@Url.Content("~/template/img/mission_trans.png") " alt="#" /><h3>@localizer["ourmission"]</h3></div>
 
                     <p>@Model.Mission ...</p> 
                     <a class="vissionMissionBtn theme-btn blue-bg-border mt-10" asp-action="About" asp-route-type="mission" asp-controller="Home"><span class="btn-text">@localizer["readmore"]</span></a>
@@ -141,7 +141,7 @@
 </div>
 <!-- end choose section -->
 <!-- courses start -->
-<div id="upComingCourses" class="events-area events-bg-height pt-100 pb-50" style="background-image: url(/template/img/shop_bg.jpg)">
+<div id="upComingCourses" class="events-area events-bg-height pt-100 pb-50" style="background-image: url(@Url.Content("~/template/img/shop_bg.jpg"))">
     <div class="container">
         <div class="row">
             <div class=" col-12 aos-init aos-animate" data-aos="fade-up"
@@ -157,7 +157,7 @@
 
         <div class="events-list mb-30">
             <div class="row">
-                <div class="col-lg-6 aos-init aos-animate" data-aos="fade-down"
+                <div class="col-lg-7 aos-init aos-animate" data-aos="fade-down"
                      data-aos-duration="1500">
 
                     <style>
@@ -173,14 +173,16 @@
 
 
                 </div>
-                <div class="col-lg-6 col-sm-12 aos-init aos-animate" data-aos="fade-up"
+
+                @if (Model.UpcomingCourse != null) { 
+                <div class="col-lg-5 col-sm-12 aos-init aos-animate" data-aos="fade-up"
                      data-aos-duration="1500">
                     <div class="single-events mb-30">
                         <div class="events-wrapper">
                             <div class="events-inner d-flex">
                                 <div class="events-thumb">
                                     <img style="width: 165px;
-    height: 100%;" src="@Model.UpcomingCourse.PhotoPath" alt="">
+    height: 100%;" src="@Url.Content("~"+@Model.UpcomingCourse.PhotoPath) " alt="">
                                 </div>
                                 <div class="events-text white-bg">
                                     <div class="event-text-heading mb-20">
@@ -188,7 +190,8 @@
                                             <span class="date">
                                                 @Model.UpcomingCourse.StartDate.Value.Day
                                             </span>
-                                            <span class="month">      @Model.UpcomingCourse.StartDate.Value.ToString("MMM") ,       @Model.UpcomingCourse.StartDate.Value.Year</span>
+                                            <span class="month">      @Model.UpcomingCourse.StartDate.Value.ToString("MMM") ,   
+                                                @Model.UpcomingCourse.StartDate.Value.Year</span>
                                         </div>
                                         <div class="events-text-title clearfix">
                                             <a asp-action="CourseDetails" asp-controller="Courses" asp-route-id="@Model.UpcomingCourse.Id">
@@ -215,14 +218,29 @@
                                         </div>
                                     </div>
                                     <div class="events-para">
+                                        
 
                                         @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                         {
-                                            <p>  @Model.UpcomingCourse.DescriptionAr.Substring(0,100)  </p>
+                                                @if (Model.UpcomingCourse.DescriptionAr.Count()>100)
+                                                {
+                                                    <p>  @Model.UpcomingCourse.DescriptionAr.Substring(0,100)  </p>
+                                                }else{
+
+                                                    <p>  @Model.UpcomingCourse.DescriptionAr.ToString()  </p>
+                                                }
+                                        
                                         }
                                         else
                                         {
+                                                @if (Model.UpcomingCourse.Description.Count() > 100)
+                                                {
                                             <p>  @Model.UpcomingCourse.Description.Substring(0,100)  </p>
+
+                                                }else
+                                                {
+                                                    <p>  @Model.UpcomingCourse.Description.ToString()  </p>
+                                                }
                                         }
                                     </div>
                                     <div class="events-speaker">
@@ -234,6 +252,8 @@
                     </div>
 
                 </div>
+            
+                }
             </div>
         </div>
 
@@ -245,10 +265,18 @@
 
 <input type="hidden" value="@Url.Action("GetEvent","EventsNews")" id="GetEventUrl" />
 
-<!-- events start -->
-@await Component.InvokeAsync("UpcomingEvents")
-<!-- events end -->
+<input type="hidden" value="@Url.Action("Courses","api")" id="GetCourseUrl" />
 
+<input type="hidden" value="@Url.Action("CourseDetails","Courses")" id="GetCoursedetails" />
+
+<!-- events start -->
+<!--
+@await Component.InvokeAsync("UpcomingEvents")
+
+-->
+
+<!-- events end -->
+<br />
 
 
 

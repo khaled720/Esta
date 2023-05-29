@@ -6,7 +6,7 @@
   <!-- slider-start -->
 <div class="slider-area">
     <div class="page-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -71,7 +71,7 @@
                     <form id="contactform">
                         <div class="row">
                             <div class="col-6 form-group">
-                                <input type="text" id="name" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder=@localizer["urname"] required="required">
+                                    <input type="text" id="name" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder=@localizer["urname"] required="required">
                             </div>
                             <div class="col-6 form-group">
                                     <input type="email" id="email" class="form-control border-top-0 border-right-0 border-left-0 p-0" placeholder=@localizer["uremail"] required="required">

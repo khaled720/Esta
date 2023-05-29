@@ -120,6 +120,12 @@
   <data name="academicqualification" xml:space="preserve">
     <value>Academic Qualification</value>
   </data>
+  <data name="addressar" xml:space="preserve">
+    <value>Address in Arabic</value>
+  </data>
+  <data name="addressen" xml:space="preserve">
+    <value>Address in English</value>
+  </data>
   <data name="area" xml:space="preserve">
     <value>Area</value>
   </data>
@@ -128,6 +134,12 @@
   </data>
   <data name="blockno" xml:space="preserve">
     <value>Block Number</value>
+  </data>
+  <data name="branchar" xml:space="preserve">
+    <value>Branch Name in Arabic</value>
+  </data>
+  <data name="branchen" xml:space="preserve">
+    <value>Branch Name in English</value>
   </data>
   <data name="city" xml:space="preserve">
     <value>City</value>
@@ -242,6 +254,9 @@
   </data>
   <data name="paylink" xml:space="preserve">
     <value>Payment Link</value>
+  </data>
+  <data name="phones" xml:space="preserve">
+    <value>Phone Lines</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>

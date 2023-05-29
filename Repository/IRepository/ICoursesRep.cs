@@ -22,5 +22,7 @@ namespace ESTA.Repository.IRepository
         public bool DeleteCourse(int id);
        public Task<string> SearchForCourse(string Name);
 		Task<List<UserCourse>> GetEnrolledUsersInCourse(int id);
-	}
+
+
+    }
 }

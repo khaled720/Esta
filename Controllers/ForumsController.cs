@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.StopWords;
@@ -22,14 +23,21 @@ namespace ESTA.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(
+                new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                }
+            );
         }
+
         public ForumsController(IUnitOfWork appRep, IMapper mapper, UserManager<User> userManager)
         {
             this.appRep = appRep;
             _mapper = mapper;
             _userManager = userManager;
         }
+
         [Authorize]
         public async Task<IActionResult> IndexAsync()
         {
@@ -45,6 +53,7 @@ namespace ESTA.Controllers
             }
             return View(forumList);
         }
+
         [Authorize]
         public async Task<IActionResult> GetForumAsync(int id)
         {
@@ -52,26 +61,44 @@ namespace ESTA.Controllers
             Forum.UserForum = appRep.ForumRep.GetComments(id, 0);
             if (Forum != null)
             {
-                var user = await _userManager.GetUserAsync(User);
-                var roles = await _userManager.IsInRoleAsync(user, "Admin");
-
-                if (roles || user.LevelId >= Forum.LevelId)
+                try
                 {
-                    ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
-                    ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
-                    ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
+                    var user = await _userManager.GetUserAsync(User);
+                    var roles = await _userManager.IsInRoleAsync(user, "Admin");
 
-                    return View(ViewForum);
+                    if (roles || (user.LevelId!=4 && user.LevelId >= Forum.LevelId) || Forum.LevelId == 4)
+                    {
+                        ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(
+                            Forum
+                        );
+                        ViewForum.UserForum
+                            .Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id))
+                            .ToList();
+                        ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(
+                            1,
+                            ForumId: id
+                        );
+
+                        return View(ViewForum);
+                    }
                 }
+                catch (Exception ex) { }
             }
-            return RedirectToAction("Error");
+            return View(
+                "_Info",
+                new Info("Unauthorized Access", "You are not allowed to access this")
+            );
+
+            //  return RedirectToAction("Error");
         }
+
         public IActionResult CheckMoreComments(int forumId, int page)
         {
             bool MoreComments = appRep.ForumRep.CheckMoreComments(page, ForumId: forumId);
 
             return Json(MoreComments);
         }
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> NewForum()
@@ -79,6 +106,7 @@ namespace ESTA.Controllers
             ViewBag.LevelsListItem = await GetLevelsAsync();
             return View();
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> NewForumAsync(AddForum forum)
@@ -94,6 +122,7 @@ namespace ESTA.Controllers
 
             return RedirectToAction("Index");
         }
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> EditForumAsync(int id)
@@ -108,6 +137,7 @@ namespace ESTA.Controllers
             }
             return RedirectToAction("Error");
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditForumAsync(EditForum EditForum)
@@ -121,6 +151,7 @@ namespace ESTA.Controllers
             }
             return RedirectToAction("Error");
         }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> DeleteForumAsync(int id)
@@ -137,6 +168,7 @@ namespace ESTA.Controllers
             }
             return View(false);
         }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddCommentAsync(int forumId, string comment)
@@ -152,10 +184,7 @@ namespace ESTA.Controllers
 
             newComment = appRep.ForumRep.GetCommentById(newComment.Id);
             GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
-            var commentList = new List<GetUserForums>
-            {
-                addedComment
-            };
+            var commentList = new List<GetUserForums> { addedComment };
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -164,6 +193,7 @@ namespace ESTA.Controllers
             };
             return PartialView("_RenderComment", renderComment);
         }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddReplyAsync(int forumId, string comment, int parentId)
@@ -180,6 +210,7 @@ namespace ESTA.Controllers
 
             return RedirectToAction("GetCommentReplies", new { parentId });
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCommentAsync(int commentId)
@@ -191,6 +222,7 @@ namespace ESTA.Controllers
 
             return Json(true);
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteReplyAsync(int commentId)
@@ -201,11 +233,14 @@ namespace ESTA.Controllers
 
             return Json(true);
         }
+
         [HttpGet]
         public IActionResult GetForumsComment(int forumId, int page)
         {
             var forumsList = appRep.ForumRep.GetComments(forumId, page);
-            List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
+            List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(
+                forumsList
+            );
             getUserForums.ForEach(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id));
             var renderComment = new RenderComment()
             {
@@ -215,6 +250,7 @@ namespace ESTA.Controllers
             };
             return PartialView("_RenderComment", renderComment);
         }
+
         [HttpGet]
         public IActionResult GetComment(int id)
         {
@@ -224,6 +260,7 @@ namespace ESTA.Controllers
 
             return View(getUserForums);
         }
+
         [Authorize]
         public async Task<IActionResult> SearchCommentAsync(string query)
         {
@@ -237,11 +274,14 @@ namespace ESTA.Controllers
             else
                 list = appRep.ForumRep.SearchComments(terms, user.LevelId, 0);
 
-            List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(list);
+            List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(
+                list
+            );
             ViewBag.query = query;
 
             return View(getComments);
         }
+
         public async Task<IActionResult> GetNextSearchCommentAsync(string query, int page)
         {
             var terms = PreparingQuery(query);
@@ -254,7 +294,9 @@ namespace ESTA.Controllers
             else
                 list = appRep.ForumRep.SearchComments(terms, user.LevelId, page);
 
-            List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(list);
+            List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(
+                list
+            );
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -263,14 +305,18 @@ namespace ESTA.Controllers
             };
             return PartialView("_RenderComment", renderComment);
         }
+
         [HttpGet]
         public IActionResult GetCommentReplies(int parentId, int page = 0)
         {
             var forumsList = appRep.ForumRep.GetReplies(parentId, page);
-            List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
+            List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(
+                forumsList
+            );
 
             return Json(getUserForums);
         }
+
         [HttpGet]
         public IActionResult CheckCommentReplies(int parentId, int page = 0)
         {
@@ -278,6 +324,7 @@ namespace ESTA.Controllers
 
             return Json(CheckReplies);
         }
+
         [HttpGet]
         public IActionResult GetForumStatistics(int? id)
         {
@@ -314,21 +361,23 @@ namespace ESTA.Controllers
 
             return PartialView("_ForumStatistics", statisticsObj);
         }
+
         [NonAction]
         private async Task<IEnumerable<SelectListItem>> GetLevelsAsync()
         {
             IEnumerable<Level> level = await appRep.LevelRep.GetAllLevels();
             IEnumerable<SelectListItem> selectList = new List<SelectListItem>();
-            level.ToList().ForEach(l =>
-            {
-                selectList = selectList.Append(new SelectListItem
+            level
+                .ToList()
+                .ForEach(l =>
                 {
-                    Value = l.Id.ToString(),
-                    Text = l.TypeName
+                    selectList = selectList.Append(
+                        new SelectListItem { Value = l.Id.ToString(), Text = l.TypeName }
+                    );
                 });
-            });
             return selectList;
         }
+
         [NonAction]
         private static string[] PreparingQuery(string str)
         {

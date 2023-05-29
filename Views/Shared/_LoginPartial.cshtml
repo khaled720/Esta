@@ -7,22 +7,69 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+        @if (!User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
         <a id="manage" class="nav-link text-dark" asp-action="Index" asp-controller="User" title="Manage">Hello @UserManager.GetUserName(User)!</a>
     </li>
-    <li class="nav-item">
         
-            <a asp-action="Logout" asp-controller="Account"  class="nav-link btn btn-link text-dark">Logout</a>
+        }
+
+
+    
+    
+    <li class="nav-item">
+
+            @if (User.IsInRole("Admin")) 
+            {
+                <a asp-action="Logout" asp-area="" asp-controller="Account" class="nav-link btn btn-link text-dark">@localizer["signout"]</a>
+            <li class="nav-item">
+                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                    {
+
+
+                    <a onclick="changeLang('en')" class="nav-link text-dark"
+           data-toggle="tooltip">
+                        <span style="    color: black;
+    font-weight: 500;
+    cursor: pointer;" class="ti-world">En</span>
+                    </a>
+
+                    }
+                    else
+                    {
+
+
+
+
+
+                    <a onclick="changeLang('ar')" class="nav-link text-dark"
+           data-toggle="tooltip">
+                        <span style="    color: black;
+    font-weight: 500;
+    cursor: pointer;" class="ti-world">عربي</span>
+                    </a>
+                    }
+
+
+                <input type="hidden" value="@Url.Action("SetCulture","Lang",new{Area=""})" id="langUrl" />
+            </li>
+
+
+            }else{
+               <a asp-action="Logout" asp-controller="Account"  class="nav-link btn btn-link text-dark">@localizer["signout"]</a>
       
+            }
+         
     </li>
 }
 else
 {
     <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-action="Register" asp-controller="Account" >Register</a>
+            <a class="nav-link text-dark" id="register" asp-action="Register" asp-controller="Account">@localizer["signup"]</a>
     </li>
     <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-action="Login" asp-controller="Account">Login</a>
+            <a class="nav-link text-dark" id="login" asp-action="Login" asp-controller="Account">@localizer["signin"]</a>
     </li>
 }
 </ul>

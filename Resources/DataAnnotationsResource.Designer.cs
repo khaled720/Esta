@@ -70,6 +70,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address in Arabic.
+        /// </summary>
+        public static string addressar {
+            get {
+                return ResourceManager.GetString("addressar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address in English.
+        /// </summary>
+        public static string addressen {
+            get {
+                return ResourceManager.GetString("addressen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area.
         /// </summary>
         public static string area {
@@ -93,6 +111,24 @@ namespace ESTA.Resources {
         public static string blockno {
             get {
                 return ResourceManager.GetString("blockno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch Name in Arabic.
+        /// </summary>
+        public static string branchar {
+            get {
+                return ResourceManager.GetString("branchar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch Name in English.
+        /// </summary>
+        public static string branchen {
+            get {
+                return ResourceManager.GetString("branchen", resourceCulture);
             }
         }
         
@@ -435,6 +471,15 @@ namespace ESTA.Resources {
         public static string paylink {
             get {
                 return ResourceManager.GetString("paylink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Lines.
+        /// </summary>
+        public static string phones {
+            get {
+                return ResourceManager.GetString("phones", resourceCulture);
             }
         }
         

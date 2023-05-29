@@ -9,7 +9,7 @@
 @inject IStringLocalizer<SharedResource> localizer;
 <div class="slider-area">
     <div class="page-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png") );">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -25,32 +25,39 @@
 
 @if (Model.Count == 0)
 {
-    <p style="padding:40px" sty>  @localizer["notfound"]</p>
+  @*  <p style="padding:40px" sty>  @localizer["notfound"]</p>*@
 }
-
-	<table>
+    <br />
+<table class="" style="width:250px;margin :auto">
 
 
 
 		<tbody>
-	@foreach (var item in Model)
-	{
+        @foreach (var item in new List<String>() { "Ahmed mohamed", "Ramy ahmed", "Hossam Ahmed", "Mona sayed", "Mai mohamed", "Ahmed mohamed", "Ramy ahmed", "Hossam Ahmed", "Mona sayed", "Mai mohamed" })
+        {
+	
+      
 		<tr>
-
-
-                <td>
-                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                    {
-                        @item.FullNameAr
-                    }
-                    else
-                    {
-                        @item.FullName
-                    }
+				<td style="    text-align: center !important !Important;">
+						@if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+						{
+					      <span class="h5">@item</span>	<span class="ti-user"></span>   
+						<hr />
+						}
+						else
+						{
+						<span class="ti-user"></span>      <span class="h5">@item</span>
+				<hr />
+						}
 				</td>
 
 
-		</tr>
+			</tr>
+      
+
+       
+
+
 
 		
 

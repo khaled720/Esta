@@ -61,34 +61,5 @@ namespace ESTA.Controllers
         public string Message { get; set; }
     }
 
-    [Route("api/[controller]")]
-    public class EndpointController : ControllerBase
-    {
-        private readonly IUnitOfWork appRep;
-        private readonly IWebHostEnvironment hostEnvironment;
-
-        public EndpointController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment)
-        {
-            this.appRep = appRep;
-            this.hostEnvironment = hostEnvironment;
-        }
-
-        [HttpGet]
-        public async Task<IEnumerable<Course>> Get()
-        {
-             var courses=await appRep.CoursesRep.GetAllCourses();
-            return courses;
-        }
-
-        [HttpPost]
-        public bool SendEmail(EmailClass email)
-        {
-            return EmailSender.Send_Mail(
-                "k900000001@gmail.com",
-                email.Message,
-                email.Subject,
-                "Contact"
-            );
-        }
-    }
+ 
 }

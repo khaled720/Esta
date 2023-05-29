@@ -120,6 +120,12 @@
   <data name="academicqualification" xml:space="preserve">
     <value>المؤهل العلمي</value>
   </data>
+  <data name="addressar" xml:space="preserve">
+    <value>العنوان بالعربية</value>
+  </data>
+  <data name="addressen" xml:space="preserve">
+    <value>العنوان بالإنجليزية</value>
+  </data>
   <data name="area" xml:space="preserve">
     <value>المنطقة</value>
   </data>
@@ -128,6 +134,12 @@
   </data>
   <data name="blockno" xml:space="preserve">
     <value>رقم الوحدة السكنية</value>
+  </data>
+  <data name="branchar" xml:space="preserve">
+    <value>اسم الفرع بالعربية</value>
+  </data>
+  <data name="branchen" xml:space="preserve">
+    <value>اسم الفرع بالإنجليزية</value>
   </data>
   <data name="city" xml:space="preserve">
     <value>المدينة</value>
@@ -242,6 +254,9 @@
   </data>
   <data name="paylink" xml:space="preserve">
     <value>رابط الدفع</value>
+  </data>
+  <data name="phones" xml:space="preserve">
+    <value>خطوط الهاتف</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>السعر</value>

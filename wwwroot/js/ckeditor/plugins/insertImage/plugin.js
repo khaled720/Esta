@@ -49,7 +49,7 @@ $('#ck_imageUploader').change(function () {
             Form_data.append('file', file);
             debugger;
             $.ajax({
-                url: "/api/Images",
+                url: $("#GetPostEditorImagesUrl").val(),
                 type: 'POST',
                 processData: false,
                 contentType: false,
@@ -64,12 +64,12 @@ $('#ck_imageUploader').change(function () {
                 },
                 failure: function (ex) {
                   //  alert(JSON.stringify(ex));
-                  //  console.log("Fail" + JSON.stringify(ex))
+                    console.log("Fail" + JSON.stringify(ex))
                     console.log("Couldn't upload image")
                 },
                 error: function (ex) {
                     ///alert(JSON.stringify(ex));
-                   // console.log("Err " + JSON.stringify(ex))
+                    console.log("Err " + JSON.stringify(ex))
                     console.log("Couldn't upload image")
                 }
 
@@ -102,7 +102,7 @@ function OnNodeRemoved(event) {
   ///  var ajaxurl = input.attr('RemoveImageUrl');
 
     $.ajax({
-        url: "/api/Images",
+        url: $("#GetPostEditorImagesUrl").val(),
         type: 'DELETE',
         contentType: "application/json",
         data: { ImgPath: img.attributes['src'].nodeValue },

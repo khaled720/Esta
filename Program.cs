@@ -3,7 +3,7 @@ using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using AutoMapper;
+
 using ESTA.Mappers;
 using ESTA.Helpers;
 using Microsoft.AspNetCore.Localization;
@@ -16,6 +16,11 @@ using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using ESTA.Resources;
 using System.Reflection;
 using ESTA;
+using System.Security.Policy;
+using Microsoft.AspNetCore.Mvc.Routing;
+using ESTA.Controllers;
+using EntityFrameworkCore.UseRowNumberForPaging;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +33,7 @@ builder.Services.AddSession( /*opt=>opt.IdleTimeout=TimeSpan.FromMinutes(1)*/);
 builder.Services.AddDbContext<AppDbContext>(
     opt => 
     opt.UseSqlServer(
-        builder.Configuration.GetConnectionString("dev_conn"))
+        builder.Configuration.GetConnectionString("dev_conn"),o => o.UseRowNumberForPaging())
     );
 
 
@@ -39,11 +44,14 @@ builder.Services.AddDbContext<AppDbContext>(
 
 var localizationRequest = new RequestLocalizationOptions();
 
-var cultures= new [] {"en","ar" };
+//var cultures= new [] {"en","ar" };
+//// Forcing Gregorian date format in arabic
+var caltures = new List<CultureInfo>() {new CultureInfo("en") ,new CultureInfo("ar")
+{ DateTimeFormat = { Calendar = new GregorianCalendar() } } };
 
-localizationRequest.AddSupportedCultures(cultures);
-localizationRequest.SetDefaultCulture(cultures[1]);
-localizationRequest.AddSupportedUICultures(cultures);
+localizationRequest.SupportedCultures = caltures;
+localizationRequest.SetDefaultCulture(caltures[0].Name);
+localizationRequest.SupportedUICultures = caltures;
 localizationRequest.ApplyCurrentCultureToResponseHeaders = true;
 
 
@@ -65,15 +73,18 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 //});
 
 
-var config = new MapperConfiguration(cfg =>
-{
-    cfg.AddProfile(new ForumMapper());
-    cfg.AddProfile(new EventsMapper());
-});
-var mapper = config.CreateMapper();
+//var config = new MapperConfiguration(cfg =>
+//{
+//    cfg.AddProfile(new ForumMapper());
+//    cfg.AddProfile(new EventsMapper());
+//    cfg.AddProfile(new UserMapper());
+//});
+//var mapper = config.CreateMapper();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton(mapper);
+//builder.Services.AddSingleton(mapper);
 
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services
@@ -106,7 +117,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     {
         OnRedirectToLogin = x =>
         {
-            x.Response.Redirect("/Account/Login");
+          //  x.Response.Redirect(x.Request.Scheme+"://"+x.Request.Host+"/Account/Login");
+            
+            x.Response.Redirect("Account/Login");
             return Task.CompletedTask;
         }
     };

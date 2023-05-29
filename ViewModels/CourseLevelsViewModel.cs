@@ -13,6 +13,7 @@ namespace ESTA.ViewModels
 
 
         public IFormFile? ImgFile { get; set; }
+
         
     }
 }

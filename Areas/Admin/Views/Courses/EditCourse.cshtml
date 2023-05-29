@@ -18,7 +18,7 @@
 
 
     @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
-    <div onclick="GetPhoto()" id="photoDiv" class="" style="background-image:url('@Model.course.PhotoPath')">
+        <div onclick="GetPhoto()" id="photoDiv" class="" style="background-image:url('@Url.Content("~"+Model.course.PhotoPath)')">
         Click to add image
     </div>
 

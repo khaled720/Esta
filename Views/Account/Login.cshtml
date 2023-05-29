@@ -21,7 +21,7 @@
     <div class="col-md-4">
         <br /><br />
         <section>
-            <form id="account" asp-action="Login" method="post">
+            <form id="Account" asp-action="Login" method="post">
                 <h2> @localizer["wel"] </h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-floating">
 					<label asp-for="@Model.Password" class="form-label"></label>
-					<input asp-for="@Model.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+					<input asp-for="@Model.Password" class="form-control" autocomplete="current-password" type="password" aria-required="true" />
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
                 <div>

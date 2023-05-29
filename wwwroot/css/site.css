@@ -1,7 +1,13 @@
+
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
+
 html {
   font-size: 14px;
 }
 
+.animate__flipInX, animate__fadeIn {
+    animation-duration: 1.5s;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -101,3 +107,64 @@ input {
     .step.finish {
         background-color: #04AA6D;
     }
+
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+// color form current day in calender
+
+.fc-day-today {
+    background-color: #80808040 !important;
+}
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: #80808040 !important;
+}
+.header-contact1 {
+    width: 250px;
+    justify-content: space-evenly;
+}
+
+
+
+.side-menu {
+    /* position: absolute; */
+    /* height: 500px; */
+    width: 20%;
+    background-color: #8a2be2d4;
+    top: 0;
+    bottom: 10px;
+    opacity: 1;
+    z-index: 5;
+    transition: 1s ease-in;
+}
+
+.rounded-div {
+    border-radius: 50px;
+    padding: 30px;
+    border: 0.5px solid #8080803b;
+    transition: 1s ease-in-out ;
+}
+
+    .rounded-div:hover {
+        box-shadow: 1px 1px 15px 10px #7b7f9b29;
+    }
+
+
+
+.page-head {
+   display: flex; flex-direction: row;
+    justify-content: space-between;
+    
+}

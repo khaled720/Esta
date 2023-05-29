@@ -120,11 +120,23 @@
   <data name="about" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="addcontact" xml:space="preserve">
+    <value>Add New Contact</value>
+  </data>
+  <data name="adddirector" xml:space="preserve">
+    <value>Add Director</value>
+  </data>
   <data name="addnewcourse" xml:space="preserve">
     <value>Add New Course</value>
   </data>
   <data name="addressinfo" xml:space="preserve">
     <value>Address Info</value>
+  </data>
+  <data name="approve" xml:space="preserve">
+    <value>Approve</value>
   </data>
   <data name="becamemember" xml:space="preserve">
     <value>Became a Member</value>
@@ -150,6 +162,9 @@
   <data name="codeofethics" xml:space="preserve">
     <value>Code of professional Ethics</value>
   </data>
+  <data name="confirmemail" xml:space="preserve">
+    <value>Confirm Email</value>
+  </data>
   <data name="contacts" xml:space="preserve">
     <value>Contacts</value>
   </data>
@@ -165,14 +180,44 @@
   <data name="coursedetails" xml:space="preserve">
     <value>Course Details</value>
   </data>
+  <data name="coursegrade" xml:space="preserve">
+    <value>Grade</value>
+  </data>
+  <data name="coursename" xml:space="preserve">
+    <value>Course Title</value>
+  </data>
   <data name="courses" xml:space="preserve">
     <value>Courses</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>Admin Dashboard</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="descar" xml:space="preserve">
+    <value>Description in Arabic</value>
+  </data>
+  <data name="descen" xml:space="preserve">
+    <value>Description in English</value>
   </data>
   <data name="details" xml:space="preserve">
     <value>View Details</value>
   </data>
+  <data name="disapprove" xml:space="preserve">
+    <value>Disapprove</value>
+  </data>
   <data name="discussionbf" xml:space="preserve">
     <value>Discussion Board "Forum"</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="editlevel" xml:space="preserve">
+    <value>Edit Level</value>
   </data>
   <data name="edu" xml:space="preserve">
     <value>Education</value>
@@ -183,6 +228,12 @@
   <data name="emailus" xml:space="preserve">
     <value>Email Us</value>
   </data>
+  <data name="enrolldate" xml:space="preserve">
+    <value>Enrollment Date</value>
+  </data>
+  <data name="enrolledusers" xml:space="preserve">
+    <value>Enrolled Users</value>
+  </data>
   <data name="esta" xml:space="preserve">
     <value>The Egyptian Society of Technical Analysts</value>
   </data>
@@ -192,6 +243,9 @@
   <data name="events&amp;news" xml:space="preserve">
     <value>Events &amp; News</value>
   </data>
+  <data name="excellent" xml:space="preserve">
+    <value>Excellent</value>
+  </data>
   <data name="followus" xml:space="preserve">
     <value>Follow Us</value>
   </data>
@@ -200,6 +254,9 @@
   </data>
   <data name="fullname" xml:space="preserve">
     <value>Full Name</value>
+  </data>
+  <data name="good" xml:space="preserve">
+    <value>Good</value>
   </data>
   <data name="haveread" xml:space="preserve">
     <value>I've Read Everything Carefully and I Accept</value>
@@ -213,6 +270,18 @@
   <data name="ifta" xml:space="preserve">
     <value>IFTA</value>
   </data>
+  <data name="imgclick" xml:space="preserve">
+    <value>Click to Upload Image</value>
+  </data>
+  <data name="inter" xml:space="preserve">
+    <value>Intermediate</value>
+  </data>
+  <data name="jobar" xml:space="preserve">
+    <value>Job in Arabic</value>
+  </data>
+  <data name="joben" xml:space="preserve">
+    <value>Job in English</value>
+  </data>
   <data name="join" xml:space="preserve">
     <value>Join Now</value>
   </data>
@@ -225,14 +294,35 @@
   <data name="levels" xml:space="preserve">
     <value>Levels</value>
   </data>
+  <data name="markpaid" xml:space="preserve">
+    <value>Mark as Paid</value>
+  </data>
   <data name="membership" xml:space="preserve">
     <value>Membership</value>
   </data>
   <data name="mist" xml:space="preserve">
     <value>MIST</value>
   </data>
+  <data name="mycourses" xml:space="preserve">
+    <value>My Courses</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="namear" xml:space="preserve">
+    <value>Name in Arabic</value>
+  </data>
+  <data name="nameen" xml:space="preserve">
+    <value>Name in English</value>
+  </data>
+  <data name="newlevel" xml:space="preserve">
+    <value>Add New Level</value>
+  </data>
   <data name="next" xml:space="preserve">
     <value>Next</value>
+  </data>
+  <data name="non" xml:space="preserve">
+    <value>Non of Them</value>
   </data>
   <data name="notfound" xml:space="preserve">
     <value>No Data to display</value>
@@ -252,6 +342,15 @@
   <data name="overview" xml:space="preserve">
     <value>Overview</value>
   </data>
+  <data name="pagesc" xml:space="preserve">
+    <value>Pages Count</value>
+  </data>
+  <data name="paystate" xml:space="preserve">
+    <value>Payment State</value>
+  </data>
+  <data name="pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
   <data name="personalinfo" xml:space="preserve">
     <value>Personal Info</value>
   </data>
@@ -261,14 +360,35 @@
   <data name="prev" xml:space="preserve">
     <value>Previous</value>
   </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
   <data name="quicklinks" xml:space="preserve">
     <value>Quick Links</value>
   </data>
   <data name="readmore" xml:space="preserve">
     <value>Read More</value>
   </data>
+  <data name="regCourses" xml:space="preserve">
+    <value>Registred Courses</value>
+  </data>
+  <data name="regdate" xml:space="preserve">
+    <value>Registration date</value>
+  </data>
+  <data name="rejectemail" xml:space="preserve">
+    <value>Reject Email</value>
+  </data>
   <data name="remember" xml:space="preserve">
     <value>Remember me</value>
+  </data>
+  <data name="results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="revokepaid" xml:space="preserve">
+    <value>Revoke Payment</value>
   </data>
   <data name="search" xml:space="preserve">
     <value>Search</value>
@@ -291,6 +411,9 @@
   <data name="signup" xml:space="preserve">
     <value>Sign Up</value>
   </data>
+  <data name="state" xml:space="preserve">
+    <value>State</value>
+  </data>
   <data name="stdate" xml:space="preserve">
     <value>Start Date</value>
   </data>
@@ -303,20 +426,32 @@
   <data name="ta" xml:space="preserve">
     <value>Technical Analysis</value>
   </data>
+  <data name="title" xml:space="preserve">
+    <value>Title in English</value>
+  </data>
+  <data name="titlear" xml:space="preserve">
+    <value>Title in Arabic</value>
+  </data>
   <data name="upcourses" xml:space="preserve">
     <value>Upcoming Courses</value>
   </data>
   <data name="uremail" xml:space="preserve">
-    <value>Your Email</value>
+    <value>Email</value>
   </data>
   <data name="urmsg" xml:space="preserve">
-    <value>Your Massage</value>
+    <value>Massage</value>
   </data>
   <data name="urname" xml:space="preserve">
-    <value>Your Name</value>
+    <value>Name</value>
   </data>
   <data name="users" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="usersmanagement" xml:space="preserve">
+    <value>Users Management</value>
+  </data>
+  <data name="vgood" xml:space="preserve">
+    <value>Very Good</value>
   </data>
   <data name="wel" xml:space="preserve">
     <value>Welcome to ESTA</value>

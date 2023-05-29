@@ -590,7 +590,7 @@ border-radius:5px;
     vertical-align: middle;
     font-size: 14px;
     line-height: 1;
-    margin-right: 9px;
+  //  margin-right: 9px;
 }
 
 .header-social-icon-list ul li {
@@ -704,7 +704,7 @@ li.shopping-cart a {
 .main-menu ul li a {
     display: inline-block;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 10px;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
@@ -2081,8 +2081,10 @@ span.student-lecture-number {
 
 .team-thumb {
     position: relative;
-    cursor:pointer;
+    /* cursor:pointer;
+*/
 }
+
 
 .team-thumb::after {
     position: absolute;
@@ -3563,3 +3565,4 @@ span.opening-date {
     color:#9ca3a6;
     font-weight:600;
 }
+

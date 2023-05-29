@@ -10,7 +10,9 @@
 
 <link href="~/css/course.css" rel="stylesheet" />
 
-<h2>Edit Director</h2>
+<h2>@localizer["board"]</h2>
+
+<h3>@localizer["edit"]</h3>
 
 
 @Html.HiddenFor(y=>y.Id)
@@ -26,8 +28,9 @@
 
 
         @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
-    <div onclick="GetPhoto()" id="photoDiv" class="" style="width:35%;border-radius:170px;background-image:url(@Model.PhotoPath)">
-        <h5>Click to Upload Image</h5>
+    <div onclick="GetPhoto()" id="photoDiv" class="" style="width:35%;border-radius:170px;
+background-image:url('@Url.Content("~"+@Model.PhotoPath)')">
+            <h5>@localizer["imgclick"]</h5>
     </div>
 
 
@@ -35,7 +38,7 @@
 
     <div class="row">
 <div class="form-group col-6">
-    <label>Name in English</label>
+                <label asp-for="@Model.NameEn"></label>
     <div class="title">
   <input asp-for=@Model.NameEn, class="" type="text" />
           
@@ -46,7 +49,7 @@
     
 </div>
             <div class="form-group col-6">
-                <label>JobEn</label>
+                <label asp-for="@Model.JobEn"></label>
                 @*   <input type="text" class="form-control"  />*@
                 @Html.EditorFor(M=>M.JobEn, new { htmlAttributes = new { @class = "form-" } })
                 @Html.ValidationMessageFor(k=>k.JobEn,"",new {@class="text-danger"})
@@ -60,7 +63,7 @@
 
     <div class="row">
             <div class="form-group col-6">
-                <label>Name in Arabic</label>
+                <label asp-for="@Model.NameAr"></label>
 
                 <input asp-for=@Model.NameAr class="" type="text" />
                 @Html.ValidationMessageFor(k=>k.NameAr,"",new {@class="text-danger"})
@@ -68,7 +71,7 @@
 
             </div>
 <div class="form-group col-6">
-        <label>JobAr</label>
+                <label asp-for="@Model.JobAr"></label>
         @*   <input type="text" class="form-control"  />*@
         @Html.EditorFor(M=>M.JobAr, new { htmlAttributes = new { @class = "" } })
         @Html.ValidationMessageFor(k=>k.JobAr,"",new {@class="text-danger"})
@@ -84,7 +87,7 @@
 
 		@Html.ValidationSummary(false,"","text-danger")
 
-<button style="margin:auto" type="submit" class="btn btn-primary" >Submit</button>
+<button style="margin:auto" type="submit" class="btn btn-primary" >@localizer["submit"]</button>
 
 
 </form>

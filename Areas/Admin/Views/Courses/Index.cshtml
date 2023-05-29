@@ -6,50 +6,145 @@
 }
 
 
-@model List<ESTA.Models.Course>
+@model ESTA.ViewModels.PagerViewModel<Course>
 
 
-    <div style="display:flex;justify-content:space-between;align-items:center">  <h2>All Courses</h2>
 
-    @Html.ActionLink("Add New Course", "AddCourse", "Courses",new {}, new { @class = "btn btn-primary" })
+
+
+<div style="display:flex;justify-content:space-between;align-items:center">
+    <h2>@localizer["courses"]</h2>
+
+    @Html.ActionLink(localizer["addnewcourse"], "AddCourse", "Courses",new {}, new { @class = "btn btn-primary" })
     </div>
   
-    <input id="search" placeholder="Search for course " oninput="Search()" class="form-control" />
+    <input id="search" placeholder=@localizer["search"] oninput="Search()" class="form-control" />
+   <br />
+    <div class="rounded-div">
 
-<table id="courses-table" class="table table-striped">
+<table id="courses-table" class="table animate__fadeIn" style="animation-duration:1s">
         <thead >
-            <tr>   <th>Title</th>
-  
-    <th>Price</th>
-    <th>Starting Date</th>
+            <tr>  
+          
+              <th>@localizer["title"]</th>
+                <th>@localizer["titlear"]</th>
+      
+            
+           
+          
+ @* 
+    <th>@localizer["price"]</th>*@
+    <th>@localizer["stdate"]</th>
  <th></th>
-    <th>Actions</th>
+    <th>@localizer["actions"]</th>
 
 </tr>
          
         </thead>
-        <tbody>
+    <tbody >
 
      
     @{
-    foreach (var item in Model)
+    foreach (var item in Model.PaginatedList)
     {
-              <tr>
-              <td>@item.Title</td>
-                    <td>@item.Price.ToString("c",CultureInfo.GetCultureInfo("en-US"))</td>
-                    <td>@item.StartDate.Value.ToShortDateString()</td>
-          <td></td>
+                                                                          <tr>
+                                                                          <td>@item.Title</td>
+                                                                              <td>@item.TitleAr</td>
+                        @*<td>@item.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))</td>*@
+                                                                                <td>@item.StartDate.Value.ToShortDateString()</td>
+                                                                      <td></td>
 
-                            <td>
-                                @Html.ActionLink("Edit", "EditCourse", new { id = item.Id }, new { @class = "btn btn-primary" }) |
-                                @Html.ActionLink("Details", "CourseInfo", new { id = item.Id }, new { @class = "btn btn-warning" }) |
-                                @Html.ActionLink("Delete", "DeleteCourse", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
-                            </td>
-                        </tr> 
+                                                                                        <td>
+                        @Html.ActionLink(localizer["details"], "CourseInfo", new { id = item.Id }, new { @class = "btn btn-light" }) |
+                        @Html.ActionLink(localizer["edit"], "EditCourse", new { id = item.Id }, new { @class = "btn btn-success" }) |
+
+                        @Html.ActionLink(localizer["delete"], "DeleteCourse", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+                                                                                        </td>
+                                                                                    </tr> 
     }
     }
 	</tbody>
 </table>
+   
+</div>
+
+
+<nav aria-label="Page navigation example">
+
+    <span>
+        @localizer["pagesc"] :        @Model.TotalPages
+    </span>
+
+    <ul class="pagination justify-content-end">
+
+        @if (@Model.CurrentPage > 1)
+        {
+            <li class="page-item ">
+                <a class="page-link"
+               asp-action="index"
+               asp-controller="courses" asp-area="admin"
+               asp-route-page="@(Model.CurrentPage-1)">@localizer["prev"]</a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+
+
+            if (Model.TotalPages == 1) break;
+            @if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+
+                    <a class="page-link" asp-action="index"
+               asp-controller="courses" asp-area="admin"
+               asp-route-page="@i">
+                        @i
+                    </a>
+                </li>
+            }
+            else
+            {
+                @if ((Model.CurrentPage - i) < 3 && (Model.CurrentPage - i) > -3)
+                {
+                    <li class="page-item">
+
+                        <a class="page-link" asp-action="index"
+               asp-controller="courses" asp-area="admin"
+               asp-route-page="@i">
+                            @i
+                        </a>
+                    </li>
+                }
+            }
+
+
+        }
+        @if (@Model.CurrentPage != Model.TotalPages && Model.TotalPages > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="index"
+               asp-controller="courses" asp-area="admin"
+               asp-route-page="@(Model.CurrentPage+1)">@localizer["next"]</a>
+            </li>
+        }
+    </ul>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="~/js/course.js"></script>
 

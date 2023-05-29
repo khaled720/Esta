@@ -43,6 +43,22 @@ namespace ESTA.Repository
                  this.appContext.ChangeTracker.Clear();
         }
 
+        /// <summary>
+        /// generic method for getting List of passed T with pagination
+        /// </summary>
+        /// <typeparam name="T"> T is generic class represent a class which has Dbset </typeparam>
+        /// <returns> List of T </returns>
+        public List<T> GetPaginatedList<T>(int pageSize=5,int currentPage=1) where T : class
+        {
+
+
+            var genericlist = appContext.Set<T>()
+                .Skip(pageSize*(currentPage-1))
+                .Take(pageSize)
+                .ToList();
+        
+            return genericlist;
+        }
 
     }
 }

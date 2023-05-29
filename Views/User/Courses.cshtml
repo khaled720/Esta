@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using ESTA.Helpers
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -48,8 +49,8 @@ background: rgba(100%,100%,100%,50%);
         <div class="card-body">
      Starting Date:    @item.course.StartDate.Value.ToShortDateString()
            Enrollment Date:    @item.EnrollmentDate.ToShortDateString()
-                    
-               <br> Price: <strong style="color:green"> @item.course.Price.ToString("c",CultureInfo.GetCultureInfo("en"))</strong>
+
+                        <br> Price: <strong style="color:green"> @item.course.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
 
                 <br> State: <strong style="color:green" > @item.state.StateName</strong>
                     <br>Payment State: 

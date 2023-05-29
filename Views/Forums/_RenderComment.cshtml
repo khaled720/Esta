@@ -31,7 +31,11 @@
                 <p>@comment.Comment</p>
                 @if (role)
                 {
-                    <a onclick='deleteComment(@comment.Id)' class='link-danger delete'>Delete</a>
+                  
+                    <form method="post" asp-action="DeleteComment"  asp-route-commentId="@comment.Id">
+  <button   type="submit" class='btn btn-danger'>Delete </button>
+                           
+                    </form>
                 }
             </div>
             <div class="col-md-4" style="margin:auto;">
@@ -83,7 +87,13 @@
                                 <p>@reply.Comment</p>
                                 @if (role)
                                 {
-                                    <a onclick='DeleteReply(@reply.Id)' class='link-danger delete'>Delete</a>
+                                   
+
+
+                                    <form method="post" asp-action="DeleteReply" asp-route-commentId="@reply.Id">
+                                        <button type="submit" class='btn btn-danger'>Delete Reply</button>
+
+                                    </form>
                                 }
                             </div>
                         </div>

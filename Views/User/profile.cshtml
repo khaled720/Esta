@@ -21,7 +21,7 @@
 	<br />
 
 
-	<h3>My Profile  </h3>
+    <h3>@localizer["profile"]  </h3>
 
 
 @*
@@ -35,21 +35,23 @@
 	<div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-3 col-lg-3">
-            <div class="nav flex-column nav-pills mt-50" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news"
-                type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">My Courses</button>
+                type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">@localizer["mycourses"]</button>
                 <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social" 
-                type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">Results</button>
-                <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta" 
-                type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">Forums</button>
+                type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">@localizer["results"]</button>
+                <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta"
+                            type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">
+                        @localizer["forums"]
+                    </button>
             </div>
         </div>
-        <div class="col-sm-12 col-md-9 col-lg-9">
+        <div class="col-sm-12 col-md-9 col-lg-9 profile-section" >
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
-                    Courses
-                        
-                            @await Component.InvokeAsync("UserCourses",new{ id=User.FindFirstValue(ClaimTypes.NameIdentifier) });
+
+
+                        @await Component.InvokeAsync("UserCourses");
                         
 
                    </div>
@@ -57,7 +59,7 @@
                         @await Component.InvokeAsync("UserResults");
                 </div>
                 <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
-                        @await Component.InvokeAsync("UserForums",new {userlevelId=3});
+           @await Component.InvokeAsync("UserForums"/*,new {userId= User.FindFirstValue(ClaimTypes.NameIdentifier*/) 
                 </div>
             </div>
             <input type="hidden" value="1" id="pageNews" />
@@ -73,3 +75,31 @@
 
 
 </div>
+
+                <br />
+
+
+@*<ul class="nav nav-tabs ">
+
+    <li><a class="btn btn-light" data-toggle="tab" href="#menu1">@localizer["mycourses"]</a></li>
+    <li><a class="btn btn-light" data-toggle="tab" href="#menu2">@localizer["results"]</a></li>
+    <li><a class="btn btn-light" data-toggle="tab" href="#menu3">@localizer["forums"]</a></li>
+</ul>
+
+<div class="tab-content">
+ 
+    <div id="menu1" class="tab-pane fade active">
+        <h3>@localizer["mycourses"]</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <h3>@localizer["results"]</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+        <h3>@localizer["forums"]</h3>
+        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+</div>
+
+*@

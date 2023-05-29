@@ -4,7 +4,7 @@
 
 <div class="slider-area">
     <div class="page-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(/template/img/inner-bg.png);">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png")");">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -33,11 +33,11 @@
 {
         if (Thread.CurrentThread.CurrentCulture.Name == "ar")
         {
-            @Html.Raw(Model.DescriptionAr)
+            @Html.Raw(Model.DescriptionAr.Replace("../../","../"))
         }
         else
         {
-            @Html.Raw(Model.DescriptionEn)
+            @Html.Raw(Model.DescriptionEn.Replace("../../","../"))
         }
        
 }

@@ -27,20 +27,12 @@ namespace ESTA.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+          //  var x = DateTime.UtcNow;
+
             return View();
         }
 
-        public async Task<IActionResult> UsersApproval()
-        {
-            var users = await appRep.UserRep.GetAllUsers();
-            return View(users);
-        }
+    
 
-        public async Task<IActionResult> EditApproval(string id, bool isApproved)
-        {
-            await appRep.UserRep.EditUserApproval(id, isApproved);
-            await appRep.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
     }
 }

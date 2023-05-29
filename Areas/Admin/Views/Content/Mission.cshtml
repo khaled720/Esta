@@ -7,7 +7,7 @@
 @model Content
 
 
-<h3>Mission </h3>
+<h3>@localizer["ourmission"] </h3>
 
 <input type="file" id="ck_imageUploader" accept="image/gif, image/jpeg, image/png"
        style="display:none;" />
@@ -15,15 +15,21 @@
 
 <form method="post" asp-controller="Content" asp-action="Mission" asp- asp-area="Admin">
     @Html.HiddenFor(y=>y.Id)
-    <h5>English Description</h5>
+
+    <div class="rounded-div">
+    <h5>@localizer["descen"]</h5>
 <textarea id="editor" asp-for="@Model.DescriptionEn"></textarea>
-    <h5>Arabic Description</h5>
+
+</div>
+<br />
+        <div class="rounded-div">
+<h5>@localizer["descar"]</h5>
 
 <textarea id="editorAr" asp-for="@Model.DescriptionAr"></textarea>
 
+</div>
 
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@localizer["submit"]</button>
 </form>
 
 

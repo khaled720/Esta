@@ -17,9 +17,12 @@ namespace ESTA.Models
 
 
 
-
+        //[Required(
+        //          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //          ErrorMessageResourceName = "required"
+        //      )]
         [NotMapped]
-        public string? Answer { get; set; }
+        public string? Answer { get; set; } = "";
 
         [NotMapped]
         public bool IsTrue { get; set; }

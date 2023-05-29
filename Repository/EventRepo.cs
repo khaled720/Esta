@@ -54,14 +54,14 @@ namespace ESTA.Repository
                 return context.EventsNews
                .Where(x => x.Flag == Flag)
                .OrderBy(x => x.Date)
-               .Skip(page * count)
+              .Skip(page * count)
                .Take(count)
                .ToList();
             }
             return context.EventsNews
                 .Where(x => x.Flag == Flag && x.EventType == EventType)
                 .OrderBy(x => x.Date)
-                .Skip(page * count)
+               .Skip(page * count)
                 .Take(count)
                 .ToList();
         }

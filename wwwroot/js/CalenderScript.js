@@ -13,7 +13,7 @@ $(document).ready( function () {
         selectable: false,
         direction: dir,
         eventDisplay: 'block',
-        locale: lang,
+        locale: document.getElementsByTagName("html")[0]["lang"],
         initialView: 'dayGridMonth',
         height: '450px',
         //eventDidMount: function (info) {
@@ -26,6 +26,7 @@ $(document).ready( function () {
         //    });
         //},
         moreLinkText: "More",
+        
         displayEventTime: false,
         fixedWeekCount: false,
         eventColor: 'white',
@@ -48,7 +49,7 @@ $(document).ready( function () {
                                     title: data.title,
                                     start: moment(data.date).format(),
                                     url: getEventUrl + '/'+ data.id,
-                                    backgroundColor: "cornflowerblue",
+                                    backgroundColor: "#002147",
                                 }
                             );
                         }
@@ -58,7 +59,7 @@ $(document).ready( function () {
                                     title: data.title,
                                     start: moment(data.date).format(),
                                     url: getEventUrl + '/' + data.id,
-                                    backgroundColor: "darkcyan",
+                                    backgroundColor: "#002147",
                                 }
                             );
                         }
@@ -94,30 +95,41 @@ $(document).ready(function () {
         editable: false,
         selectable: false,
         locale: document.getElementsByTagName("html")[0]["lang"],
-        direction:dir,
+        direction: dir,
+        //headerToolbar: {
+        //    left: 'prevYear,prev,next,nextYear today',
+        //    center: 'title',
+        //    right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        //},
         initialView: 'dayGridMonth',
         height: '450px',
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
             $.ajax({
-                url: '/api/Endpoint',
+                url: $('#GetCourseUrl').val(),
                 type: "GET",
                 dataType: "JSON",
-
+                error: function (err) { console.log("Courses not fetched") },
                 success: function (result) {
                     debugger;
                  
                     var events = [];
                   
                     $.each(result, function (i, data) {
-                        
+                        var title="_";
+                        if (document.getElementsByTagName("html")[0]["lang"] == "ar") {
+                            title = data.titleAr;
+                        } else {
+                            title = data.title;
+                        }
+
                         events.push(
                             {
-                                title: data.title,
+                                title: title,
                                 description: data.description,
                                 start: moment(data.startDate).format("YYYY-MM-DD"),
-                                url: '/Courses/CourseDetails/' + data.id,
-                                backgroundColor: "blueviolet",
+                                url: $('#GetCoursedetails').val()+"/"+ data.id,
+                                backgroundColor: "#002147",
                                 borderColor: "white"
 
                             });
