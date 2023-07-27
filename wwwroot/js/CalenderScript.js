@@ -33,6 +33,8 @@ $(document).ready( function () {
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
             debugger
+
+
             $.ajax({
                 url: $('#AjaxUrl').val(),
                 type: "GET",
@@ -70,6 +72,8 @@ $(document).ready( function () {
                     console.log(err);
                 }
             });
+
+
         },
 
     });
@@ -83,7 +87,12 @@ $(document).ready( function () {
 
 
 
+
+
+
 $(document).ready(function () {
+    var getEventUrl = $('#GetEventUrl').val();
+    var localeSelectorEl = document.getElementById('langddl');
     var calendarEl = document.getElementById('courses-calendar');
    // calendarEl.innerHTML = "<p>Loading Courses Calendar...</p>";
     var dir = 'ltr';
@@ -102,7 +111,7 @@ $(document).ready(function () {
         //    right: 'dayGridMonth,dayGridWeek,dayGridDay'
         //},
         initialView: 'dayGridMonth',
-        height: '450px',
+        height: '500px',
         dayMaxEvents: true, // allow "more" link when too many events
         events: function (fetchInfo, successCallback, failureCallback) {
             $.ajax({
@@ -134,7 +143,52 @@ $(document).ready(function () {
 
                             });
                     });
-                    successCallback(events);
+
+                    //events
+                    $.ajax({
+                        url: $('#AjaxUrl').val(),
+                        type: "GET",
+                        dataType: "JSON",
+
+                        success: function (result) {
+                         
+
+                            $.each(result, function (i, data) {
+
+                                if (data.eventType == 1) {
+                                    //esta event
+                                    events.push(
+                                        {
+                                            title: data.title,
+                                            start: moment(data.date).format("YYYY-MM-DD"), // remove format and time will be displayed
+                                            url: getEventUrl + '/' + data.id,
+                                            backgroundColor: "green",
+                                            borderColor: "white"
+                                        }
+                                    );
+                                }
+                                else {
+                                    //social event
+                                    events.push(
+                                        {
+                                            title: data.title,
+                                            start: moment(data.date).format("YYYY-MM-DD"),
+                                            url: getEventUrl + '/' + data.id,
+                                            backgroundColor: "green",
+                                            borderColor: "white"
+                                        }
+                                    );
+                                }
+                            });
+                          successCallback(events);
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+
+
+                    
                 }
             });
         }

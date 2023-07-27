@@ -148,7 +148,7 @@
                  data-aos-anchor-placement="center-center" data-aos-duration="1000">
                 <div class="section-title mb-50 text-center">
                     <div class="section-title-heading mb-20">
-                        <h1 class="white-color">@localizer["upcourses"]</h1>
+                        <h1 class="white-color">Courses & Events </h1>
                     </div>
 
                 </div>
@@ -156,16 +156,18 @@
         </div>
 
         <div class="events-list mb-30">
-            <div class="row">
-                <div class="col-lg-7 aos-init aos-animate" data-aos="fade-down"
+            <div class="row" style="justify-content:center">
+                <div class="col-lg-10 aos-init aos-animate" data-aos="fade-down"
                      data-aos-duration="1500">
 
                     <style>
                         #courses-calendar {
-                            max-width: 1100px;
+                            max-width: 1300px;
                             margin: 0 auto;
                             background-color: white;
-                        }
+                                border-radius: 10px;
+                                padding: 3px;
+                 }
                     </style>
 
                     <div id="courses-calendar"></div>
@@ -174,7 +176,8 @@
 
                 </div>
 
-                @if (Model.UpcomingCourse != null) { 
+          <!--
+ @if (Model.UpcomingCourse != null) { 
                 <div class="col-lg-5 col-sm-12 aos-init aos-animate" data-aos="fade-up"
                      data-aos-duration="1500">
                     <div class="single-events mb-30">
@@ -254,6 +257,7 @@
                 </div>
             
                 }
+          -->     
             </div>
         </div>
 

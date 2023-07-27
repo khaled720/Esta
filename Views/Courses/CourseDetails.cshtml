@@ -88,7 +88,15 @@
                                                     }
                                                 </h1>
                          
-                            <h4 class="text-danger">@Model.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))</h4>
+                            <h4 class="text-danger">
+                             
+                                     @if (Model.Price<=0) {
+           @localizer["free"]
+                }else{
+                        @Model.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
+         
+                }
+                            </h4>
                         </div>
                         <div class="course-details-tabs">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -129,6 +137,13 @@
                                             <div class="course-overview-student-lecture mt-10">
                                                 <span class="gray-color">@localizer["level"] : <span class="primary-color">@Model.level.TypeName</span></span>
                                                 <span class="student-lecture-number gray-color">@localizer["stdate"]: <span class="primary-color">@Model.StartDate.Value.ToShortDateString()</span></span>
+                                               @if (Model.FinalGrade <= 0)
+        {
+
+                                                    <span class="student-lecture-number gray-color">*@localizer["coursehint"]</span>
+
+                                                }
+
                                             </div>
                                           @*  <div class="course-overview-time-delay mt-10">
                                                 <span class="gray-color">Price : <span class="primary-color">$@Model.Price.ToString()</span></span>

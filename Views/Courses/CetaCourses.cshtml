@@ -64,7 +64,17 @@
                                             </a></h1>
                                         </div>
                                         <div class="courses-pricing-3">
-                                            <span>@item.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))</span>
+                                            <span>
+                                                @if (item.Price <= 0)
+                                                {
+                                                    @localizer["free"]
+                                                }
+                                                else
+                                                {
+                                                    @item.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
+
+                                                }
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="courses-para mt-15">
@@ -96,7 +106,7 @@
                                     <div class="course-date mt-15">
                                         <span class="course-date-icon ti-calendar"></span>
                                         <span class="start-date-text">@localizer["stdate"] </span>
-                                        <span>@item.StartDate.Value.ToShortDateString()</span>
+                                        <span>@item.StartDate.Value.Year/@item.StartDate.Value.Month/@item.StartDate.Value.Day</span>
                                     </div>
                                     <div class="courses-wrapper-bottom clearfix mt-35">
                                         <div class="courses-button">

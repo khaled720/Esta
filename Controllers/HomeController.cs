@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Immutable;
+using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
+using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
@@ -46,8 +49,10 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Index()
         {
+         
 
-            var hivm = new HomeIndexViewModel();
+
+               var hivm = new HomeIndexViewModel();
             try
             {
                 if (Thread.CurrentThread.CurrentCulture.Name == "ar") {

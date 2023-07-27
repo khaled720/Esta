@@ -35,12 +35,21 @@
             }
 
             <p class="floating" style="color:gray">
-                @Model.course.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
-            </p>
+                @if (Model.course.Price<=0) {
+           @localizer["free"]
+                }else{
+                        @Model.course.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
+         
+                }
+           </p>
+           
         </h2>
-
+      
 		<h4>@Model.course.level.TypeName</h4>
-
+        @if (Model.course.FinalGrade <= 0)
+        {
+    <h5>    *@localizer["coursehint"]</h5>    
+        }
         @if (Thread.CurrentThread.CurrentCulture.Name=="ar") {
             <h6>@Model.course.DescriptionAr</h6>
         }else{
@@ -48,8 +57,8 @@
         
         }
 
-
-</div>
+     
+    </div>
 
 
 </div>

@@ -23,6 +23,10 @@ namespace ESTA.Models
     var SavePath = FullSavePath;
             var id = Guid.NewGuid().ToString();
             var ImageName = ImgName + "  " + id + ".jpg";
+                if (! Directory.Exists(SavePath)) 
+                {   
+                Directory.CreateDirectory(SavePath);
+                }
             await System.IO.File.WriteAllBytesAsync(SavePath + ImageName,
                 new BinaryReader(imgFile.OpenReadStream()).ReadBytes((int)new BinaryReader(imgFile.OpenReadStream()).BaseStream.Length));
             return ImageName;

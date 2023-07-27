@@ -1,6 +1,11 @@
 ﻿using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
+//using AspNetCore;
+using ESTA.API_Controllers;
+using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
@@ -8,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Hosting;
 
 namespace ESTA.Controllers
 {
@@ -17,25 +23,28 @@ namespace ESTA.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
         private readonly IUnitOfWork appRep;
+        private readonly IWebHostEnvironment hostEnvironment;
 
         public AccountController(
             SignInManager<User> _signInManager,
             RoleManager<IdentityRole> roleManager,
             UserManager<User> userManager,
-            IUnitOfWork appRep
+            IUnitOfWork appRep,
+            IWebHostEnvironment hostEnvironment
         )
         {
             signInManager = _signInManager;
             this.roleManager = roleManager;
             this.userManager = userManager;
             this.appRep = appRep;
+            this.hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
             if (signInManager.IsSignedIn(User))
-                RedirectToAction("Index","Home");
+                RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -55,11 +64,11 @@ namespace ESTA.Controllers
                 {
                     var user = await userManager.FindByEmailAsync(LoginModel.Email);
 
-                    if (/*user.IsApproved == true*/ 1==1)
+                    if ( /*user.IsApproved == true*/
+                        1 == 1)
                     {
                         if (await userManager.IsInRoleAsync(user, "Admin"))
                         {
-
                             return RedirectToAction("index", "courses", new { area = "Admin" });
                         }
                         else
@@ -94,7 +103,7 @@ namespace ESTA.Controllers
                             Request.Scheme
                         );
                         var isEmailSent = EmailSender.Send_Mail(
-                           user.Email,
+                            user.Email,
                             "Click this link to confirm your <strong>Email</strong> <br> "
                                 + confirmEmailUrl,
                             "Confirm Your Email",
@@ -163,9 +172,148 @@ namespace ESTA.Controllers
             {
                 var validationStatesValues = ModelState.Values;
 
+                
+
                 if (ModelState.IsValid)
                 {
+
+                    if (String.IsNullOrEmpty(registerModel.NationalCardID) &&
+                     
+                        String.IsNullOrEmpty(registerModel.Passport))
+                    {
+                        ModelState.AddModelError("NationalCardID", "This field is required !");
+                        if (registerModel.NationalCardImage == null) { 
+                               ModelState.AddModelError("NationalCardImage", "This field is required !");
+                        }
+                 
+                        return View(registerModel);
+                    }
+                    if (!String.IsNullOrEmpty(registerModel.NationalCardID) &&
+                      !String.IsNullOrEmpty(registerModel.Passport))
+                    {
+                       
+                        if (registerModel.NationalCardImage == null)
+                        {
+                            ModelState.AddModelError("NationalCardImage", "This field is required !");
+                         return View(registerModel);
+                        }
+                       
+                    }
+                    if ( !String.IsNullOrEmpty(registerModel.Passport) &&
+                        String.IsNullOrEmpty(registerModel.NationalCardID))
+                    {
+                    
+                        if (registerModel.PassportImage == null)
+                        {
+                            ModelState.AddModelError("PassportImage", "This field is required !");
+                       return View(registerModel);  
+                        }
+
+                    
+                    }
+
+                    ///
+                    if (registerModel.IsNewMember ==false&& String.IsNullOrEmpty(registerModel.MembershipNumber))
+                    {
+
+                            ModelState.AddModelError("MembershipNumber", "This field is required !");
+                            return View(registerModel);
+                       
+
+
+                    }
+
+
+                    ///
+
                     User user = new User();
+
+                    ////////// uploading Graduation Certificate Image
+                    try
+                    {
+                        if (registerModel.GraduationCertificateImage != null)
+                        {
+                         
+                            var SavePath = hostEnvironment.WebRootPath + Constants.GraduationCertificateImagesSavingPath;
+                            var PhotoName = await FileUpload.SavePhotoAsync(
+                                registerModel.GraduationCertificateImage,
+                             registerModel.FullName,
+                                SavePath
+                            );
+                            user.GradutionImagePath = Constants.GraduationCertificateImagesSavingPath + PhotoName;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(
+                                "GraduationCertificateImage",
+                                "Graduation Image Is Required"
+                            );
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError(
+                            "GraduationCertificateImage",
+                            "Graduation Image Is Required"
+                        );
+                    }
+                    ///// Uploading National ID Image
+                    try
+                    {
+                        if (registerModel.NationalCardImage != null)
+                        {
+                            
+                            var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
+                            var PhotoName = await FileUpload.SavePhotoAsync(
+                                registerModel.NationalCardImage,
+                                  registerModel.FullName,
+                                SavePath
+                            );
+                            user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
+                        }
+                        //else
+                        //{
+                        //    ModelState.AddModelError("NationalCardImage", "National Card Image Is Required");
+                        //}
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError(
+                            "NationalCardImage",
+                            "National Card Image Is Required"
+                        );
+                    }
+                    /////// // Uploading Passport ID Image
+                    try
+                    {
+                        if (registerModel.PassportImage != null)
+                        {
+                         
+                            var SavePath = hostEnvironment.WebRootPath + Constants.PassportsImagesSavingPath;
+                            var PhotoName = await FileUpload.SavePhotoAsync(
+                                registerModel.PassportImage,
+                                  registerModel.FullName,
+                                SavePath
+                            );
+                            user.PassportImagePath = Constants.PassportsImagesSavingPath + PhotoName;
+                        }
+                        //else
+                        //{
+                        //    ModelState.AddModelError("NationalCardImage", "National Card Image Is Required");
+                        //}
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError(
+                            "NationalCardImage",
+                            "Passport Card Image Is Required"
+                        );
+                    }
+                    //////////////////////////
+                    ///
+
+
+                    
                     user.ConvertRegisterModelToUser(registerModel);
 
                     var result = await userManager.CreateAsync(user, registerModel.Password);
@@ -225,9 +373,9 @@ namespace ESTA.Controllers
                         }
                         //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
                         registerModel.codeofEthics =
-                  Thread.CurrentThread.CurrentCulture.Name == "ar"
-                      ? appRep.ContentRep.GetContent("ethics").DescriptionAr
-                      : appRep.ContentRep.GetContent("ethics").DescriptionEn;
+                            Thread.CurrentThread.CurrentCulture.Name == "ar"
+                                ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                                : appRep.ContentRep.GetContent("ethics").DescriptionEn;
                         return View(registerModel);
                     }
                 }
@@ -253,9 +401,9 @@ namespace ESTA.Controllers
 
                     //      registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
                     registerModel.codeofEthics =
-                  Thread.CurrentThread.CurrentCulture.Name == "ar"
-                      ? appRep.ContentRep.GetContent("ethics").DescriptionAr
-                      : appRep.ContentRep.GetContent("ethics").DescriptionEn;
+                        Thread.CurrentThread.CurrentCulture.Name == "ar"
+                            ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                            : appRep.ContentRep.GetContent("ethics").DescriptionEn;
                     return View(registerModel);
                 }
             }
@@ -264,9 +412,9 @@ namespace ESTA.Controllers
                 ModelState.AddModelError(string.Empty, "Try Again Later !!!");
                 //        registerModel.Questions = await Uow.QuestionRep.GetAllQuestions();
                 registerModel.codeofEthics =
-                  Thread.CurrentThread.CurrentCulture.Name == "ar"
-                      ? appRep.ContentRep.GetContent("ethics").DescriptionAr
-                      : appRep.ContentRep.GetContent("ethics").DescriptionEn;
+                    Thread.CurrentThread.CurrentCulture.Name == "ar"
+                        ? appRep.ContentRep.GetContent("ethics").DescriptionAr
+                        : appRep.ContentRep.GetContent("ethics").DescriptionEn;
                 return View(registerModel);
             }
         }
@@ -303,11 +451,85 @@ namespace ESTA.Controllers
             }
         }
 
+
+
+        [HttpGet]
+        public IActionResult ResetPassword() 
+        {
+            return View() ;
+       }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel rpvm)
+        {
+            var email= rpvm.Email;
+
+            var user = await userManager.FindByEmailAsync(email);
+            if (user!=null)
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+                var resetPasswordUrl = Url.Action(
+                           "ChangePassword",
+                           "Account",
+                           new { email = user.Email, token = token },
+                           Request.Scheme
+                       );
+
+                EmailSender.Send_Mail(
+                    user.Email, 
+                    "Click this link to reset your password "+resetPasswordUrl, 
+                    "Reset Password", 
+                    "Esta");
+            
+            return View("_Info", new Helpers.Info("Password Reset", "We Have Sent You via Email Reset Password Link"));
+            }
+            return View("_Info", new Helpers.Info("Password Reset", "We Couldn't send Reset Password Link ,Review  Your Email and try again! "));
+
+
+
+        }
+
+
+
+        [HttpGet]
+        public IActionResult ChangePassword(string email,string token)
+        {
+
+            return View(new ResetPasswordViewModel(email,token) );
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ResetPasswordViewModel rpvm)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(rpvm.Email);
+                var result = await userManager.ResetPasswordAsync(user, rpvm.Token, rpvm.NewPassword);
+
+
+                if(result.Succeeded)
+                return View("_Info", new Info("Reset Password Succeeded", "your password has been changed .try to login now"));
+                if (result.Errors.Any())
+                    return View("_Info", new Info("Reset Password Failed", result.Errors.ToString()));
+            
+            }
+    
+                return View();
+          
+            
+            }
+
+
+
+
+
+
+
         public async Task<IActionResult> Logout()
         {
             await this.signInManager.SignOutAsync();
             HttpContext.Session.Clear();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult CreateUser(Level level)

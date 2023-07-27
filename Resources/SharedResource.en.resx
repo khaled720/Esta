@@ -159,6 +159,9 @@
   <data name="cetaholders" xml:space="preserve">
     <value>CETA Holders</value>
   </data>
+  <data name="changepassheader" xml:space="preserve">
+    <value>New Password</value>
+  </data>
   <data name="codeofethics" xml:space="preserve">
     <value>Code of professional Ethics</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="coursegrade" xml:space="preserve">
     <value>Grade</value>
+  </data>
+  <data name="coursehint" xml:space="preserve">
+    <value>Requires Attendence only</value>
   </data>
   <data name="coursename" xml:space="preserve">
     <value>Course Title</value>
@@ -251,6 +257,9 @@
   </data>
   <data name="forums" xml:space="preserve">
     <value>Forums</value>
+  </data>
+  <data name="free" xml:space="preserve">
+    <value>Free</value>
   </data>
   <data name="fullname" xml:space="preserve">
     <value>Full Name</value>
@@ -383,6 +392,12 @@
   </data>
   <data name="remember" xml:space="preserve">
     <value>Remember me</value>
+  </data>
+  <data name="resetheader" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="resetpassword" xml:space="preserve">
+    <value>Reset Password</value>
   </data>
   <data name="results" xml:space="preserve">
     <value>Results</value>

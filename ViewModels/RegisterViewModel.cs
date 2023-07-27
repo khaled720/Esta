@@ -191,17 +191,18 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "workphone")]
         public string WorkPhone { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "workfax")]
-        public string WorkFax { get; set; } = String.Empty;
+        public string?  WorkFax { get; set; } = String.Empty;
 
         [Display(
             ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             Name = "workleavedate"
         )]
+       [DataType(DataType.Date)]
         public DateTime? WorkLeavingDate { get; set; }
 
         [Display(
@@ -220,14 +221,14 @@ namespace ESTA.ViewModels
         )]
         public string MessagingAddress { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         [RegularExpression(@"(.{14})", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "nationalidcons")]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "idno")]
-        public string NationalCardID { get; set; } = String.Empty;
+        public string?  NationalCardID { get; set; } = String.Empty;
 
         //[RegularExpression(@"(.{8})", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
         //    ErrorMessageResourceName = "passportcons")]
@@ -236,7 +237,7 @@ namespace ESTA.ViewModels
         //    ErrorMessageResourceName = "required"
         //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "passport")]
-        public string? Passport { get; set; } = String.Empty;
+        public string?  Passport { get; set; } = String.Empty;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -273,7 +274,7 @@ namespace ESTA.ViewModels
             ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             Name = "highstudies"
         )]
-        public string HighStudies { get; set; } = String.Empty;
+        public string?  HighStudies { get; set; } = String.Empty;
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "haveread")]
         [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
@@ -290,6 +291,32 @@ namespace ESTA.ViewModels
         //      yield  return new ValidationResult("Confirm That You have Read To Continue", new[] { nameof(HaveRead) });
 
         //}
+
+
+
+
+        public bool IsNewMember { get; set; } = true;
+
+
+        public string?  MembershipNumber { get; set; }
+
+      //  [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
+        public IFormFile? NationalCardImage { get; set; }
+
+
+       // [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
+        public IFormFile? PassportImage { get; set; }
+
+
+          [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
+
+        public IFormFile  GraduationCertificateImage { get; set; }
+
+
+
+
+        public List<string> Countries { get; set; } =  CultureManager.GetCountries().ToList();
+
 
 
         public List<UserAnswer> ConvertQuestionsToUserAnswer(string userid)

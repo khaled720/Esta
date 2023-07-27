@@ -183,6 +183,9 @@
   <data name="coursegrade" xml:space="preserve">
     <value>الدرجة</value>
   </data>
+  <data name="coursehint" xml:space="preserve">
+    <value>يتطلب الحضور فقط</value>
+  </data>
   <data name="coursename" xml:space="preserve">
     <value>اسم الدورة</value>
   </data>
@@ -251,6 +254,9 @@
   </data>
   <data name="forums" xml:space="preserve">
     <value>النقاشات</value>
+  </data>
+  <data name="free" xml:space="preserve">
+    <value>مجاني</value>
   </data>
   <data name="fullname" xml:space="preserve">
     <value>الاسم كاملا</value>
@@ -383,6 +389,9 @@
   </data>
   <data name="remember" xml:space="preserve">
     <value>تذكرني</value>
+  </data>
+  <data name="resetpassword" xml:space="preserve">
+    <value>نسيت كلمة المرور ؟</value>
   </data>
   <data name="results" xml:space="preserve">
     <value>النتائج</value>

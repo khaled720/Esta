@@ -62,13 +62,7 @@
 
     <div class="row">
 
-        <div class="form-group col-4">
-            <label>Payment Link</label>
-            @*   <input type="text" class="form-control"  />*@
-            @Html.EditorFor(M=>M.course.PaymentLink, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(k=>k.course.PaymentLink,"",new {@class="text-danger"})
-
-        </div>
+      
         <div class="form-group col-4">
             <label>Price</label>
             @*   <input type="text" class="form-control"  />*@

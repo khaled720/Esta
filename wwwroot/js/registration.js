@@ -1,6 +1,73 @@
 ﻿//Registration Form JS
+document.getElementById("old").onclick = () =>
+{  if (document.getElementById("old").checked == true)
+    {
+    document.getElementById("memnumgroup").style.display = 'block';
+    document.getElementById("memnum").setAttribute("required", true);
+}
+}
+document.getElementById("new").onclick = () => {
+    if (document.getElementById("new").checked == true) {
+
+        document.getElementById("memnum").setAttribute("required", false);
+        document.getElementById("memnumgroup").style.display = 'none'
+    }
+}
 
 
+
+//Image validation if provided national id then you have to add national id image if provided passport id then must add img if nor porvided anything idno required
+ 
+document.getElementById("idno").onblur = () =>
+{
+    var value = document.getElementById("idno").value;
+    if (value != "" && value != null) {
+        document.getElementById("idnoImg").setAttribute("required",true);
+        document.getElementById("passportImg").removeAttribute("required");
+        document.getElementById("passportImg-error").remove();
+    } else {
+        document.getElementById("idnoImg").setAttribute("required", true);
+        document.getElementById("passportImg").removeAttribute("required");
+    }
+}
+document.getElementById("passport").onblur = () => {
+    var value = document.getElementById("passport").value;
+    if (value != "" && value != null) {
+        document.getElementById("passportImg").setAttribute("required", true);
+        document.getElementById("idno").removeAttribute("required");
+        document.getElementById("idnoImg").removeAttribute("required");
+        document.getElementById("idnoImg-error").remove();
+
+    } else {
+        document.getElementById("idnoImg").setAttribute("required", true);
+        document.getElementById("passportImg").removeAttribute("required");
+    }
+
+}
+
+document.onreadystatechange = () => {
+    if (document.readyState.toString() == "complete") {
+        var idno = document.getElementById("idno").value;
+        var pass = document.getElementById("passport").value;
+        if (idno != "" && idno != null) { //idno provided
+            document.getElementById("idnoImg").setAttribute("required", true);
+            document.getElementById("passportImg").removeAttribute("required");
+            document.getElementById("passportImg-error").remove();
+        } else {
+            if (pass != "" && pass != null) {
+                document.getElementById("passportImg").setAttribute("required", true);
+
+            } else {
+                document.getElementById("idnoImg").setAttribute("required", true);
+                document.getElementById("passportImg").removeAttribute("required");
+            }
+        }
+
+
+    }
+
+
+};
 
 
 var currentTab = 0; // Current tab is set to be the first tab (0)

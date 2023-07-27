@@ -30,17 +30,22 @@
                                 </span>
 
 
-                                <form id="regForm" style="" asp-action="Register" method="post" asp-controller="Account">
+                                <form id="regForm" enctype="multipart/form-data" style="" asp-action="Register" method="post" asp-controller="Account">
 
-                                 
 
+
+                              
                                     <!-- One "tab" for each step in the form: -->
                                     <div class="tab">
                                         <h3>@localizer["personalinfo"]</h3>
 
+
+
+
+
                                         <div class="row">
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for=@Model.FullName></label>
+                                                <label asp-for=@Model.FullName></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.FullName" class="form-control"
                                                        autocomplete="name" />
 
@@ -48,7 +53,7 @@
                                             </div>
 
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.FullNameAr"></label>
+                                                <label asp-for="@Model.FullNameAr"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.FullNameAr" class="form-control"
                                                        autocomplete="name" />
 
@@ -62,15 +67,15 @@
                                         <div class="row">
 
                                             <div class="form-group col-lg-6 col-sm-12 ">
-                                                <label asp-for="@Model.NationalCardID"></label>
-                                                <input asp-for="@Model.NationalCardID" class="form-control"
+                                                <label asp-for="@Model.NationalCardID"></label><span class="text-danger m-1">*</span>
+                                                <input id="idno" required asp-for="@Model.NationalCardID" class="form-control"
                                                        autocomplete="username" />
 
                                                 <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
                                             </div>
                                             <div class="form-group col-lg-6 col-sm-12 ">
-                                                <label asp-for="@Model.Passport"></label>
-                                                <input asp-for="@Model.Passport" class="form-control"
+                    <label asp-for="@Model.Passport"></label><span class="text-danger m-1">*</span>
+                                                <input id="passport" asp-for="@Model.Passport" class="form-control"
                                                        autocomplete="username" />
 
                                                 <span asp-validation-for="@Model.Passport" class="text-danger"></span>
@@ -78,8 +83,73 @@
 
                                         </div>
 
+
+
+            <div class=" row " style="justify-content: space-evenly;">
+                <div class="row col-lg-4 col-sm-12">
+
+   <p>Are You a New Member ?</p>
+                </div>
+                <div class="form-group row col-lg-4 col-sm-12">
+
+                <input class="col-1" id="new" type="radio" value="true" asp-for="@Model.IsNewMember" /> 
+                <span class="col-1"></span>
+                <label class="" style="align-self:end">Yes</label>
+
+                </div> 
+
+               <div class="form-group row col-lg-4 col-sm-12">
+               
+                   <input class="col-1" id="old" type="radio" value="false" asp-for="@Model.IsNewMember" />
+                   <span class="col-1"></span>
+                    <label class="" style="align-self:end">No</label>
+
+            </div>
+
+                </div>
+              
+
+
+
+
+            <div id="memnumgroup" class="form-group" style="display:none">
+                <label asp-for="@Model.MembershipNumber"></label><span class="text-danger m-1">*</span>
+
+                <input id="memnum"  required data-val-required="This field is required" 
+                asp-for="@Model.MembershipNumber" class="form-control" />
+                   <span asp-validation-for="@Model.MembershipNumber" class="text-danger"></span>
+                                        </div>
+
+
+
+
+
+
+
+
+<div class="row">
+
+                            <div class=" col-lg-6 col-sm-12 ">
+                    <label>National Card Image</label><span class="text-danger m-1">*</span>
+                  
+              
+                            <input id="idnoImg"  asp-for=@Model.NationalCardImage  type="file" />
+                    <span asp-validation-for="@Model.NationalCardImage" class="text-danger"></span>
+                 </div>
+
+                <div class=" col-lg-6 col-sm-12 ">
+                    <label>Passport Image</label><span class="text-danger m-1">*</span>
+                  
+                                         <input id="passportImg" asp-for="@Model.PassportImage" type="file" />
+                    <span asp-validation-for="@Model.PassportImage" class="text-danger"></span>
+				
+                </div>
+
+            </div>
+
+
                                         <div class="form-group">
-                                            <label asp-for="@Model.Email"></label>
+                <label asp-for="@Model.Email"></label><span class="text-danger m-1">*</span>
                                             <input asp-for="@Model.Email" class="form-control"
                                                    autocomplete="username" />
 
@@ -88,14 +158,14 @@
 
                                         <div class="row">
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.Password"></label>
+                                                <label asp-for="@Model.Password"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" />
 
                                                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                             </div>
                                             <div class="form-group col-lg-6 col-sm-12">
 
-                                                <label asp-for="@Model.ConfirmPassword"></label>
+                                                <label asp-for="@Model.ConfirmPassword"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password" />
 
                                                 <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
@@ -103,7 +173,7 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <label asp-for="@Model.Birthdate"></label>
+                                            <label asp-for="@Model.Birthdate"></label><span class="text-danger m-1">*</span>
                                             <input asp-for="@Model.Birthdate" class="form-control"
                                                    type="date" />
 
@@ -114,7 +184,7 @@
 
 
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.HomePhone"></label>
+                                                <label asp-for="@Model.HomePhone"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.HomePhone" class="form-control"
                                                        autocomplete="username" />
 
@@ -122,7 +192,7 @@
                                             </div>
 
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.MobilePhone"></label>
+                                                <label asp-for="@Model.MobilePhone"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.MobilePhone" class="form-control"
                                                        autocomplete="username" />
 
@@ -171,6 +241,14 @@
                                         </div>
                                     </div>
 
+
+
+
+
+
+
+
+
                                     <div class="tab">
 
 
@@ -184,8 +262,14 @@
 
                                             <div class="form-group col-4">
                                                 <label asp-for="@Model.Country"></label>
-                                                <input asp-for="@Model.Country" class="form-control"
-                                                       autocomplete="username" />
+                                               <select class="form-control" asp-for="@Model.Country" >
+                                               @foreach (var item in Model.Countries)
+                        {
+                                                                               <option  >@item</option>
+                        }
+
+
+                                               </select>
 
                                                 <span asp-validation-for="@Model.Country" class="text-danger"></span>
                                             </div>
@@ -423,6 +507,16 @@
                                             <span asp-validation-for="@Model.HighStudies" class="text-danger"></span>
                                         </div>
 
+
+            <div class="form-group">
+                <label asp-for="@Model.GraduationCertificateImage"></label>
+                <input asp-for="@Model.GraduationCertificateImage" class="form-control" />
+
+                <span asp-validation-for="@Model.GraduationCertificateImage" class="text-danger"></span>
+            </div>
+
+
+
                                     </div>
 
                                     <div class="tab">
@@ -445,7 +539,7 @@
                                         <span asp-validation-for="@Model.HaveRead" class="text-danger"></span>
 
 
-
+                                        @if(@Model.Questions != null){
 
                                         @for(var i=0;i<Model.Questions.Count;i++)
 {
@@ -502,7 +596,7 @@
 
         }
 
-
+        }
 
                                     </div>
 

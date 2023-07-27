@@ -18,12 +18,12 @@ namespace ESTA.Models
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "titleen")]
         public string Title { get; set; }
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
-        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "paylink")]
-        public string PaymentLink { get; set; } = "";
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
+        //[Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "paylink")]
+        //public string PaymentLink { get; set; } = "";
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "level")]
 

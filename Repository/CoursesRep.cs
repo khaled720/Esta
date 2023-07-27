@@ -54,7 +54,7 @@ namespace ESTA.Repository
                 DbCourse.FinalGrade = UpdatedCourse.FinalGrade;
                 DbCourse.Title = UpdatedCourse.Title;
                 DbCourse.Price = UpdatedCourse.Price;
-                DbCourse.PaymentLink = UpdatedCourse.PaymentLink;
+           //  DbCourse.PaymentLink = UpdatedCourse.PaymentLink;
                 DbCourse.Description = UpdatedCourse.Description;
                 DbCourse.DescriptionAr = UpdatedCourse.DescriptionAr;
                 DbCourse.TitleAr = UpdatedCourse.TitleAr;

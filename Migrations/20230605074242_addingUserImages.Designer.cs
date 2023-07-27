@@ -4,6 +4,7 @@ using ESTA.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESTA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605074242_addingUserImages")]
+    partial class addingUserImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,6 +106,10 @@ namespace ESTA.Migrations
                     b.Property<int?>("LevelId")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<string>("PaymentLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
@@ -531,6 +537,7 @@ namespace ESTA.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalIDImagePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -545,6 +552,7 @@ namespace ESTA.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PassportImagePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -720,15 +728,15 @@ namespace ESTA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "27e37567-0168-4026-9334-be43b96596b2",
-                            ConcurrencyStamp = "e08ff00f-a5fb-4b23-881a-384ef81d931c",
+                            Id = "924cc460-16db-48dc-a1ff-e9fc7709fd30",
+                            ConcurrencyStamp = "9383de09-15cf-4c87-a21e-0d6be8b833e6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4d1eb5f1-e904-4213-885c-5d6a457b4845",
-                            ConcurrencyStamp = "5c2f28a1-9bdf-4b68-a80e-d644fb68e1ef",
+                            Id = "06bac7b1-44be-4064-8174-dc198e259d75",
+                            ConcurrencyStamp = "bcf42f4f-4fec-4c3e-bbfb-be51af58acd3",
                             Name = "User",
                             NormalizedName = "USER"
                         });
