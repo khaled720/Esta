@@ -1,10 +1,17 @@
-﻿@model IEnumerable<ESTA.Models.Level>
+﻿@model IEnumerable<ESTA.Models.UserCourse>
 
 @{
     ViewData["Title"] = "_results";
 }
 
 @*<h1>_results</h1>*@
+
+
+
+
+@if (Model.Count()>0)
+{
+    
 
 
 <table class="table table-borderless">
@@ -16,50 +23,41 @@
             <th>
                 @localizer["coursegrade"]
             </th>
-    
+            <th>
+                @localizer["enrolldate"]
+            </th>
         </tr>
     </thead>
     <tbody>
+        @foreach (var item in Model)
+        {
+
 
             <tr>
             <td>
-                Business Analysis
+              @item.course.Title
             </td>
             <td>
-                97
+             @item.Grade
             </td>
-       
+                <td>
+                    @item.EnrollmentDate.ToShortDateString()
+                </td>
         </tr>
 
 
+            
+        }
 
 
 
 
-
-        <tr>
-            <td>
-                Technical Analysis
-            </td>
-            <td>
-                55
-            </td>
-
-        </tr>
-
-
-
-
-        <tr>
-            <td>
-                Business Intelligence
-            </td>
-            <td>
-                97
-            </td>
-
-        </tr>
 
 
     </tbody>
 </table>
+}else{
+
+    <h3 class="text-danger " > @localizer["notfound"]</h3>
+
+}

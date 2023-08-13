@@ -33,7 +33,7 @@
                                 <form id="regForm" enctype="multipart/form-data" style="" asp-action="Register" method="post" asp-controller="Account">
 
 
-
+       
                               
                                     <!-- One "tab" for each step in the form: -->
                                     <div class="tab">
@@ -64,27 +64,79 @@
 
 
 
-                                        <div class="row">
 
-                                            <div class="form-group col-lg-6 col-sm-12 ">
+
+                                                          <div class="form-group">
+                                                <label asp-for="@Model.Country"></label>
+                <select id="nationalty-select"
+                                                   onchange="checkNationality()" class="form-control" asp-for="@Model.Country" >
+                                               @foreach (var item in Model.Countries)
+                        {
+                                                                               <option  >@item</option>
+                        }
+
+
+                                               </select>
+
+                                                <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                                            </div>
+
+                                      <div id="img-preview">
+
+                                      </div>
+
+                                        <div class="row" id="idCard-sec" style="display:none">
+
+                                            <div class="form-group col-12 ">
                                                 <label asp-for="@Model.NationalCardID"></label><span class="text-danger m-1">*</span>
                                                 <input id="idno" required asp-for="@Model.NationalCardID" class="form-control"
                                                        autocomplete="username" />
 
                                                 <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
                                             </div>
-                                            <div class="form-group col-lg-6 col-sm-12 ">
-                    <label asp-for="@Model.Passport"></label><span class="text-danger m-1">*</span>
-                                                <input id="passport" asp-for="@Model.Passport" class="form-control"
-                                                       autocomplete="username" />
+                                      
+                                        
 
-                                                <span asp-validation-for="@Model.Passport" class="text-danger"></span>
-                                            </div>
+                <div class=" col-12 ">
+                    <label>National Card Image</label><span class="text-danger m-1">*</span>
+
+
+                    <input id="idnoImg"  multiple  accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)" asp-for=@Model.NationalCardImages type="file" />
+                    <span asp-validation-for="@Model.NationalCardImages" class="text-danger"></span>
+                </div>
+
+          
+
 
                                         </div>
 
 
 
+
+                                        
+                                        <div class="row" id="passport-sec">
+                                              <div class="form-group col-12 ">
+                    <label asp-for="@Model.Passport"></label><span class="text-danger m-1">*</span>
+                    <input id="passport"  asp-for="@Model.Passport" class="form-control"
+                                                       autocomplete="username" />
+
+                                                <span asp-validation-for="@Model.Passport" class="text-danger"></span>
+                                            </div>
+                                                  <div class=" col-12 ">
+                    <label>Passport Image</label><span class="text-danger m-1">*</span>
+
+                    <input id="passportImg" multiple accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)" asp-for="@Model.PassportImages" type="file" />
+                    <span asp-validation-for="@Model.PassportImages" class="text-danger"></span>
+
+                </div>
+
+                                            </div>
+
+
+
+
+
+<br />
             <div class=" row " style="justify-content: space-evenly;">
                 <div class="row col-lg-4 col-sm-12">
 
@@ -107,9 +159,10 @@
             </div>
 
                 </div>
-              
 
 
+
+           
 
 
             <div id="memnumgroup" class="form-group" style="display:none">
@@ -125,27 +178,6 @@
 
 
 
-
-
-<div class="row">
-
-                            <div class=" col-lg-6 col-sm-12 ">
-                    <label>National Card Image</label><span class="text-danger m-1">*</span>
-                  
-              
-                            <input id="idnoImg"  asp-for=@Model.NationalCardImage  type="file" />
-                    <span asp-validation-for="@Model.NationalCardImage" class="text-danger"></span>
-                 </div>
-
-                <div class=" col-lg-6 col-sm-12 ">
-                    <label>Passport Image</label><span class="text-danger m-1">*</span>
-                  
-                                         <input id="passportImg" asp-for="@Model.PassportImage" type="file" />
-                    <span asp-validation-for="@Model.PassportImage" class="text-danger"></span>
-				
-                </div>
-
-            </div>
 
 
                                         <div class="form-group">
@@ -240,137 +272,132 @@
 
                                         </div>
                                     </div>
+                                     <div class="tab">
 
 
+            <h3>@localizer["addressinfo"]</h3>
+            <hr />
 
 
 
 
+            <div class="row">
 
 
 
-                                    <div class="tab">
 
 
-                                        <h3>@localizer["addressinfo"]</h3>
-                                        <hr />
+                <div class="form-group col-4">
+                    <label asp-for="@Model.City"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.City" class="form-control"
+                           autocomplete="username" />
 
+                    <span asp-validation-for="@Model.City" class="text-danger"></span>
+                </div>
 
 
 
-                                        <div class="row">
 
-                                            <div class="form-group col-4">
-                                                <label asp-for="@Model.Country"></label>
-                                               <select class="form-control" asp-for="@Model.Country" >
-                                               @foreach (var item in Model.Countries)
-                        {
-                                                                               <option  >@item</option>
-                        }
 
 
-                                               </select>
+                <div class="form-group col-4">
+                    <label asp-for="@Model.Area"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.Area" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.Country" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.Area" class="text-danger"></span>
+                </div>
 
 
 
-                                            <div class="form-group col-4">
-                                                <label asp-for="@Model.City"></label>
-                                                <input asp-for="@Model.City" class="form-control"
-                                                       autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.City" class="text-danger"></span>
-                                            </div>
 
+                <div class="form-group col-4">
+                    <label asp-for="@Model.PostalCode"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.PostalCode" class="form-control"
+                           autocomplete="username" />
 
+                    <span asp-validation-for="@Model.PostalCode" class="text-danger"></span>
+                </div>
 
 
 
+            </div>
 
-                                            <div class="form-group col-4">
-                                                <label asp-for="@Model.Area"></label>
-                                                <input asp-for="@Model.Area" class="form-control"
-                                                       autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.Area" class="text-danger"></span>
-                                            </div>
+            <div class="row">
+                <div class="form-group  col-lg-6 col-sm-12">
+                    <label asp-for="@Model.Hometown"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.Hometown" class="form-control"
+                           autocomplete="username" />
 
+                    <span asp-validation-for="@Model.Hometown" class="text-danger"></span>
+                </div><div class="form-group  col-lg-6 col-sm-12">
 
 
+                    <label asp-for="@Model.StreetName"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.StreetName" class="form-control"
+                           autocomplete="username" />
 
+                    <span asp-validation-for="@Model.StreetName" class="text-danger"></span>
+                </div>
 
+            </div>
 
 
+            <div class="row">
+                <div class="form-group col-4">
+                    <label asp-for="@Model.BlockNumber"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.BlockNumber" class="form-control"
+                           autocomplete="username" />
 
+                    <span asp-validation-for="@Model.BlockNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="@Model.Floor"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.Floor" class="form-control"
+                           autocomplete="username" />
 
-                                        </div>
+                    <span asp-validation-for="@Model.Floor" class="text-danger"></span>
+                </div>
 
+                <div class="form-group col-4">
+                    <label asp-for="@Model.FlatNumber"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.FlatNumber" class="form-control"
+                           autocomplete="username" />
 
-                                        <div class="row">
-                                            <div class="form-group  col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.Hometown"></label>
-                                                <input asp-for="@Model.Hometown" class="form-control"
-                                                       autocomplete="username" />
+                    <span asp-validation-for="@Model.FlatNumber" class="text-danger"></span>
+                </div>
 
-                                                <span asp-validation-for="@Model.Hometown" class="text-danger"></span>
-                                            </div><div class="form-group  col-lg-6 col-sm-12">
 
+            </div>
 
-                                                <label asp-for="@Model.StreetName"></label>
-                                                <input asp-for="@Model.StreetName" class="form-control"
-                                                       autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.StreetName" class="text-danger"></span>
-                                            </div>
 
-                                        </div>
 
 
-                                        <div class="row">
-                                            <div class="form-group col-4">
-                                                <label asp-for="@Model.BlockNumber"></label>
-                                                <input asp-for="@Model.BlockNumber" class="form-control"
-                                                       autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.BlockNumber" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group col-4">
-                                                <label asp-for="@Model.Floor"></label>
-                                                <input asp-for="@Model.Floor" class="form-control"
-                                                       autocomplete="username" />
+            <div class="form-group">
+           
+                <label asp-for="@Model.MessagingAddress"></label><span class="text-danger m-1">*</span>
+                <input asp-for="@Model.MessagingAddress" class="form-control"
+                       autocomplete="username" />
+				
+					<input style="width:18px" type="checkbox" id="msg-addres-check" />
+                           <label class="col-5">Same as your Address ?</label>
+    
 
-                                                <span asp-validation-for="@Model.Floor" class="text-danger"></span>
-                                            </div>
+                       
 
-                                            <div class="form-group col-4">
-                                                <label asp-for="@Model.FlatNumber"></label>
-                                                <input asp-for="@Model.FlatNumber" class="form-control"
-                                                       autocomplete="username" />
+                <span asp-validation-for="@Model.MessagingAddress" class="text-danger"></span>
+            </div>
 
-                                                <span asp-validation-for="@Model.FlatNumber" class="text-danger"></span>
-                                            </div>
 
+        </div>
 
-                                        </div>
 
 
-
-
-
-
-                                        <div class="form-group">
-                                            <label asp-for="@Model.MessagingAddress"></label>
-                                            <input asp-for="@Model.MessagingAddress" class="form-control"
-                                                   autocomplete="username" />
-
-                                            <span asp-validation-for="@Model.MessagingAddress" class="text-danger"></span>
-                                        </div>
-
-
-                                    </div>
-
+                            
                                     <div class="tab">
 
 
@@ -381,7 +408,7 @@
                                         <div class="row">
 
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.Job"></label>
+                    <label asp-for="@Model.Job"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.Job" class="form-control"
                                                        autocomplete="username" />
 
@@ -390,7 +417,7 @@
 
 
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.Company"></label>
+                    <label asp-for="@Model.Company"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.Company" class="form-control"
                                                        autocomplete="username" />
 
@@ -406,7 +433,7 @@
 
 
                                             <div class="form-group col-lg-4 col-sm-12">
-                                                <label asp-for="@Model.WorkAddress"></label>
+                    <label asp-for="@Model.WorkAddress"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.WorkAddress" class="form-control"
                                                        autocomplete="username" />
 
@@ -415,7 +442,7 @@
 
 
                                             <div class="form-group col-lg-4 col-sm-12">
-                                                <label asp-for="@Model.WorkPhone"></label>
+                    <label asp-for="@Model.WorkPhone"></label>
                                                 <input asp-for="@Model.WorkPhone" class="form-control"
                                                        autocomplete="username" />
 
@@ -424,7 +451,7 @@
 
 
                                             <div class="form-group col-lg-4 col-sm-12">
-                                                <label asp-for="@Model.WorkFax"></label>
+                    <label asp-for="@Model.WorkFax"></label>
                                                 <input asp-for="@Model.WorkFax" class="form-control"
                                                        autocomplete="username" />
 
@@ -443,21 +470,22 @@
 
 
 
-                                        <div class="form-group">
+                                     @*   <div class="form-group">
                                             <label asp-for="@Model.WorkLeavingDate"></label>
                                             <input asp-for="@Model.WorkLeavingDate" class="form-control"
                                                    autocomplete="username" />
 
                                             <span asp-validation-for="@Model.WorkLeavingDate" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
+                                        </div>*@
+
+                                 @*       <div class="form-group">
                                             <label asp-for="@Model.WorkLeavingReasons"></label>
                                             <textarea asp-for="@Model.WorkLeavingReasons" class="form-control"
                                                       autocomplete="username"></textarea>
 
                                             <span asp-validation-for="@Model.WorkLeavingReasons" class="text-danger"></span>
                                         </div>
-
+*@
 
 
 
@@ -474,7 +502,7 @@
                                         <div class="row">
 
                                             <div class="form-group col-lg-4 col-sm-12">
-                                                <label asp-for="@Model.AcademicQualification"></label>
+                    <label asp-for="@Model.AcademicQualification"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.AcademicQualification" class="form-control"
                                                        autocomplete="username" />
 
@@ -482,7 +510,7 @@
                                             </div>
 
                                             <div class="form-group col-lg-4 col-sm-12">
-                                                <label asp-for="@Model.University"></label>
+                    <label asp-for="@Model.University"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.University" class="form-control"
                                                        autocomplete="username" />
 
@@ -490,7 +518,7 @@
                                             </div>
 
                                             <div class="form-group col-lg-4 col-sm-12">
-                                                <label asp-for="@Model.GradutionYear"></label>
+                    <label asp-for="@Model.GradutionYear"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.GradutionYear" class="form-control"
                                                        autocomplete="username" />
 
@@ -509,20 +537,22 @@
 
 
             <div class="form-group">
-                <label asp-for="@Model.GraduationCertificateImage"></label>
-                <input asp-for="@Model.GraduationCertificateImage" class="form-control" />
 
-                <span asp-validation-for="@Model.GraduationCertificateImage" class="text-danger"></span>
+                <label asp-for="@Model.GraduationCertificateImages"></label><span class="text-danger m-1">*</span>
+                <input  multiple accept='.png,.jpg,.jpeg,.webp' type="file"  asp-for="@Model.GraduationCertificateImages" class="form-control" />
+                <span asp-validation-for="@Model.GraduationCertificateImages" class="text-danger"></span>
+            
             </div>
 
 
 
                                     </div>
 
-                                    <div class="tab">
+                                 
+           <div class="tab">
 
                                         <h3>@localizer["codeofethics"]</h3>
-                                        <div style="height:300px;overflow-y:auto;">
+                                        <div style="height:400px;overflow-y:auto;">
 
                                             <p>
 
@@ -534,10 +564,11 @@
 
 
                                         </div>
-                                        <input type="checkbox" asp-for="@Model.HaveRead" style="width:10%" /> @localizer["haveread"]
+                                        <br />
+                            @*            <input type="checkbox" asp-for="@Model.HaveRead" style="width:10%" /> @localizer["haveread"]
 
                                         <span asp-validation-for="@Model.HaveRead" class="text-danger"></span>
-
+                                    *@    <br />    <br />
 
                                         @if(@Model.Questions != null){
 
@@ -576,7 +607,7 @@
                                                   class="form-control d-none" asp-for=@Model.Questions[i].Answer></textarea>
 
                                         <span asp-validation-for="@Model.Questions[i].Answer" class="text-danger"></span>
-
+                                        <br />
 
             }
 
@@ -599,8 +630,6 @@
         }
 
                                     </div>
-
-
 
 
 

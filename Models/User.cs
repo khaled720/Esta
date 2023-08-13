@@ -26,6 +26,12 @@ namespace ESTA.Models
 
         public bool IsApproved { get; set; } = false;
 
+        public bool IsDeleted { get; set; } = false;
+
+        public DateTime?  DeletionTime { get; set; }
+
+
+
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
@@ -97,6 +103,7 @@ namespace ESTA.Models
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
+
         public string City { get; set; } = String.Empty;
 
         [Required(
@@ -106,10 +113,20 @@ namespace ESTA.Models
         public string Country { get; set; } = String.Empty;
 
         [Required(
+        ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        ErrorMessageResourceName = "required"
+    )]
+        public string PostalCode { get; set; } = String.Empty;
+
+        [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
+
         public string Job { get; set; } = String.Empty;
+
+
+
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -123,21 +140,21 @@ namespace ESTA.Models
         )]
         public string WorkAddress { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
-        public string WorkPhone { get; set; } = String.Empty;
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
+        public string? WorkPhone { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         public string? WorkFax { get; set; } = String.Empty;
 
-        public DateTime? WorkLeavingDate { get; set; }
+      // public DateTime? WorkLeavingDate { get; set; }
 
-        public string? WorkLeavingReasons { get; set; }
+        //public string? WorkLeavingReasons { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -145,10 +162,11 @@ namespace ESTA.Models
         )]
         public string MessagingAddress { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
+
         public string? NationalCardID { get; set; } = String.Empty;
 
         //  [Required(
@@ -169,10 +187,10 @@ namespace ESTA.Models
         )]
         public string University { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         public string? HighStudies { get; set; } = String.Empty;
 
         [Required(
@@ -210,12 +228,13 @@ namespace ESTA.Models
 
         public IEnumerable<UserAnswer>? userAnswers { get; set; }
 
+        public IEnumerable<UserImage> userImages { get; set; }
 
 
         /// new Added Features ....
-        public string? NationalIDImagePath { get; set; } = String.Empty;
-        public string?  PassportImagePath { get; set; } = String.Empty;
-        public string GradutionImagePath { get; set; } = String.Empty;
+        //public string? NationalIDImagePath { get; set; } = String.Empty;
+        //public string?  PassportImagePath { get; set; } = String.Empty;
+        //public string GradutionImagePath { get; set; } = String.Empty;
         public string? MembershipNumber { get; set; } = String.Empty;
 
         /// /////////////
@@ -247,14 +266,16 @@ namespace ESTA.Models
             this.WorkPhone = registerViewModel.WorkPhone;
             this.WorkFax = registerViewModel.WorkFax;
             this.WorkAddress = registerViewModel.WorkAddress;
-            this.WorkLeavingReasons = registerViewModel.WorkLeavingReasons;
-            this.WorkLeavingDate = registerViewModel.WorkLeavingDate;
+            // this.WorkLeavingReasons = registerViewModel.WorkLeavingReasons;
+            //     this.WorkLeavingDate = DateTime.Now;//registerViewModel.WorkLeavingDate;
+            this.GradutionYear = registerViewModel.GradutionYear;
 
             this.Country = registerViewModel.Country;
             this.Area = registerViewModel.Area;
             this.City = registerViewModel.City;
             this.Hometown = registerViewModel.Hometown;
             this.IsMempershipPaid = false;
+            this.PostalCode=registerViewModel.PostalCode;
 
             this.EnglishReadingLevel = registerViewModel.EnglishReadingLevel;
             this.EnglishWritingLevel = registerViewModel.EnglishWritingLevel;

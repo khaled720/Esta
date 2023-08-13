@@ -157,7 +157,7 @@
     <value>CETA Courses</value>
   </data>
   <data name="cetaholders" xml:space="preserve">
-    <value>CETA Holders</value>
+    <value>Certified Members</value>
   </data>
   <data name="changepassheader" xml:space="preserve">
     <value>New Password</value>
@@ -392,6 +392,9 @@
   </data>
   <data name="remember" xml:space="preserve">
     <value>Remember me</value>
+  </data>
+  <data name="required" xml:space="preserve">
+    <value>This field is required</value>
   </data>
   <data name="resetheader" xml:space="preserve">
     <value>Reset Password</value>

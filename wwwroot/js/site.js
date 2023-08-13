@@ -15,7 +15,12 @@
 //    }
 //}
 
+//document.getElementsBy("img").onclick = function () {
 
+//    document.body.innerHTML += @"<div style='position: absolute; top: 5px; bottom: 5px; left: 5px; right: 5px; background-color: aqua; border-radius: 50px'> < img src = 'https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/06/095712/1.jpg?3534' /> </div > ";
+
+
+//};
 
 
 

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 
 namespace ESTA.Controllers
 {
@@ -24,6 +25,7 @@ namespace ESTA.Controllers
         private readonly UserManager<User> userManager;
         private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly IStringLocalizer<SharedResource> localizer;
 
         public AccountController(
             SignInManager<User> _signInManager,
@@ -31,6 +33,7 @@ namespace ESTA.Controllers
             UserManager<User> userManager,
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment
+            ,IStringLocalizer<SharedResource> localizer
         )
         {
             signInManager = _signInManager;
@@ -38,6 +41,7 @@ namespace ESTA.Controllers
             this.userManager = userManager;
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
+            this.localizer = localizer;
         }
 
         [HttpGet]
@@ -64,8 +68,20 @@ namespace ESTA.Controllers
                 {
                     var user = await userManager.FindByEmailAsync(LoginModel.Email);
 
-                    if ( /*user.IsApproved == true*/
-                        1 == 1)
+                    if (user.IsDeleted) { 
+                         return View(
+                            "ConfirmEmail",
+                            new ErrorViewModel
+                            {
+                                Title = "Account Deleted",
+                                Description =
+                                    "We are sorry to inform you that your account was deleted for violating our conditions&terms. for more info contact support team."
+                            }
+                        );
+                    }
+
+
+                    if ( user.IsApproved == true)
                     {
                         if (await userManager.IsInRoleAsync(user, "Admin"))
                         {
@@ -88,6 +104,9 @@ namespace ESTA.Controllers
                             }
                         );
                     }
+
+
+                    
                 }
                 else if (result.IsNotAllowed)
                 {
@@ -137,8 +156,9 @@ namespace ESTA.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, result.ToString());
-                    return View();
+                    var error = result.ToString();
+                    ModelState.AddModelError(string.Empty, "Incorrect Email or Password");
+                     return View();
                 }
             }
             return View();
@@ -172,51 +192,44 @@ namespace ESTA.Controllers
             {
                 var validationStatesValues = ModelState.Values;
 
-                
+                /// Next is edit passport and nationalid client and server validation
 
-                if (ModelState.IsValid)
+           
+     if (ModelState.IsValid)
                 {
 
-                    if (String.IsNullOrEmpty(registerModel.NationalCardID) &&
-                     
-                        String.IsNullOrEmpty(registerModel.Passport))
+                    var IsNationalityvalid = registerModel.IsNationalityClaimsValid();
+
+                    if (!IsNationalityvalid&&registerModel.Country=="Egypt")
                     {
-                        ModelState.AddModelError("NationalCardID", "This field is required !");
-                        if (registerModel.NationalCardImage == null) { 
-                               ModelState.AddModelError("NationalCardImage", "This field is required !");
+                        if (string.IsNullOrEmpty(registerModel.NationalCardID)) {
+                             ModelState.TryAddModelError(nameof(registerModel.NationalCardID), localizer["required"]);
+
                         }
-                 
-                        return View(registerModel);
-                    }
-                    if (!String.IsNullOrEmpty(registerModel.NationalCardID) &&
-                      !String.IsNullOrEmpty(registerModel.Passport))
-                    {
-                       
-                        if (registerModel.NationalCardImage == null)
-                        {
-                            ModelState.AddModelError("NationalCardImage", "This field is required !");
-                         return View(registerModel);
-                        }
-                       
-                    }
-                    if ( !String.IsNullOrEmpty(registerModel.Passport) &&
-                        String.IsNullOrEmpty(registerModel.NationalCardID))
-                    {
-                    
-                        if (registerModel.PassportImage == null)
-                        {
-                            ModelState.AddModelError("PassportImage", "This field is required !");
-                       return View(registerModel);  
+                        if (registerModel.NationalCardImages==null) {
+                            ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["required"]);
+
                         }
 
-                    
+                    }
+                    if (!IsNationalityvalid && registerModel.Country != "Egypt")
+                    {
+                        if (string.IsNullOrEmpty(registerModel.Passport))
+                        {
+                            ModelState.TryAddModelError(nameof(registerModel.Passport), localizer["required"]);
+
+                        }
+                        if (registerModel.PassportImages == null)
+                        {
+                            ModelState.TryAddModelError(nameof(registerModel.PassportImages), localizer["required"]);
+
+                        }
                     }
 
-                    ///
                     if (registerModel.IsNewMember ==false&& String.IsNullOrEmpty(registerModel.MembershipNumber))
                     {
 
-                            ModelState.AddModelError("MembershipNumber", "This field is required !");
+                            ModelState.AddModelError(nameof(registerModel.MembershipNumber), localizer["required"]);
                             return View(registerModel);
                        
 
@@ -229,18 +242,25 @@ namespace ESTA.Controllers
                     User user = new User();
 
                     ////////// uploading Graduation Certificate Image
+                    var userImages=new List<UserImage>();
                     try
                     {
-                        if (registerModel.GraduationCertificateImage != null)
+                        if (registerModel.GraduationCertificateImages != null)
                         {
-                         
+                            foreach (var image in registerModel.GraduationCertificateImages)
+                            {
                             var SavePath = hostEnvironment.WebRootPath + Constants.GraduationCertificateImagesSavingPath;
                             var PhotoName = await FileUpload.SavePhotoAsync(
-                                registerModel.GraduationCertificateImage,
+                                image,
                              registerModel.FullName,
                                 SavePath
                             );
-                            user.GradutionImagePath = Constants.GraduationCertificateImagesSavingPath + PhotoName;
+                                //               user.GradutionImagePath = Constants.GraduationCertificateImagesSavingPath + PhotoName;
+                                userImages.Add(new UserImage() {TypeId=3,Path= Constants.GraduationCertificateImagesSavingPath + PhotoName,UserId=user.Id });
+                                //we should add images to database
+
+                            }
+                           
                         }
                         else
                         {
@@ -260,16 +280,22 @@ namespace ESTA.Controllers
                     ///// Uploading National ID Image
                     try
                     {
-                        if (registerModel.NationalCardImage != null)
+                        if (registerModel.NationalCardImages != null)
                         {
-                            
-                            var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
+                            foreach (var image in registerModel.NationalCardImages)
+                            {
+   var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
                             var PhotoName = await FileUpload.SavePhotoAsync(
-                                registerModel.NationalCardImage,
+                             image,
                                   registerModel.FullName,
                                 SavePath
                             );
-                            user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
+                                userImages.Add(new UserImage() { TypeId = 1, Path = Constants.NationalIDsImagesSavingPath + PhotoName, UserId = user.Id });
+                                //adding to database
+
+                            }
+
+                            //     user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
                         }
                         //else
                         //{
@@ -286,16 +312,24 @@ namespace ESTA.Controllers
                     /////// // Uploading Passport ID Image
                     try
                     {
-                        if (registerModel.PassportImage != null)
+
+                   
+                        if (registerModel.PassportImages != null)
                         {
-                         
-                            var SavePath = hostEnvironment.WebRootPath + Constants.PassportsImagesSavingPath;
+                              foreach (var image in registerModel.PassportImages)
+                        {
+                             var SavePath = hostEnvironment.WebRootPath + Constants.PassportsImagesSavingPath;
                             var PhotoName = await FileUpload.SavePhotoAsync(
-                                registerModel.PassportImage,
+                              image,
                                   registerModel.FullName,
                                 SavePath
                             );
-                            user.PassportImagePath = Constants.PassportsImagesSavingPath + PhotoName;
+
+                                userImages.Add(new UserImage() { TypeId = 2, Path = Constants.PassportsImagesSavingPath + PhotoName, UserId = user.Id });
+                                //add to db
+                            }
+
+                            //        user.PassportImagePath = Constants.PassportsImagesSavingPath + PhotoName;
                         }
                         //else
                         //{
@@ -312,6 +346,11 @@ namespace ESTA.Controllers
                     //////////////////////////
                     ///
 
+                 
+            
+                 
+
+
 
                     
                     user.ConvertRegisterModelToUser(registerModel);
@@ -323,6 +362,8 @@ namespace ESTA.Controllers
                         await this.appRep.UserAnswerRep.AddAnswers(
                             registerModel.ConvertQuestionsToUserAnswer(user.Id)
                         );
+                        await appRep.ImageRep.AddImages(userImages);
+
                         await this.appRep.SaveChangesAsync();
                         var token = userManager.GenerateEmailConfirmationTokenAsync(user);
                         await userManager.AddToRoleAsync(user, "User");
@@ -505,7 +546,7 @@ namespace ESTA.Controllers
             {
                 var user = await userManager.FindByEmailAsync(rpvm.Email);
                 var result = await userManager.ResetPasswordAsync(user, rpvm.Token, rpvm.NewPassword);
-
+               
 
                 if(result.Succeeded)
                 return View("_Info", new Info("Reset Password Succeeded", "your password has been changed .try to login now"));

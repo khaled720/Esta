@@ -40,6 +40,20 @@ namespace ESTA.Models
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "joben")]
         public string JobEn { get; set; }
 
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "bioar")]
+        public string BioAr { get; set; }
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "bioen")]
+        public string BioEn { get; set; }
+
+
         [NotMapped]
         public IFormFile? Photo { get; set; }
 

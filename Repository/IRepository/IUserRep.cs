@@ -15,6 +15,7 @@ namespace ESTA.Repository.IRepository
         public Task<User> GetUser(string userId);
 
 
+        public Task<bool> DeleteUser(string id);
         public Task<bool> EditUserApproval(string id,bool isApproved);
 
         public Task<bool> EditUserEmailConfirmationApproval(string id, bool isConfirmed);

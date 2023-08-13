@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Security.AccessControl;
 using System.Xml.Linq;
+using ESTA.Models;
 
 namespace ESTA.ViewModels
 {
@@ -44,5 +45,8 @@ namespace ESTA.ViewModels
             Name = "highstudies"
         )]
         public string HighStudies { get; set; } = String.Empty;
+
+    public List<UserImage> userImages { get; set; } 
     }
+
 }

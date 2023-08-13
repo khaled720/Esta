@@ -129,6 +129,12 @@
   <data name="area" xml:space="preserve">
     <value>المنطقة</value>
   </data>
+  <data name="bioar" xml:space="preserve">
+    <value>السيرة الشخصية باللغة العربية</value>
+  </data>
+  <data name="bioen" xml:space="preserve">
+    <value>السيرة الشخصية باللغة الانجليزية</value>
+  </data>
   <data name="birth" xml:space="preserve">
     <value>تاريخ الميلاد</value>
   </data>
@@ -257,6 +263,9 @@
   </data>
   <data name="phones" xml:space="preserve">
     <value>خطوط الهاتف</value>
+  </data>
+  <data name="postalcode" xml:space="preserve">
+    <value>الكود البريدي</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>السعر</value>

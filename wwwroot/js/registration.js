@@ -17,7 +17,7 @@ document.getElementById("new").onclick = () => {
 
 
 //Image validation if provided national id then you have to add national id image if provided passport id then must add img if nor porvided anything idno required
- 
+ /*
 document.getElementById("idno").onblur = () =>
 {
     var value = document.getElementById("idno").value;
@@ -45,6 +45,8 @@ document.getElementById("passport").onblur = () => {
 
 }
 
+
+
 document.onreadystatechange = () => {
     if (document.readyState.toString() == "complete") {
         var idno = document.getElementById("idno").value;
@@ -68,7 +70,7 @@ document.onreadystatechange = () => {
 
 
 };
-
+*/
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -115,13 +117,39 @@ function nextPrev(n) {
     if (currentTab < 5) {
         // This function will figure out which tab to display
         var x = document.getElementsByClassName("tab");// 5
+
+        if (currentTab == 1) {
+            var isSameasAddress = document.getElementById("msg-addres-check").checked;
+            if (isSameasAddress) {
+
+                var city = document.getElementById("City").value;
+                var area = document.getElementById("Area").value;
+                var hometown = document.getElementById("Hometown").value;
+                var streetName = document.getElementById("StreetName").value;
+                var blockNumber = document.getElementById("BlockNumber").value;
+
+
+                if (city && area && hometown && streetName && blockNumber) {
+
+                    document.getElementById("MessagingAddress").value = blockNumber + " " + streetName + " " + hometown + " , " + area + " , " + city
+
+
+                }
+
+
+
+            }
+            
+        }
+
+
         // Exit the function if any field in the current tab is invalid:
         if (n == 1 && !validateForm()) return false;
 
         // Hide the current tab:
         x[currentTab].style.display = "none";
 
-
+    
         // Increase or decrease the current tab by 1:
         currentTab = currentTab + n;
         // if you have reached the end of the form... :
@@ -192,13 +220,72 @@ function Check(ans, Id)
     if (ans) {
    
         document.getElementById("t-" + Id).classList.remove("d-none");
-        $("#t-"+Id).prop('required', true);
+       // $("#t-"+Id).prop('required', true);
 
     } else
     {
 
         document.getElementById("t-" + Id).classList.add("d-none");
-        $("#t-" + Id).prop('required', false);
+    //    $("#t-" + Id).prop('required', false);
     }
+
+}
+
+
+
+
+function previewImage(event){
+
+
+    console.log(event);
+
+    var files = event.target.files;
+        document.getElementById("img-preview").innerHTML = "";
+    for (var i = 0; i < files.length; i++) {
+
+      var x=  URL.createObjectURL(files[i])
+
+        document.getElementById("img-preview").innerHTML += "<img src=" + x + " style='    max-width: 200px; max-height: 200px;object-fit: cover; '/>";
+
+    }
+
+
+}
+
+
+checkNationality();
+
+function checkNationality() {
+
+    document.getElementById("img-preview").innerHTML = "";
+    var x = document.getElementById("nationalty-select").value;
+    console.log(x);
+
+    if (x == "Egypt") {
+        document.getElementById("idCard-sec").style.display = "block";
+        document.getElementById("passport-sec").style.display = "none";
+        // id staff required
+        document.getElementById("idnoImg").setAttribute("required", true);
+        document.getElementById("idno").setAttribute("required", true);
+
+        document.getElementById("passport").removeAttribute("required");
+
+        document.getElementById("passportImg").removeAttribute("required");
+        document.getElementById("passportImg-error").remove();
+
+    } else {
+        document.getElementById("idCard-sec").style.display = "none";
+        document.getElementById("passport-sec").style.display = "block";
+        // passport staff required
+        document.getElementById("passport").setAttribute("required", true);
+        document.getElementById("passportImg").setAttribute("required", true);
+        document.getElementById("idno").removeAttribute("required");
+
+        document.getElementById("idnoImg").removeAttribute("required");
+        document.getElementById("idnoImg-error").remove();
+
+
+    }
+
 
 }

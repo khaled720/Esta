@@ -97,6 +97,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Biography in Arabic.
+        /// </summary>
+        public static string bioar {
+            get {
+                return ResourceManager.GetString("bioar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biography in English.
+        /// </summary>
+        public static string bioen {
+            get {
+                return ResourceManager.GetString("bioen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BirthDate.
         /// </summary>
         public static string birth {
@@ -304,7 +322,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to High Studies.
+        ///   Looks up a localized string similar to Postgraduate degree.
         /// </summary>
         public static string highstudies {
             get {
@@ -480,6 +498,15 @@ namespace ESTA.Resources {
         public static string phones {
             get {
                 return ResourceManager.GetString("phones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal Code.
+        /// </summary>
+        public static string postalcode {
+            get {
+                return ResourceManager.GetString("postalcode", resourceCulture);
             }
         }
         

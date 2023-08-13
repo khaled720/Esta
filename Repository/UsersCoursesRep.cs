@@ -13,8 +13,20 @@ namespace ESTA.Repository
             this.appDbContext = appDbContext;
         }
 
+        public async Task<List<UserCourse>> GetUserCoursesResults(string userId)
+        {
+            try
+            {
+                return await appDbContext.UserCourses.Where(y=>y.UserId==userId&&y.StateId==3).Include(y=>y.course).ToListAsync();
+            }
+            catch (Exception)
+            {
 
-       public bool UpdateUserCoursePaymentStatus(string UserId,int CourseId,bool NewState) 
+                return new List<UserCourse> { };
+            }
+        }
+
+        public bool UpdateUserCoursePaymentStatus(string UserId,int CourseId,bool NewState) 
         {
             try
             {

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Security.AccessControl;
 using System.Xml.Linq;
+using ESTA.Models;
 
 namespace ESTA.ViewModels
 {
@@ -109,6 +110,17 @@ namespace ESTA.ViewModels
         //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "passport")]
         public string? Passport { get; set; } = String.Empty;
+
+
+
+
+        public List<UserImage> userImages { get; set; }
+
+        [Required(
+           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+           ErrorMessageResourceName = "required"
+       )]
+        public string MembershipNumber { get; set; } = String.Empty;
 
 
     }

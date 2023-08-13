@@ -23,7 +23,7 @@
 
 				<th>@localizer["regdate"]</th>
 
-				<th>@localizer["actions"]</th>
+				<th colspan="3">@localizer["actions"]</th>
 
 
 
@@ -56,12 +56,7 @@
 								;
 
 							}
-
-						</td>
-
-
-
-						<td>
+|
 
 							@if (item.EmailConfirmed)
 							{
@@ -76,12 +71,22 @@
 
 							}
 
-							@Html.ActionLink(localizer["details"], "UserDetails", new { userId =item.Id }, new { @class = "btn btn-Info" })
 
+                         
+  
+                             
+                        |
 
-						</td>
+                            @Html.ActionLink(@localizer["resetpassword"], "ResetPassword", new { Email =item.Email }, new { @class = "btn btn-warning"  ,@onclick = "return confirm('Are you sure you wish to delete this user?');"} )
 
+                        |
+                            @Html.ActionLink(localizer["details"], "UserDetails", new { userId =item.Id }, new { @class = "btn btn-Info" })
 
+                        </td>
+                  
+
+                    
+                  
 					</tr>
 				}
 			}

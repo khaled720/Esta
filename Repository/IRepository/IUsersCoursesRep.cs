@@ -8,7 +8,9 @@ namespace ESTA.Repository.IRepository
 
         public bool UpdateUserCoursePaymentStatus(string UserId, int CourseId, bool NewState);
 
-     // List<Course>  GetCurrentUserCourses();
+        // List<Course>  GetCurrentUserCourses();
+
+       public Task<List<UserCourse>>  GetUserCoursesResults(string userId);
 
     }
 }

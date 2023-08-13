@@ -38,7 +38,7 @@ namespace ESTA.Areas.Admin.Controllers
         {
 
             var users = (List<User>)await appRep.UserRep.GetAllUsers();
-          
+    
             pagerViewModel.CurrentPage = page;
             pagerViewModel.Update(users);
 
@@ -54,7 +54,12 @@ namespace ESTA.Areas.Admin.Controllers
             await appRep.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            await appRep.UserRep.DeleteUser(userId);
+            await appRep.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         public async Task<IActionResult> EditEmailConfirmation(string id, bool isConfirmed)
         {
             await appRep.UserRep.EditUserEmailConfirmationApproval(id, isConfirmed);
@@ -73,6 +78,8 @@ namespace ESTA.Areas.Admin.Controllers
                 dbUser.FullNameAr = userData.FullNameAr;
                 dbUser.MobilePhone = userData.MobilePhone;
                 dbUser.Birthdate = userData.Birthdate;
+                dbUser.MembershipNumber = userData.MembershipNumber;
+
                 if (User.IsInRole("Admin"))
                 {
                     dbUser.NationalCardID = userData.NationalCardID;
@@ -106,6 +113,7 @@ namespace ESTA.Areas.Admin.Controllers
                 dbUser.Country = userData.Country;
                 dbUser.Hometown = userData.Hometown;
                 dbUser.Area = userData.Area;
+                dbUser.PostalCode=userData.PostalCode;  
 
 
 
@@ -133,8 +141,8 @@ namespace ESTA.Areas.Admin.Controllers
                 dbUser.WorkPhone = userData.WorkPhone;
                 dbUser.WorkAddress = userData.WorkAddress;
                 dbUser.WorkFax = userData.WorkFax;
-                dbUser.WorkLeavingDate = userData.WorkLeavingDate;
-                dbUser.WorkLeavingReasons = userData.WorkLeavingReasons;
+              //  dbUser.WorkLeavingDate = userData.WorkLeavingDate;
+               // dbUser.WorkLeavingReasons = userData.WorkLeavingReasons;
                 dbUser.Company = userData.Company;
                 dbUser.Job = userData.Job;
            
@@ -158,7 +166,7 @@ namespace ESTA.Areas.Admin.Controllers
         }
 
 
-        public async Task<IActionResult> EditEducationInfo(EditUserEducationInfoViewModel userData)
+        public async Task<IActionResult> e(EditUserEducationInfoViewModel userData)
         {
             try
             {
@@ -191,12 +199,42 @@ namespace ESTA.Areas.Admin.Controllers
 
 
 
+        [HttpGet]
+        public  IActionResult ResetPassword(string Email)
+        {
+
+            return View(new ResetPasswordViewModel() {Email=Email });
         
+        }
+
+         [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel rpvm)
+        {
+
+            var email = rpvm.Email;
+
+            var user = await userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var j = userManager.ResetPasswordAsync(user, token, rpvm.NewPassword);
+
+
+            }
+                return View();
+
+
+        }
+
+
+
 
         public async Task<IActionResult> UserDetails(string userId)
         {
             var user = await appRep.UserRep.GetUser(userId);
-
+         
+                user.userImages    = await appRep.ImageRep.GetUserDocsImages(userId);
+    
             return View(user);
         }
     }

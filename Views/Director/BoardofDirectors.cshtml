@@ -7,6 +7,33 @@
 
 @model IEnumerable<ESTA.Models.Director>
 
+
+
+
+
+    <style>
+
+     .team-social-info::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: transparent;
+        border-radius: 10px;
+    }
+
+    .team-social-info::-webkit-scrollbar {
+        width: 7px;
+        background-color: transparent;
+        margin:5px
+    }
+
+    .team-social-info::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(50,153,217)), color-stop(0.72, rgb(20,125,189)), color-stop(0.86, rgb(28,58,148)));
+    
+    }
+
+    </style>
+
+
 <!-- slider-start -->
 <div class="slider-area">
     <div class="page-title">
@@ -31,6 +58,9 @@
     </div>
 </div>
 <!-- slider-end -->
+
+
+
 <!-- team start -->
 <div class="team-area pt-50 pb-50">
     <div class="container">
@@ -44,9 +74,16 @@
                         <div class="team-thumb">
                             <img src="@Url.Content("~"+@item.PhotoPath)" alt="board" />
                         </div>
-                        <div class="team-social-info text-center">
+                        <div class="team-social-info text-center" style="    overflow: auto;height: 200px;">
                             <div class="team-social-para">
-                                <p>            </p>
+                                <p>
+                                        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                        {
+                                            @item.BioAr
+                                        }else{
+                                            @item.BioEn
+                                        }
+                                    </p>
                             </div>
 
                         </div>
@@ -74,6 +111,8 @@
     </div>
 </div>
 <!-- team end -->
+
+
 
 
 

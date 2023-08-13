@@ -50,6 +50,8 @@ namespace ESTA.Repository
             dbDirector.JobEn=director.JobEn;
             dbDirector.JobAr = director.JobAr;  
             dbDirector.PhotoPath=director.PhotoPath;
+                dbDirector.BioEn=director.BioEn;
+                dbDirector.BioAr=director.BioAr;
                 return true;
             }
             catch (Exception)

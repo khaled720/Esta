@@ -14,6 +14,26 @@
 
 <h3>Education</h3>
 
+        @foreach (var image in Model.userImages)
+        {
+            @if (image.TypeId == 3)
+            {
+                <img src="@image.Path" width="150" height="150" />
+            }
+
+
+        }
+       @* <div id="prevImg"></div>
+        <button onclick="showImg()" class="btn btn-primary">Show</button>
+        <script>
+            function showImg(){
+            document.getElementById("prevImg").innerHTML = "<div style='z-index: 5555555; bottom: 93px; position: fixed; top: 25%; bottom: 150px; left: 5px; right: 5px; background-color: #e8efef; opacity: 0.9; border-radius: 30px;'> < img src = 'https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/06/095712/1.jpg?3534' /> </div > ";
+
+            }
+     
+        </script>*@
+
+
 <div class="row">
 
     <div class="form-group col-lg-4 col-sm-12">
@@ -22,6 +42,7 @@
                autocomplete="username" />
 
         <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
+            
     </div>
 
     <div class="form-group col-lg-4 col-sm-12">

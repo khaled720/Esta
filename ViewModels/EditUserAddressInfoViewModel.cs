@@ -65,7 +65,12 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "country")]
         public string Country { get; set; } = String.Empty;
 
-
+        [Required(
+    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+    ErrorMessageResourceName = "required"
+)]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "postalcode")]
+        public string PostalCode { get; set; } = String.Empty;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),

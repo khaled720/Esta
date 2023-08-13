@@ -184,12 +184,12 @@ namespace ESTA.ViewModels
         )]
         public string WorkAddress { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "workphone")]
-        public string WorkPhone { get; set; } = String.Empty;
+        public string? WorkPhone { get; set; } = String.Empty;
 
         //[Required(
         //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -198,18 +198,19 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "workfax")]
         public string?  WorkFax { get; set; } = String.Empty;
 
-        [Display(
-            ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            Name = "workleavedate"
-        )]
-       [DataType(DataType.Date)]
-        public DateTime? WorkLeavingDate { get; set; }
+       // [Display(
+       //     ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+       //     Name = "workleavedate"
+       // )]
+       //[DataType(DataType.Date)]
+       // public DateTime? WorkLeavingDate { get; set; }
 
-        [Display(
-            ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            Name = "workleavereasons"
-        )]
-        public string? WorkLeavingReasons { get; set; }
+        //[Display(
+        //    ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    Name = "workleavereasons"
+        //)]
+        //public string? WorkLeavingReasons { get; set; }
+
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -260,6 +261,17 @@ namespace ESTA.ViewModels
         public string University { get; set; } = String.Empty;
 
         [Required(
+      ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+      ErrorMessageResourceName = "required"
+  )]
+        [Display(
+      ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+      Name = "postalcode"
+  )]
+        public string PostalCode { get; set; } = String.Empty;
+
+
+        [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
@@ -278,6 +290,7 @@ namespace ESTA.ViewModels
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "haveread")]
         [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
+        
         public bool HaveRead { get; set; }
 
         public string? codeofEthics { get; set; }
@@ -301,21 +314,47 @@ namespace ESTA.ViewModels
         public string?  MembershipNumber { get; set; }
 
       //  [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
-        public IFormFile? NationalCardImage { get; set; }
+        public List<IFormFile>? NationalCardImages { get; set; }
 
 
        // [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
-        public IFormFile? PassportImage { get; set; }
+        public List<IFormFile>? PassportImages { get; set; }
 
 
           [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
 
-        public IFormFile  GraduationCertificateImage { get; set; }
+        public List<IFormFile> GraduationCertificateImages { get; set; }
 
 
 
 
         public List<string> Countries { get; set; } =  CultureManager.GetCountries().ToList();
+
+
+
+
+       public bool IsNationalityClaimsValid() 
+        {
+            //if country egypt natid image required
+            // eles passportid img required
+
+            if (this.Country == "Egypt")
+            {
+                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImages==null)
+                {
+                    return false;
+                }
+            }
+            else 
+            {
+                if (string.IsNullOrEmpty(this.Passport) || this.PassportImages == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
 
 

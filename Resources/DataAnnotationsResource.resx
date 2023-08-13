@@ -129,6 +129,12 @@
   <data name="area" xml:space="preserve">
     <value>Area</value>
   </data>
+  <data name="bioar" xml:space="preserve">
+    <value>Biography in Arabic</value>
+  </data>
+  <data name="bioen" xml:space="preserve">
+    <value>Biography in English</value>
+  </data>
   <data name="birth" xml:space="preserve">
     <value>BirthDate</value>
   </data>
@@ -199,7 +205,7 @@
     <value>Have You Read ?</value>
   </data>
   <data name="highstudies" xml:space="preserve">
-    <value>High Studies</value>
+    <value>Postgraduate degree</value>
   </data>
   <data name="homephone" xml:space="preserve">
     <value>Home Phone</value>
@@ -257,6 +263,9 @@
   </data>
   <data name="phones" xml:space="preserve">
     <value>Phone Lines</value>
+  </data>
+  <data name="postalcode" xml:space="preserve">
+    <value>Postal Code</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
