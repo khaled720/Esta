@@ -131,14 +131,6 @@ namespace ESTA.Areas.Admin.Controllers
 
             var SelectForum = ForumsToSelect();
 
-            SelectForum.ForEach(x =>
-            {
-                if (moderator.SelectForum.Contains(int.Parse(x.Value)))
-                {
-                    x.Selected = true;
-                }
-            });
-
             ViewBag.SelectForum = SelectForum;
 
             return View(moderator);
