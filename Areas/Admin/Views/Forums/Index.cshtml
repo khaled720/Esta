@@ -50,6 +50,8 @@
 
     <div class="row gy-3">
         <div class="col-xl-8">
+            <a class="btn btn-danger my-2" asp-action="NewForum" asp-controller="Forums" asp-area="Admin">New Forum</a>
+
             @foreach (var forum in Model)
             {
                 <div class="card mb-3">

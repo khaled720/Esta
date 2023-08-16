@@ -103,8 +103,33 @@
 </div>
 <input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
 <input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
-<input type="hidden" value="@Model.Id" id="ForumId" />
+<input type="hidden" value="@Url.Action("BanUser","Forums")" id="AjaxBanUser" />
 
+<input type="hidden" value="@Model.Id" id="ForumId" />
+<div class="modal" tabindex="-1" id="exampleModalToggle">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are You sure you want to Ban This User!</p>
+                <div class='row'>
+                    <div class='col-12'>
+                        <textarea maxlength="450" rows="3" class='form-control' id="BanReason" type='text' placeholder='Enter reason' aria-label='Enter reason ...'></textarea>
+                    </div>
+                    <div id="reasonErr" class="text-danger">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onclick="BanUserConfirm()" class="btn btn-danger">Ban</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts{
     <script src="~/js/forumsfuncs.js"></script>
     <script>
@@ -175,7 +200,6 @@
                 $('#cmntErr').text('Enter valid comment')
             }
         }
-
 
     </script>
                     }

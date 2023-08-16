@@ -138,6 +138,9 @@
   <data name="approve" xml:space="preserve">
     <value>موافقة</value>
   </data>
+  <data name="BannedUsers" xml:space="preserve">
+    <value>المستخدمون المحظورون</value>
+  </data>
   <data name="becamemember" xml:space="preserve">
     <value>كن عضوا</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="mist" xml:space="preserve">
     <value>ميست</value>
+  </data>
+  <data name="Moderator" xml:space="preserve">
+    <value>Moderator</value>
   </data>
   <data name="mycourses" xml:space="preserve">
     <value>دوراتي</value>

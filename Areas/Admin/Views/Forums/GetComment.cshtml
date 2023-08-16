@@ -8,11 +8,13 @@
 @{
     var IsSigned = signInManager.IsSignedIn(User);
     var role = false;
+
     if (IsSigned)
     {
         var user = await userManager.GetUserAsync(User);
-        role = await userManager.IsInRoleAsync(user, "Admin");
+        role = await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Moderator");
     }
+
     var admin = role.ToString().ToLower();
     ICollection<ESTA.ViewModels.GetUserForums> commentList = new List<ESTA.ViewModels.GetUserForums>();
     commentList.Add(Model);
@@ -35,6 +37,32 @@
             <input type="hidden" value="@Model.forumId" id="ForumId" />
             <input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
             <input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
+            <input type="hidden" value="@Url.Action("BanUser","Forums")" id="AjaxBanUser" />
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="exampleModalToggle">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are You sure you want to Ban This User!</p>
+                <div class='row'>
+                    <div class='col-12'>
+                        <textarea maxlength="450" rows="3" class='form-control' id="BanReason" type='text' placeholder='Enter reason' aria-label='Enter reason ...'></textarea>
+                    </div>
+                    <div id="reasonErr" class="text-danger">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onclick="BanUserConfirm()" class="btn btn-danger">Ban</button>
+            </div>
         </div>
     </div>
 </div>
@@ -42,8 +70,10 @@
     <script src="~/js/forumsfuncs.js"></script>
     <script>
         var pageNo = 0
-        $(document).ready(function () {
+        var userId = 0
+        var forumId = 0
 
+        $(document).ready(function () {
             getReplies();
         });
         function AddReply(id) {
@@ -103,6 +133,12 @@
                     "<div class='comments-text'><div class='avatar-name'><h5>" + obj.userName + "<span class='small'> - " + formatDate(obj.createdDate) + "</span></h5></div><p>" + obj.comment + "</p>";
                 if (@admin) {
                     str += "<a onclick='DeleteReply" + obj.id + "' class='link-danger delete'>Delete</a>";
+                    if(obj.banned){
+                        str += "<a href='#' class='link-secondary mx-2'>Banned</a>";
+                    }
+                    else{
+                        str += "<a onclick='BanUser(\"" + obj.userId + "\",\"" + obj.forumId + "\")' class='link-danger mx-2'>Ban User</a>";
+                    }
                 }
                 str += "</div></div></li>";
             });
@@ -133,5 +169,6 @@
                 }
             });
         }
+
     </script>
 }

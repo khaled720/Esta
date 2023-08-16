@@ -10,5 +10,6 @@
         public DateTime CreatedDate { get; set; }
         public ICollection<GetUserForums> Replies { get; set; }
         public int RepliesCount { get; set; }
+        public bool Banned { get; set; } = false;
     }
 }

@@ -34,3 +34,39 @@ function DeleteReply(id) {
         }
     });
 }
+
+function BanUser(user, forum) {
+    //console.log(user)
+    //console.log(forum)
+    userId = user;
+    forumId = forum;
+
+    $('#exampleModalToggle').modal('toggle');
+}
+
+function BanUserConfirm() {
+    if ($('#BanReason').val()) {
+        //AjaxBanUser
+        $.ajax({
+            type: 'get',
+            dataType: 'JSON',
+            url: $('#AjaxBanUser').val(),
+            data: {
+                UserId: userId,
+                ForumId: forumId,
+                reason: $('#BanReason').val()
+            },
+            success: function (data) {
+                $('#exampleModalToggle').modal('toggle');
+                location.reload();
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        });
+
+    }
+    else {
+        $('#reasonErr').text('Enter valid reason')
+    }
+}

@@ -1,0 +1,106 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="rounded-div">
+
+    <table id="courses-table"  class="table table-striped animate__fadeIn " style="animation-duration:1s">
+        <thead>
+            <tr>
+                <th>UserName</th>
+                <th>Moderator Name</th>
+                <th>Forum title</th>
+                <th>Date</th>
+                <th>View Reason</th>
+                <th>Unban</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal" tabindex="-1" id="exampleModalToggle">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="reason"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            LoadTable()
+        });
+        function LoadTable() {
+            $('#courses-table').DataTable({
+                "processing": true,
+                "bDestroy": true,
+                "bSearchable": true,
+                "responsive": true,
+                "ajax": {
+                    "url": '@Url.Action("LoadTable","BannedUsers")',
+                    "type": "get",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "userName" },
+                    { "data": "modName" },
+                    { "data": "forumTitle" },
+                    { "data": "date" },
+                    {
+                        "data": null,
+                        render: function (data) {
+                            console.log(data)
+                            return "<a href='#' onClick='viewReason(\"" + data.reason + "\")'>View reason</a>";
+                        }
+                    }
+                    , {
+                        "data": null,
+                        render: function (data) {
+                            return "<a href='#' onClick='unbanUser(" + data.id + ")'>Unban</a>";
+                        }
+                    }
+                ]
+            });
+            //$('.table').footable();
+        }
+
+        function viewReason(reason) {
+            $('#exampleModalToggle #reason').text(reason)
+
+            $('#exampleModalToggle').modal('show');
+        }
+
+        function unbanUser(id) {
+            $.ajax({
+                type: 'get',
+                dataType: 'JSON',
+                url: '@this.Url.Action("UnbanUser","BannedUsers")',
+                data: {
+                    id: id,
+                },
+                success: function (data) {
+                    LoadTable()
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+    </script>
+}

@@ -230,7 +230,9 @@ namespace ESTA.Models
 
         public IEnumerable<UserImage> userImages { get; set; }
 
-
+        public virtual ICollection<ModeratorForum>? ModeratorForums { get; set; }
+        public virtual ICollection<ForumBannedUser>? ForumBannedUser { get; set; }
+        //public virtual ICollection<ForumBannedUser>? ForumBannedMod { get; set; }
         /// new Added Features ....
         //public string? NationalIDImagePath { get; set; } = String.Empty;
         //public string?  PassportImagePath { get; set; } = String.Empty;

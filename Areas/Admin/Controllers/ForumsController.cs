@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Drawing;
 
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize("AdminOrModerator")]
     public class ForumsController : Controller
     {
         private readonly IMapper _mapper;
@@ -38,10 +39,14 @@ namespace ESTA.Areas.Admin.Controllers
             if (forumList != null)
             {
                 var user = await _userManager.GetUserAsync(User);
-                var roles = await _userManager.IsInRoleAsync(user, "Admin");
+                var Mod = await _userManager.IsInRoleAsync(user, "Moderator");
 
-                if (!roles)
-                    forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
+                if (Mod)
+                {
+                    var ModForums = appRep.ModeratorRep.GetModeratorForumById(user.Id);
+
+                    forumList = forumList.Where(f => ModForums.Any(x => x.ForumId == f.Id)).ToList();
+                }
             }
             return View(forumList);
         }
@@ -49,16 +54,30 @@ namespace ESTA.Areas.Admin.Controllers
         public async Task<IActionResult> GetForumAsync(int id)
         {
             var Forum = appRep.ForumRep.GetForum(id, true);
-            Forum.UserForum = appRep.ForumRep.GetComments(id, 0);
+
             if (Forum != null)
             {
+                Forum.UserForum = appRep.ForumRep.GetComments(id, 0);
+
                 var user = await _userManager.GetUserAsync(User);
                 var roles = await _userManager.IsInRoleAsync(user, "Admin");
+                var Mod = await _userManager.IsInRoleAsync(user, "Moderator");
 
-                if (roles || user.LevelId >= Forum.LevelId ||Forum.LevelId==4)
+                var AllowMod = false;
+                if (Mod)
+                {
+                    var ModForums = appRep.ModeratorRep.GetModeratorForumById(user.Id);
+
+                    AllowMod = ModForums.Any(x => x.ForumId == id);
+                }
+
+                if (AllowMod || roles || user.LevelId >= Forum.LevelId || Forum.LevelId == 4)
                 {
                     ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(Forum);
+                    ViewForum.UserForum.Select(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, id)).ToList();
                     ViewForum.UserForum.Select(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id)).ToList();
+                    ViewForum.UserForum.Select(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(y.userId, id)).ToList()).ToList();
+
                     ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
 
                     return View(ViewForum);
@@ -112,7 +131,7 @@ namespace ESTA.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditForumAsync(EditForum EditForum)
         {
-            Forum Forum = appRep.ForumRep.GetForum(EditForum.Id, false);
+            Forum? Forum = appRep.ForumRep.GetForum(EditForum.Id, false);
             if (Forum != null)
             {
                 _mapper.Map(EditForum, Forum);
@@ -125,7 +144,7 @@ namespace ESTA.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteForumAsync(int id)
         {
-            Forum Forum = appRep.ForumRep.GetForum(id, false);
+            Forum? Forum = appRep.ForumRep.GetForum(id, false);
             if (Forum != null)
             {
                 appRep.ForumRep.DeleteForum(Forum);
@@ -151,18 +170,25 @@ namespace ESTA.Areas.Admin.Controllers
             await appRep.SaveChangesAsync();
 
             newComment = appRep.ForumRep.GetCommentById(newComment.Id);
-            GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
-            var commentList = new List<GetUserForums>
+
+            if (newComment != null)
+            {
+                GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
+                var commentList = new List<GetUserForums>
             {
                 addedComment
             };
-            var renderComment = new RenderComment()
-            {
-                showAllLink = true,
-                showReply = false,
-                UserForums = commentList
-            };
-            return PartialView("_RenderComment", renderComment);
+                var renderComment = new RenderComment()
+                {
+                    showAllLink = true,
+                    showReply = false,
+                    UserForums = commentList
+                };
+
+                return PartialView("_RenderComment", renderComment);
+            }
+            return RedirectToAction("Error");
+
         }
         [Authorize]
         [HttpPost]
@@ -185,11 +211,16 @@ namespace ESTA.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteCommentAsync(int commentId)
         {
             var Reply = appRep.ForumRep.GetReplies(commentId);
-            Reply.Add(appRep.ForumRep.GetCommentById(commentId));
-            appRep.ForumRep.DeleteComment(Reply);
-            await appRep.SaveChangesAsync();
+            if (Reply != null)
+            {
+                Reply.Add(appRep.ForumRep.GetCommentById(commentId));
+                appRep.ForumRep.DeleteComment(Reply);
+                await appRep.SaveChangesAsync();
 
-            return RedirectToAction("GetForum",new { id=Reply[0].forumId });
+                return RedirectToAction("GetForum", new { id = Reply[0].forumId });
+            }
+            return RedirectToAction("Error");
+
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -206,13 +237,17 @@ namespace ESTA.Areas.Admin.Controllers
         {
             var forumsList = appRep.ForumRep.GetComments(forumId, page);
             List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
+            getUserForums.ForEach(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, forumId));
+            getUserForums.ForEach(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, forumId)).ToList());
             getUserForums.ForEach(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id));
+
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
                 showReply = false,
                 UserForums = getUserForums
             };
+
             return PartialView("_RenderComment", renderComment);
         }
         [HttpGet]
@@ -220,6 +255,9 @@ namespace ESTA.Areas.Admin.Controllers
         {
             var forumsList = appRep.ForumRep.GetCommentById(id);
             GetUserForums getUserForums = _mapper.Map<UserForum, GetUserForums>(forumsList);
+            getUserForums.Banned = appRep.ForumBannedUserRep.IsUserBanned(getUserForums.userId, getUserForums.forumId);
+            getUserForums.Replies.Select(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(getUserForums.userId, getUserForums.forumId)).ToList();
+
             getUserForums.RepliesCount = appRep.ForumRep.GetRepliesCount(getUserForums.Id);
 
             return View(getUserForums);
@@ -231,13 +269,27 @@ namespace ESTA.Areas.Admin.Controllers
 
             var user = await _userManager.GetUserAsync(User);
             var roles = await _userManager.IsInRoleAsync(user, "Admin");
+            var Mod = await _userManager.IsInRoleAsync(user, "Moderator");
+            //Moderator
             List<UserForum> list;
-            if (roles)
+            if (roles || Mod)
                 list = appRep.ForumRep.SearchComments(terms, 0, 0);
             else
                 list = appRep.ForumRep.SearchComments(terms, user.LevelId, 0);
 
             List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(list);
+
+
+            if (Mod)
+            {
+                var ModForums = appRep.ModeratorRep.GetModeratorForumById(user.Id);
+
+                getComments = getComments.Where(f => ModForums.Any(x => x.ForumId == f.forumId)).ToList();
+
+                getComments.ForEach(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, x.forumId));
+                getComments.ForEach(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(y.userId, y.forumId)).ToList());
+            }
+
             ViewBag.query = query;
 
             return View(getComments);
@@ -255,6 +307,9 @@ namespace ESTA.Areas.Admin.Controllers
                 list = appRep.ForumRep.SearchComments(terms, user.LevelId, page);
 
             List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(list);
+            getComments.ForEach(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, x.forumId));
+            getComments.ForEach(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(y.userId, y.forumId)).ToList());
+
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -268,6 +323,7 @@ namespace ESTA.Areas.Admin.Controllers
         {
             var forumsList = appRep.ForumRep.GetReplies(parentId, page);
             List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
+            getUserForums.Select(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, x.forumId)).ToList();
 
             return Json(getUserForums);
         }
@@ -314,6 +370,25 @@ namespace ESTA.Areas.Admin.Controllers
 
             return PartialView("_ForumStatistics", statisticsObj);
         }
+
+        public async Task<IActionResult> BanUser(string UserId, int ForumId, string reason)
+        {
+            var ModId = _userManager.GetUserId(User);
+
+            appRep.ForumBannedUserRep.NewBannedUser(new ForumBannedUser()
+            {
+                UserId = UserId,
+                ForumId = ForumId,
+                Reason = reason,
+                ModId = ModId,
+                Date = DateTime.Now,
+            });
+
+            await appRep.SaveChangesAsync();
+
+            return Json(true);
+        }
+
         [NonAction]
         private async Task<IEnumerable<SelectListItem>> GetLevelsAsync()
         {
@@ -329,6 +404,7 @@ namespace ESTA.Areas.Admin.Controllers
             });
             return selectList;
         }
+
         [NonAction]
         private static string[] PreparingQuery(string str)
         {

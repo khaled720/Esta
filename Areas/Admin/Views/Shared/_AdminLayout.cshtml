@@ -1,11 +1,23 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @using System.Security.Claims
-@using Microsoft.Extensions.Localization
-@inject IStringLocalizer<SharedResource> localizer;
+@using Microsoft.Extensions.Localization;
+@using Microsoft.AspNetCore.Identity;
 
+@inject IStringLocalizer<SharedResource> localizer;
+@inject UserManager<User> userManager;
+
+@{
+    var Admin = false;
+    var user = await userManager.GetUserAsync(User);
+
+    if (await userManager.IsInRoleAsync(user, "Admin"))
+    {
+        Admin = true;
+    }
+}
 
 <!DOCTYPE html>
-<html lang=@Thread.CurrentThread.CurrentCulture.Name >
+<html lang=@Thread.CurrentThread.CurrentCulture.Name>
 
 <head>
     <meta charset="utf-8" />
@@ -15,9 +27,11 @@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ESTA.styles.css" asp-append-version="true" />
-    @if (Thread.CurrentThread.CurrentCulture.Name=="ar")
+    <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/lib/datatable/datatables.min.css" rel="stylesheet" />
+    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
     {
-    <link href="~/css/admin-style-ar.css" rel="stylesheet" />
+        <link href="~/css/admin-style-ar.css" rel="stylesheet" />
     }
 
 
@@ -28,140 +42,151 @@
 
     <div @*style="display:flex;flex-direction:row"*@>
 
-@*<div class="side-menu">
-<ul style="list-style:none;">
+        @*<div class="side-menu">
+        <ul style="list-style:none;">
 
-    <li>
+        <li>
 
         Home
-    </li>
-    
-    <li>
+        </li>
+
+        <li>
 
         Index
-    </li>
-    
-    <li>
+        </li>
+
+        <li>
 
         Contact
-    </li>
+        </li>
 
-                <li>
+        <li>
 
-                    Registry
-                </li>
-
-
-</ul>
-
-</div>
-*@
-    <div @*style="width:fil;display:flex;flex-direction:column"*@>
-
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-           @*  <a class="navbar-brand" asp-area="admin" asp-controller="Home" asp-action="Index">ADMIN</a>*@
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
-                        </li>
-                        <li class="nav-item-link">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
-                        </li>
-                    
-                        <li class="nav-item-link">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
-                        </li>
-                      
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
-                        </li>
+        Registry
+        </li>
 
 
-                             
-                    </ul>
+        </ul>
 
-       
-                  <partial name="_LoginPartial"></partial>
+        </div>
+        *@
+        <div @*style="width:fil;display:flex;flex-direction:column"*@>
 
-             @*      
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                    <div class="container-fluid">
+                        @*  <a class="navbar-brand" asp-area="admin" asp-controller="Home" asp-action="Index">ADMIN</a>*@
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                @if (Admin)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
+                                    </li>
+                                    <li class="nav-item-link">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
+                                    </li>
+
+                                    <li class="nav-item-link">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Moderator" asp-action="Index">@localizer["Moderator"]</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="admin" asp-controller="BannedUsers" asp-action="Index">@localizer["BannedUsers"]</a>
+                                </li>
+
+
+
+                            </ul>
+
+
+                            <partial name="_LoginPartial"></partial>
+
+                            @*
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                            <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
                             <a class="nav-link text-dark " asp-area=""
                             asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
+                            </li>
 
-                        <li class="nav-item">
+                            <li class="nav-item">
                             <a class="nav-link text-dark" asp-area=""
                             asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                    </ul>
-                    }else{
+                            </li>
+                            </ul>
+                            }else{
 
 
-                        <ul class="navbar-nav flex-grow-1">
+                            <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                            <strong><a class="nav-link text-dark " asp-area="" 
-                                asp-controller="User" asp-action="Profile">
-                                    @User.FindFirstValue(ClaimTypes.Email)
-                                </a></strong>    
+                            <strong><a class="nav-link text-dark " asp-area=""
+                            asp-controller="User" asp-action="Profile">
+                            @User.FindFirstValue(ClaimTypes.Email)
+                            </a></strong>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark " asp-area=""
-                               asp-controller="Account" asp-action="Logout">
+                            <a class="nav-link text-dark " asp-area=""
+                            asp-controller="Account" asp-action="Logout">
 
-                                  Logout 
-                                </a>
+                            Logout
+                            </a>
                             </li>
-                            
-                        </ul>
-                    
-                    }
-                    
-*@
+
+                            </ul>
+
+                            }
+
+                            *@
 
 
-                </div>
+                        </div>
 
-			</div>
-		</nav>               
-      
-    </header>
- 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+                    </div>
+                </nav>
+
+            </header>
+
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+
+        </div>
     </div>
 
-    </div>
-    </div>
 
-    
-    
+
     <br />
     <br />
     <footer class="border-top footer text-muted">
@@ -170,9 +195,11 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/select2/select2.min.js"></script>
+    <script src="~/lib/datatable/datatables.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-	<script src="~/js/site.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <input type="hidden" asp-area="" value="@Url.Content("~/api/Images")" id="GetPostEditorImagesUrl" />

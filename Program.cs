@@ -31,9 +31,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession( /*opt=>opt.IdleTimeout=TimeSpan.FromMinutes(1)*/);
 
 builder.Services.AddDbContext<AppDbContext>(
-    opt => 
+    opt =>
     opt.UseSqlServer(
-        builder.Configuration.GetConnectionString("dev_conn"),o => o.UseRowNumberForPaging())
+        builder.Configuration.GetConnectionString("dev_conn"), o => o.UseRowNumberForPaging())
     );
 
 
@@ -91,19 +91,23 @@ builder.Services
     .AddMvc()
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization(
-        //opt =>
-        //    opt.DataAnnotationLocalizerProvider = (type, factory) => 
-        //    {
+    //opt =>
+    //    opt.DataAnnotationLocalizerProvider = (type, factory) => 
+    //    {
 
-        //        var type1 = typeof(SharedResource);
-        //        var assemblyName = new AssemblyName(type1.Assembly.GetType().Assembly.FullName!);
+    //        var type1 = typeof(SharedResource);
+    //        var assemblyName = new AssemblyName(type1.Assembly.GetType().Assembly.FullName!);
 
-        //        return factory.Create("SharedResource", assemblyName.Name!);
-        //    }
+    //        return factory.Create("SharedResource", assemblyName.Name!);
+    //    }
     );
 
 builder.Services.AddAuthorization(
-    opt => opt.AddPolicy("RequireAdminRole", p => p.RequireRole("Admin"))
+    opt =>
+    {
+        opt.AddPolicy("RequireAdminRole", p => p.RequireRole("Admin"));
+        opt.AddPolicy("AdminOrModerator", p => p.RequireRole("Admin", "Moderator"));
+    }
 );
 builder.Services
     .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedEmail = true)
@@ -117,8 +121,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     {
         OnRedirectToLogin = x =>
         {
-          //  x.Response.Redirect(x.Request.Scheme+"://"+x.Request.Host+"/Account/Login");
-            
+            //  x.Response.Redirect(x.Request.Scheme+"://"+x.Request.Host+"/Account/Login");
+
             x.Response.Redirect("Account/Login");
             return Task.CompletedTask;
         }
@@ -167,13 +171,13 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
       name: "AdminArea",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    ).RequireAuthorization("RequireAdminRole");
+    ).RequireAuthorization("AdminOrModerator");
 
     endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=home}/{action=index}/{id?}"
   );
-   
+
 });
 app.Lifetime.ApplicationStarted.Register(() =>
 {
@@ -182,14 +186,14 @@ app.Lifetime.ApplicationStarted.Register(() =>
     //  dbcontext.Database.EnsureCreated();
     try
     {
-  dbcontext.Database.Migrate();
+        dbcontext.Database.Migrate();
     }
     catch (Exception ex)
     {
 
         throw;
     }
-  
+
     CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
 });
 

@@ -10,12 +10,16 @@
     if (IsSigned)
     {
         var user = await userManager.GetUserAsync(User);
-        role = await userManager.IsInRoleAsync(user, "Admin");
+        role = await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Moderator");
     }
     var admin = role.ToString().ToLower();
 }
 @model ESTA.ViewModels.RenderComment
-
+<style>
+    form {
+        display: inline-block;
+    }
+</style>
 @foreach (var comment in Model.UserForums)
 {
     <li id="comment@(comment.Id)" class="mb-3">
@@ -31,11 +35,23 @@
                 <p>@comment.Comment</p>
                 @if (role)
                 {
-					<form method="post" asp-action="DeleteComment"  asp-route-commentId="@comment.Id">
-  <button   type="submit" class='btn btn-danger'>Delete Comment</button>
-                           
+                    <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id">
+                        <button type="submit" class='btn btn-danger'>Delete Comment</button>
                     </form>
-                    
+
+                    @if (comment.Banned)
+                    {
+                        <div style="display:inline-block;">
+                            <button class='btn btn-secondary'>Banned</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="display:inline-block;">
+                            <button onclick="BanUser('@comment.userId',@comment.forumId)" class='btn btn-danger'>Ban User</button>
+                        </div>
+                    }
+
                 }
             </div>
             <div class="col-md-4" style="margin:auto;">
@@ -62,7 +78,7 @@
         else
         {
             <div class="row" id="replyToggle@(comment.Id)" style="visibility:visible">
-                <a class="btn dropdown-toggle" style="padding: 5px 10px;" data-toggle="collapse" href="#replyCollapse@(comment.Id)" role="button" aria-expanded="false" aria-controls="collapseExample"></a>
+                <a class="btn dropdown-toggle" style="padding: 5px 10px;" data-bs-toggle="collapse" href="#replyCollapse@(comment.Id)" role="button" aria-expanded="false" aria-controls="collapseExample"></a>
             </div>
         }
         <div class="collapse" id="replyCollapse@(comment.Id)">
@@ -84,10 +100,21 @@
                                 {
 
                                     <form method="post" asp-action="DeleteReply" asp-route-commentId="@reply.Id">
-                                        <button asp-action=""  type="submit" class='btn btn-danger'>Delete Replay</button>
-
-
+                                        <button asp-action="" type="submit" class='btn btn-danger'>Delete Replay</button>
                                     </form>
+                                    if (reply.Banned)
+                                    {
+                                        <div style="display:inline-block;">
+                                            <button class='btn btn-secondary'>Banned</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div style="display:inline-block;">
+                                            <button onclick="BanUser('@reply.userId',@reply.forumId)" class='btn btn-danger'>Ban User</button>
+                                        </div>
+                                    }
+
                                 }
                             </div>
                         </div>
@@ -103,7 +130,7 @@
         </div>
         @if (Model.showReply)
         {
-            <div class='row w-50 p-2'>
+@*            <div class='row w-50 p-2'>
                 <div class='col-8'>
                     <input class='form-control' id="reply@(comment.Id)" type='text' placeholder='write reply' aria-label='Write Reply ...'>
                 </div>
@@ -112,7 +139,7 @@
                 </div>
             </div>
             <div id="rplyErr" class="text-danger">
-            </div>
+            </div>*@
         }
 
         <input type="hidden" value="@Url.Action("GetComment", new{id = comment.Id})" id="CopyToClip@(comment.Id)">

@@ -34,6 +34,10 @@ namespace ESTA.Repository
 
         public IUserImageRep ImageRep => new UserImageRep(appContext);
 
+        public IModeratorRep ModeratorRep => new ModeratorRep(appContext);
+
+        public IForumBannedUserRep ForumBannedUserRep => new ForumBannedUserRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;

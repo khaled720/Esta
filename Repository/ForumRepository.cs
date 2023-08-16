@@ -28,7 +28,7 @@ namespace ESTA.Repository
             appContext.Forums.Remove(forum);
         }
 
-        public Forum GetForum(int id, bool levels, bool comments = false)
+        public Forum? GetForum(int id, bool levels, bool comments = false)
         {
             if (levels && comments)
             {
@@ -78,7 +78,7 @@ namespace ESTA.Repository
             return Comments.Count;
         }
 
-        public UserForum GetCommentById(int commentId)
+        public UserForum? GetCommentById(int commentId)
         {
             return appContext.UsersForums
                 .Where(x => x.Id == commentId)
@@ -357,7 +357,7 @@ namespace ESTA.Repository
             try
             {
                 return appContext.Forums
-                    .Where(y => y.LevelId >= userlevelId || y.LevelId==4)
+                    .Where(y => y.LevelId >= userlevelId || y.LevelId == 4)
                     .Include(y => y.level)
                     .ToList();
             }

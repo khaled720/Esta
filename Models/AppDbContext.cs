@@ -32,6 +32,14 @@ namespace ESTA.Models
                 .WithMany(u => u.UserForum)
                 .HasForeignKey(x => x.forumId);
 
+            modelBuilder.Entity<ForumBannedUser>().HasOne(y => y.Forum).WithMany(b => b.ForumBannedUser).HasForeignKey(y => y.ForumId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<ForumBannedUser>().HasOne(y => y.User).WithMany(b => b.ForumBannedUser).HasForeignKey(y => y.UserId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<ForumBannedUser>().HasOne(y => y.User).WithMany(b => b.ForumBannedUser).HasForeignKey(y => y.UserId).OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ModeratorForum>().HasKey(sc => new { sc.ForumId, sc.UserId });
+            modelBuilder.Entity<ModeratorForum>().HasOne(y => y.Forum).WithMany(b => b.ModeratorForums).HasForeignKey(y => y.ForumId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<ModeratorForum>().HasOne(y => y.User).WithMany(b => b.ModeratorForums).HasForeignKey(y => y.UserId).OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<UserCourse>().HasKey(x => new { x.CourseId, x.UserId });
             modelBuilder.Entity<UserCourse>().HasOne(y => y.course).WithMany(b => b.users).HasForeignKey(y => y.CourseId);
             modelBuilder.Entity<UserCourse>().HasOne(y => y.user).WithMany(b => b.Courses).HasForeignKey(y => y.UserId);
@@ -51,6 +59,7 @@ namespace ESTA.Models
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Moderator", NormalizedName = "MODERATOR" });
 
 
             modelBuilder.Entity<UserAnswer>().HasKey(y => new { y.UserId, y.QuestionId });
@@ -132,8 +141,8 @@ namespace ESTA.Models
         public DbSet<ImageType> ImageTypes { get; set; }
         public DbSet<UserImage> UserImages { get; set; }
 
-
-
+        public DbSet<ModeratorForum> ModeratorForums { get; set; }
+        public DbSet<ForumBannedUser> ForumBannedUser { get; set; }
 
 
     }

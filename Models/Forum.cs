@@ -16,5 +16,8 @@ namespace ESTA.Models
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
+        public virtual ICollection<ModeratorForum>? ModeratorForums { get; set; }
+        public virtual ICollection<ForumBannedUser>? ForumBannedUser { get; set; }
+
     }
 }

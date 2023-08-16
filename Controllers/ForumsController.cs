@@ -49,7 +49,13 @@ namespace ESTA.Controllers
                 var roles = await _userManager.IsInRoleAsync(user, "Admin");
 
                 if (!roles)
+                {
+                    var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
+
                     forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
+                    if(BannedForums.Count > 0)
+                        forumList = forumList.Where(x => BannedForums.Any(y => y.ForumId != x.Id)).ToList();
+                }
             }
             return View(forumList);
         }
@@ -65,8 +71,16 @@ namespace ESTA.Controllers
                 {
                     var user = await _userManager.GetUserAsync(User);
                     var roles = await _userManager.IsInRoleAsync(user, "Admin");
+                    var banned = false;
 
-                    if (roles || (user.LevelId!=4 && user.LevelId >= Forum.LevelId) || Forum.LevelId == 4)
+                    if (!roles)
+                    {
+                        var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
+                        
+                        banned = BannedForums.Any(y => y.ForumId == id);
+                    }
+
+                    if (roles || ((user.LevelId != 4 && user.LevelId >= Forum.LevelId) || Forum.LevelId == 4) && !banned)
                     {
                         ForumsWithComments ViewForum = _mapper.Map<Forum, ForumsWithComments>(
                             Forum
@@ -268,6 +282,7 @@ namespace ESTA.Controllers
 
             var user = await _userManager.GetUserAsync(User);
             var roles = await _userManager.IsInRoleAsync(user, "Admin");
+
             List<UserForum> list;
             if (roles)
                 list = appRep.ForumRep.SearchComments(terms, 0, 0);
@@ -277,6 +292,14 @@ namespace ESTA.Controllers
             List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(
                 list
             );
+
+            if (!roles)
+            {
+                var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
+                if (BannedForums.Count > 0)
+                    getComments = getComments.Where(x => BannedForums.Any(y => y.ForumId != x.forumId)).ToList();
+            }
+
             ViewBag.query = query;
 
             return View(getComments);
@@ -297,6 +320,13 @@ namespace ESTA.Controllers
             List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(
                 list
             );
+
+            if (!roles)
+            {
+                var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
+                if (BannedForums.Count > 0)
+                    getComments = getComments.Where(x => BannedForums.Any(y => y.ForumId != x.forumId)).ToList();
+            }
             var renderComment = new RenderComment()
             {
                 showAllLink = true,

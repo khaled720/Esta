@@ -87,6 +87,10 @@ namespace ESTA.Controllers
                         {
                             return RedirectToAction("index", "courses", new { area = "Admin" });
                         }
+                        else if (await userManager.IsInRoleAsync(user, "Moderator"))
+                        {
+                            return RedirectToAction("index", "Forums", new { area = "Admin" });
+                        }
                         else
                         {
                             return RedirectToAction("profile", "user");
