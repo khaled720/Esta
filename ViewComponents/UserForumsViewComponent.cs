@@ -25,6 +25,11 @@ namespace ESTA.ViewComponents
             var user=   userManager.GetUserAsync(contextAccessor.HttpContext!.User).Result;
             // return forums with same level or lower
             var xyz = uow.ForumRep.GetSpecificUserForums(user.LevelId);
+            var BannedForums = uow.ForumBannedUserRep.GetForumsByUserId(user.Id);
+
+            if (BannedForums.Count > 0)
+                xyz = xyz.Where(x => BannedForums.Any(y => y.ForumId != x.Id)).ToList();
+
             return View("_forums",xyz);
         }
     }
