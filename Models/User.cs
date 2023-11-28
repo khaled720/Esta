@@ -29,7 +29,8 @@ namespace ESTA.Models
         public bool IsDeleted { get; set; } = false;
 
         public DateTime?  DeletionTime { get; set; }
-
+        [NotMapped]
+        public List<int> SelectForum { get; set; }
 
 
         [Required(
@@ -44,11 +45,11 @@ namespace ESTA.Models
         )]
         public string MobilePhone { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
-        public string HomePhone { get; set; } = String.Empty;
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
+        public string?  HomePhone { get; set; } = String.Empty;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),

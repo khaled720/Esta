@@ -24,6 +24,9 @@
     @foreach (var item in Model)
     {
        
+                <a asp-action="coursedetails" asp-controller="courses" asp-area="" asp-route-id="@item.course.Id">
+
+      
     <div class="card" style="height:fit-content; position:relative">
       @*  <a href="home/coursedetails/@item.course.Id" class="btn btn-primary"  style="position:absolute;bottom:5px;right:5px">More</a>
          *@   <div class="card-header" style="
@@ -52,6 +55,8 @@ background: rgba(100%,100%,100%,50%);
      <br>
            @localizer["enrolldate"]:    @item.EnrollmentDate.ToShortDateString()
 
+           <br> @localizer["state"]:@item.state.StateName
+
                         <br>  @localizer["price"]: <strong style="color:green"> @item.course.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
 
                @*         <br>  @localizer["state"]: <strong style="color:green"> @item.state.StateName</strong>*@
@@ -69,7 +74,7 @@ background: rgba(100%,100%,100%,50%);
                
                 </div>
        </div> 
-    }
+     </a> }
 
   
 

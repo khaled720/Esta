@@ -1,4 +1,6 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Security.Claims;
+using System.Text.Encodings.Web;
+using ESTA.Areas.Admin.Models;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
@@ -16,11 +18,13 @@ namespace ESTA.Controllers
     {
         private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly IConfiguration configuration;
 
-        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment)
+        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment,IConfiguration configuration)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
+            this.configuration = configuration;
         }
 
       
@@ -29,6 +33,7 @@ namespace ESTA.Controllers
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllOtherCourses();
             return View(courses);
+           
         }
 
         public async Task<IActionResult> CetaCourses()
@@ -39,27 +44,62 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> CetaHolders()
         {
-            List<User> users = (List<User>)await appRep.CoursesRep.GetAllCetaHolders();
+            List<CertifiedMember> users =await appRep.CertifiedMempersRep.GetAllMembers();// (List<User>)await appRep.CoursesRep.GetAllCetaHolders();
             return View(users);
         }
 
         public async Task<IActionResult> CourseDetails(int id)
         {
-            var course = await appRep.CoursesRep.GetCourse(id);
+            try
+            {
+                      await   appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
+                      await appRep.SaveChangesAsync();
 
-            return View(course);
+
+         
+                var cdvm = new CourseDetailsViewModel();
+
+
+
+                 cdvm.course= await appRep.CoursesRep.GetCourse(id);
+       
+                 cdvm.UsersEnrolledCount= await appRep.CoursesRep.GetEnrolledUsersInCourseLength(id);
+                 cdvm.isCourseEnrolled = await appRep.CoursesRep.IsCourseEnrolledByUser(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                cdvm.IsCourseRefunded=await appRep.UsersCoursesRep.IsCourseRefunded(cdvm.course.Id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+                cdvm.userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                cdvm.IsMempershipPaid =await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+
+            cdvm.PrerequisiteCourses=await  appRep.CoursesRep.GetPrerequisiteCourses(cdvm.course.Id);
+              var userCourses = await   appRep.UserRep.GetMyCourses(cdvm.userid);
+                int MatchCounter=0;
+                for (int i = 0; i < cdvm.PrerequisiteCourses.Count(); i++)
+                {
+                var isfound=    userCourses.Where(y => y.CourseId ==
+                        cdvm.PrerequisiteCourses[i].PrerequisiteCourseId).Any();
+
+                    if (isfound)
+                    {
+                        cdvm.PrerequisiteCourses[i].isPassed = true;
+                        MatchCounter++;
+                    }
+                }
+                if (String.IsNullOrEmpty(cdvm.userid)&&MatchCounter == cdvm.PrerequisiteCourses.Count()) cdvm.IsPrerequisiteCoursesPassed = true;
+
+                return View(cdvm);
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
+       
         }
 
    
     }
 
-    public class EmailClass
-    {
-        public string Email { get; set; }
-        public string Subject { get; set; }
-        public string Name { get; set; }
-        public string Message { get; set; }
-    }
-
+ 
  
 }

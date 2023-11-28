@@ -1,0 +1,1 @@
+{"apiOperation":"INITIATE_CHECKOUT","interaction":{"timeout":1800,"returnUrl":"ReturnPage.aspx","operation":"PURCHASE","merchant":{"name":"TESTQNBAATEST001"}},"order":{"currency":"EGP","id":"149792481","reference":"7361352a-b2b3-4c4f-954d-153322b867ne","amount":44.0,"description":"test6 Non Ceta Level"},"transaction":{"reference":"QNBAA_TESTING_274"}}

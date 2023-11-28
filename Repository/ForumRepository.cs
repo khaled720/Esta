@@ -352,14 +352,27 @@ namespace ESTA.Repository
 
 
 
-        public List<Forum> GetSpecificUserForums(int userlevelId)
+        public List<Forum> GetSpecificForumByLevelId(int levelId)
         {
             try
             {
-                return appContext.Forums
-                    .Where(y => y.LevelId >= userlevelId || y.LevelId == 4)
-                    .Include(y => y.level)
-                    .ToList();
+                if (levelId==4)
+                {
+                    return appContext.Forums
+           .Where(y =>  y.LevelId == 4)
+           .Include(y => y.level)
+           .ToList();
+                }
+                else
+                {
+            var x=     appContext.Forums
+       .Where(y => /*y.LevelId ==4 ||*/ y.LevelId   <= levelId )
+       .Include(y => y.level)
+       .ToList();
+                    return x;
+                }
+
+
             }
             catch (Exception)
             {

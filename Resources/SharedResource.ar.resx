@@ -123,11 +123,23 @@
   <data name="actions" xml:space="preserve">
     <value>اجراءات</value>
   </data>
+  <data name="add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
   <data name="addcontact" xml:space="preserve">
     <value>إضافة وسائل للإتصال</value>
   </data>
   <data name="adddirector" xml:space="preserve">
     <value>إضافة مسئول</value>
+  </data>
+  <data name="addexitingmoderator" xml:space="preserve">
+    <value>إضافة مستخدم حالي</value>
+  </data>
+  <data name="addimage" xml:space="preserve">
+    <value>اضغط لرفع صورة</value>
+  </data>
+  <data name="addmoderator" xml:space="preserve">
+    <value>إضافة مسؤول</value>
   </data>
   <data name="addnewcourse" xml:space="preserve">
     <value>إضافة دورة جديدة</value>
@@ -135,11 +147,29 @@
   <data name="addressinfo" xml:space="preserve">
     <value>معلومات العنوان</value>
   </data>
+  <data name="agreepolicy" xml:space="preserve">
+    <value>أوافق علي سياسة الإسترداد والخصوصية</value>
+  </data>
+  <data name="allmem" xml:space="preserve">
+    <value>جميع الاعضاء</value>
+  </data>
+  <data name="amount" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
   <data name="approve" xml:space="preserve">
     <value>موافقة</value>
   </data>
+  <data name="assigngrade" xml:space="preserve">
+    <value>إضافة النتيجة</value>
+  </data>
+  <data name="bandate" xml:space="preserve">
+    <value>تاريخ الحظر</value>
+  </data>
   <data name="BannedUsers" xml:space="preserve">
     <value>المستخدمون المحظورون</value>
+  </data>
+  <data name="banresons" xml:space="preserve">
+    <value>اسباب الحظر</value>
   </data>
   <data name="becamemember" xml:space="preserve">
     <value>كن عضوا</value>
@@ -153,6 +183,12 @@
   <data name="callus" xml:space="preserve">
     <value>اتصل بنا</value>
   </data>
+  <data name="cancel" xml:space="preserve">
+    <value>غلق</value>
+  </data>
+  <data name="cannotenroll" xml:space="preserve">
+    <value>لا يمكن التسجيل فى هذه الدورة</value>
+  </data>
   <data name="ceta" xml:space="preserve">
     <value>CETA</value>
   </data>
@@ -162,8 +198,17 @@
   <data name="cetaholders" xml:space="preserve">
     <value>CETA حاملى</value>
   </data>
+  <data name="cetaprogram" xml:space="preserve">
+    <value>تقدم الجمعية المصرية للمحللين الفنيين برنامجها المهني للتحليل الفني الذي يعترف به حاليًا الاتحاد الدولي للمحللين الفنيين اسم الدورة هو سيتا وهو اختصار للمحلل الفني المعتمد هي الشهادة الثالثة حول العالم بعد شهادات اليابان وأستراليا المعتمدة لتكون معادلة للشهادة الدولية للاتحاد الدولي للمحللين التقنيين برنامج المهني مخصص لأي شخص مهتم بالتحليل الفني. يتكون برنامج المهني من ثلاثة مستويات وسيجتاز المرشحون امتحانًا في نهاية كل مستوى ليتمكنوا من مواصلة البرنامج.الهدف الرئيسي للبرنامج المهني هو تعليم المرشحين حتى يتمكنوا من إظهار الكفاءة في مجموعة متنوعة من أدوات التحليل الفني. سيتمكن المرشحون من فهم تحركات السوق وأسبابها الحقيقية، والإشارات السيئة وكيفية التغلب عليها، فضلاً عن اتخاذ قرارات تجارية واستثمارية مهمة بناءً على آرائهم المدروسة جيدًا. هذا البرنامج برنامج صعب للغاية وسيحتاج إلى الكثير من الجهد من المرشحين لتمريره.سيشمل امتحان المستوى 1 أسئلة الاختيار من متعدد. سيتضمن امتحان المستوى 2 خيارات متعددة وأسئلة قصيرة وأسئلة مقالات. المستوى 3 سيكون بشكل أساسي أسئلة مقالة. يتم تحديد درجة النجاح بنسبة 70٪ لكل مستوى.لحضور برنامج ، يجب أن يكون المرشح أولاً عضوًا في ESTA وبسبب الطلب الكبير جدًا على مرشح البرنامج المهني لدينا، يجب أن يتصل بمكتب لإضافة اسمه إلى قائمة الانتظار للدورة. وبعد ذلك، ستتصل به بمجرد أن يأتي دوره.</value>
+  </data>
+  <data name="changepassheader" xml:space="preserve">
+    <value>كلمة المرور الجديدة</value>
+  </data>
   <data name="codeofethics" xml:space="preserve">
     <value> قانون أخلاقيات المهنة</value>
+  </data>
+  <data name="confirm" xml:space="preserve">
+    <value>تاكيد</value>
   </data>
   <data name="confirmemail" xml:space="preserve">
     <value>تأكيد البريد الإلكتروني</value>
@@ -180,6 +225,12 @@
   <data name="copyrights" xml:space="preserve">
     <value> ESTA جميع الحقوق محفوظة©</value>
   </data>
+  <data name="coursecomplete" xml:space="preserve">
+    <value>عدد المتقدمين لهذه الدورة قد اكتمل</value>
+  </data>
+  <data name="courseconfirm" xml:space="preserve">
+    <value>تاكيد الدفع للدورة</value>
+  </data>
   <data name="coursedetails" xml:space="preserve">
     <value>تفاصيل الدورة</value>
   </data>
@@ -189,11 +240,23 @@
   <data name="coursehint" xml:space="preserve">
     <value>يتطلب الحضور فقط</value>
   </data>
+  <data name="courselevel" xml:space="preserve">
+    <value>مستوي الدورة</value>
+  </data>
   <data name="coursename" xml:space="preserve">
     <value>اسم الدورة</value>
   </data>
+  <data name="coursepopup" xml:space="preserve">
+    <value>هل تود الاشتراك فى هذه الدورة والدفع لاحقا ام الان؟</value>
+  </data>
   <data name="courses" xml:space="preserve">
     <value>الدورات</value>
+  </data>
+  <data name="coursesorders" xml:space="preserve">
+    <value>طلبات دفع الدورات</value>
+  </data>
+  <data name="coursespayments" xml:space="preserve">
+    <value>مدفوعات الدورات</value>
   </data>
   <data name="dashboard" xml:space="preserve">
     <value>شاشة التحكم</value>
@@ -231,11 +294,26 @@
   <data name="eduinfo" xml:space="preserve">
     <value>معلومات التعليم</value>
   </data>
+  <data name="emailconfirm" xml:space="preserve">
+    <value>أكد بريدك الالكتروني</value>
+  </data>
+  <data name="emailconfirmdesc" xml:space="preserve">
+    <value>تم ارسال رابط التاكيد على بريدك الالكتروني يمكنك التاكيد بالضغط على الرابط</value>
+  </data>
   <data name="emailus" xml:space="preserve">
     <value>البريد الالكتروني</value>
   </data>
+  <data name="endMem" xml:space="preserve">
+    <value>إنهاء</value>
+  </data>
+  <data name="endsin" xml:space="preserve">
+    <value>تنتهي في </value>
+  </data>
   <data name="enrolldate" xml:space="preserve">
     <value>تاريخ التسجيل</value>
+  </data>
+  <data name="enrolled" xml:space="preserve">
+    <value>تم الانضمام</value>
   </data>
   <data name="enrolledusers" xml:space="preserve">
     <value>المستخدمين المسجلين للدورة</value>
@@ -246,17 +324,38 @@
   <data name="ethics" xml:space="preserve">
     <value>أخلاقيات</value>
   </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>تاريح الحدث</value>
+  </data>
   <data name="events&amp;news" xml:space="preserve">
     <value>الأحداث و الأخبار</value>
+  </data>
+  <data name="eventtitle" xml:space="preserve">
+    <value>عنوان الحدث</value>
+  </data>
+  <data name="eventtype" xml:space="preserve">
+    <value>نوع الحدث</value>
   </data>
   <data name="excellent" xml:space="preserve">
     <value>ممتاز</value>
   </data>
+  <data name="fail" xml:space="preserve">
+    <value>راسب</value>
+  </data>
+  <data name="failure" xml:space="preserve">
+    <value>فشل</value>
+  </data>
   <data name="followus" xml:space="preserve">
     <value>تابعنا</value>
   </data>
+  <data name="forumdash" xml:space="preserve">
+    <value>لوحة إدارة النقاشات</value>
+  </data>
   <data name="forums" xml:space="preserve">
     <value>النقاشات</value>
+  </data>
+  <data name="forumtitle" xml:space="preserve">
+    <value>عنوان النقاش</value>
   </data>
   <data name="free" xml:space="preserve">
     <value>مجاني</value>
@@ -267,6 +366,9 @@
   <data name="good" xml:space="preserve">
     <value>جيد</value>
   </data>
+  <data name="haveenrolled" xml:space="preserve">
+    <value>انت مسجل بهذه الدورة بالفعل</value>
+  </data>
   <data name="haveread" xml:space="preserve">
     <value>لقد قرأت كل شئ بحرص و أوافق</value>
   </data>
@@ -275,6 +377,9 @@
   </data>
   <data name="home" xml:space="preserve">
     <value>الرئيسية</value>
+  </data>
+  <data name="IdCardLimit" xml:space="preserve">
+    <value>يجب إرفاق الصورة الأمامية والخلفية للبطاقة الشخصية</value>
   </data>
   <data name="ifta" xml:space="preserve">
     <value>IFTA</value>
@@ -297,11 +402,17 @@
   <data name="lang" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="lastupdatedate" xml:space="preserve">
+    <value>اخر تاريخ للتحديث</value>
+  </data>
   <data name="level" xml:space="preserve">
     <value>مستوى</value>
   </data>
   <data name="levels" xml:space="preserve">
     <value>المستويات</value>
+  </data>
+  <data name="markascert" xml:space="preserve">
+    <value> CETA تحديد كحامل</value>
   </data>
   <data name="markpaid" xml:space="preserve">
     <value>تاكيد الدفع</value>
@@ -309,11 +420,32 @@
   <data name="membership" xml:space="preserve">
     <value>العضوية</value>
   </data>
+  <data name="memnotpaid" xml:space="preserve">
+    <value>يجب دفع العضوية حتي تتمكن من التقدم للدورة</value>
+  </data>
+  <data name="memorders" xml:space="preserve">
+    <value>طلبات دفع العضوية</value>
+  </data>
+  <data name="mempaid" xml:space="preserve">
+    <value>تم دفع العضوية</value>
+  </data>
+  <data name="mempayments" xml:space="preserve">
+    <value>مدفوعات العضوية</value>
+  </data>
   <data name="mist" xml:space="preserve">
     <value>ميست</value>
   </data>
   <data name="Moderator" xml:space="preserve">
     <value>Moderator</value>
+  </data>
+  <data name="moderatorname" xml:space="preserve">
+    <value>اسم المسؤول</value>
+  </data>
+  <data name="moderators" xml:space="preserve">
+    <value>المسؤولين</value>
+  </data>
+  <data name="movetopay" xml:space="preserve">
+    <value>الانتقال لصفحة الدفع</value>
   </data>
   <data name="mycourses" xml:space="preserve">
     <value>دوراتي</value>
@@ -327,8 +459,17 @@
   <data name="nameen" xml:space="preserve">
     <value>الاسم بالإنجليزية</value>
   </data>
+  <data name="newevent" xml:space="preserve">
+    <value>إضافة حدث جديد</value>
+  </data>
+  <data name="newforum" xml:space="preserve">
+    <value>إضافة نقاش جديد</value>
+  </data>
   <data name="newlevel" xml:space="preserve">
     <value>إضافة مستوي جديد</value>
+  </data>
+  <data name="newmem" xml:space="preserve">
+    <value>الأعضاء الجدد</value>
   </data>
   <data name="next" xml:space="preserve">
     <value>التالي</value>
@@ -336,8 +477,20 @@
   <data name="non" xml:space="preserve">
     <value>لا اجيد</value>
   </data>
+  <data name="notenrolled" xml:space="preserve">
+    <value>لم يتم الانضمام</value>
+  </data>
   <data name="notfound" xml:space="preserve">
     <value>لا يوجد بيانات للعرض</value>
+  </data>
+  <data name="oldmem" xml:space="preserve">
+    <value>الأعضاء القدامي</value>
+  </data>
+  <data name="orderid" xml:space="preserve">
+    <value>الرقم التعريفي للطلب</value>
+  </data>
+  <data name="ordernumber" xml:space="preserve">
+    <value>كود الطلب</value>
   </data>
   <data name="othercourses" xml:space="preserve">
     <value>الدورات الاخرى</value>
@@ -357,11 +510,49 @@
   <data name="pagesc" xml:space="preserve">
     <value>عدد الصفحات</value>
   </data>
+  <data name="pass" xml:space="preserve">
+    <value>ناجح</value>
+  </data>
+  <data name="passNote" xml:space="preserve">
+    <value>ملاحظة: يجب أن تتكون كلمة المرور من 8 أحرف على الأقل، بما في ذلك حرف كبير وحرف صغير وحرف خاص[*,#,$] وارقام</value>
+  </data>
+  <data name="payinfo" xml:space="preserve">
+    <value>:سياسة الاسترجاع
+
+- رسوم العضوية لا يمكن استردادها
+
+:سياسة استرداد قيمة الدورة
+
+- استرداد كامل المبلغ: استرداد 100% إذا تم الإلغاء قبل أكثر من 7 أيام من بدء الدورة.
+
+- استرداد جزئي: استرداد 80% في حالة الإلغاء قبل 7 أيام من بداية الدورة.
+
+- لن يتم قبول أي استرداد في يوم بدء الدورة.
+
+- سياسة عدم الحضور: المرشحون المسجلون غير مؤهلين لاسترداد الأموال.
+
+- التحويل أو الرصيد: نحن نقدم خيار نقل التسجيل إلى دورة مستقبلية أو تقديم رصيد لعرض مختلف، والذي يمكن استخدامه خلال إطار زمني محدد.</value>
+  </data>
+  <data name="paylater" xml:space="preserve">
+    <value>الدفع لاحقا</value>
+  </data>
+  <data name="paymem" xml:space="preserve">
+    <value>دفع العضوية</value>
+  </data>
+  <data name="payments" xml:space="preserve">
+    <value>المدفوعات</value>
+  </data>
+  <data name="paynow" xml:space="preserve">
+    <value>Visa-Master Card-Meeza الدفع بواسطة</value>
+  </data>
   <data name="paystate" xml:space="preserve">
     <value>حالة الدفع</value>
   </data>
   <data name="pending" xml:space="preserve">
     <value>قيد الانتظار</value>
+  </data>
+  <data name="percent" xml:space="preserve">
+    <value>النسبة المئوية</value>
   </data>
   <data name="personalinfo" xml:space="preserve">
     <value>المعلومات الشخصية</value>
@@ -369,11 +560,20 @@
   <data name="powerdby" xml:space="preserve">
     <value>مدعوم بواسطة</value>
   </data>
+  <data name="preinc" xml:space="preserve">
+    <value>لم يمكن التسجيل فى الدورة بدون تخطي الدورات المتطلبة اولا</value>
+  </data>
+  <data name="prereq" xml:space="preserve">
+    <value>المتطلبات</value>
+  </data>
   <data name="prev" xml:space="preserve">
     <value>السابق</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>السعر</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>طباعة</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>حسابي</value>
@@ -383,6 +583,15 @@
   </data>
   <data name="readmore" xml:space="preserve">
     <value>قراءة المزيد</value>
+  </data>
+  <data name="receipt" xml:space="preserve">
+    <value>إيصال</value>
+  </data>
+  <data name="refund" xml:space="preserve">
+    <value>استرداد</value>
+  </data>
+  <data name="refundpolicy" xml:space="preserve">
+    <value>سياسة الإسترداد والخصوصية</value>
   </data>
   <data name="regCourses" xml:space="preserve">
     <value>الدورات المسجلة</value>
@@ -399,6 +608,9 @@
   <data name="required" xml:space="preserve">
     <value>هذا الحقل مطلوب</value>
   </data>
+  <data name="resetheader" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور</value>
+  </data>
   <data name="resetpassword" xml:space="preserve">
     <value>تجديد كلمة المرور ؟</value>
   </data>
@@ -411,6 +623,9 @@
   <data name="search" xml:space="preserve">
     <value>بحث</value>
   </data>
+  <data name="searchresults" xml:space="preserve">
+    <value>نتائج البحث</value>
+  </data>
   <data name="selectlevel" xml:space="preserve">
     <value> ..... اختر مستوي</value>
   </data>
@@ -421,7 +636,7 @@
     <value>ارسل لنا رسالة</value>
   </data>
   <data name="signin" xml:space="preserve">
-    <value>تسجيل الدخول</value>
+    <value>دخول الاعضاء</value>
   </data>
   <data name="signout" xml:space="preserve">
     <value>تسجيل الخروج</value>
@@ -430,6 +645,9 @@
     <value>إنشاء حساب</value>
   </data>
   <data name="state" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="status" xml:space="preserve">
     <value>الحالة</value>
   </data>
   <data name="stdate" xml:space="preserve">
@@ -441,6 +659,9 @@
   <data name="submit" xml:space="preserve">
     <value>حفظ</value>
   </data>
+  <data name="success" xml:space="preserve">
+    <value>نجاح</value>
+  </data>
   <data name="ta" xml:space="preserve">
     <value>التحليل الفني</value>
   </data>
@@ -449,6 +670,9 @@
   </data>
   <data name="titlear" xml:space="preserve">
     <value>اسم الدورة بالعربية</value>
+  </data>
+  <data name="unban" xml:space="preserve">
+    <value>رفع الحظر</value>
   </data>
   <data name="upcourses" xml:space="preserve">
     <value>الدورات القادمة</value>
@@ -475,7 +699,7 @@
     <value> ESTA اهلا بكم في </value>
   </data>
   <data name="wel2" xml:space="preserve">
-    <value>التعليم يضئ حياة الإنسان</value>
+    <value>مكان واحد لجميع الفنيين</value>
   </data>
   <data name="wel2desc" xml:space="preserve">
     <value>التعليم اساس بناء الحضارة</value>

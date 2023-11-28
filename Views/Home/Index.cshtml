@@ -21,20 +21,26 @@
                 <div class="row  justify-content-center">
                     <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@localizer["wel"]</h1>
+                            <a asp-action="About" asp-controller="Home" asp-area="" asp-route-type="about" >
+        <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@localizer["wel"]</h1>
                             <p data-animation="fade-up" data-delay=".4s">@localizer["esta"]</p>
+                            </a>
+                    
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner2.jpg"))">
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center"
+        style="background-image: url(@Url.Content("~/template/img/slider/banner2.jpg"))">
             <div class="container">
                 <div class="row  justify-content-center">
                     <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
+                                     <a asp-action="Register" asp-controller="Account" asp-area=""  >
                             <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel2"])  </h1>
                             <p data-animation="fade-up" data-delay=".4s">   @localizer["wel2desc"]                  </p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -45,9 +51,10 @@
                 <div class="row  justify-content-center">
                     <div class="">
                         <div class="slider-content slider-content-2 slider-content-3 text-center">
+                                  <a asp-action="Register" asp-controller="Account" asp-area=""  >
                             <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel3"])  </h1>
-                            <p data-animation="fade-up" data-delay=".4s">         @localizer["wel3desc"]                   </p>
-
+                            <p data-animation="fade-up" data-delay=".4s"> @localizer["wel3desc"]  </p>
+                            </a>
                         </div>
                     </div>
                 </div>

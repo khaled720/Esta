@@ -118,6 +118,72 @@ namespace ESTA.Areas.Admin.Controllers
             }
         }
 
+
+        public async Task<IActionResult>
+        NewModeratorCurrentUserAsync()
+        {
+            ViewBag.SelectForum = ForumsToSelect();
+            var users= await appRep.UserRep.GetAllUsers();
+
+            var Users=new List<User>();
+
+            foreach (var item in users)
+            {
+                if (!await userManager.IsInRoleAsync(item,"Moderator") && !await userManager.IsInRoleAsync(item, "Admin")) 
+                {
+                Users.Add(item);
+                }
+            }
+            ViewBag.Users = Users;
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult>
+        NewModeratorCurrentUser(User usr)
+        {
+     
+            var res = await userManager.FindByIdAsync(usr.Id);
+
+            if (res!=null)
+            {
+                await userManager.AddToRoleAsync(res, "Moderator");
+
+                ModeratorForum ModeratorForum;
+
+                usr.SelectForum.ForEach(async x =>
+                {
+                    ModeratorForum = new()
+                    {
+                        UserId = res.Id,
+                        ForumId = x
+                    };
+
+                    appRep.ModeratorRep.NewModeratorForum(ModeratorForum);
+                    await appRep.SaveChangesAsync();
+
+                });
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //foreach (var error in res.Errors)
+                //{
+                //    ModelState.AddModelError("", error.Description);
+                //}
+
+                ViewBag.SelectForum = ForumsToSelect();
+
+                return View(res);
+            }
+        }
+
+
+
+
+
+
+
         public async Task<IActionResult> EditModerator(string id)
         {
             var User = await userManager.FindByIdAsync(id);

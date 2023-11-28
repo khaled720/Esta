@@ -82,14 +82,16 @@
     <table id="courses-table" class="table" >
         <thead>
             <tr>
-
-
+                <th>@localizer["state"]</th>
+                <th>@localizer["coursegrade"]</th>
                 <th>@localizer["name"]</th>
                 <th>@localizer["emailus"]</th>
                 <th>@localizer["enrolldate"]</th>
                 <th>@localizer["paystate"]</th>
-                <th>@localizer["actions"]</th>
+            
 
+                <th>@localizer["actions"]</th>
+  
             </tr>
 
         </thead>
@@ -99,7 +101,9 @@
 
             @foreach (var item in Model.Users)
             {
-                <tr>
+				<tr>
+                    <td>@item.state.StateName</td>
+					<td>@item.Grade</td>
                     <td>@item.user.FullName</td>
 
                     <td>@item.user.Email</td>
@@ -110,10 +114,14 @@
                     @if(item.isPaid)
                     {
                         <td style="color:green"> @localizer["done"] </td>
+              
 
                         <td>
                             @Html.ActionLink(@localizer["revokepaid"], "UpdateCoursePaymentStatuse",
-                new { cid = Model.course.Id,uid=item.UserId,paymentstate=false }, new { @class = "btn btn-danger" }) ;
+                new { cid = Model.course.Id,uid=item.UserId,paymentstate=false }, new { @class = "btn btn-danger" }) 
+                      
+                            @Html.ActionLink(localizer["assigngrade"], "AddResult","Results",
+                new { courseId = Model.course.Id,userId=item.UserId,area="Admin"}, new { @class = "btn btn-danger" }) 
                         </td>
                     }
                     else
@@ -126,7 +134,7 @@
                         </td>
                     }
 
-
+                  
 
                 }
 

@@ -65,7 +65,7 @@
             {
                 <div class="col-12 mt-3">
                     <a asp-action="EditEvent" asp-route-id="@Model.Id" class="btn btn-secondary">@ESTA.Resources.EventsNews.Edit</a>
-                    @Html.ActionLink("Delete", "DeleteEvent", new { id = @Model.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+                    @Html.ActionLink(localizer["delete"], "DeleteEvent", new { id = @Model.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
           
 
                 </div>

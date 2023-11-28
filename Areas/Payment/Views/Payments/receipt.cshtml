@@ -1,0 +1,97 @@
+﻿@model ESTA.Areas.Payment.Models.PaymentReceipt
+
+
+
+
+<script>
+	function Print() {
+
+		var divContents = document.getElementById("print-div").innerHTML;
+		var a = window.open('', '', 'height=500, width=500');
+		a.document.write('<html>');
+		a.document.write('<body >');
+		a.document.write(divContents);
+		a.document.write('</body></html>');
+		a.document.close();
+		a.print();
+
+	}
+
+</script>
+
+
+
+<h4 class="text=danger" style="text-align:center">
+	@localizer["receipt"]	
+</h4>
+
+<div class="rounded-div mr" id="receipt" style="padding:75px;display:flex;flex-direction:column;">
+	
+	<div id="print-div" style="text-align:center">
+	
+	@if (Model.IsFailed)
+	{
+		<img width="100px" height="100px" style="    align-self: center;" src="@Url.Content("~/Images/fail.png")">
+		<h1 style="color:red;text-align:center">
+			
+			@localizer["failure"]
+	</h1>
+	<p>@Model.ErrorMsg</p>
+	}else{
+		<img width="100px" height="100px" style="    align-self: center;" src="@Url.Content("~/Images/success.png")">
+	<h1 style="color:green;text-align:center">
+
+			@localizer["success"]
+	</h1>
+	}
+	
+
+	<div class="row">
+
+		<div class="col-8">  	@localizer["status"]	</div>
+		<div class="col-4">	@Model.Status </div>
+	</div>
+	<div class="row">
+
+		<div class="col-8"> 	@localizer["orderid"]	</div>
+		<div class="col-4"> @Model.OrderId </div>
+	</div>
+		@if (Model.course!=null) {
+			<div class="row">
+
+				<div class="col-8"> 	@localizer["coursename"]	</div>
+				<div class="col-4"> @Model.course.Title </div>
+			</div>
+			<div class="row">
+
+				<div class="col-8"> 	@localizer["level"]	</div>
+				<div class="col-4"> @Model.course.level.TypeName </div>
+			</div>
+		}
+		<div class="row">
+
+			<div class="col-8"> 	@localizer["ordernumber"]	</div>
+			<div class="col-4"> @Model.OrderNumber </div>
+		</div>
+	<div class="row">
+
+		<div class="col-8"> 	@localizer["lastupdatedate"]	</div>
+		<div class="col-4"> @Model.LastUpdateDate </div>
+	</div>	
+	<div class="row">
+
+		<div class="col-8">   	@localizer["amount"]	</div>
+		<div class="col-4 text-danger"> @Model.Amount </div>
+	</div>
+</div>
+	<div class="row">
+		<button type="button" style="background-color:green" 
+		onclick="Print()" class="col-6 btn btn-primary">	@localizer["print"]	</button>
+
+		<a asp-action="index" asp-controller="home" asp-area="" 
+		class="col-6  btn btn-primary">	@localizer["done"]	</a>
+		
+	</div>
+
+</div>
+

@@ -61,7 +61,16 @@
 
 
     <div class="row">
+            <div class="form-group col-lg-4 col-sm-12">
+                <label asp-for="@Model.course.MaxAllowedMembersCount"></label>
+                @*   <input type="text" class="form-control"  />*@
+               @* @Html.EditorFor(M=>M.course.MaxAllowedMembersCount,
+                new { htmlAttributes = new { @class = "form-" } })*@
 
+                <input asp-for="@Model.course.MaxAllowedMembersCount" class="" min="@Model.course.MaxAllowedMembersCount" />
+                @Html.ValidationMessageFor(k=>k.course.MaxAllowedMembersCount,"",new {@class="text-danger"})
+
+            </div>
       
         <div class="form-group col-4">
             <label>Price</label>
@@ -70,6 +79,7 @@
             @Html.ValidationMessageFor(k=>k.course.Price,"",new {@class="text-danger"})
 
         </div>
+
         <div class="form-group  col-4">
             <label>Final Grade</label>
             @Html.EditorFor(M=>M.course.FinalGrade, new { htmlAttributes = new { @class = "" } })
@@ -94,8 +104,8 @@
 
         <textarea asp-for=@Model.course.Description class=""></textarea>
         @Html.ValidationMessageFor(k=>k.course.Description,"",new {@class="text-danger"})
-
-        <span asp-validation-for=@Model.course.Description style="color: blue;"></span>
+@*
+        <span asp-validation-for=@Model.course.Description style="color: blue;"></span>*@
     </div>
 
     <div class="form-group col-12">
@@ -106,10 +116,10 @@
 
         @Html.ValidationMessageFor(k=>k.course.DescriptionAr,"",new {@class="text-danger"})
 
-        <span asp-validation-for=@Model.course.DescriptionAr style="color: blue;"></span>
+@*        <span asp-validation-for=@Model.course.DescriptionAr style="color: blue;"></span>*@
     </div>
 
-    <button style="margin:auto" type="submit" class="btn btn-primary">Save Changes</button>
+    <button style="margin:auto" type="submit" class="btn btn-primary">@localizer["submit"]</button>
 
 
 </form>

@@ -1,0 +1,45 @@
+﻿@model GlobalConstants
+
+
+@{
+
+   Layout="_AdminLayout";
+
+}
+
+<div class="page-head">
+<h2>@localizer["membership"]</h2>
+<h5>@localizer["edit"]</h5>
+</div>
+
+<form method="post" action="EditMempership" class="rounded-div">
+   @Html.HiddenFor(y=>y.Id)
+   <div class="row">
+
+		<div class=" col-6">
+
+			<label asp-for="@Model.MempershipFee"></label>
+			<input asp-for="@Model.MempershipFee" class="form-control" />
+			<span asp-validation-for="@Model.MempershipFee"></span>
+
+	   </div>
+
+
+		<div class=" col-6">
+
+			<label asp-for="@Model.MempershipExpiryMonth"></label>
+			<input type="number"  
+				asp-for="@Model.MempershipExpiryMonth"
+				class="form-control" />
+			<span asp-validation-for="@Model.MempershipExpiryMonth"></span>
+	</div>
+	
+
+
+   </div>
+	<br />
+
+	<br />
+
+<button type="submit" class="btn-primary btn">@localizer["submit"]</button>
+</form>

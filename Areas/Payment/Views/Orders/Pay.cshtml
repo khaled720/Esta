@@ -1,0 +1,76 @@
+﻿
+@model object
+
+
+<form id="form1" runat="server">
+  
+
+    <div id="embed-target"></div>
+   @* @Model.ToString()*@
+
+    <br />
+
+
+@*    <%-- <input type="button" value="Pay with Embedded Page" onclick="Checkout.showEmbeddedPage('#embed-target');" />--%>*@
+ 
+
+
+    <div class="row justify-content-center">
+
+        <h3 class="col-8">@localizer["refundpolicy"]</h3>
+
+        <p class="col-8">
+            <div style="height:250px;overflow:auto;width:60%">
+			@Html.Raw( @localizer["payinfo"] )
+    </div>
+   
+        </p>
+  
+        <div  class="col-8 row  chk-ar" style="margin:25px;">
+
+     
+            <label>
+                <input id="agree-chkbox" onchange="checkAgree()"  style="width:15px" type="checkbox" />
+                @localizer["agreepolicy"]
+            </label>
+
+        </div>
+
+		<div class="col-12" style=" margin:25px;display:flex;justify-content:center; height:40px">
+			<img src="~/images/payment/mastercard acceptance sign.png" />
+			<img src="~/images/payment/meeza_cards_logo.png" />
+			<img src="~/images/payment/visa acceptance sign.png" />
+</div>
+	
+
+		<input class="btn col-8 btn-primary" id="movePaymentBtn"  disabled  type="button" value="@localizer["movetopay"]" onclick="Checkout.showPaymentPage();" />
+
+</div>
+	<br />
+	<br />
+<br />
+<br />
+
+	<script src="~/js/move-to-payment.js"></script>
+
+    <script src="https://qnbalahli.test.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"> </script>
+    <script type="text/javascript">
+        function errorCallback(error) { console.log(JSON.stringify(error)); }
+        function cancelCallback() { console.log('Payment cancelled'); }
+    </script>
+
+    <script>
+        Checkout.configure({ session: { id: "@Model.ToString()" } });
+        debugger;
+    </script>
+</form>
+
+
+
+
+
+
+
+
+
+

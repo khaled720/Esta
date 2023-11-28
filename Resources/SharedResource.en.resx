@@ -123,11 +123,23 @@
   <data name="actions" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="addcontact" xml:space="preserve">
     <value>Add New Contact</value>
   </data>
   <data name="adddirector" xml:space="preserve">
     <value>Add Director</value>
+  </data>
+  <data name="addexitingmoderator" xml:space="preserve">
+    <value>Add Current User</value>
+  </data>
+  <data name="addimage" xml:space="preserve">
+    <value>Click to Upload Image</value>
+  </data>
+  <data name="addmoderator" xml:space="preserve">
+    <value>Add Moderator</value>
   </data>
   <data name="addnewcourse" xml:space="preserve">
     <value>Add New Course</value>
@@ -135,11 +147,29 @@
   <data name="addressinfo" xml:space="preserve">
     <value>Address Info</value>
   </data>
+  <data name="agreepolicy" xml:space="preserve">
+    <value>I Agree With Refund and Privacy Policy</value>
+  </data>
+  <data name="allmem" xml:space="preserve">
+    <value>All Members</value>
+  </data>
+  <data name="amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
   <data name="approve" xml:space="preserve">
     <value>Approve</value>
   </data>
+  <data name="assigngrade" xml:space="preserve">
+    <value>Assign Grade</value>
+  </data>
+  <data name="bandate" xml:space="preserve">
+    <value>Ban Date</value>
+  </data>
   <data name="BannedUsers" xml:space="preserve">
     <value>Banned users</value>
+  </data>
+  <data name="banresons" xml:space="preserve">
+    <value>Ban Reasons</value>
   </data>
   <data name="becamemember" xml:space="preserve">
     <value>Became a Member</value>
@@ -153,6 +183,12 @@
   <data name="callus" xml:space="preserve">
     <value>Call Us</value>
   </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cannotenroll" xml:space="preserve">
+    <value>Can not Register in this course</value>
+  </data>
   <data name="ceta" xml:space="preserve">
     <value>CETA</value>
   </data>
@@ -162,11 +198,27 @@
   <data name="cetaholders" xml:space="preserve">
     <value>Certified Members</value>
   </data>
+  <data name="cetaprogram" xml:space="preserve">
+    <value>The Egyptian Society of Technical Analysts (ESTA) provides its professional program of Technical Analysis which is currently acknowledged by the International Federation of Technical Analysts (IFTA). The course name is CETA which is an abbreviation for Certified ESTA Technical Analyst.
+
+        CETA is the third certificate around the world after Japan &amp; Australia's certificates that is accredited to be equivalent to the international Certificate of the international Federation of Technical Analysts (CFTe).
+
+        CETA professional program is intended for anyone interested in technical analysis. The ESTA professional program CETA is consisted of three levels and candidates will pass an exam at the end of each level to be able to continue the program.
+
+        The main aim of the ESTA professional Program is to teach candidates so they can demonstrate proficiency in a variety of technical analysis tools. Candidates will be able to understand market movements and their real causes, bad signals and how to overcome them, as well as taking important trading and investment decisions based on their well thought-out opinions. This program is a very tough program and will need a lot of effort from candidates to pass it.
+
+        Level 1 exam will include multiple choice questions. Level 2 exam will include multiple choice, short questions, and essay questions. Level 3 will mainly be essay questions. Passing grade is set at 70% for each level.
+
+        To attend the CETA program, candidate should be first an ESTA member &amp; because of the very high demand on our professional program candidate should contact ESTA office to add his name on the waiting list of the course. And then, ESTA will call him as soon as his turn comes.</value>
+  </data>
   <data name="changepassheader" xml:space="preserve">
     <value>New Password</value>
   </data>
   <data name="codeofethics" xml:space="preserve">
     <value>Code of professional Ethics</value>
+  </data>
+  <data name="confirm" xml:space="preserve">
+    <value>Confirm</value>
   </data>
   <data name="confirmemail" xml:space="preserve">
     <value>Confirm Email</value>
@@ -183,6 +235,12 @@
   <data name="copyrights" xml:space="preserve">
     <value>© Copyright ESTA All Rights Reserved.</value>
   </data>
+  <data name="coursecomplete" xml:space="preserve">
+    <value>The Number of Applicants is Complete</value>
+  </data>
+  <data name="courseconfirm" xml:space="preserve">
+    <value>Course Payment Confirmation</value>
+  </data>
   <data name="coursedetails" xml:space="preserve">
     <value>Course Details</value>
   </data>
@@ -192,11 +250,23 @@
   <data name="coursehint" xml:space="preserve">
     <value>Requires Attendence only</value>
   </data>
+  <data name="courselevel" xml:space="preserve">
+    <value>Course Level</value>
+  </data>
   <data name="coursename" xml:space="preserve">
     <value>Course Title</value>
   </data>
+  <data name="coursepopup" xml:space="preserve">
+    <value>You Are Going to Enroll To This Course .Would You Like To Enroll &amp; Pay Now Or Pay Later?</value>
+  </data>
   <data name="courses" xml:space="preserve">
     <value>Courses</value>
+  </data>
+  <data name="coursesorders" xml:space="preserve">
+    <value>Courses Orders</value>
+  </data>
+  <data name="coursespayments" xml:space="preserve">
+    <value>Courses Payments</value>
   </data>
   <data name="dashboard" xml:space="preserve">
     <value>Admin Dashboard</value>
@@ -234,11 +304,26 @@
   <data name="eduinfo" xml:space="preserve">
     <value>Education Info</value>
   </data>
+  <data name="emailconfirm" xml:space="preserve">
+    <value>Please Confirm you Email</value>
+  </data>
+  <data name="emailconfirmdesc" xml:space="preserve">
+    <value>We Have Emailed you with your activation link ,please confirm your Email!</value>
+  </data>
   <data name="emailus" xml:space="preserve">
     <value>Email Us</value>
   </data>
+  <data name="endMem" xml:space="preserve">
+    <value>Revoke</value>
+  </data>
+  <data name="endsin" xml:space="preserve">
+    <value>Ends In </value>
+  </data>
   <data name="enrolldate" xml:space="preserve">
     <value>Enrollment Date</value>
+  </data>
+  <data name="enrolled" xml:space="preserve">
+    <value>Enrolled</value>
   </data>
   <data name="enrolledusers" xml:space="preserve">
     <value>Enrolled Users</value>
@@ -249,17 +334,38 @@
   <data name="ethics" xml:space="preserve">
     <value>Ethics</value>
   </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>Event Date</value>
+  </data>
   <data name="events&amp;news" xml:space="preserve">
     <value>Events &amp; News</value>
+  </data>
+  <data name="eventtitle" xml:space="preserve">
+    <value>Event Title</value>
+  </data>
+  <data name="eventtype" xml:space="preserve">
+    <value>Event Type</value>
   </data>
   <data name="excellent" xml:space="preserve">
     <value>Excellent</value>
   </data>
+  <data name="fail" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="failure" xml:space="preserve">
+    <value>FAILURE</value>
+  </data>
   <data name="followus" xml:space="preserve">
     <value>Follow Us</value>
   </data>
+  <data name="forumdash" xml:space="preserve">
+    <value>Forum Dashboard</value>
+  </data>
   <data name="forums" xml:space="preserve">
     <value>Forums</value>
+  </data>
+  <data name="forumtitle" xml:space="preserve">
+    <value>Forum Title</value>
   </data>
   <data name="free" xml:space="preserve">
     <value>Free</value>
@@ -270,6 +376,9 @@
   <data name="good" xml:space="preserve">
     <value>Good</value>
   </data>
+  <data name="haveenrolled" xml:space="preserve">
+    <value>You have already enrolled this course</value>
+  </data>
   <data name="haveread" xml:space="preserve">
     <value>I've Read Everything Carefully and I Accept</value>
   </data>
@@ -278,6 +387,9 @@
   </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="IdCardLimit" xml:space="preserve">
+    <value>Please Upload Front And Back Copy of Your ID Card</value>
   </data>
   <data name="ifta" xml:space="preserve">
     <value>IFTA</value>
@@ -300,23 +412,53 @@
   <data name="lang" xml:space="preserve">
     <value>العربية</value>
   </data>
+  <data name="lastupdatedate" xml:space="preserve">
+    <value>Last Update Date</value>
+  </data>
   <data name="level" xml:space="preserve">
     <value>Level</value>
   </data>
   <data name="levels" xml:space="preserve">
     <value>Levels</value>
   </data>
+  <data name="markascert" xml:space="preserve">
+    <value>Mark as CETA Holder</value>
+  </data>
   <data name="markpaid" xml:space="preserve">
     <value>Mark as Paid</value>
   </data>
+  <data name="maxcoursemembers" xml:space="preserve">
+    <value>The maximum number of people who can apply</value>
+  </data>
   <data name="membership" xml:space="preserve">
     <value>Membership</value>
+  </data>
+  <data name="memnotpaid" xml:space="preserve">
+    <value>Mempership should be Paid first to Apply for a Course</value>
+  </data>
+  <data name="memorders" xml:space="preserve">
+    <value>Memperships Orders</value>
+  </data>
+  <data name="mempaid" xml:space="preserve">
+    <value>Mempership Is Paid</value>
+  </data>
+  <data name="mempayments" xml:space="preserve">
+    <value>Memperships Payments</value>
   </data>
   <data name="mist" xml:space="preserve">
     <value>MIST</value>
   </data>
   <data name="Moderator" xml:space="preserve">
     <value>Moderator</value>
+  </data>
+  <data name="moderatorname" xml:space="preserve">
+    <value>Moderator Name</value>
+  </data>
+  <data name="moderators" xml:space="preserve">
+    <value>Moderators</value>
+  </data>
+  <data name="movetopay" xml:space="preserve">
+    <value>Move to  Payment Page</value>
   </data>
   <data name="mycourses" xml:space="preserve">
     <value>My Courses</value>
@@ -330,8 +472,17 @@
   <data name="nameen" xml:space="preserve">
     <value>Name in English</value>
   </data>
+  <data name="newevent" xml:space="preserve">
+    <value>Add New Event</value>
+  </data>
+  <data name="newforum" xml:space="preserve">
+    <value>Add New Forum</value>
+  </data>
   <data name="newlevel" xml:space="preserve">
     <value>Add New Level</value>
+  </data>
+  <data name="newmem" xml:space="preserve">
+    <value>New Members</value>
   </data>
   <data name="next" xml:space="preserve">
     <value>Next</value>
@@ -339,8 +490,20 @@
   <data name="non" xml:space="preserve">
     <value>Non of Them</value>
   </data>
+  <data name="notenrolled" xml:space="preserve">
+    <value>Not Enrolled</value>
+  </data>
   <data name="notfound" xml:space="preserve">
     <value>No Data to display</value>
+  </data>
+  <data name="oldmem" xml:space="preserve">
+    <value>Old Members</value>
+  </data>
+  <data name="orderid" xml:space="preserve">
+    <value>Order Identifier</value>
+  </data>
+  <data name="ordernumber" xml:space="preserve">
+    <value>Order Code</value>
   </data>
   <data name="othercourses" xml:space="preserve">
     <value>Other Courses</value>
@@ -360,11 +523,49 @@
   <data name="pagesc" xml:space="preserve">
     <value>Pages Count</value>
   </data>
+  <data name="pass" xml:space="preserve">
+    <value>Passed</value>
+  </data>
+  <data name="passNote" xml:space="preserve">
+    <value>NOTE: password must be at least 8 characters including one uppercase,lowercase letter, one special character and alphanumeric characters</value>
+  </data>
+  <data name="payinfo" xml:space="preserve">
+    <value>Refund Policy:
+
+- Membership fees can not be refunded
+
+Course Refund Policy:
+
+- Full Refund:  100% refund if canceled more than 7 days before the course begins.
+
+- Partial Refund: 80% refund for cancellations before 7 days from the beginning of the course.
+
+- No Refund will be accepted the day of starting the course.
+
+- No-Show Policy:  Registered Candidates are not eligible for a refund.
+
+- Transfer or Credit: We offer the option to transfer the registration to a future course or provide a credit for a different offering, which can be used within a specific timeframe.</value>
+  </data>
+  <data name="paylater" xml:space="preserve">
+    <value>Pay Later</value>
+  </data>
+  <data name="paymem" xml:space="preserve">
+    <value>Pay Mempership</value>
+  </data>
+  <data name="payments" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="paynow" xml:space="preserve">
+    <value>Pay with Visa-Master Card-Meeza</value>
+  </data>
   <data name="paystate" xml:space="preserve">
     <value>Payment State</value>
   </data>
   <data name="pending" xml:space="preserve">
     <value>Pending</value>
+  </data>
+  <data name="percent" xml:space="preserve">
+    <value>Percentage</value>
   </data>
   <data name="personalinfo" xml:space="preserve">
     <value>Personal Info</value>
@@ -372,11 +573,20 @@
   <data name="powerdby" xml:space="preserve">
     <value>Powered By</value>
   </data>
+  <data name="preinc" xml:space="preserve">
+    <value>You can not register in this course without passing its prerequisites</value>
+  </data>
+  <data name="prereq" xml:space="preserve">
+    <value>Prerequisites</value>
+  </data>
   <data name="prev" xml:space="preserve">
     <value>Previous</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>Print</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>My Profile</value>
@@ -386,6 +596,15 @@
   </data>
   <data name="readmore" xml:space="preserve">
     <value>Read More</value>
+  </data>
+  <data name="receipt" xml:space="preserve">
+    <value>Receipt</value>
+  </data>
+  <data name="refund" xml:space="preserve">
+    <value>Refund</value>
+  </data>
+  <data name="refundpolicy" xml:space="preserve">
+    <value>Refund &amp; Privacy Policy</value>
   </data>
   <data name="regCourses" xml:space="preserve">
     <value>Registred Courses</value>
@@ -417,6 +636,9 @@
   <data name="search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="searchresults" xml:space="preserve">
+    <value>Search Results</value>
+  </data>
   <data name="selectlevel" xml:space="preserve">
     <value>Select Level .....</value>
   </data>
@@ -427,7 +649,7 @@
     <value>Send Us A Message</value>
   </data>
   <data name="signin" xml:space="preserve">
-    <value>Sign In</value>
+    <value>Member's Login</value>
   </data>
   <data name="signout" xml:space="preserve">
     <value>Sign Out</value>
@@ -438,6 +660,9 @@
   <data name="state" xml:space="preserve">
     <value>State</value>
   </data>
+  <data name="status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="stdate" xml:space="preserve">
     <value>Start Date</value>
   </data>
@@ -447,6 +672,9 @@
   <data name="submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="success" xml:space="preserve">
+    <value>SUCCESS</value>
+  </data>
   <data name="ta" xml:space="preserve">
     <value>Technical Analysis</value>
   </data>
@@ -455,6 +683,9 @@
   </data>
   <data name="titlear" xml:space="preserve">
     <value>Title in Arabic</value>
+  </data>
+  <data name="unban" xml:space="preserve">
+    <value>Unban</value>
   </data>
   <data name="upcourses" xml:space="preserve">
     <value>Upcoming Courses</value>
@@ -481,13 +712,13 @@
     <value>Welcome to ESTA</value>
   </data>
   <data name="wel2" xml:space="preserve">
-    <value>Education Gets Light &lt;br&gt; In Human Life</value>
+    <value>One Home for All Technicians</value>
   </data>
   <data name="wel2desc" xml:space="preserve">
     <value>Civilization will not be without Education</value>
   </data>
   <data name="wel3" xml:space="preserve">
-    <value>First Professional &lt;br&gt; Technical Analysis Society</value>
+    <value>Join Esta Now</value>
   </data>
   <data name="wel3desc" xml:space="preserve">
     <value>was created since 1988</value>

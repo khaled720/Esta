@@ -48,73 +48,207 @@ namespace ESTA.Controllers
         public IActionResult Login()
         {
             if (signInManager.IsSignedIn(User))
-                RedirectToAction("Index", "Home");
+           return     RedirectToAction("Index", "Home");
+
             return View();
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Login(LoginViewModel LoginModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var result = await signInManager.PasswordSignInAsync(
+        //            LoginModel.Email,
+        //            LoginModel.Password,
+        //            false,
+        //            lockoutOnFailure: false
+        //        );
+
+        //        if (result.Succeeded)
+        //        {
+        //            var user = await userManager.FindByEmailAsync(LoginModel.Email);
+
+        //            if (user.IsDeleted) { 
+        //                 return View(
+        //                    "ConfirmEmail",
+        //                    new ErrorViewModel
+        //                    {
+        //                        Title = "Account Deleted",
+        //                        Description =
+        //                            "We are sorry to inform you that your account was deleted for violating our conditions&terms. for more info contact support team."
+        //                    }
+        //                );
+        //            }
+
+
+        //            if ( user.IsApproved == true)
+        //            {
+        //                if (await userManager.IsInRoleAsync(user, "Admin"))
+        //                {
+        //                    return RedirectToAction("index", "courses", new { area = "Admin" });
+        //                }
+        //                else if (await userManager.IsInRoleAsync(user, "Moderator"))
+        //                {
+        //                    return RedirectToAction("index", "Forums", new { area = "Admin" });
+        //                }
+        //                else
+        //                {
+        //                    return RedirectToAction("profile", "user");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return View(
+        //                    "ConfirmEmail",
+        //                    new ErrorViewModel
+        //                    {
+        //                        Title = "Waiting for Approval",
+        //                        Description =
+        //                            "We are checking your registration Info once we finish will Email you , this proccess may take 2 or 3 days !"
+        //                    }
+        //                );
+        //            }
+
+
+                    
+        //        }
+        //        else if (result.IsNotAllowed)
+        //        {
+        //            var user = await userManager.FindByEmailAsync(LoginModel.Email);
+
+        //            if (user != null && !user.EmailConfirmed)
+        //            {
+        //                var token = userManager.GenerateEmailConfirmationTokenAsync(user);
+        //                var confirmEmailUrl = Url.Action(
+        //                    "ConfirmEmail",
+        //                    "Account",
+        //                    new { UserId = user.Id, Token = token.Result },
+        //                    Request.Scheme
+        //                );
+        //                var isEmailSent = EmailSender.Send_Mail(
+        //                    user.Email,
+        //                    "Click this link to confirm your <strong>Email</strong> <br> "
+        //                        + confirmEmailUrl,
+        //                    "Confirm Your Email",
+        //                    "Esta"
+        //                );
+        //                if (isEmailSent)
+        //                {
+        //                    return View(
+        //                        "ConfirmEmail",
+        //                        new ErrorViewModel
+        //                        {
+        //                            Title = "Email Confirmation Requested to login",
+        //                            Description =
+        //                                "We Have Emailed you  with your confirmation link ,please confirm your Email!"
+        //                        }
+        //                    );
+        //                }
+        //                else
+        //                {
+        //                    return View(
+        //                        "ConfirmEmail",
+        //                        new ErrorViewModel
+        //                        {
+        //                            Title = "Email Confirmation Failed",
+        //                            Description =
+        //                                "Confirmation of your email has some issues ! please provide a valid Email"
+        //                        }
+        //                    );
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            var error = result.ToString();
+        //            ModelState.AddModelError(string.Empty, "Incorrect Email or Password");
+        //             return View();
+        //        }
+        //    }
+        //    return View();
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel LoginModel)
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(
-                    LoginModel.Email,
-                    LoginModel.Password,
-                    false,
-                    lockoutOnFailure: false
-                );
 
-                if (result.Succeeded)
+                var user = await userManager.FindByEmailAsync(LoginModel.Email);
+
+                if (user != null)
                 {
-                    var user = await userManager.FindByEmailAsync(LoginModel.Email);
-
-                    if (user.IsDeleted) { 
-                         return View(
-                            "ConfirmEmail",
-                            new ErrorViewModel
-                            {
-                                Title = "Account Deleted",
-                                Description =
-                                    "We are sorry to inform you that your account was deleted for violating our conditions&terms. for more info contact support team."
-                            }
-                        );
-                    }
 
 
-                    if ( user.IsApproved == true)
+                    if (user != null && user.IsApproved == true&&user.EmailConfirmed==true&&user.IsDeleted==false)
                     {
-                        if (await userManager.IsInRoleAsync(user, "Admin"))
+                        var result = await signInManager.PasswordSignInAsync(LoginModel.Email,
+                            LoginModel.Password, false, false);
+                        if (result.Succeeded)
                         {
-                            return RedirectToAction("index", "courses", new { area = "Admin" });
+                            if (await userManager.IsInRoleAsync(user, "Admin"))
+                            {
+                                return RedirectToAction("index", "courses", new { area = "Admin" });
+                            }
+                            else if(await userManager.IsInRoleAsync(user, "Moderator")&& await userManager.IsInRoleAsync(user, "User"))
+                            {
+                                return RedirectToAction("profile", "user");
+                            }
+                            else if (await userManager.IsInRoleAsync(user, "Moderator"))
+                            {
+                                // 
+                                return RedirectToAction("index", "Forums", new { area = "Admin" });
+                            }
+                            else 
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
+
                         }
-                        else if (await userManager.IsInRoleAsync(user, "Moderator"))
+                        else if (result.IsNotAllowed)
                         {
-                            return RedirectToAction("index", "Forums", new { area = "Admin" });
+                            var error = result.ToString();
+                            ModelState.AddModelError(string.Empty, "Incorrect Email or Password");
+                            return View();
+
                         }
-                        else
+                        else if (result.Succeeded == false && result.IsNotAllowed == false) 
                         {
-                            return RedirectToAction("profile", "user");
+                            var error = result.ToString();
+                            ModelState.AddModelError(string.Empty, "Incorrect Email or Password");
+                            return View();
                         }
                     }
-                    else
+
+
+
+
+                    if (
+                        await appRep.ConstantsRep.getMempershipExpiryMonth()
+                        <
+                        DateTime.Now.Month
+                        ) {
+
+                  await      appRep.UserRep.RevokeMempershipPayment(user.Id);
+                        await appRep.SaveChangesAsync();
+                    }
+
+
+                    if (user.IsDeleted)
                     {
                         return View(
-                            "ConfirmEmail",
-                            new ErrorViewModel
-                            {
-                                Title = "Waiting for Approval",
-                                Description =
-                                    "We are checking your registration Info once we finish will Email you , this proccess may take 2 or 3 days !"
-                            }
-                        );
+                           "ConfirmEmail",
+                           new ErrorViewModel
+                           {
+                               Title = "Account Deleted",
+                               Description =
+                                   "We are sorry to inform you that your account was deleted for violating our conditions&terms. for more info contact support team."
+                           }
+                       );
                     }
 
 
-                    
-                }
-                else if (result.IsNotAllowed)
-                {
-                    var user = await userManager.FindByEmailAsync(LoginModel.Email);
 
                     if (user != null && !user.EmailConfirmed)
                     {
@@ -156,14 +290,51 @@ namespace ESTA.Controllers
                                 }
                             );
                         }
+
                     }
+
+                    if (user != null && user.IsApproved == true)
+                    {
+                        if (await userManager.IsInRoleAsync(user, "Admin"))
+                        {
+                            return RedirectToAction("index", "courses", new { area = "Admin" });
+                        }
+                        else if (await userManager.IsInRoleAsync(user, "Moderator"))
+                        {
+                            // 
+                            return RedirectToAction("index", "Forums", new { area = "Admin" });
+                        }
+                        else
+                        {
+                            return RedirectToAction("profile", "user");
+                        }
+                    }
+                    else {
+                        return    View(
+                               "ConfirmEmail",
+                               new ErrorViewModel
+                               {
+                                   Title = "Account Not Approved",
+                                   Description =
+                                       "We are checking your Account and Will approve it soon"
+                               }
+                           );
+
+                    }
+
+
+
+
+
+
+
+
                 }
                 else
                 {
-                    var error = result.ToString();
-                    ModelState.AddModelError(string.Empty, "Incorrect Email or Password");
-                     return View();
+                    return View();
                 }
+
             }
             return View();
         }
@@ -171,6 +342,8 @@ namespace ESTA.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
+            if (signInManager.IsSignedIn(User))
+           return    RedirectToAction("Index", "Home");
             RegisterViewModel registerModel = new RegisterViewModel();
             try
             {
@@ -199,7 +372,7 @@ namespace ESTA.Controllers
                 /// Next is edit passport and nationalid client and server validation
 
            
-     if (ModelState.IsValid)
+                        if (ModelState.IsValid)
                 {
 
                     var IsNationalityvalid = registerModel.IsNationalityClaimsValid();
@@ -214,6 +387,12 @@ namespace ESTA.Controllers
                             ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["required"]);
 
                         }
+                        if (registerModel.NationalCardImages != null&&registerModel.NationalCardImages.Count<2)
+                        {
+                            ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["IdCardLimit"]);
+
+                        }
+
 
                     }
                     if (!IsNationalityvalid && registerModel.Country != "Egypt")
@@ -286,9 +465,10 @@ namespace ESTA.Controllers
                     {
                         if (registerModel.NationalCardImages != null)
                         {
+                           
                             foreach (var image in registerModel.NationalCardImages)
                             {
-   var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
+                            var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
                             var PhotoName = await FileUpload.SavePhotoAsync(
                              image,
                                   registerModel.FullName,
@@ -331,6 +511,9 @@ namespace ESTA.Controllers
 
                                 userImages.Add(new UserImage() { TypeId = 2, Path = Constants.PassportsImagesSavingPath + PhotoName, UserId = user.Id });
                                 //add to db
+                                await appRep.ImageRep.AddImages(userImages);
+
+                                await this.appRep.SaveChangesAsync();
                             }
 
                             //        user.PassportImagePath = Constants.PassportsImagesSavingPath + PhotoName;
@@ -391,9 +574,9 @@ namespace ESTA.Controllers
                                 "ConfirmEmail",
                                 new ErrorViewModel
                                 {
-                                    Title = "Email Confirmation Needed",
+                                    Title = localizer["emailconfirm"],
                                     Description =
-                                        "We Have Emailed you with your activation link ,please confirm your Email!"
+                                   localizer["emailconfirmdesc"]
                                 }
                             );
                         }
@@ -572,6 +755,8 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Logout()
         {
+    
+
             await this.signInManager.SignOutAsync();
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");

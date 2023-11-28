@@ -1,0 +1,73 @@
+﻿@using System.Globalization
+@using ESTA.Helpers
+@model ESTA.Areas.Payment.Models.CourseOrder
+
+
+
+<h4 class="text=danger" style="text-align:center">
+	@localizer["courseconfirm"]
+</h4>
+<div class="rounded-div mr" >
+	<form asp-action="AcceptCourseOrder" asp-controller="Orders" method="post">
+		<div style="display:flex;flex-direction:column;">
+
+			<div class="row justify-content-center">
+
+				<img src="@Url.Content("~"+@Model.Course.PhotoPath)"
+					style="border-radius:50px;max-height: 360px;"
+					 alt="Course Image" />
+			</div>
+		
+
+			<div class="row">
+
+				<div class="col-lg-8 col-sm-12 font-weight-bold"> @localizer["coursename"]</div>
+				<div class="col-lg-4 col-sm-12"> @Model.Course.Title </div>
+			</div>
+			<div class="row">
+
+				<div class="col-lg-8 col-sm-12 font-weight-bold"> @localizer["courselevel"]</div>
+				<div class="col-lg-4 col-sm-12"> @Model.Course.level.TypeName </div>
+			</div>
+			<div class="row"> 
+
+				<div class="col-lg-8 col-sm-12 font-weight-bold">  @localizer["stdate"]</div>
+				<div class="col-lg-4 col-sm-12"> @Model.Course.StartDate.Value.ToShortDateString() </div>
+			</div>
+			<div class="row">
+
+				<div class="col-lg-8 col-sm-12 font-weight-bold">@localizer["price"] </div>
+				<div class="col-lg-4 col-sm-12 ">
+			
+					<h3  class="text-danger"  style="font-weight: bold;">
+						@Model.Amount.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
+
+					</h3>
+
+				</div>
+
+			</div>
+
+
+			@*@Model.Currency*@
+
+
+			@Html.HiddenFor(y=>y.OrderNumber)
+			@Html.HiddenFor(y=>y.OrderDescription)
+			@Html.HiddenFor(y=>y.CourseId)
+			@Html.HiddenFor(y=>y.UserId)
+			@Html.HiddenFor(y=>y.Amount)
+			<br />
+			<div class="row">
+
+				<a style="background-color:red" class="col-lg-2 col-sm-12 btn btn-warning"
+				asp-route-id="@Model.CourseId" asp-action="CourseDetails"  asp-controller="Courses" 
+				asp-area="" >@localizer["cancel"]</a>
+				<button type="submit" class="col-lg-10 col-sm-12 btn btn-primary">@localizer["confirm"]</button>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+

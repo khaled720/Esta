@@ -22,41 +22,41 @@
 
 
 <br />
-
-<div id="courses-grid" class="animate__fadeIn rounded-div" style="animation-duration:1s;display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
-    @foreach (var item in Model)
-    {
-       
-    <div class="card" style="height:fit-content; position:relative">
-  
-           
-    
-        <img src="@Url.Content("~"+item.PhotoPath)" height="200px" />
-
-            @if (Thread.CurrentThread.CurrentCulture.Name=="ar") 
-            {
-              <div class="card-body">
-   @item.NameAr
-               <br><strong style="color:green"> @item.JobAr</strong>
-       </div>
-            
-            }else{
-
-                <div class="card-body">
-                    @item.NameEn
-                    <br><strong style="color:green"> @item.JobEn</strong>
-                </div>
-            }
-          
-
-            @Html.ActionLink(@localizer["edit"], "EditDirector", new { id = item.Id }, new { @class = "btn btn-light" }) 
-             @Html.ActionLink(localizer["delete"], "DeleteDirector", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+@if (Model.Count() > 0)
+{
+    <div id="courses-grid" class="animate__fadeIn rounded-div" style="animation-duration:1s;display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
+        @foreach (var item in Model)
+        {
+            <div class="card" style="height:fit-content; position:relative">
 
 
 
+                <img src="@Url.Content("~"+item.PhotoPath)" height="200px" />
 
-        </div> 
-    }
+                @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                {
+                    <div class="card-body">
+                        @item.NameAr
+                        <br><strong style="color:green"> @item.JobAr</strong>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
+                        @item.NameEn
+                        <br><strong style="color:green"> @item.JobEn</strong>
+                    </div>
+                }
+
+
+                @Html.ActionLink(@localizer["edit"], "EditDirector", new { id = item.Id }, new { @class = "btn btn-light" }) 
+                @Html.ActionLink(localizer["delete"], "DeleteDirector", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+
+
+
+
+            </div>
+        }
 
   
 
@@ -70,7 +70,7 @@
 
     </div>
 
-
+    }
     <br />
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

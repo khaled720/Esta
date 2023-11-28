@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ESTA.Areas.Admin.Models.CertifiedMember>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@localizer["cetaholders"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">@localizer["add"]</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@localizer["fullname"]</th>
+      <th>@localizer["actions"]</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @Html.ActionLink(localizer["edit"], "Edit", new {  id=item.Id }) |
+       @*         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink(localizer["delete"], "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

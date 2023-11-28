@@ -112,13 +112,13 @@
                                             </a>
                                         }
                                         else{
-                                            <a asp-action="profile" asp-controller="user" class="loginBtn">
+                                            <a asp-action="profile" asp-controller="user"  asp-area="" class="loginBtn">
                                                 @User.FindFirstValue(ClaimTypes.Name)
                                             </a>
                                         
                                         }
                                         
-                                        <a  asp-action="Logout" asp-controller="Account" class="loginBtn">@localizer["signout"]</a>
+                                        <a  asp-action="Logout" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signout"]</a>
                                     </div>
                                 }
                                 else{
@@ -127,12 +127,12 @@
                                        <div class=""> 
                                       
                                        <span class="ti-user"></span>
-                                    <a asp-action="Login" asp-controller="Account"  class="loginBtn">@localizer["signin"]</a>
+                                            <a asp-action="Login" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signin"]</a>
                                
                                        </div>
                                 <div>
                                         <span class="ti-user"></span>
-                                        <a asp-action="Register" asp-controller="Account" class="loginBtn">@localizer["signup"]</a>
+                                            <a asp-action="Register" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signup"]</a>
                                     </div>
                                         </div>
                                 }
@@ -178,7 +178,7 @@
 
                                 <li><a href="#"><span class="ti-facebook"></span></a></li>
                                  
-                                    <li><a href="#"><span class="ti-google"></span></a></li>
+                                    //<li><a href="#"><span class="ti-google"></span></a></li>
                                     <li><a href="#"><span class="ti-linkedin"></span></a></li>
                                   
                           
@@ -189,7 +189,7 @@
 
                                       <li><a href="#"><span class="ti-linkedin"></span></a></li>
   <li><a href="#"><span class="ti-google"></span></a></li> 
-  <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
+  //<li><a href="#"><span class="ti-twitter-alt"></span></a></li>
                                       <li><a href="#"><span class="ti-facebook"></span></a></li>
 
                                         <li>
@@ -217,7 +217,7 @@
                                             }
 
 
-                                            <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
+                                            <input type="hidden" value="@Url.Action("SetCulture","Lang",new {area=""})"  id="langUrl" />
                                         </li>
 
                                   
@@ -239,23 +239,25 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-between">
                         <div class="">
-                            <div class="logo">
-                                <a asp-controller="Home" asp-action="Index">
-                                    <img src="~/template/img/logo/esta_logo3.png" alt="">
+                            <div class="logo ar" >
+                                <a asp-controller="Home" asp-action="Index" asp-area="" >
+                                  
+                                <img width="100px" src="~/template/img/logo/logo2.gif" alt="">
+									@localizer["esta"]
                                 </a>
                             </div>
                         </div>
 
                        
                         <div class="">
-                           <!-- <div class="header-bottom-icon f-right">
+                           <div class="header-bottom-icon f-right">
                                 <ul>
                                     <li class="toggle-search-icon">
-                                        <a href="#">
+                                        <a asp-controller="Home" asp-action="Index" asp-area="">
                                             <span class="ti-search"></span>
                                             <div class="toggle-search-box">
-                                                <form action="#" id="searchbox">
-                                                    <input placeholder="Search" type="text">
+                                                <form asp-action="search" asp-controller="Home" id="searchbox">
+                                                    <input style="width:300px" name="query"  placeholder="Search" type="text">
                                                     <button class="button-search"><span class="ti-search"></span></button>
                                                 </form>
                                             </div>
@@ -263,32 +265,32 @@
                                     </li>
 
                                 </ul>
-                            </div> -->
+                            </div> 
                             <div class="main-menu f-right">
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         <li>
-                                            <a asp-controller="Home" asp-action="Index" >@localizer["home"]</a>
+                                            <a asp-controller="Home" asp-action="Index" asp-area="">@localizer["home"]</a>
 
                                         </li>
                                         <li>
                                             <a href="#">@localizer["about"]</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a asp-controller="Home" asp-action="About" asp-route-type="about">@localizer["about"] ESTA</a>
+                                                    <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="about">@localizer["about"] ESTA</a>
 
                                                 </li>
                                                 <li>
                                              
-                                                    <a asp-controller="Home" asp-action="About" asp-route-type="ta">@localizer["ta"]</a>
+                                                    <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ta">@localizer["ta"]</a>
 
                                             </li>
                                                 <li>
                                                 
-                                                    <a asp-controller="Home" asp-action="About" asp-route-type="ethics">@localizer["ethics"]</a>
+                                                    <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ethics">@localizer["ethics"]</a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="Director" asp-action="BoardofDirectors">@localizer["board"]</a>
+                                                    <a asp-area="" asp-controller="Director" asp-action="BoardofDirectors">@localizer["board"]</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -296,13 +298,13 @@
                                             <a href="#">@localizer["edu"]</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a asp-controller="courses" asp-action="CetaCourses">@localizer["ceta"]</a>
+                                                    <a asp-area="" asp-controller="courses" asp-action="CetaCourses">@localizer["ceta"]</a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="courses" asp-action="OtherCourses">@localizer["othercourses"]</a>
+                                                    <a asp-area="" asp-controller="courses" asp-action="OtherCourses">@localizer["othercourses"]</a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="courses" asp-action="CetaHolders">@localizer["cetaholders"]</a>
+                                                    <a asp-area="" asp-controller="courses" asp-action="CetaHolders">@localizer["cetaholders"]</a>
                                                 </li>
 
                                             </ul>
@@ -316,28 +318,28 @@
 
                                                
                                                     <li>
-                                                    <a asp-controller="Forums" asp-action="Index">@localizer["discussionbf"]</a>
+                                                    <a asp-area="" asp-controller="Forums" asp-action="Index">@localizer["discussionbf"]</a>
                                                     </li>
                                                 
                                                 <li>
-                                                    <a asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
+                                                    <a asp-area="" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                                                 </li>
 
                                                 <li>
-                                                    <a asp-controller="Home" asp-action="About" asp-route-type="benefits">
+                                                    <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="benefits">
                                                     @localizer["benefits"]
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a asp-controller="Account" asp-action="Register" >@localizer["becamemember"]</a>
+                                                    <a asp-area="" asp-controller="Account" asp-action="Register">@localizer["becamemember"]</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a asp-controller="Home" asp-action="About" asp-route-type="ifta" >@localizer["ifta"]</a>
+                                            <a  asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ifta" >@localizer["ifta"]</a>
                                         </li>
                                         <li>
-                                            <a asp-controller="Home" asp-action="contact" >@localizer["contacts"]</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="contact" >@localizer["contacts"]</a>
                                         </li>
 
 
@@ -413,17 +415,17 @@
                                     <div class="single-footer-contact-info row">
                                         <span class="ti-headphone col-1 "></span>
                                      
-                                        <span class="footer-contact-list-text">+202 - 37629820/  +202 - 37629830</span>
+                                        <span class="footer-contact-list-text">+202 - 37629820/  +202 - 37629830/+02 1064000515</span>
                                     </div>
                                     <br />
                                     <div class="single-footer-contact-info row">
                                         <span class="ti-email col-1 "></span>
-                                        <span class="footer-contact-list-text">internal@estaegypt.org</span>
+                                        <span class="footer-contact-list-text">info@estaegypt.org</span>
                                     </div>
                                     <br />
                                     <div class="single-footer-contact-info row">
                                         <span class="ti-location-pin col-1"></span>
-                                        <span class="footer-contact-list-text">45 , Mossadak St. , Dokki , 6th floor, Appartment 11</span>
+                                        <span class="footer-contact-list-text">45 , Mossadak St. , Dokki , 6th floor, Appartment 11, Giza</span>
                                     </div>
                                 </div>
 
@@ -436,10 +438,8 @@
                                 <div class="footer-social-icon-list">
                                     <ul>
                                         <li><a href="#"><span class="ti-facebook"></span></a></li>
-                                        <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
+                                        <li><a href="#"><span class="ti-linkedin"></span></a></li>
 
-                                        <li><a href="#"><span class="ti-google"></span></a></li>
-                                        <li><a href="#"><span class="ti-pinterest"></span></a></li>
 
                                     </ul>
                                 </div>

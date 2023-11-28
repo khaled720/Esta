@@ -34,7 +34,7 @@
 
         @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
     <div onclick="GetPhoto()" id="photoDiv" class="" style="">
-        <h5>Click to Upload Image</h5>
+        <h5>@localizer["addimage"]</h5>
     </div>
 
 
@@ -42,7 +42,7 @@
 
   @*  @Html.ValidationSummary(false,"","text-danger")*@
     <div class="row">
-<div class="form-group col-6">
+<div class="form-group col-lg-6 col-sm-12">
     <label asp-for="@Model.course.Title"></label>
     <div class="title">
   <input asp-for=@Model.course.Title class="" type="text" />
@@ -53,7 +53,7 @@
 
     
 </div>
-<div class="form-group col-6">
+            <div class="form-group col-lg-6 col-sm-12">
                 <label asp-for="@Model.course.TitleAr"></label>
 
             <input asp-for=@Model.course.TitleAr class="" type="text" />
@@ -79,9 +79,9 @@
     </div>
    
     -->
-  
 
-    <div class="form-group col-6">
+
+            <div class="form-group col-lg-4 col-sm-12">
                 <label asp-for="@Model.course.Price"></label>
         @*   <input type="text" class="form-control"  />*@
         @Html.EditorFor(M=>M.course.Price, new { htmlAttributes = new { @class = "form-" } })
@@ -89,9 +89,16 @@
 
     </div>
 
+            <div class="form-group col-lg-4 col-sm-12">
+                <label asp-for="@Model.course.MaxAllowedMembersCount"></label>
+                @*   <input type="text" class="form-control"  />*@
+                @Html.EditorFor(M=>M.course.MaxAllowedMembersCount,
+                    new { htmlAttributes = new { @class = "form-" } })
+                @Html.ValidationMessageFor(k=>k.course.MaxAllowedMembersCount,"",new {@class="text-danger"})
 
+            </div>
 
-        <div class="form-group  col-6">
+            <div class="form-group  col-lg-4 col-sm-12">
                 <label asp-for="@Model.course.FinalGrade"></label>
             @Html.EditorFor(M=>M.course.FinalGrade, new { htmlAttributes = new { @class = "" } })
             @Html.ValidationMessageFor(k=>k.course.FinalGrade,"",new {@class="text-danger"})
@@ -102,13 +109,13 @@
 
 
         <div class="row">
-            <div class="form-group col-6">
+            <div class="form-group col-lg-6 col-sm-12">
                 <label><label asp-for="@Model.course.level"></label></label>
                 @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), localizer["selectlevel"], new { @class = " " })
 
                 @Html.ValidationMessageFor(k=>k.course.LevelId,"",new {@class="text-danger"})
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-lg-6 col-sm-12">
               <label asp-for="@Model.course.StartDate"></label>
                 @Html.EditorFor(M=>M.course.StartDate, new { htmlAttributes = new { @class = "" ,@type="date" } })
                 @Html.ValidationMessageFor(k=>k.course.StartDate,"",new {@class="text-danger"})
@@ -121,8 +128,8 @@
 
         <textarea asp-for=@Model.course.Description class=""></textarea>
         @Html.ValidationMessageFor(k=>k.course.Description,"",new {@class="text-danger"})
-
-        <span asp-validation-for=@Model.course.Description style="color: blue;"></span>
+@*
+        <span asp-validation-for=@Model.course.Description style="color: blue;"></span>*@
     </div>
 
     <div class="form-group col-12">
@@ -132,8 +139,8 @@
         <textarea asp-for=@Model.course.DescriptionAr class=""></textarea>
 
         @Html.ValidationMessageFor(k=>k.course.DescriptionAr,"",new {@class="text-danger"})
-
-        <span asp-validation-for=@Model.course.DescriptionAr style="color: blue;"></span>
+@*
+        <span asp-validation-for=@Model.course.DescriptionAr style="color: blue;"></span>*@
     </div>
 
 <button style="margin:auto" type="submit" class="btn btn-primary" >@localizer["submit"]</button>

@@ -126,8 +126,14 @@
   <data name="addressen" xml:space="preserve">
     <value>Address in English</value>
   </data>
+  <data name="amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
   <data name="area" xml:space="preserve">
     <value>Area</value>
+  </data>
+  <data name="authamount" xml:space="preserve">
+    <value>Authorized Amount</value>
   </data>
   <data name="bioar" xml:space="preserve">
     <value>Biography in Arabic</value>
@@ -147,6 +153,15 @@
   <data name="branchen" xml:space="preserve">
     <value>Branch Name in English</value>
   </data>
+  <data name="capamount" xml:space="preserve">
+    <value>Captured Amount</value>
+  </data>
+  <data name="cardtype" xml:space="preserve">
+    <value>Card Type</value>
+  </data>
+  <data name="cdate" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
   <data name="city" xml:space="preserve">
     <value>City</value>
   </data>
@@ -161,6 +176,9 @@
   </data>
   <data name="country" xml:space="preserve">
     <value>Country</value>
+  </data>
+  <data name="curr" xml:space="preserve">
+    <value>Currency</value>
   </data>
   <data name="descar" xml:space="preserve">
     <value>Description in Arabic</value>
@@ -191,6 +209,15 @@
   </data>
   <data name="fngrade" xml:space="preserve">
     <value>Final Grade</value>
+  </data>
+  <data name="forumdesc" xml:space="preserve">
+    <value>Forum Description</value>
+  </data>
+  <data name="forumlevel" xml:space="preserve">
+    <value>Forum Level</value>
+  </data>
+  <data name="forumtitle" xml:space="preserve">
+    <value>Forum Title</value>
   </data>
   <data name="fullname" xml:space="preserve">
     <value>Full Name In English</value>
@@ -225,14 +252,33 @@
   <data name="joben" xml:space="preserve">
     <value>Job in English</value>
   </data>
+  <data name="lastdate" xml:space="preserve">
+    <value>Last Update Date</value>
+  </data>
   <data name="level" xml:space="preserve">
     <value>Level</value>
   </data>
   <data name="levelname" xml:space="preserve">
     <value>Level Name</value>
   </data>
+  <data name="maxallowedmemberserr" xml:space="preserve">
+    <value>Number of Applicants should be between 10 - 9999</value>
+    <comment> </comment>
+  </data>
+  <data name="maxcoursemembers" xml:space="preserve">
+    <value>Maximum people who can apply</value>
+  </data>
   <data name="meassagingaddress" xml:space="preserve">
     <value>Messaging Address</value>
+  </data>
+  <data name="memexpiry" xml:space="preserve">
+    <value>Mempership Expiry Month</value>
+  </data>
+  <data name="memfee" xml:space="preserve">
+    <value>Mempership Fee</value>
+  </data>
+  <data name="memmonthexpiryerr" xml:space="preserve">
+    <value>Mempership Expiry Month Should be between 1 and 12</value>
   </data>
   <data name="mobile" xml:space="preserve">
     <value>Mobile Phone</value>
@@ -243,8 +289,23 @@
   <data name="nameen" xml:space="preserve">
     <value>Name in English</value>
   </data>
+  <data name="nameoncard" xml:space="preserve">
+    <value>Name on Card</value>
+  </data>
   <data name="nationalidcons" xml:space="preserve">
     <value>National Card ID Must be 14 digits</value>
+  </data>
+  <data name="orderdesc" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="orderid" xml:space="preserve">
+    <value>Order Identifier</value>
+  </data>
+  <data name="orderref" xml:space="preserve">
+    <value>Order Reference</value>
+  </data>
+  <data name="orderum" xml:space="preserve">
+    <value>Order Number</value>
   </data>
   <data name="passport" xml:space="preserve">
     <value>Passport Id</value>
@@ -273,11 +334,26 @@
   <data name="pricerange" xml:space="preserve">
     <value>Price should be between 0 - 10000</value>
   </data>
+  <data name="reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="refamount" xml:space="preserve">
+    <value>Refunded Amount</value>
+  </data>
   <data name="remember" xml:space="preserve">
     <value>Remember me</value>
   </data>
+  <data name="reqamount" xml:space="preserve">
+    <value>Requested Amount</value>
+  </data>
   <data name="required" xml:space="preserve">
     <value>This field is Required !</value>
+  </data>
+  <data name="serialnum" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="stdate" xml:space="preserve">
     <value>Start Date</value>
@@ -290,6 +366,12 @@
   </data>
   <data name="titleen" xml:space="preserve">
     <value>Title in English</value>
+  </data>
+  <data name="transref" xml:space="preserve">
+    <value>Transaction Reference</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="university" xml:space="preserve">
     <value>University</value>

@@ -21,12 +21,12 @@ namespace ESTA.Models
                 MailAddress toAddress = new MailAddress(to);
 
 
-                string frommail = "khaledkiko2222@gmail.com";
+                string frommail = "mistnews558@gmail.com";
                 MailAddress fromAddress = new MailAddress(frommail, fromtitle);
 
                 //credentialPassword
                 MailMessage message = new MailMessage(fromAddress, toAddress);
-                string password = "klbrbxoiozcwntvq";//System.Configuration.ConfigurationManager.AppSettings["credentialPassword"];
+                string password = "ttuvfcgxsxsxrofs";//System.Configuration.ConfigurationManager.AppSettings["credentialPassword"];
 
                 message.IsBodyHtml = true;
                 message.Body = body;

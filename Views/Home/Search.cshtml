@@ -1,0 +1,63 @@
+﻿
+@model ESTA.ViewModels.HomeSearchViewModel
+
+<!-- slider-start -->
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">@localizer["searchresults"]</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="#">@localizer["home"]</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@localizer["search"]</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider-end -->
+
+<div class="contactUs-section pt-50 pb-50">
+    <div class="container" style="    display: flex; flex-direction: column;align-items: center;">
+
+        @if (Model.Results.Count == 0)
+        {
+          <p>@localizer["notfound"]</p>
+        }else{
+        @foreach (var result in Model.Results)
+        {
+            <div>
+                @if (result.Type==0)
+                {
+                    <a asp-action="CourseDetails" target="_blank" asp-controller="Courses" asp-route-id="@result.Id">@result.Header</a>
+
+                }else{
+                    <a asp-action="GetEvent" target="_blank" asp-controller="EventsNews" asp-route-id="@result.Id">@result.Header</a>
+            
+                }
+                @if (result.Description!=null&&result.Description.Length>99)
+
+                {
+                    <p>@result.Description.Substring(0,100)</p>
+                }else{
+
+                    <p>@result.Description</p>
+                
+                }
+
+       
+
+            </div>
+        }
+
+        }
+</div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model ESTA.Areas.Admin.ViewModels.PrerequisiteCourseViewModel
+
+@{
+    ViewData["Title"] = "AssignCoursePrerequisite";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h2> Course Prerequisite</h2>
+
+<p>
+    <h4>Assiging Prerequisites  For Course <span class="text-success">@Model.MainCourse.Title</span>
+        
+    </h4>
+</p>
+<form method="post"  action="AssignCoursePrerequisite"  >
+
+
+@Html.HiddenFor(y=>y.MainCourse.Id)
+
+<table class="table">
+    <thead>
+        <tr>
+      
+            <th>
+                @Html.DisplayNameFor(model => model.MainCourse.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainCourse.StartDate)
+            </th>
+            <th>
+                Is Prerequisite Course ?
+            </th>
+       
+        </tr>
+    </thead>
+    <tbody>
+
+            @for(int i= 0;i<Model.PreCourses.Count();i++) {
+                <tr>
+        
+            <td>
+                        @Model.PreCourses[i].course.Title
+
+                        <input hidden asp-for="@Model.PreCourses[i].course.Id">
+                        <input hidden asp-for="@Model.PreCourses[i]">
+                      
+
+            </td>
+                <td>
+                        @Model.PreCourses[i].course.StartDate.Value.ToShortDateString()
+                </td>
+          <td>
+
+                        <input type="checkbox" asp-for="@Model.PreCourses[i].isPrerequisite" />
+          </td>
+    
+       @*     <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+
+           
+            </td>*@
+        </tr>
+			}
+            <tr>
+                <td>
+			<button class="btn btn-primary" type="submit">@localizer["submit"]</button>
+
+		</td>
+
+            </tr>
+		
+
+
+
+    </tbody>
+</table>
+</form>

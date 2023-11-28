@@ -17,10 +17,320 @@ namespace ESTA.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ESTA.Areas.Admin.Models.CertifiedMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CertifiedMembers");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Admin.Models.PrerequisiteCourse", b =>
+                {
+                    b.Property<int>("MainCourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrerequisiteCourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MainCourseId", "PrerequisiteCourseId");
+
+                    b.HasIndex("PrerequisiteCourseId");
+
+                    b.ToTable("PrerequisiteCourses");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.CourseOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreationTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderReference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderResult")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostOrderJsonResponse")
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("PrepareJsonResponse")
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SuccessIndicator")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionReference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CoursesOrders");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.CoursePayment", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreationTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastUpdateTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameOnCard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResultJsonResponse")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalAuthorizedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalCapturedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalRefundedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CoursesPayments");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.MempershipOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CreationTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderReference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderResult")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostOrderJsonResponse")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("PrepareJsonResponse")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("SessionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SuccessIndicator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionReference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MempershipOrders");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.MempershipPayment", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreationTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastUpdateTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameOnCard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResultJsonResponse")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalAuthorizedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalCapturedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalRefundedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MempershipPayments");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.Refund", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreateDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("RequestedAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefundRequests");
+                });
 
             modelBuilder.Entity("ESTA.Models.Contact", b =>
                 {
@@ -56,7 +366,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts", (string)null);
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("ESTA.Models.Content", b =>
@@ -81,7 +391,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contents", (string)null);
+                    b.ToTable("Contents");
                 });
 
             modelBuilder.Entity("ESTA.Models.Course", b =>
@@ -93,9 +403,11 @@ namespace ESTA.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DescriptionAr")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FinalGrade")
@@ -103,6 +415,9 @@ namespace ESTA.Migrations
 
                     b.Property<int?>("LevelId")
                         .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxAllowedMembersCount")
                         .HasColumnType("int");
 
                     b.Property<string>("PhotoPath")
@@ -127,7 +442,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("ESTA.Models.Director", b =>
@@ -168,7 +483,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors", (string)null);
+                    b.ToTable("Directors");
                 });
 
             modelBuilder.Entity("ESTA.Models.EventsNews", b =>
@@ -215,7 +530,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventsNews", (string)null);
+                    b.ToTable("EventsNews");
                 });
 
             modelBuilder.Entity("ESTA.Models.Forum", b =>
@@ -246,7 +561,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Forums", (string)null);
+                    b.ToTable("Forums");
                 });
 
             modelBuilder.Entity("ESTA.Models.ForumBannedUser", b =>
@@ -287,7 +602,26 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ForumBannedUser", (string)null);
+                    b.ToTable("ForumBannedUser");
+                });
+
+            modelBuilder.Entity("ESTA.Models.GlobalConstants", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("MempershipExpiryMonth")
+                        .HasColumnType("int");
+
+                    b.Property<double>("MempershipFee")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Constants");
                 });
 
             modelBuilder.Entity("ESTA.Models.ImageType", b =>
@@ -304,7 +638,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ImageTypes", (string)null);
+                    b.ToTable("ImageTypes");
 
                     b.HasData(
                         new
@@ -338,7 +672,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels", (string)null);
+                    b.ToTable("Levels");
 
                     b.HasData(
                         new
@@ -375,7 +709,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ModeratorForums", (string)null);
+                    b.ToTable("ModeratorForums");
                 });
 
             modelBuilder.Entity("ESTA.Models.Question", b =>
@@ -399,7 +733,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
 
                     b.HasData(
                         new
@@ -481,7 +815,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("States", (string)null);
+                    b.ToTable("States");
 
                     b.HasData(
                         new
@@ -498,6 +832,11 @@ namespace ESTA.Migrations
                         {
                             Id = 3,
                             StateName = "Completed"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            StateName = "Refunded"
                         });
                 });
 
@@ -582,7 +921,6 @@ namespace ESTA.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HomePhone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Hometown")
@@ -710,7 +1048,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("UserAnswers", (string)null);
+                    b.ToTable("UserAnswers");
                 });
 
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
@@ -739,7 +1077,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserCourses", (string)null);
+                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("ESTA.Models.UserForum", b =>
@@ -776,7 +1114,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("UsersForums", (string)null);
+                    b.ToTable("UsersForums");
                 });
 
             modelBuilder.Entity("ESTA.Models.UserImage", b =>
@@ -804,7 +1142,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserImages", (string)null);
+                    b.ToTable("UserImages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -836,22 +1174,22 @@ namespace ESTA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "32a28232-5b80-43a9-b97d-3a2f7d3fb183",
-                            ConcurrencyStamp = "16e3e27b-7d1f-4c8c-9a8f-e75eee99fa6c",
+                            Id = "476de8d2-a8ca-4be6-90c0-f28d02e3292c",
+                            ConcurrencyStamp = "46bc3588-5e47-4ca5-9153-30f058c0006c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "0920caba-364a-43e6-aa6e-f516b192e5c3",
-                            ConcurrencyStamp = "2094c11a-d058-40d7-8262-0b0130aa4552",
+                            Id = "5521d1da-218f-49b7-9adf-7704ba79b3bd",
+                            ConcurrencyStamp = "2bd6b11f-1894-40bf-9daf-ea8552a9fb94",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "433d8446-91b2-446c-9a2c-7ddf18f1a789",
-                            ConcurrencyStamp = "3b04adf0-2eae-417f-84fd-d9b13f7b2970",
+                            Id = "18bd4f30-51ea-48df-bc88-452228e6f75f",
+                            ConcurrencyStamp = "5a7769df-f66e-41ae-8aef-f6889fe3f5be",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -965,6 +1303,112 @@ namespace ESTA.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Admin.Models.PrerequisiteCourse", b =>
+                {
+                    b.HasOne("ESTA.Models.Course", "MainCourse")
+                        .WithMany()
+                        .HasForeignKey("MainCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ESTA.Models.Course", "prerequisiteCourse")
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MainCourse");
+
+                    b.Navigation("prerequisiteCourse");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.CourseOrder", b =>
+                {
+                    b.HasOne("ESTA.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ESTA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.CoursePayment", b =>
+                {
+                    b.HasOne("ESTA.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ESTA.Areas.Payment.Models.CourseOrder", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ESTA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.MempershipOrder", b =>
+                {
+                    b.HasOne("ESTA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.MempershipPayment", b =>
+                {
+                    b.HasOne("ESTA.Areas.Payment.Models.MempershipOrder", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ESTA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ESTA.Areas.Payment.Models.Refund", b =>
+                {
+                    b.HasOne("ESTA.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ESTA.Models.Course", b =>

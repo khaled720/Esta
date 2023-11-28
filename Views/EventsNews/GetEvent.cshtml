@@ -39,7 +39,16 @@
 <div class="news-details-area pt-50 pb-50">
     <div class="container">
         <div class="row">
-            <div class="col-xl-12 col-lg-12">
+
+            @if (Model ==null)
+            {
+                <p>
+ @localizer["notfound"]
+                </p>
+               
+            }else{
+            
+                     <div class="col-xl-12 col-lg-12">
                 <div class="blog-wrapper blog-list blog-details blue-blog mb-50">
                     <div class="blog-thumb mb-35">
                         <img src="@Url.Content("../../"+Model.Image)" alt="">
@@ -60,6 +69,9 @@
                 </div>
 
             </div>
+            }
+
+   
        @*     @if (admin)
             {
                 <div class="col-12 mt-3">

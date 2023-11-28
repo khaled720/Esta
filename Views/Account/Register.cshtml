@@ -89,7 +89,7 @@
 
                                             <div class="form-group col-12 ">
                                                 <label asp-for="@Model.NationalCardID"></label><span class="text-danger m-1">*</span>
-                                                <input id="idno" required asp-for="@Model.NationalCardID" class="form-control"
+                                                <input id="idno" required  asp-for="@Model.NationalCardID" class="form-control"
                                                        autocomplete="username" />
 
                                                 <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
@@ -101,8 +101,11 @@
                     <label>National Card Image</label><span class="text-danger m-1">*</span>
 
 
-                    <input id="idnoImg"  multiple  accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)" asp-for=@Model.NationalCardImages type="file" />
-                    <span asp-validation-for="@Model.NationalCardImages" class="text-danger"></span>
+                    <input id="idnoImg"  multiple min="2"  accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)"
+                    asp-for=@Model.NationalCardImages type="file" />
+                    
+                    <span id="idcard-err" asp-validation-for="@Model.NationalCardImages" class="text-danger"></span>
+                    <span id="localizedIdError" hidden >@localizer["IdCardLimit"]</span>
                 </div>
 
           
@@ -192,8 +195,11 @@
                                             <div class="form-group col-lg-6 col-sm-12">
                                                 <label asp-for="@Model.Password"></label><span class="text-danger m-1">*</span>
                                                 <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" />
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                             
 
-                                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+                                             
                                             </div>
                                             <div class="form-group col-lg-6 col-sm-12">
 
@@ -202,7 +208,9 @@
 
                                                 <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
                                             </div>
-
+                <p class="text-success   form-group">
+                    @localizer["passNote"]
+                </p>
                                         </div>
                                         <div class="form-group">
                                             <label asp-for="@Model.Birthdate"></label><span class="text-danger m-1">*</span>
@@ -216,7 +224,7 @@
 
 
                                             <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.HomePhone"></label><span class="text-danger m-1">*</span>
+                                                <label asp-for="@Model.HomePhone"></label>@*<span class="text-danger m-1">*</span>*@
                                                 <input asp-for="@Model.HomePhone" class="form-control"
                                                        autocomplete="username" />
 
@@ -554,10 +562,9 @@
                                         <h3>@localizer["codeofethics"]</h3>
                                         <div style="height:400px;overflow-y:auto;">
 
-                                            <p>
-
-                                                @Html.Raw(Model.codeofEthics)
-                                            </p>
+                                        <p>
+                                            @Html.Raw(Model.codeofEthics.Replace("../.",".").ToString())
+                                         </p>
 
 
 
@@ -576,7 +583,14 @@
 {
                                         @Html.HiddenFor(y=>Model.Questions[i].Id)
 
-                                        @Html.DisplayFor(y=>Model.Questions[i].QuestionEntxt)
+                                        @if(Thread.CurrentThread.CurrentCulture.Name.Contains("ar")){
+                                           @Html.DisplayFor(y=>Model.Questions[i].QuestionArtxt)
+
+                                        }else{
+                                           @Html.DisplayFor(y=>Model.Questions[i].QuestionEntxt)
+
+                                        }
+                                     
                                         @Html.HiddenFor(y=>Model.Questions[i].IsYesNo)
                                         @Html.HiddenFor(y=>Model.Questions[i].QuestionEntxt)
                                         @Html.HiddenFor(y=>Model.Questions[i].QuestionArtxt)
@@ -601,13 +615,16 @@
 
                                         </div>
 
-                                        <br />
-                                        <textarea placeholder="Explain Why.."
+                        <br />
+                        @if (@Model.Questions[i].Id ==9|| @Model.Questions[i].Id==5)
+                        {
+                            <textarea placeholder="Explain Why.." required
                                                   type="text" id="t-@Model.Questions[i].Id"
                                                   class="form-control d-none" asp-for=@Model.Questions[i].Answer></textarea>
 
-                                        <span asp-validation-for="@Model.Questions[i].Answer" class="text-danger"></span>
-                                        <br />
+                            <span asp-validation-for="@Model.Questions[i].Answer" class="text-danger"></span>
+                        }
+                        <br />
 
             }
 

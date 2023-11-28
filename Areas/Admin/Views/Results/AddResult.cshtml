@@ -1,0 +1,37 @@
+﻿@model ESTA.Models.UserCourse
+
+@{
+    ViewData["Title"] = "AddResult";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>@localizer["assigngrade"]</h1>
+
+
+<hr />
+<div class="row" style="margin:15%">
+    <div class="col-12">
+        <form asp-action="AddResult">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">
+                    @localizer["coursegrade"]
+                </label>
+                <input asp-for="Grade" class="form-control" />
+                <span asp-validation-for="Grade" class="text-danger"></span>
+            </div>
+
+                <input  hidden asp-for="CourseId" class="form-control" />
+  
+                <input hidden asp-for="UserId" class="form-control" />
+       
+
+            <div class="form-group">
+                <input type="submit" value=@localizer["submit"] class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

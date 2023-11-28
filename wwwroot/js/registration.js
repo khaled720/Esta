@@ -72,7 +72,7 @@ document.onreadystatechange = () => {
 };
 */
 
-var currentTab = 0; // Current tab is set to be the first tab (0)
+var currentTab =0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
 function showTab(n) {
@@ -181,6 +181,20 @@ function validateForm() {
    var s=$("#regForm").valid();
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
+
+
+    if (currentTab==0&&
+        document.getElementById("idnoImg").files != null
+        &&
+        document.getElementById("idnoImg").files.length < 2
+    )
+    {
+        var country = document.getElementById("nationalty-select").value;
+        if (country == "Egypt") {
+            document.getElementById("idcard-err").innerText = document.getElementById("localizedIdError").innerText;
+            return false;
+        }
+        }
 
    valid = s;
     //x = document.getElementsByClassName("tab");

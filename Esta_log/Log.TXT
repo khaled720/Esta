@@ -1,0 +1,224 @@
+Wednesday, October 4, 2023 -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/EstaPay/ReturnPage.aspx\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"2015233110\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":4.0,\"description\":\"test1 Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Wednesday, October 4, 2023 -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002657206917F65901279I7\",\"updateStatus\":\"SUCCESS\",\"version\":\"050b5e3701\"},\"successIndicator\":\"590a710590db4f85\"}" 
+ 
+Wednesday, October 4, 2023 -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"758250669\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":737.0,\"description\":\"test9 Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Wednesday, October 4, 2023 -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002701908754E89359691E9\",\"updateStatus\":\"SUCCESS\",\"version\":\"40513bc501\"},\"successIndicator\":\"eb5eac9275ec448e\"}" 
+ 
+Friday, October 6, 2023 -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"9781bbdf-4130-4e8b-b1f5-6b8d4178d3e0\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Friday, October 6, 2023 -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"eaa1dcb0-ca1f-41ec-83d5-6d896d7ee950\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Friday, October 6, 2023 -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"21cd458d-882e-4813-ba0e-7d67df184a2d\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Friday, October 6, 2023 -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"f31a868c-5191-4d74-9d20-f1366f0dcad2\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Friday, October 6, 2023 -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"790c9bb6-5252-46e2-8994-b20620305ba0\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Friday, October 6, 2023 -> "AcceptMembershipOrder PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002088092740J9545545H43\",\"updateStatus\":\"SUCCESS\",\"version\":\"ac61483601\"},\"successIndicator\":\"9e18af3f2ffa4cf9\"}" 
+ 
+Saturday, October 7, 2023 -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"28403096-142a-44f9-be2f-b3de5286693c\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+Saturday, October 7, 2023 -> "AcceptMembershipOrder PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002826557759I0034460M08\",\"updateStatus\":\"SUCCESS\",\"version\":\"c57b638f01\"},\"successIndicator\":\"34507442342048ca\"}" 
+ 
+12:23:01 PM -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"8e127003-3d07-4950-9de1-ddf6b35ccb51\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+12:23:09 PM -> "AcceptMembershipOrder PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002726756525J8122480J53\",\"updateStatus\":\"SUCCESS\",\"version\":\"edb39f6901\"},\"successIndicator\":\"bb1a149a703c4dc9\"}" 
+ 
+1:07:02 PM -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SavaMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"9121c9e3-2f30-46a8-9c72-709733991364\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+1:07:07 PM -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+1:07:07 PM -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002688349489J5260442I03\",\"updateStatus\":\"SUCCESS\",\"version\":\"87de97e801\"},\"successIndicator\":\"4d64b95d424247c4\"}" 
+ 
+2:31:02 PM -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"00524796-638e-42a6-837a-2850e0469a4b\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:31:04 PM -> MempershipOrder Object = {"Id":8,"User":null,"UserId":"653037a9-0212-4ea8-bb27-93888c97c555","CreationTime":"2023-10-08T14:30:59.7070104+03:00","OrderNumber":"00524796-638e-42a6-837a-2850e0469a4b","Currency":"EGP","Amount":1500.0,"OrderDescription":"Mempership Payment Order","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"00524796-638e-42a6-837a-2850e0469a4b\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 
+2:31:14 PM -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+2:31:14 PM -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002988173176I9788665L12\",\"updateStatus\":\"SUCCESS\",\"version\":\"f504a78801\"},\"successIndicator\":\"bf40c624cd134b0a\"}" 
+ 
+2:31:15 PM -> OrdersController  Pay  SessionID =SESSION0002988173176I9788665L12 
+ 
+2:39:31 PM -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"e8e7587d-09d1-4968-9d33-a2debf3cc7af\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:39:41 PM -> MempershipOrder Object = {"Id":9,"User":null,"UserId":"653037a9-0212-4ea8-bb27-93888c97c555","CreationTime":"2023-10-08T14:39:30.2036853+03:00","OrderNumber":"e8e7587d-09d1-4968-9d33-a2debf3cc7af","Currency":"EGP","Amount":1500.0,"OrderDescription":"Mempership Payment Order","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"e8e7587d-09d1-4968-9d33-a2debf3cc7af\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 
+2:39:45 PM -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+2:39:45 PM -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002844651012H7849155K06\",\"updateStatus\":\"SUCCESS\",\"version\":\"d00511a201\"},\"successIndicator\":\"847fa55541824f43\"}" 
+ 
+2:39:45 PM -> OrdersController  Pay  SessionID =SESSION0002844651012H7849155K06 
+ 
+3:28:26 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:31:18 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+6:12:35 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+10:32:36 AM -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-90047153701035154\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+10:32:37 AM -> MempershipOrder Object = {"Id":10,"User":null,"UserId":"653037a9-0212-4ea8-bb27-93888c97c555","CreationTime":"2023-10-11T10:32:31.527781+03:00","OrderNumber":"Mem-90047153701035154","Currency":"EGP","Amount":1500.0,"OrderDescription":"Mempership Payment Order","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-90047153701035154\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 
+10:32:41 AM -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+10:32:41 AM -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002915319591F11023143H6\",\"updateStatus\":\"SUCCESS\",\"version\":\"51ff1bfb01\"},\"successIndicator\":\"fd387fbec45447b3\"}" 
+ 
+10:32:41 AM -> OrdersController  Pay  SessionID =SESSION0002915319591F11023143H6 
+ 
+11:22:27 ص -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Co-768792998820438522\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":850.0,\"description\":\"Business Analysis Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+11:22:39 ص -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002309830976H05147359J6\",\"updateStatus\":\"SUCCESS\",\"version\":\"e9d3ddc901\"},\"successIndicator\":\"e7a21b4ec5794112\"}" 
+ 
+11:22:47 ص -> OrdersController  Pay  SessionID =SESSION0002309830976H05147359J6 
+ 
+10:02:40 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+10:07:30 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+10:17:50 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+10:39:12 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+10:46:00 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+12:53:25 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+12:57:13 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+12:58:21 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+1:35:04 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+1:37:18 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+1:41:04 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+1:44:34 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+1:58:38 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:41:11 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:41:57 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:15:27 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:41:07 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:41:41 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:42:31 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:50:08 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:50:40 م -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:52:56 م -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:56:24 م -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:10:00 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:10:20 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:10:48 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:12:31 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:12:42 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:15:06 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:15:36 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:15:53 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:17:04 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:18:39 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:19:45 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:20:01 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:21:22 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:22:11 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:23:41 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:23:48 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:27:31 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:27:33 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:31:29 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:31:30 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:36:11 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:36:15 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:38:38 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+9:38:43 ص -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:27:52 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:33:57 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:36:56 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:39:50 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:52:35 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:53:09 م -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:53:49 م -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:54:22 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+3:26:21 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+2:59:43 ص -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-110\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":8500.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:59:46 ص -> MempershipOrder Object = {"Id":11,"User":null,"UserId":"653037a9-0212-4ea8-bb27-93888c97c555","CreationTime":"16‏‏/11‏‏/2023 2:59:37 ص","OrderNumber":"Mem-110","Currency":"EGP","Amount":8500.0,"OrderDescription":"Mempership Payment Order ","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-110\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":8500.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 
+2:59:49 ص -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+2:59:49 ص -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002248142266F01424752I0\",\"updateStatus\":\"SUCCESS\",\"version\":\"54f4273f01\"},\"successIndicator\":\"c53d3f9cc88b4313\"}" 
+ 
+2:59:50 ص -> OrdersController  Pay  SessionID =SESSION0002248142266F01424752I0 
+ 
+3:00:12 ص -> OrdersController  Pay  SessionID =SESSION0002248142266F01424752I0 
+ 
+3:00:53 ص -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-111\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":5200.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+3:00:56 ص -> MempershipOrder Object = {"Id":12,"User":null,"UserId":"653037a9-0212-4ea8-bb27-93888c97c555","CreationTime":"16‏‏/11‏‏/2023 3:00:47 ص","OrderNumber":"Mem-111","Currency":"EGP","Amount":5200.0,"OrderDescription":"Mempership Payment Order ","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-111\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":5200.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 
+3:00:57 ص -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+3:00:57 ص -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002201990813I65025681E2\",\"updateStatus\":\"SUCCESS\",\"version\":\"0d5e0a0601\"},\"successIndicator\":\"96374f45e3414042\"}" 
+ 
+3:00:57 ص -> OrdersController  Pay  SessionID =SESSION0002201990813I65025681E2 
+ 
+3:01:09 ص -> OrdersController  Pay  SessionID =SESSION0002201990813I65025681E2 
+ 
+3:01:14 ص -> OrdersController  Pay  SessionID =SESSION0002201990813I65025681E2 
+ 
+2:38:22 ص -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-112\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":5200.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:38:25 ص -> MempershipOrder Object = {"Id":13,"User":null,"UserId":"653037a9-0212-4ea8-bb27-93888c97c555","CreationTime":"20‏‏/11‏‏/2023 2:38:18 ص","OrderNumber":"Mem-112","Currency":"EGP","Amount":5200.0,"OrderDescription":"Mempership Payment Order ","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://localhost:7268/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-112\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":5200.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 
+2:38:28 ص -> AcceptMembershipOrder PostOrderReponse : -->   
+ 
+2:38:28 ص -> "{\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002217271347F1902015G21\",\"updateStatus\":\"SUCCESS\",\"version\":\"1feab3e501\"},\"successIndicator\":\"b2752a390b984206\"}" 
+ 
+2:38:29 ص -> OrdersController  Pay  SessionID =SESSION0002217271347F1902015G21 
+ 

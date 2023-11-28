@@ -1,0 +1,63 @@
+﻿
+
+
+
+
+
+
+
+
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ESTA.Models.User;
+
+
+<form onkeypress="submitForm(event)" asp-action="NewModeratorCurrentUser" asp-controller="Moderator" asp-area="Admin" method="post">
+ <div class="rounded-div">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+    <select asp-for="@Model.Id">
+        @foreach(User item in ViewBag.Users)
+        {
+        <option value="@item.Id">
+            @item.FullName - @item.Email
+
+        </option>
+        
+        }
+
+    </select>
+
+    <div class="form-group">
+        <label for="SelectForum" class="form-label">@localizer["forums"]</label>
+        <select asp-for="SelectForum" class="form-select select2" id="SelectForum" asp-items="ViewBag.SelectForum" multiple="multiple">
+        </select>
+        <span asp-validation-for="SelectForum" class="text-danger"></span>
+    </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" id="submit" class="btn btn-primary">@localizer["submit"]</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            LoadTable()
+        });
+    </script>
+}

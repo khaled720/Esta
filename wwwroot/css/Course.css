@@ -41,3 +41,13 @@ input, textarea, select {
     background: #ecf0f3;
     box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
+
+
+
+@media  (max-width:500px) {
+    .neuDiv {
+        padding: 20px;
+        width: 90%;
+
+    }
+}

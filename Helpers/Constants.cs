@@ -5,6 +5,8 @@
 
 
 		public static string PriceCulture => "ar-EG";
+
+
         public static string EditorImagesSavingPath => "/Images/Editor/";
 
 

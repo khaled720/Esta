@@ -12,7 +12,7 @@
     @inject IStringLocalizer<SharedResource> localizer;
    <div class="slider-area">
         <div class="page-title">
-            <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png") );">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/courses_banner.jpg") );">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
@@ -25,6 +25,21 @@
             </div>
         </div>
     </div>
+
+<div class="course-details-area  pt-50 pb-50">
+    <div class="container">
+        <div style="width:100% ;display:flex;justify-content:center">
+			<img src="~/template/img/ceta.jpg" width="350px" />
+        </div>
+     
+    <p>
+
+
+   @localizer["cetaprogram"]
+    </p>
+    </div>
+</div>
+
     <!-- slider-end -->
     <div class="course-details-area  pt-50 pb-50">
         <div class="container">
@@ -45,12 +60,13 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
                             <div class="courses-wrapper courses-wrapper-3 mb-30">
                                 <div class="courses-thumb">
-                                    <a href="#"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
+                                    <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
                                 </div>
                                 <div class="courses-content courses-content-3 clearfix">
                                     <div class="courses-heading mt-25 d-flex">
                                         <div class="course-title-3">
-                                            <h1><a href="course_details.html">
+                                            <h1>
+                                                <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">
 
                                                     @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                                     {

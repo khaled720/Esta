@@ -85,6 +85,21 @@ background-image:url('@Url.Content("~"+@Model.PhotoPath)')">
     </div>
 
 
+        <div class="form-group ">
+            <label asp-for="@Model.BioAr"></label>
+            @*   <input type="text" class="form-control"  />*@
+            @Html.TextAreaFor(M=>M.BioAr, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(k=>k.BioAr,"",new {@class="text-danger"})
+
+        </div>
+
+        <div class="form-group ">
+            <label asp-for="@Model.BioEn"></label>
+            @*   <input type="text" class="form-control"  />*@
+            @Html.TextAreaFor(M=>M.BioEn, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(k=>k.BioEn,"",new {@class="text-danger"})
+
+        </div>
 		@Html.ValidationSummary(false,"","text-danger")
 
 <button style="margin:auto" type="submit" class="btn btn-primary" >@localizer["submit"]</button>

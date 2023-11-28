@@ -46,7 +46,9 @@ namespace ESTA.ViewModels
         )]
         public string HighStudies { get; set; } = String.Empty;
 
-    public List<UserImage> userImages { get; set; } 
+        public List<IFormFile> AcademicQualificationImages  { get; set; }
+
+        public List<UserImage> userImages { get; set; } = new List<UserImage>();
     }
 
 }

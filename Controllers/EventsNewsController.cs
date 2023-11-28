@@ -114,7 +114,7 @@ namespace ESTA.Controllers
                 return View(displayEvents);
             }
             else
-                return RedirectToAction("Error"); ;
+                return View(null); ;
         }
 
         private List<DisplayEvents> EventsModelToEventsDisplay(int page, int Flag, int? Eventtype)

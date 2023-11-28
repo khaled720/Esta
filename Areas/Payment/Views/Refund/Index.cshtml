@@ -1,0 +1,344 @@
+﻿@using ESTA.Areas.Payment.Models
+@model IEnumerable<ESTA.Areas.Payment.Models.Refund>
+@{
+        Layout = "_AdminLayout";
+ }
+
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+        type="button" role="tab" aria-controls="nav-home" aria-selected="true">@RefundStates.Pending </button>
+
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
+        type="button" role="tab" aria-controls="nav-profile" aria-selected="false">@RefundStates.InProgress</button>
+
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+        type="button" role="tab" aria-controls="nav-contact" aria-selected="false">@RefundStates.Rejected</button>
+
+        <button class="nav-link" id="nav-refunded-tab" data-bs-toggle="tab" data-bs-target="#nav-refund"
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+            @RefundStates.Refunded
+        </button>
+    </div>
+</nav>
+<br />
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    @*   <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SerialNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    @*     <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(y=>y.Status=="Pending").ToList())
+                {
+                    
+                        <tr>
+                            @*        <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestedAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        @*  <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+
+                        <td>
+
+                            @Html.ActionLink("Details", "Details", new {  id=item.Id })
+                        </td>
+                    </tr>
+                
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    @*   <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SerialNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    @*     <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(y=>y.Status==RefundStates.InProgress.ToString()))
+                {
+                    <tr>
+                        @*        <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestedAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        @*  <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+
+                        <td>
+
+                            @Html.ActionLink("Details", "Details", new {  id=item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    @*   <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SerialNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    @*     <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(y => y.Status == RefundStates.Rejected.ToString()))
+                {
+                    <tr>
+                        @*        <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestedAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        @*  <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+
+                        <td>
+
+                            @Html.ActionLink("Details", "Details", new {  id=item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-refund" role="tabpanel" aria-labelledby="nav-refunded-tab">
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    @*   <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.OrderNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SerialNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequestedAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </th>
+                    @*     <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(y => y.Status == RefundStates.Refunded.ToString()))
+                {
+                    <tr>
+                        @*        <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SerialNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestedAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </td>
+                        @*  <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                    </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+
+                 
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+

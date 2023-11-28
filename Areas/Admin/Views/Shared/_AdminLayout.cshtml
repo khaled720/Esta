@@ -35,6 +35,7 @@
     }
 
 
+    <link href="~/template/css/fontawesome-all.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -84,9 +85,10 @@
                             <ul class="navbar-nav flex-grow-1">
                                 @if (Admin)
                                 {
-                                    <li class="nav-item">
+                                   @* <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
-                                    </li>
+                                    </li>*@
+                             
                                     <li class="nav-item-link">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
                                     </li>
@@ -112,19 +114,21 @@
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Moderator" asp-action="Index">@localizer["Moderator"]</a>
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Payments" asp-action="Index">@localizer["payments"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a>
+                                    </li>
+                                           <li class="nav-item">
+                                        <a class=" btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">@*@localizer["home"]*@
+                                        <i class="fas fa-home"></i>
+                                        </a>
                                     </li>
                                 }
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="admin" asp-controller="BannedUsers" asp-action="Index">@localizer["BannedUsers"]</a>
-                                </li>
-
-
-
+                   
                             </ul>
 
 

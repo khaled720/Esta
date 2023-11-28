@@ -31,29 +31,29 @@
 
 function SendEmail() {
     debugger;
-    var valid = true;//$("#contactform").valid();
+    var valid = $("#contactform").valid();
     if (valid) {
         // $("#sendEmailbtn").style.disabled = true;
         document.getElementById("sendEmailbtn").disabled = true;
         document.getElementById("sendEmailbtn").innerText = "Sending...";
 
-        var name = document.getElementById("name").value;
-        var email = document.getElementById("email").value;
-        var subject = document.getElementById("subject").value;
-        var message = document.getElementById("message").value;
+        var name = document.getElementById("contactname").value;
+        var email = document.getElementById("contactemail").value;
+        var subject = document.getElementById("contactsubject").value;
+        var message = document.getElementById("contactmessage").value;
         var dat = JSON.stringify({ Name: name, Email: email, Subject: subject, Message: message });
-        var Email = new Object();
-        Email.Name = name;
-        Email.Email = email;
-        Email.Subject = subject;
-        Email.Message = message;
+        var obj = new Object();
+        obj.Name = name;
+        obj.Email = email;
+        obj.Subject = subject;
+        obj.Message = message;
 
         $.ajax({
 
-            url: '/api/Endpoint',
+            url: '/api/Email',
             type: "POST",
-            data: { email: { Name: name, Email: email, Subject: subject, Message: message } },
-            dataType: "json",
+            data: obj,
+       //     dataType: "json",
             contentType: 'application/json',
             success: function (result) {
 

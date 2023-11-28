@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ESTA.Areas.Admin.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
@@ -73,12 +74,39 @@ namespace ESTA.Models
         public string TitleAr { get; set; }
 
         public string? PhotoPath { get; set; }
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "descen")]
         public string? Description { get; set; }
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "descar")]
         public string? DescriptionAr { get; set; }
+
+
+
+        [Required(
+        ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        ErrorMessageResourceName = "required"
+    )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "maxcoursemembers")]
+        [RegularExpression("[1-9][0-9]{1,3}", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        ErrorMessageResourceName = "maxallowedmemberserr")]
+        public int MaxAllowedMembersCount { get; set; } = 100;
+
+
+
+
+
+
+
+  //      public IEnumerable<PrerequisiteCourse>? PrerequisiteCourses { get; set; }
 
         public IEnumerable<UserCourse>? users { get; set; }
     }

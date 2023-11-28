@@ -16,6 +16,7 @@ direction:rtl;
 }
 
 
+
 p,h1,h2,h3,h4,h5,h6,a{
 
     font-family: 'noto kufi arabic regular', sans-serif !important;
@@ -41,7 +42,7 @@ p,h1,h2,h3,h4,h5,h6,a{
 
 
 .ar, .header-contact {
-    direction: rtl;
+    direction: rtl !important;
 }
 
 .mean-container a.meanmenu-reveal {
@@ -108,4 +109,9 @@ nav {
 .register-english-levels {
 direction:rtl
 
+}
+
+.chk-ar {
+    direction: rtl;
+    justify-content: flex-end;
 }

@@ -1,6 +1,7 @@
 ﻿@using System.Security.Claims
 @using ESTA.ViewComponents
 @using Microsoft.AspNetCore.Identity
+@using System.Globalization
 @inject UserManager<User> userManager;
 
 
@@ -20,9 +21,32 @@
 
 	<br />
 
+    <div style="display:flex;justify-content: space-between;">
+        <h3>@localizer["profile"]  </h3>
+        @if (userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier))
+        .GetAwaiter().GetResult().IsMempershipPaid)
+        {
+            
+       <p><img width="20px" height="20px"  src="@Url.Content("~/Images/success.png")">
+				@localizer["mempaid"]
+     
+           <br>
+				@localizer["endsin"]  @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)ViewBag.ExpiryMonth)
 
-    <h3>@localizer["profile"]  </h3>
+			</p>
+       @*     <a class="btn btn-info" asp-action="Create" 
+           asp-controller="Refund" 
+           asp-area="Payment">@localizer["refund"]</a>*@
 
+        }else{
+               <a class="btn btn-info" asp-action="AcceptMembershipOrder"
+    asp-controller="Orders"
+    asp-area="Payment">@localizer["paymem"]</a>
+        }
+ 
+    
+    </div>
+    
 
 @*
     <a href="/User/Courses" class="btn btn-primary">My Courses</a>*@
@@ -31,8 +55,13 @@
 	<br />
 	<br />
 
+    @if (await userManager.IsInRoleAsync(await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)) , "Moderator"))
+    {
+        <a class="btn btn-danger" asp-action="Index" asp-controller="Forums" asp-area="Admin">@localizer["forumdash"]</a>
 
-	<div class="container">
+    }
+    <br />   <br />
+    <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-3 col-lg-3">
             <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -51,12 +80,12 @@
                 <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
 
 
-                        @await Component.InvokeAsync("UserCourses");
+                        @await Component.InvokeAsync("UserCourses")
                         
 
                    </div>
                 <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
-                        @await Component.InvokeAsync("UserResults");
+                        @await Component.InvokeAsync("UserResults")
                 </div>
                 <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
            @await Component.InvokeAsync("UserForums"/*,new {userId= User.FindFirstValue(ClaimTypes.NameIdentifier*/) 

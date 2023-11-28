@@ -63,8 +63,9 @@
             @foreach (var forum in Model)
             {
                 <div class="card mb-3">
-                    <h5 class="card-header">
-                        <a asp-action="GetForum" asp-route-id="@forum.Id">@forum.Title</a>
+                    <h5 class="card-header" style="display:flex;justify-content:space-between">
+                    
+                        <a>General</a>    <a asp-action="GetForum" asp-route-id="@forum.Id">@forum.Title</a>
                     </h5>
                     <div class="card-body">
                         <p class="card-text">@forum.Description</p>

@@ -20,7 +20,8 @@ using System.Security.Policy;
 using Microsoft.AspNetCore.Mvc.Routing;
 using ESTA.Controllers;
 using EntityFrameworkCore.UseRowNumberForPaging;
-
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -117,13 +118,16 @@ builder.Services
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
+   
+   
     options.Events = new CookieAuthenticationEvents
     {
         OnRedirectToLogin = x =>
         {
             //  x.Response.Redirect(x.Request.Scheme+"://"+x.Request.Host+"/Account/Login");
 
-            x.Response.Redirect("Account/Login");
+            x.Response.Redirect("/Account/Login");
+            
             return Task.CompletedTask;
         }
     };
@@ -147,7 +151,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
 /*
@@ -166,19 +170,40 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "AdminArea",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    ).RequireAuthorization("AdminOrModerator");
 
-    endpoints.MapControllerRoute(
+//app.UseEndpoints(endpoints =>
+//{   
+//    endpoints.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=home}/{action=index}/{id?}"
+//  );
+//    endpoints.MapAreaControllerRoute(
+//      name: "AdminArea",
+//      areaName:"Admin",
+//      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+//    ).RequireAuthorization("AdminOrModerator");
+
+//    endpoints.MapAreaControllerRoute(
+//      name: "PaymentArea",
+//      areaName:"Payment",
+//      pattern: "Payment/{controller=Home}/{action=Index}/{id?}"
+//    ).RequireAuthorization();
+
+
+
+
+//});
+
+app.MapControllerRoute(
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=home}/{action=index}/{id?}"
-  );
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-});
+
+
 app.Lifetime.ApplicationStarted.Register(() =>
 {
     var scope = app.Services.CreateScope();
@@ -186,19 +211,23 @@ app.Lifetime.ApplicationStarted.Register(() =>
     //  dbcontext.Database.EnsureCreated();
     try
     {
-        dbcontext.Database.Migrate();
+        dbcontext.Database.Migrate();  
+        CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
     }
     catch (Exception ex)
     {
-
-        throw;
+        app.UseExceptionHandler("/Home/Error");
     }
 
-    CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
+
 });
+
+
 
 app.Run();
 
+
+#region SuperUser
 void CreateSuperUser(UserManager<User> userManager)
 {
     var user = userManager
@@ -215,6 +244,7 @@ void CreateSuperUser(UserManager<User> userManager)
                 FullName = app.Configuration["AdminCredentials:FullName"].ToString(),
                 UserName = app.Configuration["AdminCredentials:Email"].ToString(),
                 LevelId = 1,
+                IsApproved = true,
                 EmailConfirmed = true
             };
 
@@ -231,3 +261,4 @@ void CreateSuperUser(UserManager<User> userManager)
         catch (Exception ex) { }
     }
 }
+#endregion

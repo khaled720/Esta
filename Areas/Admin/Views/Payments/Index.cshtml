@@ -1,0 +1,78 @@
+﻿<style>
+
+
+
+
+	.content-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		/*//  height: calc(100vh - 10px);*/
+		grid-gap: 5px
+	}
+
+
+	.content-grid-child {
+		padding: 50px;
+		background: white;
+		border: 0.5px solid #80808026;
+		pointer: cursor;
+		transition: 200ms ease-in;
+		border-radius: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-decoration: none;
+		color: purple;
+	}
+
+		.content-grid-child:hover {
+			background: blueviolet;
+			color: white;
+		}
+</style>
+
+
+<div class="content-grid">
+
+
+
+
+
+	<a class="content-grid-child" asp-action="Courses" asp-controller="Payments" asp-area="Admin">
+
+		<h3>
+			@localizer["coursespayments"]
+
+		</h3>
+	</a>
+
+	<a class="content-grid-child" asp-action="Memperships" asp-controller="Payments" asp-area="Admin">
+		<h3>
+			@localizer["mempayments"]
+
+		</h3>
+	</a>
+
+
+	<a class="content-grid-child" asp-action="Courses" asp-controller="Orders" asp-area="Admin">
+		<h3>
+			@localizer["coursesorders"]
+
+		</h3>
+	</a>
+
+	<a class="content-grid-child" asp-action="Memperships" asp-controller="Orders" asp-area="Admin">
+		<h3>
+			@localizer["memorders"]
+
+		</h3>
+	</a>
+	<a class="content-grid-child" asp-action="Index" asp-controller="Refund" asp-area="Payment">
+		<h3>
+			@localizer["refund"]
+
+		</h3>
+	</a>
+</div>
+
+

@@ -6,16 +6,19 @@
 
 @model IEnumerable<ESTA.ViewModels.ViewModerator>;
 
-<a class="btn btn-danger" asp-action="NewModerator" asp-controller="Moderator" asp-area="Admin">New Moderator</a>
+<a class="btn btn-danger" asp-action="NewModerator" 
+asp-controller="Moderator" asp-area="Admin">@localizer["addmoderator"]</a>
+<a class="btn btn-danger" asp-action="NewModeratorCurrentUser" 
+asp-controller="Moderator" asp-area="Admin">@localizer["addexitingmoderator"]</a>
 
 <div class="rounded-div" >
 
 	<table id="courses-table" class="table table-striped animate__fadeIn " style="animation-duration:1s">
 		<thead>
 			<tr>
-				<th>FullName</th>
-				<th>UserName</th>
-				<th colspan="3">Edit</th>
+				<th>@localizer["urname"]</th>
+				<th>@localizer["uremail"]</th>
+				<th colspan="3">@localizer["edit"]</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,13 +26,13 @@
 			@{
 				foreach (var item in Model)
 				{
-					<tr>
-						<td>@item.Name</td>
-						<td>@item.UserName</td>
-						<td>
-							<a asp-action="EditModerator" asp-controller="Moderator" asp-area="Admin" asp-route-id="@item.Id">Edit</a>
-						</td>
-					</tr>
+						<tr>
+							<td>@item.Name</td>
+							<td>@item.UserName</td>
+							<td>
+								<a class="btn btn-info" asp-action="EditModerator" asp-controller="Moderator" asp-area="Admin"  asp-route-id="@item.Id">@localizer["edit"]</a>
+							</td>
+						</tr>
 				}
 			}
 		</tbody>

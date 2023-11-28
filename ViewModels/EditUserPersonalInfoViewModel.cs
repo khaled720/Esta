@@ -112,9 +112,11 @@ namespace ESTA.ViewModels
         public string? Passport { get; set; } = String.Empty;
 
 
+        public List<IFormFile>?  PassportImages { get; set; }
 
+        public List<IFormFile>?  NationalIdImages { get; set; }
 
-        public List<UserImage> userImages { get; set; }
+        public List<UserImage> userImages { get; set; } =new List<UserImage>();
 
         [Required(
            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),

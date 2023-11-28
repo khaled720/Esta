@@ -5,15 +5,69 @@
 }
 
 
-
 @model ESTA.ViewModels.PagerViewModel<User>
 
-<h2>@localizer["usersmanagement"]</h2>
+<h2>@localizer["usersmanagement"] 
+    - 
+    @if (ViewBag.type == 1) {
+        <span>@localizer["allmem"] </span>
+    }else if (ViewBag.type == 2) {
+        <span>@localizer["oldmem"] </span>
+    } else if (ViewBag.type==3) {
+        <span>@localizer["newmem"] </span>
+    }
 
+</h2>
 
+<script>
+
+    function SearchUser()
+    {
+        var userKeyword= document.getElementById("search").value;
+    console.log(userKeyword);
+    
+    }
+</script>
 
 
 <div class="rounded-div" >
+  @*  <div class="row">
+        <form action="Search">
+			<input class="form-control" name="query" style="border-raduis:80px" id="search" oninput="SearchUser()" />
+			<input value="Search"  type="submit" />
+
+        </form>
+
+
+    </div>*@
+    <a asp-action="EditMempership" style="decoration:none" asp-controller="Constants" asp-area="Admin">@localizer["membership"]</a>
+
+
+
+    @if (ViewBag.type == 2)
+    {
+        <a asp-action="Index" style="decoration:none" asp-controller="Users"
+       class="btn btn-primary" asp-route-type=3 asp-area="Admin">@localizer["newmem"]</a>
+
+        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
+        asp-route-type=1 asp-area="Admin">@localizer["allmem"]</a>
+    }
+    else if (ViewBag.type == 3)
+    {
+        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary" 
+        asp-route-type=2 asp-area="Admin">@localizer["oldmem"]</a>
+        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
+       asp-route-type=1 asp-area="Admin">@localizer["allmem"]</a>
+    }
+    else if (ViewBag.type == 1) 
+    {
+        <a asp-action="Index" style="decoration:none" asp-controller="Users" 
+        class="btn btn-primary" asp-route-type=2 asp-area="Admin">@localizer["oldmem"]</a>
+        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
+        asp-route-type=3 asp-area="Admin">@localizer["newmem"]</a>
+
+    }
+
 
 
 	<table id="courses-table" class="table table-striped animate__fadeIn " style="animation-duration:1s">
@@ -22,6 +76,7 @@
 				<th>@localizer["fullname"]</th>
 
 				<th>@localizer["regdate"]</th>
+                <th>@localizer["membership"]</th>
 
 				<th colspan="3">@localizer["actions"]</th>
 
@@ -38,56 +93,79 @@
 			@{
 				foreach (var item in Model.PaginatedList)
 				{
-					<tr>
-						<td>@item.FullName</td>
+                                <tr>
+                                    <td>@item.FullName</td>
 
-						<td>@item.JoinDate.ToShortDateString()</td>
+                                    <td>@item.JoinDate.ToShortDateString()</td>
 
-						<td>
-							@if (item.IsApproved)
-							{
-								@Html.ActionLink(localizer["disapprove"], "EditApproval", new { id = item.Id,isApproved=false }, new { @class = "btn btn-danger" })
-								;
+                                    <td>
+                            @if (item.IsMempershipPaid)
+                            {
+                                @Html.ActionLink(localizer["endMem"], "EditMempership", new { id = item.Id,isPaid=false }, new { @class = "btn btn-danger" })
+                                ;
 
-							}
-							else
-							{
-								@Html.ActionLink(localizer["approve"], "EditApproval", new { id = item.Id,isApproved=true }, new { @class = "btn btn-success" })
-								;
+                            }
+                            else
+                            {
+                                @Html.ActionLink(localizer["paymem"], "EditMempership", new { id = item.Id,isPaid=true }, new { @class = "btn btn-success" })
+                                ;
 
-							}
-|
-
-							@if (item.EmailConfirmed)
-							{
-								@Html.ActionLink(localizer["rejectemail"],  "EditEmailConfirmation", new { id = item.Id,isConfirmed=false }, new { @class = "btn btn-danger" })
-								;
-
-							}
-							else
-							{
-								@Html.ActionLink(localizer["confirmemail"], "EditEmailConfirmation", new { id = item.Id,isConfirmed=true }, new { @class = "btn btn-primary" })
-								;
-
-							}
-
-
-                         
-  
-                             
-                        |
-
-                            @Html.ActionLink(@localizer["resetpassword"], "ResetPassword", new { Email =item.Email }, new { @class = "btn btn-warning"  ,@onclick = "return confirm('Are you sure you wish to delete this user?');"} )
-
-                        |
-                            @Html.ActionLink(localizer["details"], "UserDetails", new { userId =item.Id }, new { @class = "btn btn-Info" })
-
+                            }
                         </td>
-                  
 
-                    
+
+                                    @if(item.Email!="Admin@Admin.com") { 
+                        
+        
+                                    <td>
+                                        @if (item.IsApproved)
+							{
+                                            @Html.ActionLink(localizer["disapprove"], "EditApproval", new { id = item.Id,isApproved=false }, new { @class = "btn btn-danger" })
+								;
+
+							}
+							else
+							{
+                                            @Html.ActionLink(localizer["approve"], "EditApproval", new { id = item.Id,isApproved=true }, new { @class = "btn btn-success" })
+								;
+
+							}
+            |
+
+                                        @if (item.EmailConfirmed)
+							{
+                                            @Html.ActionLink(localizer["rejectemail"],  "EditEmailConfirmation", new { id = item.Id,isConfirmed=false }, new { @class = "btn btn-danger" })
+								;
+
+							}
+							else
+							{
+                                            @Html.ActionLink(localizer["confirmemail"], "EditEmailConfirmation", new { id = item.Id,isConfirmed=true }, new { @class = "btn btn-primary" })
+								;
+
+							}
+
+
+                                     
+              
+                                         
+                                    |
+
+                                        @Html.ActionLink(@localizer["resetpassword"], "ResetPassword", new { Email =item.Email }, new { @class = "btn btn-warning"  ,@onclick = "return confirm('Reset Password for this  user?');"} )
+
+                                    |
+                                        @Html.ActionLink(localizer["details"], "UserDetails", new { userId =item.Id },
+                                        new { @class = "btn btn-Info" })
+                                        <!--<a> 
+                                        <i class="fas fa-bars" style="color: #325087;"></i>
+                                        </a>-->
+                      
+                                    </td>
                   
-					</tr>
+                }
+                                
+                              
+                                </tr>
 				}
 			}
 		</tbody>
@@ -110,7 +188,7 @@
             <li class="page-item ">
                 <a class="page-link"
                asp-action="index"
-               asp-controller="users" asp-area="admin"
+               asp-controller="users" asp-area="admin" asp-route-type=@ViewBag.type
                asp-route-page="@(Model.CurrentPage-1)">@localizer["prev"]</a>
             </li>
         }
@@ -123,7 +201,7 @@
             {
                 <li class="page-item active">
 
-                    <a class="page-link" asp-action="index"
+                    <a class="page-link" asp-action="index" asp-route-type=@ViewBag.type
                asp-controller="users" asp-area="admin"
                asp-route-page="@i">
                         @i
@@ -136,7 +214,7 @@
                 {
                     <li class="page-item">
 
-                        <a class="page-link" asp-action="index"
+                        <a class="page-link" asp-action="index" asp-route-type=@ViewBag.type
                asp-controller="users" asp-area="admin"
                asp-route-page="@i">
                             @i
@@ -150,7 +228,7 @@
         @if (@Model.CurrentPage != Model.TotalPages && Model.TotalPages > 1)
         {
             <li class="page-item">
-                <a class="page-link" asp-action="index"
+                <a class="page-link" asp-action="index" asp-route-type=@ViewBag.type
                asp-controller="users" asp-area="admin"
                asp-route-page="@(Model.CurrentPage+1)">@localizer["next"]</a>
             </li>

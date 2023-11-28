@@ -6,7 +6,7 @@
 
 @model ESTA.ViewModels.EditUserPersonalInfoViewModel
 
-<form method="post" asp-action="EditPersonalInfo" asp-controller="Users">
+<form method="post" asp-action="EditPersonalInfo"  enctype="multipart/form-data" asp-controller="Users">
     @Html.HiddenFor(y=>y.Id)
 
 
@@ -52,15 +52,27 @@
                    autocomplete="username" />
 
             <span asp-validation-for="@Model.Passport" class="text-danger"></span>
-            @foreach (var image in Model.userImages)
-            {
-                @if (image.TypeId == 2)
-                {
-                    <img src="@image.Path" width="100" height="100" />
-                }
-        
+                @{
+                    var counter = 0;
+                    foreach(var image in Model.userImages)
+                    {
+                        if(image.TypeId ==2)
+                        {
+                            counter++;
+                            <a href="@image.Path" target="_blank">
+                                <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
+                     </a>
+                        }
 
-            }
+
+                    }
+
+                    if(counter == 0)
+                    {
+                        <p>No Passport Photos Were Found</p>
+                        <input asp-for="@Model.PassportImages" type="file" multiple class="form-control" />
+                    }
+                }
         </div>
 
         
@@ -71,18 +83,31 @@
            
             <input  asp-for="@Model.NationalCardID" class="form-control"
                    autocomplete="username" />
-
+       
             <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
-            @foreach (var image in Model.userImages)
-            {
-                @if (image.TypeId==1)
-                {
-                    <img src="@image.Path" width="150" height="150" />
+                @{
+                    var counter=0;
+                    foreach(var image in Model.userImages)
+                    {
+                        @if(image.TypeId==1)
+                        {
+                            counter++;
+                            <a href="@image.Path" target="_blank">             <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
+                            </a>
+               
                 }
 
 
             }
-      </div>
+
+            @if(counter==0)
+                    {
+                        <p>No National Id  Were Found</p>
+                        <input asp-for="@Model.NationalIdImages" type="file" multiple class="form-control" />
+                    }
+            }
+           
+            </div>
 
         }
      

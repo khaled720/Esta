@@ -24,7 +24,7 @@ namespace ESTA.ViewComponents
            
             var user=   userManager.GetUserAsync(contextAccessor.HttpContext!.User).Result;
             // return forums with same level or lower
-            var xyz = uow.ForumRep.GetSpecificUserForums(user.LevelId);
+            var xyz = uow.ForumRep.GetSpecificForumByLevelId(user.LevelId);
             var BannedForums = uow.ForumBannedUserRep.GetForumsByUserId(user.Id);
 
             if (BannedForums.Count > 0)

@@ -2,9 +2,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using AutoMapper.Configuration.Annotations;
+using ESTA.Areas.Admin.Models;
+using ESTA.Areas.Admin.ViewModels;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Repository
@@ -59,8 +61,9 @@ namespace ESTA.Repository
                 DbCourse.DescriptionAr = UpdatedCourse.DescriptionAr;
                 DbCourse.TitleAr = UpdatedCourse.TitleAr;
                 DbCourse.PhotoPath = UpdatedCourse.PhotoPath;
-               
-
+                if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount) {
+                    DbCourse.MaxAllowedMembersCount = UpdatedCourse.MaxAllowedMembersCount;
+                }
                 this.appContext.SaveChanges();
 
                 //appContext.Entry<Course>(DbCourse).State = EntityState.Modified;
@@ -112,19 +115,29 @@ namespace ESTA.Repository
 
         public async Task<Course> GetCourse(int id)
         {
-            return await appContext.Courses
+            try
+            {
+      return await appContext.Courses
                 //.AsNoTracking()
                 .Include(y => y.level)
                 .Where(y => y.Id == id)
                 .FirstAsync();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+      
         }
 
         public async Task<List<UserCourse>> GetEnrolledUsersInCourse(int id)
         {
             return await appContext.UserCourses
+                .AsQueryable()
                 .AsNoTracking()
                 .Where(y => y.CourseId == id)
                 .Include(y => y.user)
+                .Include(y=>y.state)
                 .ToListAsync();
         }
 
@@ -175,6 +188,122 @@ namespace ESTA.Repository
             }
 
 
+        }
+
+        public async Task<List<Course>> SearchCoursesByName(string query)
+        {
+
+            try
+            {
+             return   await appContext.Courses.AsQueryable().Where(y => y.Title.Contains(query)).ToListAsync();
+               
+            }
+            catch (Exception)
+            {
+                return new List<Course>();
+            }
+
+
+        }
+
+        public async Task<bool> IsCourseEnrolledByUser(int courseId, string userId)
+        {
+            try
+            {
+             return await   appContext.UserCourses.Where(y=>y.CourseId==courseId&&y.UserId==userId).AnyAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        
+
+
+
+        public async Task<int> GetEnrolledUsersInCourseLength(int courseId)
+        {
+
+            var usersNumber= await appContext.UserCourses
+            .AsNoTracking()
+            .Where(y => y.CourseId == courseId).CountAsync();
+            return usersNumber;
+        }
+
+        public async Task<bool> UpdateCourseState(int courseId, string userId, int StateId)
+        {
+
+            try
+            {
+
+         var usercourse = await appContext.UserCourses
+                .Where(y => y.CourseId == courseId && y.UserId == userId).AsTracking()
+                .FirstOrDefaultAsync();
+                usercourse.StateId = StateId;
+
+                return true;
+        
+            }catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> AddPrerequisiteCourses(List<PrerequisiteCourse> prerequisiteCourses)
+        {
+            try
+            {
+
+                appContext.PrerequisiteCourses.RemoveRange(
+                    appContext.PrerequisiteCourses.Where(y => y.MainCourseId == prerequisiteCourses[0].MainCourseId).ToList()
+                    );
+                
+          await      appContext.PrerequisiteCourses.AddRangeAsync(prerequisiteCourses);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public async Task<bool> IsPrerequisiteCourse(int MainCourseId, int PreCourseId)
+        {
+            try
+            {
+
+
+                return await appContext.PrerequisiteCourses.Where(y => y.MainCourseId == MainCourseId 
+                && y.PrerequisiteCourseId == PreCourseId).AnyAsync();
+               
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public async Task<List<PrerequisiteCourse>> GetPrerequisiteCourses(int MainCourseId)
+        {
+            try
+            {
+
+
+                return await appContext.PrerequisiteCourses.Where(y => y.MainCourseId == MainCourseId).Include(y=>y.prerequisiteCourse).ToListAsync();
+
+
+            }
+            catch (Exception)
+            {
+
+                return new List<PrerequisiteCourse>();
+            }
         }
     }
 }

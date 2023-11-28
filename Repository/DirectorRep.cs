@@ -66,7 +66,7 @@ namespace ESTA.Repository
         {
             try
             {
-var directors= await appContext.Directors.ToListAsync();
+                var directors= await appContext.Directors.ToListAsync();
                 return directors;
             }
             catch (Exception ex)

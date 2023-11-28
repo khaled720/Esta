@@ -1,11 +1,21 @@
-﻿using ESTA.Models;
+﻿using System;
+using ESTA.Areas.Payment.Repository;
+using ESTA.Areas.Payment.Repository.IRespository;
+using ESTA.Models;
 
 namespace ESTA.Repository.IRepository
 {
     public interface IUnitOfWork
     {
 
+        ICertifiedMembersRep CertifiedMempersRep { get; }
+        IRefundRep RefundRep { get; }
+        IConstantsRep ConstantsRep { get; }
+        ICourseOrders CourseOrdersRep { get; }
+         ICoursePayments CoursePaymentsRep { get; }
 
+        IMempershipOrders MempershipOrdersRep { get; }
+        IMempershipPayments MempershipPaymentsRep { get; }
         ICoursesRep CoursesRep { get; }
         ILevelRep LevelRep { get; }
         IUserRep UserRep { get; }

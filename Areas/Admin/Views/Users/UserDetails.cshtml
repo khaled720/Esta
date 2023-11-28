@@ -9,11 +9,22 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-<h2>  @Model.FullName</h2>
+<h2>
+    @Model.FullName @Html.ActionLink(@localizer["delete"], "DeleteUser", new { userId =Model.Id }, new { @class = "btn btn-danger"  ,@onclick = "return confirm('Are you sure you wish to delete this user?');"} )
+  
+    
+</h2>
 
+@if (!ViewBag.isCertified)
+{
 
+	<form method="POST" asp-action="Add" asp-controller="CertifiedMembers"
+	  asp-area="Admin" asp-route-name="@Model.FullName">
+		<button type="submit" class="btn btn-primary">@localizer["markascert"]</button>
 
-@Html.ActionLink(@localizer["delete"], "DeleteUser", new { userId =Model.Id }, new { @class = "btn btn-danger"  ,@onclick = "return confirm('Are you sure you wish to delete this user?');"} )
+    </form>
+
+}
 
 
 
@@ -43,7 +54,7 @@
 
                 var mapped = mapper.Map<User, EditUserPersonalInfoViewModel>(Model);
 
-                        <partial name="_EditUserPersonalInfo" model="mapped"></partial>
+                            <partial name="_EditUserPersonalInfo" model="mapped"></partial>
        
         
             }
@@ -59,7 +70,7 @@
                 var mapped2 = mapper.Map<User, EditUserAddressInfoViewModel>(Model);
 
 
-                    <partial name="_EditUserAddressInfo" model="mapped2"></partial>
+                        <partial name="_EditUserAddressInfo" model="mapped2"></partial>
 
 
             }
@@ -74,7 +85,7 @@
                 var mapped3 = mapper.Map<User, EditUserWorkInfoViewModel>(Model);
 
 
-                    <partial name="_EditUserWorkInfo" model="mapped3"></partial>
+                        <partial name="_EditUserWorkInfo" model="mapped3"></partial>
 
 
             }
@@ -88,7 +99,7 @@
                 var mapped4 = mapper.Map<User, EditUserEducationInfoViewModel>(Model);
 
 
-                    <partial name="_EditUserEducationInfo" model="mapped4"></partial>
+                        <partial name="_EditUserEducationInfo" model="mapped4"></partial>
 
              
 
@@ -100,7 +111,7 @@
             <br>
             @{
 
-                @await Component.InvokeAsync("UserCourses",new {userId=@Model.Id });
+                    @await Component.InvokeAsync("UserCourses",new {userId=@Model.Id });
 
             }
 

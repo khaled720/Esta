@@ -1,4 +1,6 @@
-﻿using ESTA.Models;
+﻿using ESTA.Areas.Payment.Repository;
+using ESTA.Areas.Payment.Repository.IRespository;
+using ESTA.Models;
 using ESTA.Repository.IRepository;
 
 namespace ESTA.Repository
@@ -11,6 +13,12 @@ namespace ESTA.Repository
         {
             this.appContext = appContext;
         }
+
+
+        public IMempershipOrders MempershipOrdersRep => new MempershipOrdersRep(appContext);
+
+        public IMempershipPayments MempershipPaymentsRep => new MempershipPaymentsRep(appContext);
+
         public ICoursesRep CoursesRep => new CoursesRep(appContext);
 
         public ILevelRep LevelRep =>  new LevelsRep(appContext);
@@ -38,10 +46,22 @@ namespace ESTA.Repository
 
         public IForumBannedUserRep ForumBannedUserRep => new ForumBannedUserRep(appContext);
 
+        public ICourseOrders CourseOrdersRep => new CourseOrdersRep(appContext);
+
+        public ICoursePayments CoursePaymentsRep => new CoursePaymentRep(appContext);
+
+        public IConstantsRep ConstantsRep =>  new ConstantsRep(appContext);
+
+        public IRefundRep RefundRep => new RefundRep(appContext);
+
+        public ICertifiedMembersRep CertifiedMempersRep => new CertifiedMembersRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;
         }
+
+
 
         public  void RollbackChangesAsync()
         {

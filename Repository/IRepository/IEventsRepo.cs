@@ -14,5 +14,8 @@ namespace ESTA.Repository.IRepository
         public EventsNews FindEvent(int Id);
         public EventsNews GetLatestEvent();
         public bool CheckEvents(int page, int Flag, int? EventType, int count = 3);
+
+        public Task<List<EventsNews>> SearchEventsNewsByName(string query);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Repository
 {
@@ -104,6 +105,22 @@ namespace ESTA.Repository
 
 
             return eventsNews;
+
+        }
+
+        public async Task<List<EventsNews>>   SearchEventsNewsByName(string query)
+        {
+
+            try
+            {
+                return  await context.EventsNews.Where(y => y.TitleEn.Contains(query)).ToListAsync();
+            }
+            catch (Exception)
+            {
+
+          return new List<EventsNews>();
+            }
+
 
         }
     }

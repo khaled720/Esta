@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Globalization;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using ESTA.Helpers;
 using ESTA.Models;
@@ -49,10 +51,10 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Index()
         {
-         
+       
 
 
-               var hivm = new HomeIndexViewModel();
+            var hivm = new HomeIndexViewModel();
             try
             {
                 if (Thread.CurrentThread.CurrentCulture.Name == "ar") {
@@ -104,10 +106,6 @@ namespace ESTA.Controllers
 
 
 
-
-
-
-
                 if ( hivm.About.Length > 400) 
                 {
 
@@ -142,13 +140,43 @@ namespace ESTA.Controllers
                 hivm.About = String.Empty;
                 hivm.Mission = String.Empty;
                 hivm.Vission = String.Empty;
+                return View("Error");
             }
 
             return View(hivm);
         }
 
+
+        public async Task<IActionResult> Search(string query) 
+        {
+
+            HomeSearchViewModel hsvm = new();
+
+
+           var Courses =  await Uow.CoursesRep.SearchCoursesByName(query);
+          var EventsNews = await Uow.EventRep.SearchEventsNewsByName(query);
+
+            foreach (var item in Courses)
+            {
+                hsvm.Results.Add(new SearchResult { Header = item.Title, Description = item.Description, Type = 0 ,Id=item.Id});
+            }
+
+            foreach (var item in EventsNews)
+            {
+                hsvm.Results.Add(new SearchResult { Header = item.TitleEn, Description = item.DetailsEn, Type = 1 ,Id=item.Id});
+            }
+
+          
+            return View(hsvm);
+        
+        }
+
+
         public async Task<IActionResult> About(string type)
         {
+
+           var res= await Uow.UserRep.UpdateUserLevel(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
             var content = Uow.ContentRep.GetContent(type);
 
             switch (type)

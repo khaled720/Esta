@@ -1,0 +1,106 @@
+﻿@model List<ESTA.Areas.Payment.Models.MempershipPayment>
+
+@{
+    ViewData["Title"] = "Memperships";
+}
+
+
+<h3>@localizer["mempayments"]  </h3>
+
+@if (Model!=null &&Model.Count()>0)
+{
+  <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].OrderId)
+            </th>
+            <th>
+                    @localizer["nameen"]
+            </th>
+                <th>
+              @localizer["emailus"]
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].CreationTime)
+            </th>
+    @*        <th>
+                @Html.DisplayNameFor(model => model[0].TotalAuthorizedAmount)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model[0].TotalCapturedAmount)
+            </th>
+         @*   <th>
+                @Html.DisplayNameFor(model => model[0].TotalRefundedAmount)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model[0].CardType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].NameOnCard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].LastUpdateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Status)
+            </th>
+        @*    <th>
+                @Html.DisplayNameFor(model => model[0].ResultJsonResponse)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationTime)
+            </td>
+        @*    <td>
+                @Html.DisplayFor(modelItem => item.TotalAuthorizedAmount)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCapturedAmount)
+            </td>
+        @*    <td>
+                @Html.DisplayFor(modelItem => item.TotalRefundedAmount)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CardType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOnCard)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+       @*     <td>
+                @Html.DisplayFor(modelItem => item.ResultJsonResponse)
+            </td>*@
+          <td>
+                @Html.ActionLink("View Order", "orderDetails", new {  id=item.OrderId,type=1 })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>  
+
+
+}else{
+
+    <h3>@localizer["notfound"]</h3>
+}
+

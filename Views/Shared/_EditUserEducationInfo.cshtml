@@ -7,22 +7,36 @@
 @model ESTA.ViewModels.EditUserEducationInfoViewModel
 
 
-<form method="post" action="EditEducationInfo">
+<form method="post" enctype="multipart/form-data" action="EditEducationInfo">
 
 
     @Html.HiddenFor(y=>y.Id)
 
 <h3>Education</h3>
 
+    @{
+        var counter = 0;
         @foreach (var image in Model.userImages)
         {
             @if (image.TypeId == 3)
             {
-                <img src="@image.Path" width="150" height="150" />
+                counter++;
+
+                <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
             }
 
 
         }
+
+    @if (counter == 0)
+    {
+        <p>No Academic Qualification Images  Were Found</p>
+        <input asp-for="@Model.AcademicQualificationImages" type="file" multiple class="form-control" />
+    }
+
+    }
+
+
        @* <div id="prevImg"></div>
         <button onclick="showImg()" class="btn btn-primary">Show</button>
         <script>
@@ -33,6 +47,7 @@
      
         </script>*@
 
+         
 
 <div class="row">
 

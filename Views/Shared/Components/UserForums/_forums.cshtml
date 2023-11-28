@@ -11,8 +11,9 @@
 {
  
    <div class="card mb-3">
-                    <h5 class="card-header">
+                    <h5 class="card-header" style="display:flex;justify-content:space-between">
                         <a asp-action="GetForum" asp-controller="Forums" asp-route-id="@forum.Id">@forum.Title</a>
+                                <a >@forum.level.TypeName</a>
                     </h5>
                     <div class="card-body">
                         <p class="card-text">@forum.Description</p>

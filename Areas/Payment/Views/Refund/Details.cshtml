@@ -1,0 +1,96 @@
+﻿@using ESTA.Areas.Payment.Models
+@model ESTA.Areas.Payment.Models.Refund
+
+@{
+
+    Layout = "_AdminLayout";
+}
+
+
+    <h4>@localizer["refund"]</h4>
+    <hr />
+    <dl class="row">
+     
+        <dt class = "col-4">
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </dt>
+    <dd class="col-8">
+            @Html.DisplayFor(model => model.OrderNumber)
+        </dd>
+    <dt class="col-4">
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </dt>
+    <dd class="col-8">
+            @Html.DisplayFor(model => model.SerialNumber)
+        </dd>
+    <dt class="col-4">
+            @Html.DisplayNameFor(model => model.RequestedAmount)
+        </dt>
+    <dd class="col-8">
+            @Html.DisplayFor(model => model.RequestedAmount)
+        </dd>
+    <dt class="col-4">
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+    <dd class="col-8">
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+    <dt class="col-4">
+        @localizer["nameen"]
+    </dt>
+    <dd class="col-8">
+        @Html.DisplayFor(model =>  model.User.FullName)
+    </dd>
+    <dt class="col-4">
+            @localizer["emailus"]
+        </dt>
+    <dd class="col-8">
+            @Html.DisplayFor(model =>  model.User.Email)
+        </dd>
+
+    <dt class="col-4">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+    <dd class="col-8">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+    <dt class="col-4">
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+
+    <dd class="col-8">
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+      
+    </dl>
+
+
+
+
+<div>
+      @Html.HiddenFor(y=>y.Id)
+    <form method="post" asp-action="Details">
+        @Html.HiddenFor(y=>y.UserId)
+        @Html.HiddenFor(y=>y.Id)
+        @Html.HiddenFor(y=>y.Type)
+        @Html.HiddenFor(y=>y.Status)
+        @Html.HiddenFor(y=>y.OrderNumber)
+        @Html.HiddenFor(y=>y.SerialNumber)
+
+        <select  name="newState"    class="form-control">
+            @foreach (var item in Enum.GetValues(typeof(RefundStates)))
+            {
+                if(item.ToString()==Model.Status){
+                    <option value="@item.ToString()" selected > @item.ToString() </option>
+                }else{
+                <option value="@item.ToString()"  > @item.ToString() </option>
+                }
+                }
+
+        </select>
+<br>
+        <input type="submit" value="@localizer["submit"]" class="btn btn-primary" />
+
+    </form>
+
+</div>

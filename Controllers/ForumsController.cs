@@ -41,7 +41,7 @@ namespace ESTA.Controllers
         [Authorize]
         public async Task<IActionResult> IndexAsync()
         {
-            var lists = appRep.ForumRep.GetAllForums();
+            var lists = appRep.ForumRep.GetSpecificForumByLevelId(4);
             List<GetForum> forumList = _mapper.Map<List<Forum>, List<GetForum>>(lists);
             if (forumList != null)
             {
@@ -52,7 +52,7 @@ namespace ESTA.Controllers
                 {
                     var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
 
-                    forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
+                    //forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
                     if(BannedForums.Count > 0)
                         forumList = forumList.Where(x => BannedForums.Any(y => y.ForumId != x.Id)).ToList();
                 }

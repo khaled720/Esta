@@ -1,7 +1,7 @@
 ﻿
 
 
-@model List<ESTA.Models.User>
+@model List<ESTA.Areas.Admin.Models.CertifiedMember>
 
 @using Microsoft.Extensions.Localization
 @using System.Globalization
@@ -28,33 +28,38 @@
   @*  <p style="padding:40px" sty>  @localizer["notfound"]</p>*@
 }
     <br />
-<table class="" style="width:250px;margin :auto">
+<table class="" style="width:500px;margin :auto">
 
 
 
 		<tbody>
-        @foreach (var item in new List<String>() { "Ahmed mohamed", "Ramy ahmed", "Hossam Ahmed", "Mona sayed", "Mai mohamed", "Ahmed mohamed", "Ramy ahmed", "Hossam Ahmed", "Mona sayed", "Mai mohamed" })
+        @foreach (var item in @Model )
         {
 	
       
 		<tr>
-				<td style="    text-align: center !important !Important;">
-						@if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-						{
-					      <span class="h5">@item</span>	<span class="ti-user"></span>   
+				<td style="display:flex;align-items:center;justify-content:space-evenly;border-bottom:0.2px solid #80808036">
+					@*	@if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+						{*@
+							<span class="ti-user" style="font-size:30px"></span>   
+					      <span class="h4" style="font-weight:600">@item.Name</span>
 						<hr />
-						}
+					@*	}
 						else
 						{
 						<span class="ti-user"></span>      <span class="h5">@item</span>
 				<hr />
-						}
-				</td>
+						}*@
 
+
+
+
+				</td>
 
 			</tr>
       
-
+			
+	
        
 
 

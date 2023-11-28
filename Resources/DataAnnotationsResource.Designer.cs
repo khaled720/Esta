@@ -88,11 +88,29 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string amount {
+            get {
+                return ResourceManager.GetString("amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area.
         /// </summary>
         public static string area {
             get {
                 return ResourceManager.GetString("area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorized Amount.
+        /// </summary>
+        public static string authamount {
+            get {
+                return ResourceManager.GetString("authamount", resourceCulture);
             }
         }
         
@@ -151,6 +169,33 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Captured Amount.
+        /// </summary>
+        public static string capamount {
+            get {
+                return ResourceManager.GetString("capamount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Card Type.
+        /// </summary>
+        public static string cardtype {
+            get {
+                return ResourceManager.GetString("cardtype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation Date.
+        /// </summary>
+        public static string cdate {
+            get {
+                return ResourceManager.GetString("cdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string city {
@@ -192,6 +237,15 @@ namespace ESTA.Resources {
         public static string country {
             get {
                 return ResourceManager.GetString("country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string curr {
+            get {
+                return ResourceManager.GetString("curr", resourceCulture);
             }
         }
         
@@ -282,6 +336,33 @@ namespace ESTA.Resources {
         public static string fngrade {
             get {
                 return ResourceManager.GetString("fngrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forum Description.
+        /// </summary>
+        public static string forumdesc {
+            get {
+                return ResourceManager.GetString("forumdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forum Level.
+        /// </summary>
+        public static string forumlevel {
+            get {
+                return ResourceManager.GetString("forumlevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forum Title.
+        /// </summary>
+        public static string forumtitle {
+            get {
+                return ResourceManager.GetString("forumtitle", resourceCulture);
             }
         }
         
@@ -385,6 +466,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Update Date.
+        /// </summary>
+        public static string lastdate {
+            get {
+                return ResourceManager.GetString("lastdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string level {
@@ -403,11 +493,56 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of Applicants should be between 10 - 9999.
+        /// </summary>
+        public static string maxallowedmemberserr {
+            get {
+                return ResourceManager.GetString("maxallowedmemberserr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum people who can apply.
+        /// </summary>
+        public static string maxcoursemembers {
+            get {
+                return ResourceManager.GetString("maxcoursemembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Messaging Address.
         /// </summary>
         public static string meassagingaddress {
             get {
                 return ResourceManager.GetString("meassagingaddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mempership Expiry Month.
+        /// </summary>
+        public static string memexpiry {
+            get {
+                return ResourceManager.GetString("memexpiry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mempership Fee.
+        /// </summary>
+        public static string memfee {
+            get {
+                return ResourceManager.GetString("memfee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mempership Expiry Month Should be between 1 and 12.
+        /// </summary>
+        public static string memmonthexpiryerr {
+            get {
+                return ResourceManager.GetString("memmonthexpiryerr", resourceCulture);
             }
         }
         
@@ -439,11 +574,56 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name on Card.
+        /// </summary>
+        public static string nameoncard {
+            get {
+                return ResourceManager.GetString("nameoncard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to National Card ID Must be 14 digits.
         /// </summary>
         public static string nationalidcons {
             get {
                 return ResourceManager.GetString("nationalidcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string orderdesc {
+            get {
+                return ResourceManager.GetString("orderdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Identifier.
+        /// </summary>
+        public static string orderid {
+            get {
+                return ResourceManager.GetString("orderid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Reference.
+        /// </summary>
+        public static string orderref {
+            get {
+                return ResourceManager.GetString("orderref", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order Number.
+        /// </summary>
+        public static string orderum {
+            get {
+                return ResourceManager.GetString("orderum", resourceCulture);
             }
         }
         
@@ -529,6 +709,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reason.
+        /// </summary>
+        public static string reason {
+            get {
+                return ResourceManager.GetString("reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refunded Amount.
+        /// </summary>
+        public static string refamount {
+            get {
+                return ResourceManager.GetString("refamount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember me.
         /// </summary>
         public static string remember {
@@ -538,11 +736,38 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Requested Amount.
+        /// </summary>
+        public static string reqamount {
+            get {
+                return ResourceManager.GetString("reqamount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field is Required !.
         /// </summary>
         public static string required {
             get {
                 return ResourceManager.GetString("required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Number.
+        /// </summary>
+        public static string serialnum {
+            get {
+                return ResourceManager.GetString("serialnum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string status {
+            get {
+                return ResourceManager.GetString("status", resourceCulture);
             }
         }
         
@@ -579,6 +804,24 @@ namespace ESTA.Resources {
         public static string titleen {
             get {
                 return ResourceManager.GetString("titleen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction Reference.
+        /// </summary>
+        public static string transref {
+            get {
+                return ResourceManager.GetString("transref", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string type {
+            get {
+                return ResourceManager.GetString("type", resourceCulture);
             }
         }
         

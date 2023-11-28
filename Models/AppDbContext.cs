@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations.Schema;
+using ESTA.Areas.Payment.Models;
+using ESTA.Areas.Admin.Controllers;
+using ESTA.Areas.Admin.Models;
 
 namespace ESTA.Models
 {
@@ -56,6 +59,7 @@ namespace ESTA.Models
             modelBuilder.Entity<State>().HasData(new State() { Id = 1, StateName = "Enrolled" });
             modelBuilder.Entity<State>().HasData(new State() { Id = 2, StateName = "In Progress" });
             modelBuilder.Entity<State>().HasData(new State() { Id = 3, StateName = "Completed" });
+            modelBuilder.Entity<State>().HasData(new State() { Id = 4, StateName = "Refunded" });
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
@@ -95,6 +99,12 @@ namespace ESTA.Models
                 .HasForeignKey(x => x.LevelId);
 
 
+
+            modelBuilder.Entity<PrerequisiteCourse>().HasKey(x => new { x.MainCourseId, x.PrerequisiteCourseId });
+            //modelBuilder.Entity<PrerequisiteCourse>().HasOne(y => y.MainCourse)
+            //    .WithMany(b => b.PrerequisiteCourses).HasForeignKey(y => y.MainCourseId);
+            //modelBuilder.Entity<PrerequisiteCourse>().HasOne(y => y.prerequisiteCourse)
+            //    .WithMany(b => b.PrerequisiteCourses).HasForeignKey(y => y.PrerequisiteCourseId);
 
 
             modelBuilder.Entity<ImageType>().HasData(new ImageType() {Id=1,Name="NationalId" });
@@ -143,6 +153,22 @@ namespace ESTA.Models
 
         public DbSet<ModeratorForum> ModeratorForums { get; set; }
         public DbSet<ForumBannedUser> ForumBannedUser { get; set; }
+
+
+       public DbSet<MempershipOrder> MempershipOrders { get; set; }
+
+        public DbSet<MempershipPayment> MempershipPayments { get; set; }
+
+
+        public DbSet<CourseOrder> CoursesOrders { get; set; }
+        public DbSet<CoursePayment>  CoursesPayments { get; set; }
+        public DbSet<GlobalConstants> Constants { get; set; }
+
+        public DbSet<Refund> RefundRequests   { get; set; }
+
+        public DbSet<CertifiedMember> CertifiedMembers { get; set; }
+
+        public DbSet<PrerequisiteCourse> PrerequisiteCourses { get; set; }
 
 
     }

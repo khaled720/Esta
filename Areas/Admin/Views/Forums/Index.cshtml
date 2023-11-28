@@ -14,6 +14,44 @@
         role = await userManager.IsInRoleAsync(user, "Admin");
     }
 }
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            @*  <a class="navbar-brand" asp-area="admin" asp-controller="Home" asp-action="Index">ADMIN</a>*@
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+         
+                 @if (role==true)
+                 {
+                     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Moderator" asp-action="Index">@localizer["moderators"]</a>
+                    </li>
+                 }
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="admin" asp-controller="BannedUsers" asp-action="Index">@localizer["BannedUsers"]</a>
+                    </li>
+
+
+
+                </ul>
+
+
+            </div>
+
+        </div>
+    </nav>
+
+</header>
+
+
+
+
 <div class="slider-area">
     <div class="pages-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center">
@@ -21,7 +59,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="slider-content slider-content-breadcrumb text-center">
-                            <h1 class="white-color f-700">Forums</h1>
+                            <h1 class="white-color f-700">@localizer["forums"]</h1>
                          
                         </div>
                     </div>
@@ -41,7 +79,7 @@
                 <div class="col-10">
                     <input class="form-control" type="text" id="search" name="query" />
                 </div>
-                <button type="submit" style="padding:12px" class="btn btn-secondary col-2">Search</button>
+                <button type="submit" style="padding:12px" class="btn btn-secondary col-2">@localizer["search"]</button>
             </div>
         </form>
 
@@ -50,8 +88,10 @@
 
     <div class="row gy-3">
         <div class="col-xl-8">
-            <a class="btn btn-danger my-2" asp-action="NewForum" asp-controller="Forums" asp-area="Admin">New Forum</a>
-
+               @if (role)
+                    {
+            <a class="btn btn-primary my-2" asp-action="NewForum" asp-controller="Forums" asp-area="Admin">@localizer["newforum"]</a>
+                    }
             @foreach (var forum in Model)
             {
                 <div class="card mb-3">
@@ -62,14 +102,18 @@
                         <p class="card-text">@forum.Description</p>
                     </div>
                 
-                        <div class="card-footer">
+                    @if (role)
+                    {
+                            <div class="card-footer">
                             <a asp-controller="Forums" asp-action="EditForum" asp-route-id="@forum.Id" class="btn btn-secondary">
-                                Edit
+                                @localizer["edit"]
                             </a>
                             <button onclick="showModal(@forum.Id)" class="btn btn-danger">
-                                Delete
+                            @localizer["delete"]
                             </button>
                         </div>
+                    }
+                    
               
                 </div>
             }
@@ -82,15 +126,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete</h5>
+                <h5 class="modal-title">@localizer["delete"]</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>Are You sure you want to delete this!</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button onclick="deleteForum()" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@localizer["cancel"]</button>
+                <button onclick="deleteForum()" class="btn btn-danger">@localizer["delete"]</button>
             </div>
         </div>
     </div>

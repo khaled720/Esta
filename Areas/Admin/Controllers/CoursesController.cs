@@ -1,4 +1,6 @@
-﻿using ESTA.Helpers;
+﻿using ESTA.Areas.Admin.Models;
+using ESTA.Areas.Admin.ViewModels;
+using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
@@ -20,6 +22,52 @@ namespace ESTA.Areas.Admin.Controllers
             this.hostEnvironment = hostEnvironment;
         }
 
+
+
+
+
+
+        [Authorize("RequireAdminRole")]
+        [HttpGet]
+        public async Task<IActionResult> AssignCoursePrerequisite(int cId)
+        {
+            var courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+          
+            PrerequisiteCourseViewModel prerequisite = new();
+            prerequisite.PreCourses = new List<PreCourse>();
+            prerequisite.MainCourse = courses.Find(y=>y.Id==cId);
+              courses.Remove(prerequisite.MainCourse);
+
+            foreach (var course in courses)
+            {
+                var isPre =await appRep.CoursesRep.IsPrerequisiteCourse(prerequisite.MainCourse.Id,course.Id);
+                prerequisite.PreCourses.Add(new PreCourse() { course=course,isPrerequisite=isPre});
+            }
+
+
+            return View(prerequisite);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AssignCoursePrerequisite(PrerequisiteCourseViewModel prerequisite)
+        {
+
+            var precourses = new List<PrerequisiteCourse>();
+
+            foreach (var item in prerequisite.PreCourses)
+            {
+                if (item.isPrerequisite)
+                {
+                    precourses.Add(new PrerequisiteCourse() { MainCourseId = prerequisite.MainCourse.Id, PrerequisiteCourseId = item.course.Id });
+                }
+            }
+
+            await appRep.CoursesRep.AddPrerequisiteCourses(precourses);
+            await appRep.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
 
         [Authorize("RequireAdminRole")]
         [HttpGet]

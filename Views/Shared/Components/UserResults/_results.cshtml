@@ -22,7 +22,14 @@
             </th>
             <th>
                 @localizer["coursegrade"]
-            </th>
+                </th>
+                <th>
+                   @localizer["percent"]
+                </th>
+                <th>
+                    @localizer["state"]
+                </th>
+
             <th>
                 @localizer["enrolldate"]
             </th>
@@ -38,7 +45,21 @@
               @item.course.Title
             </td>
             <td>
-             @item.Grade
+						
+                @item.course.FinalGrade  / @item.Grade
+
+            </td>
+               <td>
+             @(item.Grade*item.course.FinalGrade/100)%
+            </td>
+            <td>
+                @if (item.StateId==3)
+                {
+                    <h4 class="text-success"> @localizer["pass"] </h4>
+                }else
+                {
+                            <h4 class="text-danger"> @localizer["fail"] </h4>
+                }
             </td>
                 <td>
                     @item.EnrollmentDate.ToShortDateString()

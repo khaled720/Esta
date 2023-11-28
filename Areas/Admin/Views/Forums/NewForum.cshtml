@@ -5,31 +5,34 @@
 @{
 
 }
+
+
+<div class="rounded-div">
 <form onkeypress="submitForm(event)" asp-action="NewForum" asp-controller="Forums" method="post">
     <div asp-validation-summary="All" class="text-danger">
     </div>
     <div class="form-group">
-        <label for="formTitle" class="form-label">Forum Title</label>
-        <input class="form-control" id="formTitle" type="text" asp-for="Title" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+        <label  asp-for="@Model.Title" class="form-label"></label>
+            <input class="form-control" id="formTitle" type="text" asp-for="@Model.Title" />
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label for="formDescription" class="form-label">Forum Description</label>
-        <input class="form-control" id="formDescription" type="text" asp-for="Description" />
-        <span asp-validation-for="Description" class="text-danger"></span>
+            <label asp-for="@Model.Description" class="form-label"></label>
+            <input class="form-control" id="formDescription" type="text" asp-for="@Model.Description" />
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label for="formLevel" class="form-label">Forum Level</label>
-        <select asp-for="levelId" class="form-control" id="formLevel" asp-items="ViewBag.LevelsListItem">
+            <label asp-for="@Model.levelId" class="form-label"></label>
+            <select asp-for="@Model.levelId" class="form-control" id="formLevel" asp-items="ViewBag.LevelsListItem">
         </select>
-        <span asp-validation-for="levelId" class="text-danger"></span>
+        <span asp-validation-for="@Model.levelId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <button type="submit" id="submit" class="btn btn-primary">submit</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        <button type="submit" id="submit" class="btn btn-primary">@localizer["submit"]</button>
+            <a asp-action="Index" class="btn btn-secondary">@localizer["cancel"]</a>
     </div>
 </form>
-
+</div>
 @section Scripts{
     @{
         await Html.RenderPartialAsync("_validationscriptspartial.cshtml");

@@ -126,8 +126,14 @@
   <data name="addressen" xml:space="preserve">
     <value>العنوان بالإنجليزية</value>
   </data>
+  <data name="amount" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
   <data name="area" xml:space="preserve">
     <value>المنطقة</value>
+  </data>
+  <data name="authamount" xml:space="preserve">
+    <value>الكمية الموثقة</value>
   </data>
   <data name="bioar" xml:space="preserve">
     <value>السيرة الشخصية باللغة العربية</value>
@@ -147,6 +153,15 @@
   <data name="branchen" xml:space="preserve">
     <value>اسم الفرع بالإنجليزية</value>
   </data>
+  <data name="capamount" xml:space="preserve">
+    <value>الكمية المدفوعة</value>
+  </data>
+  <data name="cardtype" xml:space="preserve">
+    <value>نوع الكارت</value>
+  </data>
+  <data name="cdate" xml:space="preserve">
+    <value>تاريخ الإنشاء</value>
+  </data>
   <data name="city" xml:space="preserve">
     <value>المدينة</value>
   </data>
@@ -161,6 +176,9 @@
   </data>
   <data name="country" xml:space="preserve">
     <value>الدولة</value>
+  </data>
+  <data name="curr" xml:space="preserve">
+    <value>العملة</value>
   </data>
   <data name="descar" xml:space="preserve">
     <value>الوصف باللغة العربية</value>
@@ -191,6 +209,15 @@
   </data>
   <data name="fngrade" xml:space="preserve">
     <value>الدرجة النهائية</value>
+  </data>
+  <data name="forumdesc" xml:space="preserve">
+    <value>وصف النقاش</value>
+  </data>
+  <data name="forumlevel" xml:space="preserve">
+    <value>مستوى النقاش</value>
+  </data>
+  <data name="forumtitle" xml:space="preserve">
+    <value>عنوان النقاش</value>
   </data>
   <data name="fullname" xml:space="preserve">
     <value>الإسم باللغة الإنجليزية</value>
@@ -225,14 +252,32 @@
   <data name="joben" xml:space="preserve">
     <value>الوظيفة باللغة الانجليزية</value>
   </data>
+  <data name="lastdate" xml:space="preserve">
+    <value>اخر تاريخ للتحديث</value>
+  </data>
   <data name="level" xml:space="preserve">
     <value>المستوي</value>
   </data>
   <data name="levelname" xml:space="preserve">
     <value>اسم المستوي</value>
   </data>
+  <data name="maxallowedmemberserr" xml:space="preserve">
+    <value>عدد المتقدمين يجب ان يكون بين 10 - 9999</value>
+  </data>
+  <data name="maxcoursemembers" xml:space="preserve">
+    <value>الحد الاقصي لعدد الذين يمكنهم التقدم</value>
+  </data>
   <data name="meassagingaddress" xml:space="preserve">
     <value>عنوان المراسلة</value>
+  </data>
+  <data name="memexpiry" xml:space="preserve">
+    <value>شهر انتهاء العضوية</value>
+  </data>
+  <data name="memfee" xml:space="preserve">
+    <value>تكلفة العضوية</value>
+  </data>
+  <data name="memmonthexpiryerr" xml:space="preserve">
+    <value> شهر انتهاء العضوية يجب ان لا يتخطي 12 او ان يكون اقل من 1</value>
   </data>
   <data name="mobile" xml:space="preserve">
     <value>رقم الهاتف المحمول</value>
@@ -243,8 +288,23 @@
   <data name="nameen" xml:space="preserve">
     <value>الاسم باللغة الانجليزية</value>
   </data>
+  <data name="nameoncard" xml:space="preserve">
+    <value>الاسم على الكارت</value>
+  </data>
   <data name="nationalidcons" xml:space="preserve">
     <value>رقم بطاقة تحقيق الشخصية يجب ان يكون 14 رقما</value>
+  </data>
+  <data name="orderdesc" xml:space="preserve">
+    <value>وصف الطلب</value>
+  </data>
+  <data name="orderid" xml:space="preserve">
+    <value>الرقم التعريفي للطلب</value>
+  </data>
+  <data name="orderref" xml:space="preserve">
+    <value>كود الطلب المرجعي</value>
+  </data>
+  <data name="orderum" xml:space="preserve">
+    <value>كود الطلب</value>
   </data>
   <data name="passport" xml:space="preserve">
     <value>رقم جواز السفر</value>
@@ -273,11 +333,26 @@
   <data name="pricerange" xml:space="preserve">
     <value>السعر يجب ان يكون بين 0 - 10000</value>
   </data>
+  <data name="reason" xml:space="preserve">
+    <value>السبب</value>
+  </data>
+  <data name="refamount" xml:space="preserve">
+    <value>الكمية المستردة</value>
+  </data>
   <data name="remember" xml:space="preserve">
     <value>تذكرني</value>
   </data>
+  <data name="reqamount" xml:space="preserve">
+    <value>الكمية المطلوبة</value>
+  </data>
   <data name="required" xml:space="preserve">
     <value>! هذا الحقل مطلوب</value>
+  </data>
+  <data name="serialnum" xml:space="preserve">
+    <value>الرقم التسلسلي</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>الحالة</value>
   </data>
   <data name="stdate" xml:space="preserve">
     <value>تاريخ البدء</value>
@@ -290,6 +365,12 @@
   </data>
   <data name="titleen" xml:space="preserve">
     <value>العنوان باللغة الانجليزية</value>
+  </data>
+  <data name="transref" xml:space="preserve">
+    <value>كود العملية المرجعي</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>النوع</value>
   </data>
   <data name="university" xml:space="preserve">
     <value>الجامعة</value>
