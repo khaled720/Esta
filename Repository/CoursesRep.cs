@@ -54,6 +54,7 @@ namespace ESTA.Repository
                 DbCourse.StartDate = UpdatedCourse.StartDate;
                 DbCourse.LevelId = UpdatedCourse.LevelId;
                 DbCourse.FinalGrade = UpdatedCourse.FinalGrade;
+                DbCourse.SuccessPersentage = UpdatedCourse.SuccessPersentage;
                 DbCourse.Title = UpdatedCourse.Title;
                 DbCourse.Price = UpdatedCourse.Price;
            //  DbCourse.PaymentLink = UpdatedCourse.PaymentLink;
@@ -171,7 +172,7 @@ namespace ESTA.Repository
             return CetaHolders;
         }
 
-        public async Task<Course> GetUpcomingCourse()
+        public async Task<Course?> GetUpcomingCourse()
         {
 
             try
@@ -184,7 +185,7 @@ namespace ESTA.Repository
             }
             catch (Exception)
             {
-                return new Course();
+                return null;
             }
 
 

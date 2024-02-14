@@ -96,36 +96,36 @@ namespace ESTA.Areas.Payment.Controllers
                 HttpContext.Session.SetString("OrderDbId", order.Id.ToString());
                 HttpContext.Session.SetString("SessionId", order.SessionId);
 
-                if (User != null && User.Identity.IsAuthenticated)
-                {
-                    try
-                    {
+               // if (User != null && User.Identity.IsAuthenticated)
+               // {
+               //     try
+               //     {
 
 
-                  //      await appRep.UserRep.EnrollCourse(1, order.CourseId, User.FindFirstValue(ClaimTypes.NameIdentifier), false);
-                        //if (order.Course.LevelId < 4)
-                        //{
-                        //    var usr = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                        //    if (usr.LevelId < order.Course.LevelId)
-                        //    {
-                        //        usr.LevelId = order.Course.LevelId??0;
-                        //        await userManager.UpdateAsync(usr);
-                        //    }
-                        //}
+               //   //      await appRep.UserRep.EnrollCourse(1, order.CourseId, User.FindFirstValue(ClaimTypes.NameIdentifier), false);
+               //         //if (order.Course.LevelId < 4)
+               //         //{
+               //         //    var usr = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+               //         //    if (usr.LevelId < order.Course.LevelId)
+               //         //    {
+               //         //        usr.LevelId = order.Course.LevelId??0;
+               //         //        await userManager.UpdateAsync(usr);
+               //         //    }
+               //         //}
 
-               //         await appRep.SaveChangesAsync();
-
-
-
-                    }
-                    catch (Exception ex)
-                    {
+               ////         await appRep.SaveChangesAsync();
 
 
-                    }
 
-                    //   return RedirectToAction("Courses");
-                }
+               //     }
+               //     catch (Exception ex)
+               //     {
+
+
+               //     }
+
+               //     //   return RedirectToAction("Courses");
+               // }
 
 
             }
@@ -199,7 +199,7 @@ namespace ESTA.Areas.Payment.Controllers
                 appRep.MempershipOrdersRep.UpdatePrepareOrder(mempershipOrder);
                 await appRep.SaveChangesAsync();
 
-                HttpContext.Session.SetString("SuccessIndicator", mempershipOrder.SuccessIndicator);
+                HttpContext.Session.SetString("SuccessIndicator", mempershipOrder.SuccessIndicator); // add the order data in session to verify the order validity in the callback. return url 
                 HttpContext.Session.SetString("OrderNumber", mempershipOrder.OrderNumber);
                 HttpContext.Session.SetString("OrderDbId", mempershipOrder.Id.ToString());
                 HttpContext.Session.SetString("SessionId", mempershipOrder.SessionId);
@@ -277,7 +277,7 @@ namespace ESTA.Areas.Payment.Controllers
                 new LogManager(hostEnvironment)
                   .WriteInLogFile("OrdersController  Pay  Exception" +ex.Message.ToString() );
 
-                return View("Pay","Session Id Not Provided " +ex.Message);
+                return View("Pay","Can not complete payment now. Try Again Later! ");
             }
 
 

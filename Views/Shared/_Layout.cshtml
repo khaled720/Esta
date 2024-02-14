@@ -149,28 +149,16 @@
                                     {
 
                                         <li>
-                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                            {
 
 
-                                                <a onclick="changeLang('en')"
+
+                                            <a style="display:none" onclick="changeLang('en')"
                                            data-toggle="tooltip" title="@langTooltip">
                                                     <span style="color:aquamarine" class="ti-world"></span>
                                                 </a>
 
-                                            }
-                                            else
-                                            {
-
-
-
-
-
-                                                <a onclick="changeLang('ar')"
-                                           data-toggle="tooltip" title="@langTooltip">
-                                                    <span style="color:mintcream" class="ti-world"></span>
-                                                </a>
-                                            }
+                                        
+                                       
 
 
                                             <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
@@ -178,43 +166,33 @@
 
                                 <li><a href="#"><span class="ti-facebook"></span></a></li>
                                  
-                                    //<li><a href="#"><span class="ti-google"></span></a></li>
+                         
                                     <li><a href="#"><span class="ti-linkedin"></span></a></li>
                                   
                           
                                     
-                                    }else{
+                                    }
+                                    
+                                    else
+                                    {
 
                                    
 
                                       <li><a href="#"><span class="ti-linkedin"></span></a></li>
-  <li><a href="#"><span class="ti-google"></span></a></li> 
+
   //<li><a href="#"><span class="ti-twitter-alt"></span></a></li>
                                       <li><a href="#"><span class="ti-facebook"></span></a></li>
 
                                         <li>
-                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                            {
+                                         
 
 
-                                                <a onclick="changeLang('en')"
+                                                <a style="display:none" onclick="changeLang('ar')"
                                            data-toggle="tooltip" title="@langTooltip">
                                                     <span style="color:aquamarine" class="ti-world"></span>
                                                 </a>
 
-                                            }
-                                            else
-                                            {
-
-
-
-
-
-                                                <a onclick="changeLang('ar')"
-                                           data-toggle="tooltip" title="@langTooltip">
-                                                    <span style="color:mintcream" class="ti-world"></span>
-                                                </a>
-                                            }
+                                         
 
 
                                             <input type="hidden" value="@Url.Action("SetCulture","Lang",new {area=""})"  id="langUrl" />
@@ -240,10 +218,12 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="">
                             <div class="logo ar" >
-                                <a asp-controller="Home" asp-action="Index" asp-area="" >
+                                <a style="display:flex;align-items:center" asp-controller="Home" asp-action="Index" asp-area="" >
                                   
                                 <img width="100px" src="~/template/img/logo/logo2.gif" alt="">
-									@localizer["esta"]
+							<span class="header-title">
+                            	@localizer["esta"]
+                            </span>	
                                 </a>
                             </div>
                         </div>
@@ -396,12 +376,17 @@
                                 </div>
                                 <div class="footer-menu clearfix">
                                     <ul>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["home"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["membership"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["about"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["ifta"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["edu"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a href="#">@localizer["contacts"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-controller="Home" asp-action="Index" asp-area="">@localizer["home"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="benefits">@localizer["membership"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="About" asp-route-type="about">@localizer["about"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ifta">@localizer["ifta"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="courses" asp-action="CetaCourses">@localizer["edu"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="contact"  >@localizer["contacts"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="terms" >@localizer["termsCon"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="privacy" >@localizer["pp"]</a></p></li>
+
+
+
 
                                     </ul>
                                 </div>
@@ -458,12 +443,15 @@
                                 <div class="footer-copyright text-center">
                                     <div class="container">
                                         <div class="copyright">
-                                            <span>@localizer["copyrights"]</span>
+                                            <span>@localizer["copyrights"]</span>  
+                                       
                                         </div>
                                         <div class="credits">
                                             <span>@localizer["powerdby"]</span>
                                             <a href="https://www.mist-net.com" target="_blank">@localizer["mist"]</a>
+
                                         </div>
+
                                     </div>
 
                                 </div>

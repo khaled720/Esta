@@ -29,5 +29,6 @@ namespace ESTA.Repository.IRepository
 
 Task<bool>   UpdateUserLevel(string userId);
         Task<bool> IsForeignUser(string UserId);
+   
     }
 }

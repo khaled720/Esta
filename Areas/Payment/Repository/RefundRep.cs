@@ -47,10 +47,10 @@ namespace ESTA.Areas.Payment.Repository
             }
             catch (Exception)
             {
-
-                throw;
+                return new Random().Next(2000, 15000);
             }
         }
+
 
         public async Task<Refund> GetRefundRequest(int Id)
         {

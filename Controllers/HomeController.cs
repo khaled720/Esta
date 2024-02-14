@@ -90,13 +90,13 @@ namespace ESTA.Controllers
                     "<.*?>",
                     String.Empty
                 );
-                hivm.Mission = Regex.Replace(
-                    Uow.ContentRep.GetContent("mission").DescriptionEn??"",
+                    hivm.Mission = Regex.Replace(
+                    Uow.ContentRep.GetContent("mission").DescriptionEn ?? "",
                     "<.*?>",
                     String.Empty
                 );
-                hivm.Vission = Regex.Replace(
-                    Uow.ContentRep.GetContent("vission").DescriptionEn??"",
+                    hivm.Vission = Regex.Replace(
+                    Uow.ContentRep.GetContent("vission").DescriptionEn ?? "",
                     "<.*?>",
                     String.Empty
                 );
@@ -234,7 +234,10 @@ namespace ESTA.Controllers
         {
             return View();
         }
-
+        public IActionResult Terms()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

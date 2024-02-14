@@ -43,6 +43,7 @@ p,h1,h2,h3,h4,h5,h6,a{
 
 .ar, .header-contact {
     direction: rtl !important;
+    justify-content: right;
 }
 
 .mean-container a.meanmenu-reveal {

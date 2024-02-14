@@ -72,8 +72,7 @@ namespace ESTA.Areas.Payment.Repository
             }
             catch (Exception)
             {
-
-                throw;
+                return new Random().Next(2000, 15000);
             }
         }
 

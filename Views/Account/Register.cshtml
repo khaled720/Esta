@@ -98,7 +98,7 @@
                                         
 
                 <div class=" col-12 ">
-                    <label>National Card Image</label><span class="text-danger m-1">*</span>
+                    <label>National Card Image</label><span class="text-danger m-1">* Two Images Should be provided Front & Back</span>
 
 
                     <input id="idnoImg"  multiple min="2"  accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)"
@@ -563,8 +563,10 @@
                                         <div style="height:400px;overflow-y:auto;">
 
                                         <p>
+                                            @if(!String.IsNullOrEmpty( Model.codeofEthics)){
                                             @Html.Raw(Model.codeofEthics.Replace("../.",".").ToString())
-                                         </p>
+                                            } 
+                                        </p>
 
 
 
@@ -645,6 +647,18 @@
         }
 
         }
+
+        <div class="row">
+<input id="agree-chk" onclick="agreeterms()"  type="checkbox"/>
+        <p class="text-center" >
+            
+            Agree to Our
+            <a asp-controller="Home" asp-area="" asp-action="Terms">Terms&Conditions</a>|
+            <a  asp-action="Privacy" asp-controller="Home" asp-area="" >Privacy Policy</a></p>
+
+        </div>
+
+
 
                                     </div>
 

@@ -360,6 +360,9 @@
   <data name="stname" xml:space="preserve">
     <value>اسم الشارع</value>
   </data>
+  <data name="succgrade" xml:space="preserve">
+    <value>نسبة النجاح</value>
+  </data>
   <data name="titlear" xml:space="preserve">
     <value>العنوان باللغة العربية </value>
   </data>

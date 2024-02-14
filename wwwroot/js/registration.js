@@ -102,6 +102,9 @@ function showTab(n) {
 
         document.getElementById("nextBtn").innerHTML = "Submit";
 
+        document.getElementById("nextBtn").desabled = true; /// when agree checkbox clicked this is changed
+
+
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
@@ -224,6 +227,23 @@ function fixStepIndicator(n) {
     }
     //... and adds the "active" class to the current step:
     x[n].className += " active";
+}
+
+//////
+
+function agreeterms()
+{
+
+    if (document.getElementById("agree-chk").checked) {
+        document.getElementById("nextBtn").desabled = false;
+    } else {
+
+        document.getElementById("nextBtn").desabled = true;
+    }
+
+
+
+
 }
 
 

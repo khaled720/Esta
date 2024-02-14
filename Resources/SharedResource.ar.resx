@@ -147,6 +147,9 @@
   <data name="addressinfo" xml:space="preserve">
     <value>معلومات العنوان</value>
   </data>
+  <data name="addusertocourse" xml:space="preserve">
+    <value>إضافة مستخدمين لهذه الدورة</value>
+  </data>
   <data name="agreepolicy" xml:space="preserve">
     <value>أوافق علي سياسة الإسترداد والخصوصية</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="assigngrade" xml:space="preserve">
     <value>إضافة النتيجة</value>
+  </data>
+  <data name="assignpre" xml:space="preserve">
+    <value>إضافة متطلب لدورة </value>
   </data>
   <data name="bandate" xml:space="preserve">
     <value>تاريخ الحظر</value>
@@ -225,6 +231,9 @@
   <data name="copyrights" xml:space="preserve">
     <value> ESTA جميع الحقوق محفوظة©</value>
   </data>
+  <data name="country" xml:space="preserve">
+    <value>الدولة</value>
+  </data>
   <data name="coursecomplete" xml:space="preserve">
     <value>عدد المتقدمين لهذه الدورة قد اكتمل</value>
   </data>
@@ -258,11 +267,17 @@
   <data name="coursespayments" xml:space="preserve">
     <value>مدفوعات الدورات</value>
   </data>
+  <data name="cpre" xml:space="preserve">
+    <value>متطلبات الدورة</value>
+  </data>
   <data name="dashboard" xml:space="preserve">
     <value>شاشة التحكم</value>
   </data>
   <data name="delete" xml:space="preserve">
     <value>حذف</value>
+  </data>
+  <data name="deleteusercr" xml:space="preserve">
+    <value>حذف المستخدم من الدوره</value>
   </data>
   <data name="descar" xml:space="preserve">
     <value>الوصف باللغة العربية</value>
@@ -277,7 +292,7 @@
     <value>رفض</value>
   </data>
   <data name="discussionbf" xml:space="preserve">
-    <value>"منتدي لوحة "النقاش</value>
+    <value>منتدي "النقاش" العام</value>
   </data>
   <data name="done" xml:space="preserve">
     <value>تم</value>
@@ -348,6 +363,9 @@
   <data name="followus" xml:space="preserve">
     <value>تابعنا</value>
   </data>
+  <data name="forignmem" xml:space="preserve">
+    <value>المستخدمين الاجانب</value>
+  </data>
   <data name="forumdash" xml:space="preserve">
     <value>لوحة إدارة النقاشات</value>
   </data>
@@ -390,6 +408,9 @@
   <data name="inter" xml:space="preserve">
     <value>متوسط</value>
   </data>
+  <data name="ispre" xml:space="preserve">
+    <value>هل يتطلب هذه الدورة؟</value>
+  </data>
   <data name="jobar" xml:space="preserve">
     <value>الوظيفة بالعربية</value>
   </data>
@@ -410,6 +431,9 @@
   </data>
   <data name="levels" xml:space="preserve">
     <value>المستويات</value>
+  </data>
+  <data name="localmem" xml:space="preserve">
+    <value>المستخدمين المحليين</value>
   </data>
   <data name="markascert" xml:space="preserve">
     <value> CETA تحديد كحامل</value>
@@ -545,6 +569,9 @@
   <data name="paynow" xml:space="preserve">
     <value>Visa-Master Card-Meeza الدفع بواسطة</value>
   </data>
+  <data name="paynow2" xml:space="preserve">
+    <value>الدفع الان</value>
+  </data>
   <data name="paystate" xml:space="preserve">
     <value>حالة الدفع</value>
   </data>
@@ -559,6 +586,9 @@
   </data>
   <data name="powerdby" xml:space="preserve">
     <value>مدعوم بواسطة</value>
+  </data>
+  <data name="pp" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
   </data>
   <data name="preinc" xml:space="preserve">
     <value>لم يمكن التسجيل فى الدورة بدون تخطي الدورات المتطلبة اولا</value>
@@ -591,7 +621,7 @@
     <value>استرداد</value>
   </data>
   <data name="refundpolicy" xml:space="preserve">
-    <value>سياسة الإسترداد والخصوصية</value>
+    <value>سياسة الإسترداد </value>
   </data>
   <data name="regCourses" xml:space="preserve">
     <value>الدورات المسجلة</value>
@@ -665,6 +695,9 @@
   <data name="ta" xml:space="preserve">
     <value>التحليل الفني</value>
   </data>
+  <data name="termsCon" xml:space="preserve">
+    <value>الشروط و الاحكام</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>اسم الدورة بالانجليزية</value>
   </data>
@@ -708,7 +741,7 @@
     <value>أول جمعية مصرية للتحليل الفني</value>
   </data>
   <data name="wel3desc" xml:space="preserve">
-    <value>تم إنشاءها في عام 1988</value>
+    <value>تم إنشاءها في عام 2000</value>
   </data>
   <data name="wel4" xml:space="preserve">
     <value> ترحب بأي متطوعيين ESTA </value>

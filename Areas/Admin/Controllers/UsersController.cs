@@ -59,6 +59,15 @@ namespace ESTA.Areas.Admin.Controllers
                           .GetAwaiter().GetResult() == true).Where(y => string.IsNullOrEmpty(y.MembershipNumber)).ToList();
                     break;
 
+                case 4:
+                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                          .GetAwaiter().GetResult() == true).Where(y => y.Country=="Egypt").ToList();
+                    break;
+                case 5:
+                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                          .GetAwaiter().GetResult() == true).Where(y => y.Country!="Egypt").ToList();
+                    break;
+
                 default:
                 
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")

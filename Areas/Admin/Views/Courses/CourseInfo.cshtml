@@ -37,7 +37,8 @@
             <p class="floating" style="color:gray">
                 @if (Model.course.Price<=0) {
            @localizer["free"]
-                }else{
+                }
+else{
                         @Model.course.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
          
                 }
@@ -52,10 +53,10 @@
         }
         @if (Thread.CurrentThread.CurrentCulture.Name=="ar") {
             <h6>@Model.course.DescriptionAr</h6>
-        }else{
-            <h6>@Model.course.Description</h6>
-        
         }
+        else{
+            <h6>@Model.course.Description</h6>
+    }
 
      
     </div>
@@ -66,7 +67,7 @@
 
 
 
-@if (Model.Users.Count() > 0)
+@if (Model.Users.Count() > -1)
 {
 
     <hr />
@@ -74,7 +75,7 @@
 
     <h3>
         @localizer["enrolledusers"]
-
+        @Html.ActionLink(localizer["addusertocourse"], "UsersNotEnrolled","Courses",new { courseId = Model.course.Id,area="Admin"}, new { @class = "btn btn-primary" })
     </h3>
 
 
@@ -122,6 +123,8 @@
                       
                             @Html.ActionLink(localizer["assigngrade"], "AddResult","Results",
                 new { courseId = Model.course.Id,userId=item.UserId,area="Admin"}, new { @class = "btn btn-danger" }) 
+
+         
                         </td>
                     }
                     else
@@ -130,13 +133,19 @@
                         <td style="color:green"> @localizer["pending"] </td>
                         <td>
                             @Html.ActionLink(@localizer["markpaid"], "UpdateCoursePaymentStatuse",
-                new { cid = Model.course.Id,uid=item.UserId,paymentstate=true }, new { @class = "btn btn-primary" }) ;
+                new { cid = Model.course.Id,uid=item.UserId,paymentstate=true }, new { @class = "btn btn-primary" })   
+                
+                @if(item.Grade==0){
+                
+                            @Html.ActionLink(localizer["deleteusercr"], "DeleteUserFromCourse","Courses",
+                new { cId = Model.course.Id,uid=item.UserId,area="Admin"}, new { @class = "btn btn-danger" , onclick = "return confirm('Are you Sure to delete , data will be lost?');"})
+                }
                         </td>
                     }
 
                   
 
-                }
+            
 
             </tr>
 

@@ -8,12 +8,19 @@
 
 @{
     var Admin = false;
+    var isModerator = false;
     var user = await userManager.GetUserAsync(User);
 
     if (await userManager.IsInRoleAsync(user, "Admin"))
     {
         Admin = true;
     }
+       if (await userManager.IsInRoleAsync(user, "Moderator"))
+    {
+        isModerator = true;
+    }
+
+
 }
 
 <!DOCTYPE html>
@@ -83,6 +90,8 @@
                         </button>
                         <div class="container navbar-collapse collapse d-sm-inline-flex justify-content-between">
                             <ul class="navbar-nav flex-grow-1">
+
+
                                 @if (Admin)
                                 {
                                    @* <li class="nav-item">
@@ -127,6 +136,14 @@
                                         <i class="fas fa-home"></i>
                                         </a>
                                     </li>
+                                }else if(isModerator){
+                                    <li class="nav-item">
+                                        <a class=" btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">
+                                            @localizer["home"]
+                                            <i class="fas fa-home"></i>
+                                        </a>
+                                    </li>
+
                                 }
                    
                             </ul>

@@ -19,6 +19,8 @@ namespace ESTA.Areas.Payment.Models
 
         public string? ErrorMsg  { get; set; }
 
-        public Course? course { get; set; } = null;
+      //  public Course? course { get; set; } = null;
+        public string? CourseName { get;  set; }
+        public string? CourseLevel { get;  set; }
     }
 }

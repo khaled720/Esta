@@ -2,16 +2,19 @@
 using ESTA.Areas.Payment.Repository.IRespository;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
 
 namespace ESTA.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext appContext;
+        private readonly UserManager<User> userManager;
 
-        public UnitOfWork(AppDbContext appContext)
+        public UnitOfWork(AppDbContext appContext,UserManager<User> userManager)
         {
             this.appContext = appContext;
+            this.userManager = userManager;
         }
 
 
@@ -35,7 +38,7 @@ namespace ESTA.Repository
 
         public IUserAnswerRep UserAnswerRep => new UserAnswerRep(appContext);
 
-        public IUsersCoursesRep UsersCoursesRep => new UsersCoursesRep(appContext);
+        public IUsersCoursesRep UsersCoursesRep => new UsersCoursesRep(appContext,userManager);
 
         public IForumRepository ForumRep => new ForumRepository(appContext);
         public IEventsRepo EventRep => new EventRepo(appContext);

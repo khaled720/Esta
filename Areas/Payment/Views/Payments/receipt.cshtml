@@ -56,16 +56,16 @@
 		<div class="col-8"> 	@localizer["orderid"]	</div>
 		<div class="col-4"> @Model.OrderId </div>
 	</div>
-		@if (Model.course!=null) {
+		@if (!string.IsNullOrEmpty(Model.CourseName)) {
 			<div class="row">
 
 				<div class="col-8"> 	@localizer["coursename"]	</div>
-				<div class="col-4"> @Model.course.Title </div>
+				<div class="col-4"> @Model.CourseName </div>
 			</div>
 			<div class="row">
 
 				<div class="col-8"> 	@localizer["level"]	</div>
-				<div class="col-4"> @Model.course.level.TypeName </div>
+				<div class="col-4"> @Model.CourseLevel </div>
 			</div>
 		}
 		<div class="row">

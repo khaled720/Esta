@@ -5,7 +5,6 @@
 
 
 
-
 <div class="container"> 
 @if (Model.Count()==0)
 {
@@ -19,13 +18,11 @@
 }else{
   
 
-    <div id="courses-grid" style="display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr ">
+    <div id="courses-grid" style="display:grid;gap:10px; grid-template-columns:1fr 1fr 1fr ">
   
     @foreach (var item in Model)
     {
-       
-                <a asp-action="coursedetails" asp-controller="courses" asp-area="" asp-route-id="@item.course.Id">
-
+  
       
     <div class="card" style="height:fit-content; position:relative">
       @*  <a href="home/coursedetails/@item.course.Id" class="btn btn-primary"  style="position:absolute;bottom:5px;right:5px">More</a>
@@ -36,6 +33,8 @@ background: rgba(100%,100%,100%,50%);
     backdrop-filter: blur(5px);">
       <h5>
  
+               
+                <a asp-action="coursedetails" asp-controller="courses" asp-area="" asp-route-id="@item.course.Id">
 
        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                             {
@@ -43,11 +42,11 @@ background: rgba(100%,100%,100%,50%);
 }else{
 @item.course.Title
 }
-
+</a>
       </h5>
        </div>
        @* <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIHEhUTEhMQFRUVFhAVFRIWFRUSFhUVFRUZFhgXFRYYHCggGB0lGx8VITIiJSkrLjAuFx8/ODUsOCgtLisBCgoKDg0OGxAQGjclICUtLi0rKy0tLS0tLy0tMy0tLS0tLS0rLS0tNS0tLS0tKzc3LS0rLS0tLS0vLS0vLS0vL//AABEIAKgBLAMBEQACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABAUBAgMGB//EAEMQAAIBAgMFAwgFCQkBAAAAAAABAgMRBCExBRJBUWEGccETIjJCgZGx0QcUUnLwM0NTkqGis9LhFiM0YoKTo7LxFf/EABoBAQADAQEBAAAAAAAAAAAAAAACAwQBBQb/xAAyEQEAAgECBAQCCgIDAAAAAAAAAQIDBBESITFRMkFhgQUiExQzUnGRobHh8ELRFSPB/9oADAMBAAIRAxEAPwD25FjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGxeMWHcYqMp1J5QpRzlJ+C6lWTJFeUc57LcWGb8+kd0vBdnZYu0sVOTvmqNKThBLrNWc++6XK5GME355J39PJqia05Uj383bEbMp4GW7S3lFxT3XKU1FtvRyzzXDuMubPXS5IrHSesdvWP/e/4p/QznpM+cdJYclTysZq48urtbJxbRvySm+PT1inDvPm0qRTV0adJlyVvOHL1jpKjUY6TSMuPp5uZ6LEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARMZinBxp0479Wfow4JcZTfCK5lOTJMTw16yvxYeL5rdF9sPYa2enKT8pWmv7yo1w5JerDlHjbPpPFiinPrPnK+1t+UdE/E4hUFfW+i41GuL5RX44XjqNRXDTit7R3Sx45vO0KmUnNtt3bd2+b/HwPmcmS2S03t1l6daxWNoc6lPe7zVo9XOGeG3hn9P75s2q00ZY3jq5R0fsPUyRFs+O0drflt/Lz6TMYclZ7x+/8NDaygAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI+0MQ8JTlNR3mtFprldvglxZXktNa7xCzFSLWiJlebA2J/8ANi5zanWnnUqcOaUf8keC4vPlbuLFwRvPOZ6y12tvyjom4vFxoqyzbztz6z5L49xVqdXTBHPr2SxYZvPoq5zdRuUndvV+C5LofO5ct8tuK0vRpSKRtDBUmAc6kN5ZG3R6mMd44+nOPw32/wBMupwcdZ4ev77I59DExMbw8SY2DoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOCVgcXOhDySa3V6DebjH7KWjS4X05ZIx6vNkw4/kj37N+l4cs7Wnn+7P4b1bfNvifP2tNp3nq9WIiI2hki6AAAEetqfQ/D4tGH5vb8Hi62azl5e7mbmQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGtCoq7kl6rs/d/6Yp1uOuTgt+bVGkvOPjj8mxsZW8abZky6zBWJiZ39I5tOPTZbTvEbfokLqfP5JrNp4I5PZpForHF1ZIJgADlUqWyR6Wk0M3+fJ07d/4YNTq4r8tOv7OB7nR5IdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQuz7cnN5+r8Wz5fLz2fRV2hZ+VS4Hof8flvSOK/t29OrB9dx1tO1fdnyy5MhPwu/wB6Ev8AkKdpPLLqRn4Xl7x+v+kvr+PtP9920aikZ8+kyYY3t09F2LU0yztXq2b3SjHjtknhrG62960je0uE6t9D29N8Prj+a/Of0eXn1lr8qco/VzPRYQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMpXA5YaksOmlxbb8EY8WjrXJxzz7ejVk1Vr0ise/q6GxlAABOxG1YtG09HYmYneGZPeI48VMccNI2Svkted7SwWIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALHYdHylTefqq/teS8RCzHG87ouNpeRqSjybt3PNfsCNo2nZwCIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJuzMD9clnlFa9eiEJ0rxS1jVns6ckrcndXuuD/HMETNJaxpVMe5SSu9X4JfLoHNptO6MEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXWw8RGEXFtJ3bzdrppLwOwux2jZC2vVjWqXi75JN8G1fT2WOShkmJnkttjQUKSa4uTfvt4HYXY4+VVbYoKjUy0kt63Vtp/jqclTkjaUEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFbidtU6OUbzfTT3/IptmrHTmlFZRP7QP9Gv1v6Ff1j0d4ErC7ap1spXg+ua95ZXNWevJyaysy5F3p7YezIu7ju8N67z6Wz9hybRWN5TraY5QpsX2lVeV3Gb65LLoimdRHZ2Ymecs0NtUquTvH7yy96OxmrKM1lYJ72azXMtRZOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKrbEK1fzYRe5xaavLproUZYvPKI5JV2efqU3SdpJp8mrGWYmOqwik9W17LnBl0+Ks108RsLjYGN1pyeSTcW+CWq8feacN/8AGULR5q7HYmWOnfO2kVyRTe83lKI2cHBR1fsWZF1ocFjsqrWpehGUo8Vw9j4MuxTeOkI2iHpYS3lezXR6o1wrZOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOOKw0cUrSV+T4ruZG1YtG0uxOzzmP2ZPCZ+lH7S4d64GO+KarItuhRlu5ordbKpuu6yya96afxZ3cN+ysuOr8Dm41it7JZvkBdbM2P61Vd0P5vkaceHzshNuy8SsaEA6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ8RtOlQycrvlHzv6EJvENWPR5r84j80Ct2jhDSPvko/Mj9J6NNfhs/5WhCqdoYSz8nR72t7wI8Xotj4fjjreUXE7RW0GsordVvNTWXtKcs77M+o09cURwzvu6x27BpJwotJJK8Xoi3fy2afqGL70pOH7QQp6U6S+61HwOxbbyRn4dWel06lt6nPVSXVWkiX0kKbfDckeGYlPw+Mp4n0ZJvlo/cycWiejJk0+TH4odySkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFP2irTpqMVdRlvXfNq2X7V7yrJPk9X4birO956x0eOxlSW807pcFwt4kIelaZ3RggATdmq7l3IryeTDrZ5VQi1uDgzGW7pkBYYGtOet7cJde85KyszPKXrdhY763GUW7yp7t+dpX3b9cmW47b8ni6/DXHk+XpK0LGEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ9DBQxtLdqRUk233PS6fBmbLPzPT0czWm8KXG9jFP8nUVvszV/3l8iviehGf70KbEdja0NKcZfdmvGxLiS+kxyhT7L1o/ma3sz+B3id3p3Zo7ErUL2pVs7eo/kRttZTlwY8m29mkezdWX5qv8AqteBLiXfJ3QcdhqezZblZSjKye7K97PR5HJub4+6LLaNCn6MW/Z8znGfSUjojYjbM55RSj11ZCbShOafJb/R/Xar1Iv16e83zcZL+ZlmCfmedrY3pE+r3preaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFzs5Wpr2/FmTL4nqab7OEkrXgAAAA8N9KWyPrFKOJivOpebPrTk8n/pl/wB2cl2Hy84kAX3Yie7i4L7Uai/dcvAsw+Nm1cf9U+z6SbXlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABd4JWhHuMeTxS9bB9nDngMV9ZdVfo6sqfdaEJK/skn7SC1namI+qUatRNJwp1ZpvROMXLP3ASkBG2fivrcXLlUrw/26soeAGNqV3haU5ppOMb3emQHbFYeOKhKnNXjNSjJc4yVmgPJ4H6PcLQpShPeqVJKSVVtxcfs7sU7K2Wt792RzZ3d8li7kYSXPZB2xlHvqfwplmLxwo1P2Vv75w+nm55AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXuE9CP3Y/Ax38UvXw+CPwU9XELY2Jqzq+bRrxpS8rbzIVoJwkqjXoJwVK0nl5rV9CCxvtfFw2jH6tSlGpKruqai1JQouSVSc2sknHeSWrby4tBdMCi2fi4bLrVqFWUIb9Sdei5PdU41bSmot5OUam/dcpR5gb4zGw2vajQkqic4OtUhaUIU4S3pRctHKVtzdWaUm8rAXQHnu22GxNbDylhalSMoqW9CP5yDXnJZXUlqrZvNcjkuw+Lo4kt+yX+Mo98/4cyeLxwo1H2Vv75w+oG55AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXuF9CP3Y/AxX8UvXxeCv4Q6vMisc6NGNBWjGMVraKUVfnkB0A0rUY11aUYyWtpJSV+5gbRioKySSWiWSXcgMgAPl/wBIHZN4SUsTQjenJt1YJfk5PWaX2Hx5Po8uTDsS8/2OjfGUunlX/wAUyWLxwq1P2U+37w+nG55AAAAAAAAAAAAAAAAA/9k=" />
-        *@     <img src="@Url.Content("~"+@item.course.PhotoPath) " height="200px" />
+        *@     <img src="@Url.Content("~"+@item.course.PhotoPath) "  width="100%"  height="200px" />
 
 
         <div class="card-body">
@@ -67,14 +66,18 @@ background: rgba(100%,100%,100%,50%);
                             <strong style="color:green">  @localizer["done"] </strong>
                         }else{
 
-                            <strong style="color:green">  @localizer["pending"] </strong>
-
+                                <strong style="color:green">  @localizer["pending"] </strong>
+                                @if (item.course.StartDate>=DateTime.Now) { 
+                             <br />
+                                    <a asp-action="PayEnrollCourse" asp-controller="User"
+           asp-route-id="@item.course.Id" asp-route-level="@item.course.LevelId"
+            class="btn btn-danger"> @localizer["paynow2"]</a>
                     }
-                
+                        }
                
                 </div>
        </div> 
-     </a> }
+ }
 
   
 

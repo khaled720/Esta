@@ -147,6 +147,9 @@
   <data name="addressinfo" xml:space="preserve">
     <value>Address Info</value>
   </data>
+  <data name="addusertocourse" xml:space="preserve">
+    <value>Add Users To This Course</value>
+  </data>
   <data name="agreepolicy" xml:space="preserve">
     <value>I Agree With Refund and Privacy Policy</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="assigngrade" xml:space="preserve">
     <value>Assign Grade</value>
   </data>
+  <data name="assignpre" xml:space="preserve">
+    <value>Assiging Prerequisites  For Course</value>
+  </data>
   <data name="bandate" xml:space="preserve">
     <value>Ban Date</value>
   </data>
@@ -172,7 +178,7 @@
     <value>Ban Reasons</value>
   </data>
   <data name="becamemember" xml:space="preserve">
-    <value>Became a Member</value>
+    <value>Become a Member</value>
   </data>
   <data name="benefits" xml:space="preserve">
     <value>Benefits of Membership</value>
@@ -235,6 +241,9 @@
   <data name="copyrights" xml:space="preserve">
     <value>© Copyright ESTA All Rights Reserved.</value>
   </data>
+  <data name="country" xml:space="preserve">
+    <value>Country</value>
+  </data>
   <data name="coursecomplete" xml:space="preserve">
     <value>The Number of Applicants is Complete</value>
   </data>
@@ -268,11 +277,17 @@
   <data name="coursespayments" xml:space="preserve">
     <value>Courses Payments</value>
   </data>
+  <data name="cpre" xml:space="preserve">
+    <value>Course Prerequisite</value>
+  </data>
   <data name="dashboard" xml:space="preserve">
     <value>Admin Dashboard</value>
   </data>
   <data name="delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="deleteusercr" xml:space="preserve">
+    <value>Delete User From Course</value>
   </data>
   <data name="descar" xml:space="preserve">
     <value>Description in Arabic</value>
@@ -287,7 +302,7 @@
     <value>Disapprove</value>
   </data>
   <data name="discussionbf" xml:space="preserve">
-    <value>Discussion Board "Forum"</value>
+    <value>Public Discussion Board</value>
   </data>
   <data name="done" xml:space="preserve">
     <value>Done</value>
@@ -329,7 +344,7 @@
     <value>Enrolled Users</value>
   </data>
   <data name="esta" xml:space="preserve">
-    <value>The Egyptian Society of Technical Analysts</value>
+    <value>Egyptian Society of Technical Analysts</value>
   </data>
   <data name="ethics" xml:space="preserve">
     <value>Ethics</value>
@@ -357,6 +372,9 @@
   </data>
   <data name="followus" xml:space="preserve">
     <value>Follow Us</value>
+  </data>
+  <data name="forignmem" xml:space="preserve">
+    <value>Foreign Members</value>
   </data>
   <data name="forumdash" xml:space="preserve">
     <value>Forum Dashboard</value>
@@ -400,6 +418,9 @@
   <data name="inter" xml:space="preserve">
     <value>Intermediate</value>
   </data>
+  <data name="ispre" xml:space="preserve">
+    <value>Is Prerequisite Course ?</value>
+  </data>
   <data name="jobar" xml:space="preserve">
     <value>Job in Arabic</value>
   </data>
@@ -420,6 +441,9 @@
   </data>
   <data name="levels" xml:space="preserve">
     <value>Levels</value>
+  </data>
+  <data name="localmem" xml:space="preserve">
+    <value>Local Members</value>
   </data>
   <data name="markascert" xml:space="preserve">
     <value>Mark as CETA Holder</value>
@@ -530,21 +554,19 @@
     <value>NOTE: password must be at least 8 characters including one uppercase,lowercase letter, one special character and alphanumeric characters</value>
   </data>
   <data name="payinfo" xml:space="preserve">
-    <value>Refund Policy:
-
-- Membership fees can not be refunded
+    <value>- Membership fees can not be refunded
 
 Course Refund Policy:
 
-- Full Refund:  100% refund if canceled more than 7 days before the course begins.
+&lt;br&gt;- Full Refund:  100% refund if canceled more than 7 days before the course begins.
 
-- Partial Refund: 80% refund for cancellations before 7 days from the beginning of the course.
+&lt;br&gt;- Partial Refund: 80% refund for cancellations before 7 days from the beginning of the course.
 
-- No Refund will be accepted the day of starting the course.
+&lt;br&gt;- No Refund will be accepted the day of starting the course.
 
-- No-Show Policy:  Registered Candidates are not eligible for a refund.
+&lt;br&gt;- No-Show Policy:  Registered Candidates are not eligible for a refund.
 
-- Transfer or Credit: We offer the option to transfer the registration to a future course or provide a credit for a different offering, which can be used within a specific timeframe.</value>
+&lt;br&gt;- Transfer or Credit: We offer the option to transfer the registration to a future course or provide a credit for a different offering, which can be used within a specific timeframe.</value>
   </data>
   <data name="paylater" xml:space="preserve">
     <value>Pay Later</value>
@@ -557,6 +579,9 @@ Course Refund Policy:
   </data>
   <data name="paynow" xml:space="preserve">
     <value>Pay with Visa-Master Card-Meeza</value>
+  </data>
+  <data name="paynow2" xml:space="preserve">
+    <value>Pay Online</value>
   </data>
   <data name="paystate" xml:space="preserve">
     <value>Payment State</value>
@@ -572,6 +597,9 @@ Course Refund Policy:
   </data>
   <data name="powerdby" xml:space="preserve">
     <value>Powered By</value>
+  </data>
+  <data name="pp" xml:space="preserve">
+    <value>Privacy Policy</value>
   </data>
   <data name="preinc" xml:space="preserve">
     <value>You can not register in this course without passing its prerequisites</value>
@@ -604,7 +632,7 @@ Course Refund Policy:
     <value>Refund</value>
   </data>
   <data name="refundpolicy" xml:space="preserve">
-    <value>Refund &amp; Privacy Policy</value>
+    <value>Refund Policy</value>
   </data>
   <data name="regCourses" xml:space="preserve">
     <value>Registred Courses</value>
@@ -678,6 +706,9 @@ Course Refund Policy:
   <data name="ta" xml:space="preserve">
     <value>Technical Analysis</value>
   </data>
+  <data name="termsCon" xml:space="preserve">
+    <value>Terms&amp;Conditions</value>
+  </data>
   <data name="title" xml:space="preserve">
     <value>Title in English</value>
   </data>
@@ -721,7 +752,7 @@ Course Refund Policy:
     <value>Join Esta Now</value>
   </data>
   <data name="wel3desc" xml:space="preserve">
-    <value>was created since 1988</value>
+    <value>was created since 2000</value>
   </data>
   <data name="wel4" xml:space="preserve">
     <value>ESTA is welcoming  &lt;br&gt;any new volunteers</value>

@@ -11,7 +11,31 @@ float: right;
     text-align: justify;
 }
 
-@media  (max-width: 426px) {
+@media  (max-width: 600px) {
+
+    .header-title {
+    width:225px;
+    
+    }
+        video {
+        height: 512px;
+        object-fit: cover;
+    }
+    .top-mob {
+        /*top:-44px !important;*/
+    }
+    .toggle-search-icon{
+
+        display:none !important;
+    }
+    #video-div {
+        height: auto;
+    }
+    .courses-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+
     .news-details-area .blog-thumb img,.about-img img{
     float: unset;
     margin: 0;
@@ -35,4 +59,14 @@ float: right;
     .single-course-details{
         padding:30px 0;
     }
+}
+
+
+.header-title {
+
+    color: rgb(182, 69, 69);
+    font-weight: 600;
+   
+    font-size: 19px;
+    font-family: "Roboto", sans-serif;
 }

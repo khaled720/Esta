@@ -16,6 +16,14 @@
     } else if (ViewBag.type==3) {
         <span>@localizer["newmem"] </span>
     }
+    else if (ViewBag.type ==4)
+    {
+        <span>@localizer["localmem"] </span>
+    }
+    else if (ViewBag.type == 5)
+    {
+        <span>@localizer["forignmem"] </span>
+    }
 
 </h2>
 
@@ -43,38 +51,47 @@
     <a asp-action="EditMempership" style="decoration:none" asp-controller="Constants" asp-area="Admin">@localizer["membership"]</a>
 
 
-
-    @if (ViewBag.type == 2)
-    {
+	<a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
+	   asp-route-type=1 asp-area="Admin">@localizer["allmem"]</a>
         <a asp-action="Index" style="decoration:none" asp-controller="Users"
        class="btn btn-primary" asp-route-type=3 asp-area="Admin">@localizer["newmem"]</a>
 
-        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
-        asp-route-type=1 asp-area="Admin">@localizer["allmem"]</a>
-    }
-    else if (ViewBag.type == 3)
+ 
+@* 
+        @if (ViewBag.type == 3)
     {
         <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary" 
         asp-route-type=2 asp-area="Admin">@localizer["oldmem"]</a>
-        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
+      <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
        asp-route-type=1 asp-area="Admin">@localizer["allmem"]</a>
     }
     else if (ViewBag.type == 1) 
-    {
+    {*@
         <a asp-action="Index" style="decoration:none" asp-controller="Users" 
         class="btn btn-primary" asp-route-type=2 asp-area="Admin">@localizer["oldmem"]</a>
-        <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
+ @*       <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-primary"
         asp-route-type=3 asp-area="Admin">@localizer["newmem"]</a>
 
     }
+*@
 
+
+ 
+    <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-info"
+       asp-route-type=5 asp-area="Admin">@localizer["forignmem"]</a>
+ 
+    <a asp-action="Index" style="decoration:none" asp-controller="Users"
+       class="btn btn-info" asp-route-type=4 asp-area="Admin">@localizer["localmem"] </a>
+
+
+  
 
 
 	<table id="courses-table" class="table table-striped animate__fadeIn " style="animation-duration:1s">
 		<thead>
 			<tr>
 				<th>@localizer["fullname"]</th>
-
+                	<th>@localizer["country"]</th>
 				<th>@localizer["regdate"]</th>
                 <th>@localizer["membership"]</th>
 
@@ -96,7 +113,16 @@
                                 <tr>
                                     <td>@item.FullName</td>
 
+
+
+                                    <td>@item.Country</td>
+
+
                                     <td>@item.JoinDate.ToShortDateString()</td>
+
+
+
+
 
                                     <td>
                             @if (item.IsMempershipPaid)
