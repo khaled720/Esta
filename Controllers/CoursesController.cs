@@ -39,7 +39,15 @@ namespace ESTA.Controllers
         public async Task<IActionResult> CetaCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCetaCourses();
-            return View(courses);
+            var content = appRep.ContentRep.GetContent("CETA");
+
+            ViewCETA viewCETA = new()
+            {
+                courses = courses,
+                CETAContent = content
+            };
+
+            return View(viewCETA);
         }
 
         public async Task<IActionResult> CetaHolders()

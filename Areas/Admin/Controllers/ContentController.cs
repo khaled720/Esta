@@ -304,7 +304,44 @@ namespace ESTA.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult CETA()
+        {
+            var benefits = appRep.ContentRep.GetContent("CETA");
 
+
+
+            return View(benefits);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CETA(Content content)
+        {
+
+            try
+            {
+                if (content.Id == 0)
+                {
+                    content.Type = "CETA";
+                    await appRep.ContentRep.AddContent(content);
+                    await appRep.SaveChangesAsync();
+                }
+                else
+                {
+
+                    await appRep.ContentRep.UpdateContent(content);
+                    await appRep.SaveChangesAsync();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View();
+            }
+
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
