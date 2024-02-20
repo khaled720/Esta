@@ -790,6 +790,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Success Percentage.
+        /// </summary>
+        public static string succgrade {
+            get {
+                return ResourceManager.GetString("succgrade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title in Arabic.
         /// </summary>
         public static string titlear {

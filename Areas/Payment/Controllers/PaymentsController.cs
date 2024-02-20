@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 namespace ESTA.Areas.Payment.Controllers
 {
 
+
+
     [Area("Payment")]
     [Authorize]
 
@@ -84,21 +86,17 @@ namespace ESTA.Areas.Payment.Controllers
                     await appContext.UserRep.EnrollCourse(1, course.Id, usr.Id, true); //1 state means Enrolled
 
 
+                    // course 3
+                    // user 4  
 
-                    await userManager.UpdateAsync(usr);
-                    if (course.LevelId < 4)
-                    {
-             
-                        if (usr.LevelId < course.LevelId)
-                        {
+                    await appContext.SaveChangesAsync();
+                    await appContext.UserRep.UpdateUserLevel(usr.Id);
+                    await appContext.SaveChangesAsync();
 
-                            new LogManager(hostEnvironment).WriteInLogFile("---Updating User  " + usr.FullName + "  Level  to " + course.LevelId);
-                            usr.LevelId = course.LevelId ?? usr.LevelId;
+                            new LogManager(hostEnvironment).WriteInLogFile("---Updating User  " + usr.FullName +
+                                "  Level  Id" );
 
-                    
-                        }
-                    }
-
+                       
                     //       Response.Redirect("receiptPage.aspx?a=" + amount + "&c=" + currency + "&s=" + status + "&t=" + lastUpdatedTime, false);
                  //   return View("receipt", coursePayment);
 
@@ -110,7 +108,9 @@ namespace ESTA.Areas.Payment.Controllers
                         lastupdatedate = coursePayment.LastUpdateTime,
                         amount = course.Price,
                         isFailed = false,
-                        course=course
+                        
+                        CourseName=course.Title,
+                        CourseLevel=course.level.TypeName
                     });
 
 
@@ -337,21 +337,23 @@ namespace ESTA.Areas.Payment.Controllers
                Boolean isFailed,
                string? orderId,
                string? ErrorMsg
-            ,Course? course
+     ,
+               string? CourseName,
+               string? CourseLevelName 
 
             ) 
         {
             var obj = new PaymentReceipt() { Status=status,OrderNumber=orderNum,
                 OrderId=orderId
                 ,LastUpdateDate=lastupdatedate,Amount=amount,IsFailed= isFailed,
-                ErrorMsg=ErrorMsg,course=course
+                ErrorMsg=ErrorMsg,CourseName=CourseName,CourseLevel=CourseLevelName
             };
             ///send email with order number 
             ///making a refund form that admin can view
-            if (course!=null) {
+            if (!string.IsNullOrEmpty(CourseName)&&!string.IsNullOrEmpty(CourseLevelName)) {
                 EmailSender.Send_Mail(User.FindFirstValue(ClaimTypes.Email)
-                    , "<h3>Course Name :<p>" + course.Title
-                    + "<h3>Course Level :<p>" + course.level.TypeName
+                    , "<h3>Course Name :<p>" + CourseName
+                    + "<h3>Course Level :<p>" + CourseLevelName
                     + "<h3>Order Number :<p>" + orderNum +
                     "</p></h3>" + "<h3>Amount :<p>" + amount + "</p></h3>" +
                     "<h3> Status:<p>" + status + "</p></h3>"

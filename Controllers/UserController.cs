@@ -124,7 +124,7 @@ namespace ESTA.Controllers
                         await appRep.SaveChangesAsync();
 
 
-                        return View();
+                        return RedirectToAction("profile");
 
                     }
                     else
@@ -172,42 +172,54 @@ namespace ESTA.Controllers
         var applicants= await    appRep.CoursesRep.GetEnrolledUsersInCourseLength(Id);
             if (course.MaxAllowedMembersCount > applicants) 
             {
-                var PrerequisiteCourses = await appRep.CoursesRep.GetPrerequisiteCourses(Id);
-                var userCourses = await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                int MatchCounter = 0;
-                for (int i = 0; i < PrerequisiteCourses.Count(); i++)
+                try
                 {
-                    var isfound = userCourses.Where(y => y.CourseId ==
-                           PrerequisiteCourses[i].PrerequisiteCourseId).Any();
-
-                    if (isfound)
+                    var PrerequisiteCourses = await appRep.CoursesRep.GetPrerequisiteCourses(Id);
+                    var userCourses = await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    int MatchCounter = 0;
+                    for (int i = 0; i < PrerequisiteCourses.Count(); i++)
                     {
-                        //PrerequisiteCourses[i].isPassed = true;
-                        MatchCounter++;
+                        var isfound = userCourses.Where(y => y.CourseId ==
+                               PrerequisiteCourses[i].PrerequisiteCourseId).Any();
+
+                        if (isfound)
+                        {
+                            //PrerequisiteCourses[i].isPassed = true;
+                            MatchCounter++;
+                        }
                     }
+                    if (MatchCounter != PrerequisiteCourses.Count())
+                    {
+                        return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll.Prerequisite Courses Not Completed"));
+                    }
+
+
+                    CourseOrder order = new CourseOrder();
+                    int length = await appRep.CourseOrdersRep.GetMaxId();
+                    order.OrderNumber = "CO-" + (length + 100);
+                    order.BuildOrder(course);
+
+                    order.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                    TempData["myData"] = JsonConvert.SerializeObject(order, new JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+
+
+
+                    return RedirectToAction("ConfirmCourseOrder", "Orders",
+
+                        new
+                        {
+                            area = "Payment"
+                        });
                 }
-                if (MatchCounter != PrerequisiteCourses.Count())
+                catch (Exception e)
                 {
-                    return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll.Prerequisite Courses Not Completed"));
+                    return View("_Info", new Info(localizer.GetString("cannotenroll")+" !", localizer.GetString("coursecomplete")));
+
+
                 }
 
 
-                CourseOrder order = new CourseOrder();
-           int length =await appRep.CourseOrdersRep.GetMaxId();
-            order.OrderNumber = "CO-" +( length+100);
-            order.BuildOrder(course);
-         
-            order.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            TempData["myData"] = JsonConvert.SerializeObject(order);
-      
-
-
-            return RedirectToAction("ConfirmCourseOrder", "Orders",
-
-                new {
-                    area = "Payment"
-                });
-            
 
             }
             else

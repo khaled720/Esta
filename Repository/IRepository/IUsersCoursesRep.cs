@@ -7,6 +7,12 @@ namespace ESTA.Repository.IRepository
 
         public Task<bool> RemovePaylaterUsersExceeded3days();
         public List<UserCourse> GetAllUsersEnrolledinCourse(int courseId);
+
+        public List<User> GetAllUsersNotEnrolledinCourse(int courseId);
+
+        public bool AddUsertoCourseAsCompleted(int courseId,string userId);
+
+
         public bool UpdateUserCoursePaymentStatus(string UserId, int CourseId, bool NewState);
 
         // List<Course>  GetCurrentUserCourses();
@@ -19,5 +25,6 @@ namespace ESTA.Repository.IRepository
 
         Task<bool> UpdateUserCourseResult(int courseId, string userId,int grade);
         Task<UserCourse>  GetUserCourse(int courseId, string userId);
+        Task<bool> DeleteUserFromCourse(int cId, string uid);
     }
 }

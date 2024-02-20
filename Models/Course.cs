@@ -66,6 +66,14 @@ namespace ESTA.Models
         )]
         public int FinalGrade { get; set; } = 100;
 
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "succgrade")]
+        [Required(
+          ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+          ErrorMessageResourceName = "required"
+      )]
+        
+        public int SuccessPersentage { get; set; } = 50;
+
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"

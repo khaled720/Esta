@@ -12,6 +12,8 @@ namespace ESTA.Repository
 
         private readonly AppDbContext appContext;
 
+        
+
         public UserRep(AppDbContext appContext)
         {
             this.appContext = appContext;
@@ -260,14 +262,54 @@ return  await  Task.FromResult(true);
 
         public async Task<bool> UpdateUserLevel(string userId)
         {
-    var UserCourses= await   appContext.UserCourses
-                      .Where(y => y.UserId == userId && y.StateId != 4)
-                      .Include(y => y.course).ToListAsync();
-         var courseRegistredbyUser =   UserCourses.Where(y=>y.course.LevelId!=4)
-                .Max(y => y.course.LevelId);
+            try
+            {
+                var UserCourses = await appContext.UserCourses
+                                  .Where(y => y.UserId == userId && y.StateId != 4)
+                                  .Include(y => y.course).ToListAsync();
 
-            return true;
+                int? MaxCourseLevelID;
+
+
+                try
+                {
+
+                    MaxCourseLevelID = UserCourses.Where(y => y.course.LevelId != 4)
+                    .Max(y => y.course.LevelId);
+
+                }
+                catch (Exception)
+                {
+
+                    MaxCourseLevelID = 4;
+                }
+                if (MaxCourseLevelID != null)
+                {
+                    var user = appContext.Users.Find(userId);
+                    if (user != null)
+                    {
+                        user.LevelId = (int)MaxCourseLevelID;
+                    }
+
+
+                }
+                else
+                {
+                    var user = appContext.Users.Find(userId);
+                    if (user != null)
+                    {
+                        user.LevelId = 4;
+                    }
+                }
+
+
+
+                return true;
+            }
+            catch (Exception e) { return false; }
 
         }
+
+
     }
 }

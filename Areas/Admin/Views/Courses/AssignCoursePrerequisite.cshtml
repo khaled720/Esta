@@ -4,10 +4,11 @@
     ViewData["Title"] = "AssignCoursePrerequisite";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<h2> Course Prerequisite</h2>
+<h2> @localizer["cpre"]</h2>
 
 <p>
-    <h4>Assiging Prerequisites  For Course <span class="text-success">@Model.MainCourse.Title</span>
+    <h4>
+        @localizer["assignpre"] <span class="text-success">@Model.MainCourse.Title</span>
         
     </h4>
 </p>
@@ -27,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.MainCourse.StartDate)
             </th>
             <th>
-                Is Prerequisite Course ?
+       @localizer["ispre"]
             </th>
        
         </tr>

@@ -20,12 +20,12 @@
             <th>
 @localizer["coursename"]
             </th>
-            <th>
+     @*       <th>
                 @localizer["coursegrade"]
                 </th>
                 <th>
                    @localizer["percent"]
-                </th>
+                </th>*@
                 <th>
                     @localizer["state"]
                 </th>
@@ -44,14 +44,14 @@
             <td>
               @item.course.Title
             </td>
-            <td>
+         @*   <td>
 						
                 @item.course.FinalGrade  / @item.Grade
 
             </td>
                <td>
              @(item.Grade*item.course.FinalGrade/100)%
-            </td>
+            </td>*@
             <td>
                 @if (item.StateId==3)
                 {

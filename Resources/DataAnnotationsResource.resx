@@ -263,7 +263,6 @@
   </data>
   <data name="maxallowedmemberserr" xml:space="preserve">
     <value>Number of Applicants should be between 10 - 9999</value>
-    <comment> </comment>
   </data>
   <data name="maxcoursemembers" xml:space="preserve">
     <value>Maximum people who can apply</value>
@@ -360,6 +359,9 @@
   </data>
   <data name="stname" xml:space="preserve">
     <value>Street Name</value>
+  </data>
+  <data name="succgrade" xml:space="preserve">
+    <value>Success Percentage</value>
   </data>
   <data name="titlear" xml:space="preserve">
     <value>Title in Arabic</value>

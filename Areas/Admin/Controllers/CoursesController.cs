@@ -1,10 +1,12 @@
-﻿using ESTA.Areas.Admin.Models;
+﻿using System.Security.Claims;
+using ESTA.Areas.Admin.Models;
 using ESTA.Areas.Admin.ViewModels;
 using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
@@ -15,17 +17,31 @@ namespace ESTA.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly UserManager<User> userManager;
 
-        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment)
+        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment,UserManager<User> userManager)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
+            this.userManager = userManager;
         }
 
 
 
 
+        
+               public async Task<IActionResult> DeleteUserFromCourse(int cId,string uid)
+        {
+        bool isdeleted=  await  appRep.UsersCoursesRep.DeleteUserFromCourse(cId, uid);
+            if (isdeleted)
+            {
 
+              await  appRep.UserRep.UpdateUserLevel(uid);
+
+                await appRep.SaveChangesAsync();
+            }
+return            RedirectToAction("Index");
+        }
 
         [Authorize("RequireAdminRole")]
         [HttpGet]
@@ -322,6 +338,50 @@ namespace ESTA.Areas.Admin.Controllers
         }
 
 
+      
+        public async Task<IActionResult> AddUsetToCourseAsCompleted(int cid,string uid)
+        {
+            try
+            {
+       appRep.UsersCoursesRep.AddUsertoCourseAsCompleted(cid, uid);
+                var c = await appRep.CoursesRep.GetCourse(cid);
+                int? level = c.LevelId;
+
+                if (level < 4)
+                {
+                    var usr = await userManager.FindByIdAsync(uid);
+                    if (usr.LevelId < level)
+                    {
+                        usr.LevelId = (int)level;
+                        await userManager.UpdateAsync(usr);
+                    }
+                }
+                await appRep.SaveChangesAsync();
+
+
+                return RedirectToAction("UsersNotEnrolled", new { courseId = cid });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("UsersNotEnrolled", new { courseId = cid });
+            }
+        }
+
+     
+        public IActionResult UsersNotEnrolled(int courseId)
+        {
+            try
+            {
+                var users=appRep.UsersCoursesRep.GetAllUsersNotEnrolledinCourse(courseId);
+                ViewBag.CourseId = courseId;
+
+                return View(users);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index");
+            }
+        }
 
     }
 }

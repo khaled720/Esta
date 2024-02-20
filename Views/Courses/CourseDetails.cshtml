@@ -273,6 +273,7 @@ background: rgba(100%,100%,100%,50%);
                                        
                                     @if (signInManager.IsSignedIn(User))
                                     {
+                                      
                                             if (Model.isCourseEnrolled)
                                             {
 
@@ -347,6 +348,11 @@ background: rgba(100%,100%,100%,50%);
                              
                                             }
                                      
+                                    }else{
+
+                                            <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" asp-controller="Account" asp-action="Register">
+                                                <span class="btn-text bg-red">@localizer["join"]</span>
+                                            </a>
                                     }
 
 

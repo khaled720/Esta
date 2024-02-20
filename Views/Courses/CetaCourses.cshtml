@@ -3,152 +3,177 @@
 *@
 @{
 }
-@model List<ESTA.Models.Course>
+
+@model ESTA.ViewModels.ViewCETA
 
 @using ESTA.Helpers
-    @using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Localization
 @using System.Globalization
 
-    @inject IStringLocalizer<SharedResource> localizer;
-   <div class="slider-area">
-        <div class="page-title">
+@inject IStringLocalizer<SharedResource> localizer;
+<div class="slider-area">
+    <div class="page-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/courses_banner.jpg") );">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="slider-content slider-content-breadcrumb text-center">
-                                <h1 class="white-color f-700"> @localizer["cetacourses"] </h1>
-                            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700"> @localizer["cetacourses"] </h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <div class="course-details-area  pt-50 pb-50">
     <div class="container">
         <div style="width:100% ;display:flex;justify-content:center">
-			<img src="~/template/img/ceta.jpg" width="350px" />
+            <img src="~/template/img/ceta.jpg" width="350px" />
         </div>
-     
-    <p>
+
+        @if (Model.CETAContent.DescriptionEn != null)
+        {
+            if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+            {
+                @Html.Raw(Model.CETAContent.DescriptionAr.Replace("../../","../"))
+            }
+            else
+            {
+                @Html.Raw(Model.CETAContent.DescriptionEn.Replace("../../","../"))
+            }
+
+        }
+        else
+        {
+
+            <p>  No Content to display</p>
+        }
+@*
+        <p>
 
 
-   @localizer["cetaprogram"]
-    </p>
+            @localizer["cetaprogram"]
+        </p>*@
     </div>
 </div>
 
-    <!-- slider-end -->
-    <div class="course-details-area  pt-50 pb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12">
-                    <div class="row">
+<!-- slider-end -->
+<div class="course-details-area  pt-50 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="row">
 
 
-                    @if (Model == null || Model.Count == 0)
+                    @if (Model.courses == null || Model.courses.Count == 0)
                     {
                         <h4 class="text-danger">
                             @localizer["notfound"]
-                    </h4>
+                        </h4>
                     }
+                    else
+                    {
 
-                    @foreach (var item in Model)
-{
-                        <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
-                            <div class="courses-wrapper courses-wrapper-3 mb-30">
-                                <div class="courses-thumb">
-                                    <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
-                                </div>
-                                <div class="courses-content courses-content-3 clearfix">
-                                    <div class="courses-heading mt-25 d-flex">
-                                        <div class="course-title-3">
-                                            <h1>
-                                                <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">
+                        @foreach (var item in Model.courses)
+                        {
+                            <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                                <div class="courses-wrapper courses-wrapper-3 mb-30">
+                                    <div class="courses-thumb">
+                                        <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
+                                    </div>
+                                    <div class="courses-content courses-content-3 clearfix">
+                                        <div class="courses-heading mt-25 d-flex">
+                                            <div class="course-title-3">
+                                                <h1>
+                                                    <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">
 
-                                                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                        {
+                                                            @item.TitleAr
+                                                        }
+                                                        else
+                                                        {
+                                                            @item.Title
+                                                        }
+
+                                                    </a>
+                                                </h1>
+                                            </div>
+                                            <div class="courses-pricing-3">
+                                                <span>
+                                                    @if (item.Price <= 0)
                                                     {
-                                                      @item.TitleAr
+                                                        @localizer["free"]
                                                     }
                                                     else
                                                     {
-                                                        @item.Title
-                                                    }
+                                                        @item.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
 
-                                            </a></h1>
+                                                    }
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="courses-pricing-3">
-                                            <span>
-                                                @if (item.Price <= 0)
+                                        <div class="courses-para mt-15">
+
+                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                            {
+                                                @if (item.DescriptionAr.Count() > 45)
                                                 {
-                                                    @localizer["free"]
+                                                    <p>@item.DescriptionAr.Substring(0,45) ..</p>
                                                 }
                                                 else
                                                 {
-                                                    @item.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
-
+                                                    <p>@item.DescriptionAr</p>
                                                 }
-                                            </span>
+                                            }
+                                            else
+                                            {
+                                                @if (item.Description.Count() > 45)
+                                                {
+                                                    <p>@item.Description.Substring(0,45) ..</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>@item.Description</p>
+                                                }
+                                            }
+
+
+
                                         </div>
-                                    </div>
-                                    <div class="courses-para mt-15">
-
-                                    @if (Thread.CurrentThread.CurrentCulture.Name=="ar")
-                                    {
-                                            @if (item.DescriptionAr.Count() > 45)
-                                            {
-                                                <p>@item.DescriptionAr.Substring(0,45) ..</p>
-                                            }
-                                            else
-                                            {
-                                                <p>@item.DescriptionAr</p>
-                                            }
-                                        }else{
-                                            @if (item.Description.Count() > 45)
-                                            {
-                                                <p>@item.Description.Substring(0,45) ..</p>
-                                            }
-                                            else
-                                            {
-                                                <p>@item.Description</p>
-                                            }
-                                    }
-                                    
-                                    
-                                    
-                                    </div>
-                                    <div class="course-date mt-15">
-                                        <span class="course-date-icon ti-calendar"></span>
-                                        <span class="start-date-text">@localizer["stdate"] </span>
-                                        <span>@item.StartDate.Value.Year/@item.StartDate.Value.Month/@item.StartDate.Value.Day</span>
-                                    </div>
-                                    <div class="courses-wrapper-bottom clearfix mt-35">
-                                        <div class="courses-button">
-                                            <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id" >@localizer["details"]</a>
+                                        <div class="course-date mt-15">
+                                            <span class="course-date-icon ti-calendar"></span>
+                                            <span class="start-date-text">@localizer["stdate"] </span>
+                                            <span>@item.StartDate.Value.Year/@item.StartDate.Value.Month/@item.StartDate.Value.Day</span>
+                                        </div>
+                                        <div class="courses-wrapper-bottom clearfix mt-35">
+                                            <div class="courses-button">
+                                                <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">@localizer["details"]</a>
 
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-            
-                        
-                        
-                        
-                        
-                          
+
+
+
+
+
+
+                        }
+
+
                     }
 
-                      
-                        
-                        
-              </div>
 
                 </div>
 
             </div>
+
         </div>
     </div>
+</div>

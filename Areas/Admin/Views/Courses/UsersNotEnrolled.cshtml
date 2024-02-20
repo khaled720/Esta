@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<ESTA.Models.User>
+
+
+
+
+
+<h2>Users </h2>
+
+<p>
+    <h4>
+        @localizer["addusertocourse"]
+    </h4>
+</p>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+           User Name
+                </th>
+                <th>
+          Email
+          </th>
+                <th>
+                    @localizer["actions"]
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+
+                    <td>
+                        @Model[i].FullName
+
+                     
+                    </td>
+                    <td>
+                        @Model[i].Email
+                    </td>
+                    <td>
+
+                    <a class="btn btn-primary" asp-action="AddUsetToCourseAsCompleted"
+                   asp-route-cid="@ViewBag.CourseId" asp-route-uid="@Model[i].Id">Add To Course</a>
+                    </td>
+
+                  
+                </tr>
+            }
+          
+
+
+
+
+        </tbody>
+    </table>

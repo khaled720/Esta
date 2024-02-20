@@ -430,6 +430,9 @@ namespace ESTA.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("SuccessPersentage")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1174,22 +1177,22 @@ namespace ESTA.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "476de8d2-a8ca-4be6-90c0-f28d02e3292c",
-                            ConcurrencyStamp = "46bc3588-5e47-4ca5-9153-30f058c0006c",
+                            Id = "0b6575d1-2e07-4a99-9e5e-5f6241279e07",
+                            ConcurrencyStamp = "0796d11e-b96b-4d9d-a0ea-acf3ac21f25b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5521d1da-218f-49b7-9adf-7704ba79b3bd",
-                            ConcurrencyStamp = "2bd6b11f-1894-40bf-9daf-ea8552a9fb94",
+                            Id = "7f5e5047-8a56-43e1-ad9f-a74f3e8d4dba",
+                            ConcurrencyStamp = "e69768fe-b43c-420f-8373-4a17a846e40b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "18bd4f30-51ea-48df-bc88-452228e6f75f",
-                            ConcurrencyStamp = "5a7769df-f66e-41ae-8aef-f6889fe3f5be",
+                            Id = "57ded859-516b-41ec-a7b7-13fac0bb2e5b",
+                            ConcurrencyStamp = "7cca4fe1-d223-4833-b950-0c08f27dd089",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
