@@ -18,11 +18,11 @@
 
 
     <div class="slider-active">
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" >
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center">
             <div id="video-div" style="height:500px;">
 
                 <video width="100%" loop muted autoplay playsinline poster="@Url.Content("~/template/img/slider/banner3.png")">
-                    <source src="@Url.Content("~/template/img/slider/1.mp4")" type="video/mp4"/>
+                    <source src="@Url.Content("~/template/img/slider/1.mp4")" type="video/mp4" />
                     Your browser does not support HTML video.
                 </video>
 
@@ -43,7 +43,7 @@
             </div>
 
         </div>
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" 
+        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center"
              style="background-image: url(@Url.Content("~/template/img/slider/banner2.jpg"))">
             <div class="container">
                 <div class="row  justify-content-center">
@@ -127,7 +127,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12  aos-init aos-animate" data-aos="fade-up"
-                      data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                 data-aos-anchor-placement="center-center" data-aos-duration="1000">
                 <div class="section-title mb-50 text-center">
                     <div class="section-title-heading mb-20">
                         <h1 class="primary-color">@localizer["whyus"]</h1>
@@ -198,64 +198,65 @@
                 </div>
 
                 <!--
+                @*
                 @if (Model.UpcomingCourse != null)
                 {
-                                   <div class="col-lg-5 col-sm-12 aos-init aos-animate" data-aos="fade-up"
-                                        data-aos-duration="1500">
-                                       <div class="single-events mb-30">
-                                           <div class="events-wrapper">
-                                               <div class="events-inner d-flex">
-                                                   <div class="events-thumb">
-                                                       <img style="width: 165px;
+                                           <div class="col-lg-5 col-sm-12 aos-init aos-animate" data-aos="fade-up"
+                                                data-aos-duration="1500">
+                                               <div class="single-events mb-30">
+                                                   <div class="events-wrapper">
+                                                       <div class="events-inner d-flex">
+                                                           <div class="events-thumb">
+                                                               <img style="width: 165px;
                    height: 100%;" src="@Url.Content("~"+@Model.UpcomingCourse.PhotoPath) " alt="">
-                                                   </div>
-                                                   <div class="events-text white-bg">
-                                                       <div class="event-text-heading mb-20">
-                                                           <div class="events-calendar text-center f-left">
-                                                               <span class="date">
-                                                    @Model.UpcomingCourse.StartDate.Value.Day
-                                                               </span>
-                                                               <span class="month">      @Model.UpcomingCourse.StartDate.Value.ToString("MMM") ,
-                                                    @Model.UpcomingCourse.StartDate.Value.Year</span>
                                                            </div>
-                                                           <div class="events-text-title clearfix">
-                                                               <a asp-action="CourseDetails" asp-controller="Courses" asp-route-id="@Model.UpcomingCourse.Id">
+                                                           <div class="events-text white-bg">
+                                                               <div class="event-text-heading mb-20">
+                                                                   <div class="events-calendar text-center f-left">
+                                                                       <span class="date">
+                                                    @Model.UpcomingCourse.StartDate.Value.Day
+                                                                       </span>
+                                                                       <span class="month">      @Model.UpcomingCourse.StartDate.Value.ToString("MMM") ,
+                                                    @Model.UpcomingCourse.StartDate.Value.Year</span>
+                                                                   </div>
+                                                                   <div class="events-text-title clearfix">
+                                                                       <a asp-action="CourseDetails" asp-controller="Courses" asp-route-id="@Model.UpcomingCourse.Id">
 
 
 
 
                                                     @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                                     {
-                                                                                <h4>  @Model.UpcomingCourse.TitleAr  </h4>
+                                                                                                <h4>  @Model.UpcomingCourse.TitleAr  </h4>
                                                     }
                                                     else
                                                     {
-                                                                               <h4>  @Model.UpcomingCourse.Title  </h4>
+                                                                                               <h4>  @Model.UpcomingCourse.Title  </h4>
                                                     }
 
 
 
 
-                                                               </a>
-                                                               <div class="time-area">
-                                                                   <span class="ti-time"></span>
-                                                                   <span class="published-time">05:23 AM - 09:23 AM</span>
+                                                                       </a>
+                                                                       <div class="time-area">
+                                                                           <span class="ti-time"></span>
+                                                                           <span class="published-time">05:23 AM - 09:23 AM</span>
+                                                                       </div>
+                                                                   </div>
                                                                </div>
-                                                           </div>
-                                                       </div>
-                                                       <div class="events-para">
+                                                               <div class="events-para">
 
 
                                             @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                             {
                                                 @if (Model.UpcomingCourse.DescriptionAr.Count() > 100)
                                                 {
-                                                                               <p>  @Model.UpcomingCourse.DescriptionAr.Substring(0,100)  </p>
+                                                                                                       <p>  @Model.UpcomingCourse.DescriptionAr.Substring(0,100)  </p>
                                                 }
                                                 else
                                                 {
 
-                                                                               <p>  @Model.UpcomingCourse.DescriptionAr.ToString()  </p>
+                                                                                                       <p>  @Model.UpcomingCourse.DescriptionAr.ToString()  </p>
                                                 }
 
                                             }
@@ -263,27 +264,27 @@
                                             {
                                                 @if (Model.UpcomingCourse.Description.Count() > 100)
                                                 {
-                                                                       <p>  @Model.UpcomingCourse.Description.Substring(0,100)  </p>
+                                                                                               <p>  @Model.UpcomingCourse.Description.Substring(0,100)  </p>
 
                                                 }
                                                 else
                                                 {
-                                                                               <p>  @Model.UpcomingCourse.Description.ToString()  </p>
+                                                                                                       <p>  @Model.UpcomingCourse.Description.ToString()  </p>
                                                 }
                                             }
-                                                       </div>
-                                                       <div class="events-speaker">
-                                            @*      <h2>Speaker : <span>Alexzender</span></h2>*@
+                                                               </div>
+                                                               <div class="events-speaker">
+                                                  <!--<h2>Speaker : <span>Alexzender</span></h2>-->
+                                                               </div>
+                                                           </div>
                                                        </div>
                                                    </div>
                                                </div>
-                                           </div>
-                                       </div>
 
-                                   </div>
+                                           </div>
 
                 }
-                         -->
+                *@-->
             </div>
         </div>
 
@@ -300,10 +301,10 @@
 <input type="hidden" value="@Url.Action("CourseDetails","Courses")" id="GetCoursedetails" />
 
 <!-- events start -->
-<!--
-@await Component.InvokeAsync("UpcomingEvents")
+@*
+    @await Component.InvokeAsync("UpcomingEvents")
+*@
 
--->
 <!-- events end -->
 <br />
 
@@ -314,7 +315,7 @@
         transition: 0.5s ease-in-out;
         overflow: hidden;
         /*z-index:10;
-                    */
+                                    */
     }
 
 </style>
@@ -325,16 +326,13 @@
 @section Scripts{
 
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="~/lib/jquery/dist/jquery.js"></script>-->
     <script src="~/js/moment.js"></script>
     <script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>
-    <script src="~/lib/fullcalendar-6.0.1/dist/index.global.js"></script>
+    <!--<script src="~/lib/fullcalendar-6.0.1/dist/index.global.js"></script> -->
     <script src="~/js/course.js"></script>
     <script src="~/js/calenderscript.js"></script>
-    <script src="~/js/coursecalendar.js"></script>
-
-
-
+    <!--<script src="~/js/coursecalendar.js"></script> -->
 }
 @*    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>*@

@@ -1,86 +1,86 @@
 ﻿
-$(document).ready( function () {
-    var getEventUrl = $('#GetEventUrl').val();
-    var localeSelectorEl = document.getElementById('langddl');
-    var calendarEl = document.getElementById('calendar');
-    var lang = localeSelectorEl.value
-    var dir = 'ltr'
-    if (lang == 'ar')
-        dir = 'rtl'
+//$(document).ready( function () {
+//    var getEventUrl = $('#GetEventUrl').val();
+//    var localeSelectorEl = document.getElementById('langddl');
+//    var calendarEl = document.getElementById('calendar');
+//    var lang = localeSelectorEl.value
+//    var dir = 'ltr'
+//    if (lang == 'ar')
+//        dir = 'rtl'
    
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        editable: false,
-        selectable: false,
-        direction: dir,
-        eventDisplay: 'block',
-        locale: document.getElementsByTagName("html")[0]["lang"],
-        initialView: 'dayGridMonth',
-        height: '450px',
-        //eventDidMount: function (info) {
-        //    $(info.el).popover({
-        //        title: info.event.title,
-        //        placement: 'top',
-        //        trigger: 'hover',
-        //        content: formatDate(info.event.start),
-        //        container: 'body'
-        //    });
-        //},
-        moreLinkText: "More",
+//    var calendar = new FullCalendar.Calendar(calendarEl, {
+//        editable: false,
+//        selectable: false,
+//        direction: dir,
+//        eventDisplay: 'block',
+//        locale: document.getElementsByTagName("html")[0]["lang"],
+//        initialView: 'dayGridMonth',
+//        height: '450px',
+//        //eventDidMount: function (info) {
+//        //    $(info.el).popover({
+//        //        title: info.event.title,
+//        //        placement: 'top',
+//        //        trigger: 'hover',
+//        //        content: formatDate(info.event.start),
+//        //        container: 'body'
+//        //    });
+//        //},
+//        moreLinkText: "More",
         
-        displayEventTime: false,
-        fixedWeekCount: false,
-        eventColor: 'white',
-        dayMaxEvents: true, // allow "more" link when too many events
-        events: function (fetchInfo, successCallback, failureCallback) {
-            debugger
+//        displayEventTime: false,
+//        fixedWeekCount: false,
+//        eventColor: 'white',
+//        dayMaxEvents: true, // allow "more" link when too many events
+//        events: function (fetchInfo, successCallback, failureCallback) {
+//            debugger
 
 
-            $.ajax({
-                url: $('#AjaxUrl').val(),
-                type: "GET",
-                dataType: "JSON",
+//            $.ajax({
+//                url: $('#AjaxUrl').val(),
+//                type: "GET",
+//                dataType: "JSON",
 
-                success: function (result) {
-                    var events = [];
+//                success: function (result) {
+//                    var events = [];
 
-                    $.each(result, function (i, data) {
+//                    $.each(result, function (i, data) {
 
-                        if (data.eventType == 1) {
-                            events.push(
-                                {
-                                    title: data.title,
-                                    start: moment(data.date).format(),
-                                    url: getEventUrl + '/'+ data.id,
-                                    backgroundColor: "#002147",
-                                }
-                            );
-                        }
-                        else {
-                            events.push(
-                                {
-                                    title: data.title,
-                                    start: moment(data.date).format(),
-                                    url: getEventUrl + '/' + data.id,
-                                    backgroundColor: "#002147",
-                                }
-                            );
-                        }
-                    });
-                    successCallback(events);
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+//                        if (data.eventType == 1) {
+//                            events.push(
+//                                {
+//                                    title: data.title,
+//                                    start: moment(data.date).format(),
+//                                    url: getEventUrl + '/'+ data.id,
+//                                    backgroundColor: "#002147",
+//                                }
+//                            );
+//                        }
+//                        else {
+//                            events.push(
+//                                {
+//                                    title: data.title,
+//                                    start: moment(data.date).format(),
+//                                    url: getEventUrl + '/' + data.id,
+//                                    backgroundColor: "#002147",
+//                                }
+//                            );
+//                        }
+//                    });
+//                    successCallback(events);
+//                },
+//                error: function (err) {
+//                    console.log(err);
+//                }
+//            });
 
 
-        },
+//        },
 
-    });
-    //
-    calendar.render();
+//    });
+//    //
+//    calendar.render();
 
-});
+//});
 
 
 

@@ -113,9 +113,15 @@ nav {
     margin-right: 10px;
     margin-left: 0px !important;
 }
-.f-right{
-    float:left !important;
+
+.f-right {
+    float: left !important;
 }
-.toggle-search-box{
-    left:0 !important;
+
+.toggle-search-box {
+    left: 0 !important;
 }
+
+    .toggle-search-box form button {
+        right: 35px !important;
+    }
