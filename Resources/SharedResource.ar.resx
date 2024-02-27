@@ -363,6 +363,9 @@
   <data name="followus" xml:space="preserve">
     <value>تابعنا</value>
   </data>
+  <data name="footerIco" xml:space="preserve">
+    <value>ti-angle-double-left</value>
+  </data>
   <data name="forignmem" xml:space="preserve">
     <value>المستخدمين الاجانب</value>
   </data>

@@ -5,7 +5,7 @@
 @using Microsoft.AspNetCore.Localization;
 
 @inject SignInManager<User> signInManager;
-@inject UserManager<User> userManager; 
+@inject UserManager<User> userManager;
 
 @inject IHttpContextAccessor contextAccessor;
 @inject IOptions<RequestLocalizationOptions> LocalizationOptions;
@@ -19,7 +19,7 @@
         : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
 
     var admin = false;
-   
+
     var IsSigned = signInManager.IsSignedIn(User);
     var IsAdmin = false;
     if (IsSigned)
@@ -39,10 +39,10 @@
 @using Microsoft.Extensions.Localization
 @using Microsoft.Extensions.Options
 
-@inject IStringLocalizer<SharedResource>  localizer;
+@inject IStringLocalizer<SharedResource> localizer;
 
 <!DOCTYPE html>
-<html lang="@CultureInfo.CurrentCulture.Name" >
+<html lang="@CultureInfo.CurrentCulture.Name">
 <head>
 
     <meta charset="utf-8">
@@ -56,7 +56,7 @@
     <!-- CSS here -->
 
     <link href="~/template/css/bootstrap.min.css" rel="stylesheet" />
-    
+
     <link href="~/template/css/inner.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/owl.carousel.min.css">
     <link href="~/template/css/animate.min.css" rel="stylesheet" />
@@ -68,14 +68,15 @@
     <link rel="stylesheet" href="~/template/css/default.css">
     <link href="~/template/aos/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/template/css/style.css">
-	<link rel="stylesheet" href="~/template/css/responsive.css">
-	<link href="~/css/site.css" rel="stylesheet" />
-	<link href="css/inner.css" rel="stylesheet" />
-	<link href="~/template/aos/aos.css" rel="stylesheet" />
-    @if(Thread.CurrentThread.CurrentCulture.Name=="ar"){
+    <link rel="stylesheet" href="~/template/css/responsive.css">
+    <link href="~/css/site.css" rel="stylesheet" />
+    @*<link href="~/css/inner.css" rel="stylesheet" />*@
+    <link href="~/template/aos/aos.css" rel="stylesheet" />
+    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+    {
 
-	<link href="~/template/css/style-ar.css" rel="stylesheet" />
-   
+        <link href="~/template/css/style-ar.css" rel="stylesheet" />
+
     }
 
 
@@ -100,52 +101,55 @@
                                     <span class="ti-email"></span>
                                     <p class="email-name">info@estaegypt.org</p>
                                 </div>
-                                
-                                @if (User!=null&&User.Identity.IsAuthenticated) 
+
+                                @if (User != null && User.Identity.IsAuthenticated)
                                 {
                                     <div class="header-contact header-login">
                                         <span class="ti-user"></span>
-                                        @if (User.IsInRole("Admin")) {
+                                        @if (User.IsInRole("Admin"))
+                                        {
 
                                             <a asp-action="index" asp-area="admin" asp-controller="home" class="loginBtn">
-                                                @User.FindFirstValue(ClaimTypes.Name)    
-                                            </a>
-                                        }
-                                        else{
-                                            <a asp-action="profile" asp-controller="user"  asp-area="" class="loginBtn">
                                                 @User.FindFirstValue(ClaimTypes.Name)
                                             </a>
-                                        
                                         }
-                                        
-                                        <a  asp-action="Logout" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signout"]</a>
-                                    </div>
-                                }
-                                else{
-                                       <div class=" row header-contact header-login header-contact1 ">
-                                       
-                                       <div class=""> 
-                                      
-                                       <span class="ti-user"></span>
-                                            <a asp-action="Login" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signin"]</a>
-                               
-                                       </div>
-                                <div>
-                                        <span class="ti-user"></span>
-                                            <a asp-action="Register" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signup"]</a>
-                                    </div>
-                                        </div>
-                                }
-                              
+                                        else
+                                        {
+                                            <a asp-action="profile" asp-controller="user" asp-area="" class="loginBtn">
+                                                @User.FindFirstValue(ClaimTypes.Name)
+                                            </a>
 
-                                 
+                                        }
+
+                                        <a asp-action="Logout" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signout"]</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class=" row header-contact header-login header-contact1 ">
+
+                                        <div class="">
+
+                                            <span class="ti-user"></span>
+                                            <a asp-action="Login" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signin"]</a>
+
+                                        </div>
+                                        <div>
+                                            <span class="ti-user"></span>
+                                            <a asp-action="Register" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signup"]</a>
+                                        </div>
+                                    </div>
+                                }
+
+
+
 
                             </div>
                         </div>
                         <div class="">
                             <div class="header-social-icon-list">
                                 <ul>
-                                   @if(Thread.CurrentThread.CurrentCulture.Name=="ar")
+                                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                     {
 
                                         <li>
@@ -153,58 +157,52 @@
 
 
                                             <a style="display:none" onclick="changeLang('en')"
-                                           data-toggle="tooltip" title="@langTooltip">
-                                                    <span style="color:aquamarine" class="ti-world"></span>
-                                                </a>
+                                               data-toggle="tooltip" title="@langTooltip">
+                                                <span style="color:aquamarine" class="ti-world"></span>
+                                            </a>
 
-                                        
-                                       
+
+
 
 
                                             <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
                                         </li>
 
-                                <li><a href="#"><span class="ti-facebook"></span></a></li>
-                                 
-                         
-                                    <li><a href="#"><span class="ti-linkedin"></span></a></li>
-                                  
-                          
-                                    
+                                        <li><a href="https://www.facebook.com/ESTA.Mainpage?sfnsn=scwspwa&mibextid=RUbZ1f" target="_blank"><span class="ti-facebook"></span></a></li>
+                                        <li><a href="https://www.linkedin.com/company/egyptian-society-of-technical-analysts-esta/" target="_blank"><span class="ti-linkedin"></span></a></li>
+
                                     }
-                                    
+
                                     else
                                     {
 
-                                   
 
-                                      <li><a href="#"><span class="ti-linkedin"></span></a></li>
 
-  //<li><a href="#"><span class="ti-twitter-alt"></span></a></li>
-                                      <li><a href="#"><span class="ti-facebook"></span></a></li>
-
+                                        <li><a href="https://www.linkedin.com/company/egyptian-society-of-technical-analysts-esta/" target="_blank"><span class="ti-linkedin"></span></a></li>
+                                        <li><a href="https://www.facebook.com/ESTA.Mainpage?sfnsn=scwspwa&mibextid=RUbZ1f" target="_blank"><span class="ti-facebook"></span></a></li>
+                                        
                                         <li>
-                                         
 
 
-                                                <a style="display:none" onclick="changeLang('ar')"
-                                           data-toggle="tooltip" title="@langTooltip">
-                                                    <span style="color:aquamarine" class="ti-world"></span>
-                                                </a>
 
-                                         
+                                            <a style="display:none" onclick="changeLang('ar')"
+                                               data-toggle="tooltip" title="@langTooltip">
+                                                <span style="color:aquamarine" class="ti-world"></span>
+                                            </a>
 
 
-                                            <input type="hidden" value="@Url.Action("SetCulture","Lang",new {area=""})"  id="langUrl" />
+
+
+                                            <input type="hidden" value="@Url.Action("SetCulture","Lang",new {area=""})" id="langUrl" />
                                         </li>
 
-                                  
-                                    
+
+
                                     }
-                                    
-                                    
-                                    
-                                   
+
+
+
+
                                 </ul>
                             </div>
                         </div>
@@ -217,27 +215,27 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-between">
                         <div class="">
-                            <div class="logo ar" >
-                                <a style="display:flex;align-items:center" asp-controller="Home" asp-action="Index" asp-area="" >
-                                  
-                                <img width="100px" src="~/template/img/logo/logo2.gif" alt="">
-							<span class="header-title">
-                            	@localizer["esta"]
-                            </span>	
+                            <div class="logo ar">
+                                <a style="display:flex;align-items:center" asp-controller="Home" asp-action="Index" asp-area="">
+
+                                    <img width="100px" src="~/template/img/logo/logo2.gif" alt="">
+                                    <span class="header-title">
+                                        @localizer["esta"]
+                                    </span>
                                 </a>
                             </div>
                         </div>
 
-                       
+
                         <div class="">
-                           <div class="header-bottom-icon f-right">
+                            <div class="header-bottom-icon f-right">
                                 <ul>
                                     <li class="toggle-search-icon">
-                                        <a asp-controller="Home" asp-action="Index" asp-area="">
+                                        <a href="#">
                                             <span class="ti-search"></span>
                                             <div class="toggle-search-box">
                                                 <form asp-action="search" asp-controller="Home" id="searchbox">
-                                                    <input style="width:300px" name="query"  placeholder="Search" type="text">
+                                                    <input style="width:300px" name="query" placeholder="Search" type="text">
                                                     <button class="button-search"><span class="ti-search"></span></button>
                                                 </form>
                                             </div>
@@ -245,7 +243,7 @@
                                     </li>
 
                                 </ul>
-                            </div> 
+                            </div>
                             <div class="main-menu f-right">
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
@@ -261,12 +259,12 @@
 
                                                 </li>
                                                 <li>
-                                             
+
                                                     <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ta">@localizer["ta"]</a>
 
-                                            </li>
+                                                </li>
                                                 <li>
-                                                
+
                                                     <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ethics">@localizer["ethics"]</a>
                                                 </li>
                                                 <li>
@@ -293,21 +291,21 @@
                                             <a href="#">@localizer["membership"]</a>
                                             <ul class="submenu">
 
-                                       
 
 
-                                               
-                                                    <li>
+
+
+                                                <li>
                                                     <a asp-area="" asp-controller="Forums" asp-action="Index">@localizer["discussionbf"]</a>
-                                                    </li>
-                                                
+                                                </li>
+
                                                 <li>
                                                     <a asp-area="" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                                                 </li>
 
                                                 <li>
                                                     <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="benefits">
-                                                    @localizer["benefits"]
+                                                        @localizer["benefits"]
                                                     </a>
                                                 </li>
                                                 <li>
@@ -316,14 +314,14 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a  asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ifta" >@localizer["ifta"]</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ifta">@localizer["ifta"]</a>
                                         </li>
                                         <li>
-                                            <a asp-area="" asp-controller="Home" asp-action="contact" >@localizer["contacts"]</a>
+                                            <a asp-area="" asp-controller="Home" asp-action="contact">@localizer["contacts"]</a>
                                         </li>
 
 
-                                      
+
 
                                         @*<li>
                                         <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"
@@ -376,17 +374,15 @@
                                 </div>
                                 <div class="footer-menu clearfix">
                                     <ul>
+
                                         <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-controller="Home" asp-action="Index" asp-area="">@localizer["home"]</a></p></li>
                                         <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="benefits">@localizer["membership"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="About" asp-route-type="about">@localizer["about"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="about">@localizer["about"]</a></p></li>
                                         <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="ifta">@localizer["ifta"]</a></p></li>
                                         <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="courses" asp-action="CetaCourses">@localizer["edu"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="contact"  >@localizer["contacts"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="terms" >@localizer["termsCon"]</a></p></li>
-                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a  asp-area="" asp-controller="Home" asp-action="privacy" >@localizer["pp"]</a></p></li>
-
-
-
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="contact">@localizer["contacts"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="terms">@localizer["termsCon"]</a></p></li>
+                                        <li><p class="footer-menu-item"><span class="ti-angle-double-right"></span><a asp-area="" asp-controller="Home" asp-action="privacy">@localizer["pp"]</a></p></li>
 
                                     </ul>
                                 </div>
@@ -399,7 +395,7 @@
                                 <div class="footer-contact-list">
                                     <div class="single-footer-contact-info row">
                                         <span class="ti-headphone col-1 "></span>
-                                     
+
                                         <span class="footer-contact-list-text">+202 - 37629820/  +202 - 37629830/+02 1064000515</span>
                                     </div>
                                     <br />
@@ -422,8 +418,8 @@
                                 </div>
                                 <div class="footer-social-icon-list">
                                     <ul>
-                                        <li><a href="#"><span class="ti-facebook"></span></a></li>
-                                        <li><a href="#"><span class="ti-linkedin"></span></a></li>
+                                        <li><a href="https://www.facebook.com/ESTA.Mainpage?sfnsn=scwspwa&mibextid=RUbZ1f" target="_blank"><span class="ti-facebook"></span></a></li>
+                                        <li><a href="https://www.linkedin.com/company/egyptian-society-of-technical-analysts-esta/" target="_blank"><span class="ti-linkedin"></span></a></li>
 
 
                                     </ul>
@@ -443,8 +439,8 @@
                                 <div class="footer-copyright text-center">
                                     <div class="container">
                                         <div class="copyright">
-                                            <span>@localizer["copyrights"]</span>  
-                                       
+                                            <span>@localizer["copyrights"]</span>
+
                                         </div>
                                         <div class="credits">
                                             <span>@localizer["powerdby"]</span>
@@ -464,8 +460,8 @@
     </footer>
     <!-- footer end -->
     <!-- JS here -->
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/template/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="~/template/js/vendor/jquery-1.12.4.min.js"></script>
     <script src="~/template/aos/aos.js"></script>
@@ -486,25 +482,25 @@
     <script src="~/template/js/jquery.magnific-popup.min.js"></script>
     <script src="~/lib/fullcalendar-6.0.1/dist/index.global.min.js"></script>
     <script src="~/js/moment.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-	<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/template/js/plugins.js"></script>
-    <script src="~/template/js/custom.js"></script>
-    <script src="~/template/js/custom.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/lib/ckeditor/ckeditor.js"></script>
     <script src="~/lib/ckeditor/customckeditor.js"></script>
     <script src="~/lib/ckeditor/ck-editor-initialize.js"></script>
     <script src="~/lib/ckeditor/plugins/insertimage/plugin.js"></script>
-	<script src="~/template/aos/aos.js"></script>
-  
+    <script src="~/template/aos/aos.js"></script>
 
-<script src="~/js/site.js"></script>
+    <script src="~/js/site.js"></script>
     <script src="~/template/js/main.js"></script>
 
+    <script src="~/template/js/custom.js"></script>
+    <script src="~/template/js/custom.min.js"></script>
+
     @await RenderSectionAsync("Scripts",required: false)
-  
+
 </body>
 </html>

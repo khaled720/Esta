@@ -40,7 +40,7 @@
             doAnimations($animatingElements);
         });
 
-  
+
         //$.ajax({
         //    type: 'get',
         //    url: "Lang/GetLocalizedString?key=prev",
@@ -67,9 +67,10 @@
 
         BasicSlider.slick({
             autoplay: true,
-            autoplaySpeed: 4000,
+            autoplaySpeed: 5000,
+            //lazyLoad: "progressive",
+            speed: 600,
             dots: true,
-         
             fade: true,
             arrows: false,
             prevArrow: "<button type='button' id='pre' class='slick-prev pull-left'> PREV</button>",
@@ -78,7 +79,24 @@
                 { breakpoint: 767, settings: { dots: false, arrows: false } }
             ]
         });
-       
+        //var durationList = $('.single-slider').map(function (index, item) {
+        //    return item.getAttribute('data-time');
+        //});
+
+        //var slideIndex = 0;
+        //var changeSlide = function (timing) {
+        //    setTimeout(function () {
+        //        if (timing !== 0) {
+        //            BasicSlider.slick('slickNext');
+        //        }
+        //        if (slideIndex >= durationList.length) slideIndex = 0;
+        //        changeSlide(durationList[slideIndex++]);
+
+        //    }, timing);
+        //}
+        //changeSlide(0);
+
+
         function doAnimations(elements) {
             var animationEndEvents =
                 "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend";

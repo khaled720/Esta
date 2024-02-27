@@ -373,6 +373,9 @@
   <data name="followus" xml:space="preserve">
     <value>Follow Us</value>
   </data>
+  <data name="footerIco" xml:space="preserve">
+    <value>ti-angle-double-right</value>
+  </data>
   <data name="forignmem" xml:space="preserve">
     <value>Foreign Members</value>
   </data>
