@@ -3,6 +3,7 @@ using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("RequireAdminRole")]
     public class ModeratorController : Controller
     {
         private readonly IUnitOfWork appRep;

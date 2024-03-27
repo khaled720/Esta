@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using ESTA.ViewModels
+@model CreateAdmin
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> localizer;
+
+<style>
+    .form-label {
+        top: -15px !important;
+        color: blueviolet;
+    }
+
+</style>
+
+<div class="row" style="justify-content:center ; height:100%;align-items:center">
+    <div class="col-md-6">
+        <br /><br />
+        <section>
+            <form id="Account" asp-action="CreateAdmin" method="post">
+                <h2> @localizer["createadmin"] </h2>
+                <hr />
+                @if (ViewBag.success)
+                {
+                    <div class="alert alert-success">
+                        @localizer["updatesSuccess"]
+                    </div>
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="@Model.Email" class="form-label"></label>
+                    <input type="text" asp-for="@Model.Email" class="form-control" />
+
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.NewPassword" class="form-label"></label>
+                    <input type="password" asp-for="@Model.NewPassword" class="form-control" />
+
+                    <span asp-validation-for="@Model.NewPassword" class="text-danger"></span>
+                    <p class="text-success">
+                        @localizer["passNote"]
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.ConfirmPassword" class="form-label"></label>
+                    <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" />
+
+                    <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@localizer["submit"]</button>
+                </div>
+                <div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+</div>
+
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
+    }
+}

@@ -22,6 +22,7 @@ using ESTA.Controllers;
 using EntityFrameworkCore.UseRowNumberForPaging;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSession( /*opt=>opt.IdleTimeout=TimeSpan.FromMinutes(1)*/);
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(3));
 
 builder.Services.AddDbContext<AppDbContext>(
     opt =>
@@ -111,28 +112,41 @@ builder.Services.AddAuthorization(
     }
 );
 builder.Services
-    .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedEmail = true)
-    .AddRoles<IdentityRole>()
+    .AddIdentity<User, IdentityRole>(
+    options => {
+        options.SignIn.RequireConfirmedEmail = true;
+        })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-   
-   
-    options.Events = new CookieAuthenticationEvents
-    {
-        OnRedirectToLogin = x =>
-        {
-            //  x.Response.Redirect(x.Request.Scheme+"://"+x.Request.Host+"/Account/Login");
+//builder.Services.AddAuthentication()
+//    .AddCookie(options =>
+//    {
+//        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+//        options.SlidingExpiration = true;
+//    });
 
-            x.Response.Redirect("/Account/Login");
-            
-            return Task.CompletedTask;
-        }
-    };
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    // Cookie settings  
+//    options.Cookie.HttpOnly = true;
+//    options.ExpireTimeSpan = TimeSpan.FromHours(6);
+//    options.LoginPath = "/Account/Login";
+//    options.SlidingExpiration = true;
 
-});
+//    //options.Events = new CookieAuthenticationEvents
+//    //{
+//    //    OnRedirectToLogin = x =>
+//    //    {
+//    //        //  x.Response.Redirect(x.Request.Scheme+"://"+x.Request.Host+"/Account/Login");
+
+//    //        x.Response.Redirect("/Account/Login");
+
+//    //        return Task.CompletedTask;
+//    //    }
+//    //};
+
+//});
 
 var app = builder.Build();
 
@@ -144,7 +158,8 @@ app.UseRequestLocalization(
 ImageHelper.Configure(app.Environment);
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+//if (!app.Environment.IsDevelopment())
+if(true)
 {
     app.UseDeveloperExceptionPage();
     //    app.UseExceptionHandler("/Home/Error");
@@ -211,7 +226,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
     //  dbcontext.Database.EnsureCreated();
     try
     {
-        dbcontext.Database.Migrate();  
+        dbcontext.Database.Migrate();
         CreateSuperUser(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
     }
     catch (Exception ex)

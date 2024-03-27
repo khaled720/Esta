@@ -120,6 +120,9 @@
   <data name="academicqualification" xml:space="preserve">
     <value>Academic Qualification</value>
   </data>
+  <data name="academicqualificationImg" xml:space="preserve">
+    <value>Academic Certificate</value>
+  </data>
   <data name="addressar" xml:space="preserve">
     <value>Address in Arabic</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="curr" xml:space="preserve">
     <value>Currency</value>
+  </data>
+  <data name="currentpassword" xml:space="preserve">
+    <value>Current password</value>
   </data>
   <data name="descar" xml:space="preserve">
     <value>Description in Arabic</value>
@@ -294,6 +300,9 @@
   <data name="nationalidcons" xml:space="preserve">
     <value>National Card ID Must be 14 digits</value>
   </data>
+  <data name="NationalIdImagesImg" xml:space="preserve">
+    <value>National Id Image</value>
+  </data>
   <data name="orderdesc" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -311,6 +320,9 @@
   </data>
   <data name="passportcons" xml:space="preserve">
     <value>Passport ID Must be 14 digits</value>
+  </data>
+  <data name="passportImg" xml:space="preserve">
+    <value>Passport image</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Password</value>

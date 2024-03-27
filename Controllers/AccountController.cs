@@ -9,6 +9,7 @@ using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using ESTA.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -33,7 +34,7 @@ namespace ESTA.Controllers
             UserManager<User> userManager,
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment
-            ,IStringLocalizer<SharedResource> localizer
+            , IStringLocalizer<SharedResource> localizer
         )
         {
             signInManager = _signInManager;
@@ -48,7 +49,7 @@ namespace ESTA.Controllers
         public IActionResult Login()
         {
             if (signInManager.IsSignedIn(User))
-           return     RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
 
             return View();
         }
@@ -111,7 +112,7 @@ namespace ESTA.Controllers
         //            }
 
 
-                    
+
         //        }
         //        else if (result.IsNotAllowed)
         //        {
@@ -181,7 +182,7 @@ namespace ESTA.Controllers
                 {
 
 
-                    if (user != null && user.IsApproved == true&&user.EmailConfirmed==true&&user.IsDeleted==false)
+                    if (user != null && user.IsApproved == true && user.EmailConfirmed == true && user.IsDeleted == false)
                     {
                         var result = await signInManager.PasswordSignInAsync(LoginModel.Email,
                             LoginModel.Password, false, false);
@@ -191,7 +192,7 @@ namespace ESTA.Controllers
                             {
                                 return RedirectToAction("index", "courses", new { area = "Admin" });
                             }
-                            else if(await userManager.IsInRoleAsync(user, "Moderator")&& await userManager.IsInRoleAsync(user, "User"))
+                            else if (await userManager.IsInRoleAsync(user, "Moderator") && await userManager.IsInRoleAsync(user, "User"))
                             {
                                 return RedirectToAction("profile", "user");
                             }
@@ -200,7 +201,7 @@ namespace ESTA.Controllers
                                 // 
                                 return RedirectToAction("index", "Forums", new { area = "Admin" });
                             }
-                            else 
+                            else
                             {
                                 return RedirectToAction("Index", "Home");
                             }
@@ -213,7 +214,7 @@ namespace ESTA.Controllers
                             return View();
 
                         }
-                        else if (result.Succeeded == false && result.IsNotAllowed == false) 
+                        else if (result.Succeeded == false && result.IsNotAllowed == false)
                         {
                             var error = result.ToString();
                             ModelState.AddModelError(string.Empty, "Incorrect Email or Password");
@@ -228,9 +229,10 @@ namespace ESTA.Controllers
                         await appRep.ConstantsRep.getMempershipExpiryMonth()
                         <
                         DateTime.Now.Month
-                        ) {
+                        )
+                    {
 
-                  await      appRep.UserRep.RevokeMempershipPayment(user.Id);
+                        await appRep.UserRep.RevokeMempershipPayment(user.Id);
                         await appRep.SaveChangesAsync();
                     }
 
@@ -309,8 +311,9 @@ namespace ESTA.Controllers
                             return RedirectToAction("profile", "user");
                         }
                     }
-                    else {
-                        return    View(
+                    else
+                    {
+                        return View(
                                "ConfirmEmail",
                                new ErrorViewModel
                                {
@@ -343,7 +346,7 @@ namespace ESTA.Controllers
         public async Task<IActionResult> Register()
         {
             if (signInManager.IsSignedIn(User))
-           return    RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             RegisterViewModel registerModel = new RegisterViewModel();
             try
             {
@@ -371,23 +374,25 @@ namespace ESTA.Controllers
 
                 /// Next is edit passport and nationalid client and server validation
 
-           
-                        if (ModelState.IsValid)
+
+                if (ModelState.IsValid)
                 {
 
                     var IsNationalityvalid = registerModel.IsNationalityClaimsValid();
 
-                    if (!IsNationalityvalid&&registerModel.Country=="Egypt")
+                    if (!IsNationalityvalid && registerModel.Country == "Egypt")
                     {
-                        if (string.IsNullOrEmpty(registerModel.NationalCardID)) {
-                             ModelState.TryAddModelError(nameof(registerModel.NationalCardID), localizer["required"]);
+                        if (string.IsNullOrEmpty(registerModel.NationalCardID))
+                        {
+                            ModelState.TryAddModelError(nameof(registerModel.NationalCardID), localizer["required"]);
 
                         }
-                        if (registerModel.NationalCardImages==null) {
+                        if (registerModel.NationalCardImages == null)
+                        {
                             ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["required"]);
 
                         }
-                        if (registerModel.NationalCardImages != null&&registerModel.NationalCardImages.Count<2)
+                        if (registerModel.NationalCardImages != null && registerModel.NationalCardImages.Count < 2)
                         {
                             ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["IdCardLimit"]);
 
@@ -409,12 +414,12 @@ namespace ESTA.Controllers
                         }
                     }
 
-                    if (registerModel.IsNewMember ==false&& String.IsNullOrEmpty(registerModel.MembershipNumber))
+                    if (registerModel.IsNewMember == false && String.IsNullOrEmpty(registerModel.MembershipNumber))
                     {
 
-                            ModelState.AddModelError(nameof(registerModel.MembershipNumber), localizer["required"]);
-                            return View(registerModel);
-                       
+                        ModelState.AddModelError(nameof(registerModel.MembershipNumber), localizer["required"]);
+                        return View(registerModel);
+
 
 
                     }
@@ -425,25 +430,25 @@ namespace ESTA.Controllers
                     User user = new User();
 
                     ////////// uploading Graduation Certificate Image
-                    var userImages=new List<UserImage>();
+                    var userImages = new List<UserImage>();
                     try
                     {
                         if (registerModel.GraduationCertificateImages != null)
                         {
                             foreach (var image in registerModel.GraduationCertificateImages)
                             {
-                            var SavePath = hostEnvironment.WebRootPath + Constants.GraduationCertificateImagesSavingPath;
-                            var PhotoName = await FileUpload.SavePhotoAsync(
-                                image,
-                             registerModel.FullName,
-                                SavePath
-                            );
+                                var SavePath = hostEnvironment.WebRootPath + Constants.GraduationCertificateImagesSavingPath;
+                                var PhotoName = await FileUpload.SavePhotoAsync(
+                                    image,
+                                 registerModel.FullName,
+                                    SavePath
+                                );
                                 //               user.GradutionImagePath = Constants.GraduationCertificateImagesSavingPath + PhotoName;
-                                userImages.Add(new UserImage() {TypeId=3,Path= Constants.GraduationCertificateImagesSavingPath + PhotoName,UserId=user.Id });
+                                userImages.Add(new UserImage() { TypeId = 3, Path = Constants.GraduationCertificateImagesSavingPath + PhotoName, UserId = user.Id });
                                 //we should add images to database
 
                             }
-                           
+
                         }
                         else
                         {
@@ -465,15 +470,15 @@ namespace ESTA.Controllers
                     {
                         if (registerModel.NationalCardImages != null)
                         {
-                           
+
                             foreach (var image in registerModel.NationalCardImages)
                             {
-                            var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
-                            var PhotoName = await FileUpload.SavePhotoAsync(
-                             image,
-                                  registerModel.FullName,
-                                SavePath
-                            );
+                                var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
+                                var PhotoName = await FileUpload.SavePhotoAsync(
+                                 image,
+                                      registerModel.FullName,
+                                    SavePath
+                                );
                                 userImages.Add(new UserImage() { TypeId = 1, Path = Constants.NationalIDsImagesSavingPath + PhotoName, UserId = user.Id });
                                 //adding to database
 
@@ -497,17 +502,17 @@ namespace ESTA.Controllers
                     try
                     {
 
-                   
+
                         if (registerModel.PassportImages != null)
                         {
-                              foreach (var image in registerModel.PassportImages)
-                        {
-                             var SavePath = hostEnvironment.WebRootPath + Constants.PassportsImagesSavingPath;
-                            var PhotoName = await FileUpload.SavePhotoAsync(
-                              image,
-                                  registerModel.FullName,
-                                SavePath
-                            );
+                            foreach (var image in registerModel.PassportImages)
+                            {
+                                var SavePath = hostEnvironment.WebRootPath + Constants.PassportsImagesSavingPath;
+                                var PhotoName = await FileUpload.SavePhotoAsync(
+                                  image,
+                                      registerModel.FullName,
+                                    SavePath
+                                );
 
                                 userImages.Add(new UserImage() { TypeId = 2, Path = Constants.PassportsImagesSavingPath + PhotoName, UserId = user.Id });
                                 //add to db
@@ -533,13 +538,13 @@ namespace ESTA.Controllers
                     //////////////////////////
                     ///
 
-                 
-            
-                 
 
 
 
-                    
+
+
+
+
                     user.ConvertRegisterModelToUser(registerModel);
 
                     var result = await userManager.CreateAsync(user, registerModel.Password);
@@ -679,20 +684,18 @@ namespace ESTA.Controllers
             }
         }
 
-
-
         [HttpGet]
-        public IActionResult ResetPassword() 
+        public IActionResult ResetPassword()
         {
-            return View() ;
-       }
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel rpvm)
         {
-            var email= rpvm.Email;
+            var email = rpvm.Email;
 
             var user = await userManager.FindByEmailAsync(email);
-            if (user!=null)
+            if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -704,12 +707,12 @@ namespace ESTA.Controllers
                        );
 
                 EmailSender.Send_Mail(
-                    user.Email, 
-                    "Click this link to reset your password "+resetPasswordUrl, 
-                    "Reset Password", 
+                    user.Email,
+                    "Click this link to reset your password " + resetPasswordUrl,
+                    "Reset Password",
                     "Esta");
-            
-            return View("_Info", new Helpers.Info("Password Reset", "We Have Sent You via Email Reset Password Link"));
+
+                return View("_Info", new Helpers.Info("Password Reset", "We Have Sent You via Email Reset Password Link"));
             }
             return View("_Info", new Helpers.Info("Password Reset", "We Couldn't send Reset Password Link ,Review  Your Email and try again! "));
 
@@ -717,13 +720,11 @@ namespace ESTA.Controllers
 
         }
 
-
-
         [HttpGet]
-        public IActionResult ChangePassword(string email,string token)
+        public IActionResult ChangePassword(string email, string token)
         {
 
-            return View(new ResetPasswordViewModel(email,token) );
+            return View(new ResetPasswordViewModel(email, token));
         }
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ResetPasswordViewModel rpvm)
@@ -733,30 +734,22 @@ namespace ESTA.Controllers
             {
                 var user = await userManager.FindByEmailAsync(rpvm.Email);
                 var result = await userManager.ResetPasswordAsync(user, rpvm.Token, rpvm.NewPassword);
-               
 
-                if(result.Succeeded)
-                return View("_Info", new Info("Reset Password Succeeded", "your password has been changed .try to login now"));
+
+                if (result.Succeeded)
+                    return View("_Info", new Info("Reset Password Succeeded", "your password has been changed .try to login now"));
                 if (result.Errors.Any())
                     return View("_Info", new Info("Reset Password Failed", result.Errors.ToString()));
-            
-            }
-    
-                return View();
-          
-            
+
             }
 
+            return View();
 
 
-
-
-
+        }
 
         public async Task<IActionResult> Logout()
         {
-    
-
             await this.signInManager.SignOutAsync();
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
@@ -766,5 +759,7 @@ namespace ESTA.Controllers
         {
             return View();
         }
+
+
     }
 }

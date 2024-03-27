@@ -5,8 +5,15 @@
 }
 
 @model ESTA.ViewModels.EditUserPersonalInfoViewModel
+<style>
+    .uploadImg {
+        background-repeat: no-repeat;
+        height: 150px;
+        width: 150px;
+    }
+</style>
 
-<form method="post" asp-action="EditPersonalInfo"  enctype="multipart/form-data" asp-controller="Users">
+<form method="post" asp-action="EditPersonalInfo" enctype="multipart/form-data" asp-controller="Users">
     @Html.HiddenFor(y=>y.Id)
 
 
@@ -41,82 +48,110 @@
         <span asp-validation-for="@Model.MembershipNumber" class="text-danger"></span>
     </div>
 
-  
+
 
 
     <div class="">
-        @if (string.IsNullOrEmpty(Model.NationalCardID)) {
-          <div class="form-group ">
-            <label asp-for="@Model.Passport"></label>
-            <input  asp-for="@Model.Passport" class="form-control"
-                   autocomplete="username" />
+        @if (string.IsNullOrEmpty(Model.NationalCardID))
+        {
+            <div class="form-group ">
+                <label asp-for="@Model.Passport"></label>
+                <input asp-for="@Model.Passport" class="form-control"
+                       autocomplete="username" />
 
-            <span asp-validation-for="@Model.Passport" class="text-danger"></span>
+                <span asp-validation-for="@Model.Passport" class="text-danger"></span>
                 @{
                     var counter = 0;
-                    foreach(var image in Model.userImages)
+                    foreach (var image in Model.userImages)
                     {
-                        if(image.TypeId ==2)
+                        if (image.TypeId == 2)
                         {
                             counter++;
+                            //<div class="file-upload mb-3">
+                            //    <div class="image-upload-wrap">
+                            //        <input asp-for="PassportImages[0]" class="file-upload-input" id="img" accept="image/jpeg, image/png" type='file' onchange="readURL(this);" />
+                            //        <img class="img-fluid" id="imgSrc" src="@Url.Content("~"+image.Path)" alt="your image" />
+                            //    </div>
+                            //</div>
+
                             <a href="@image.Path" target="_blank">
                                 <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
-                     </a>
+                            </a>
+
                         }
 
 
                     }
 
-                    if(counter == 0)
+                    if (counter == 0)
                     {
                         <p>No Passport Photos Were Found</p>
                         <input asp-for="@Model.PassportImages" type="file" multiple class="form-control" />
                     }
-                }
-        </div>
-
-        
-        }else{
-           <div class="form-group  ">
-            <label asp-for="@Model.NationalCardID"></label>
-          
-           
-            <input  asp-for="@Model.NationalCardID" class="form-control"
-                   autocomplete="username" />
-       
-            <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
-                @{
-                    var counter=0;
-                    foreach(var image in Model.userImages)
+                    else
                     {
-                        @if(image.TypeId==1)
+                        <label asp-for="@Model.PassportImages"></label>
+                        <input asp-for="@Model.PassportImages" type="file" multiple class="form-control" accept="image/jpeg, image/png" />
+                    }
+                }
+            </div>
+
+
+        }
+        else
+        {
+            <div class="form-group  ">
+                <label asp-for="@Model.NationalCardID"></label>
+
+
+                <input asp-for="@Model.NationalCardID" class="form-control"
+                       autocomplete="username" />
+
+                <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
+                @{
+                    var counter = 0;
+                    foreach (var image in Model.userImages)
+                    {
+                        @if (image.TypeId == 1)
                         {
                             counter++;
-                            <a href="@image.Path" target="_blank">             <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
+                            //<div class="file-upload mb-3">
+                            //    <div class="image-upload-wrap">
+                            //        <input asp-for="NationalIdImages[0]" class="file-upload-input" id="img" accept="image/jpeg, image/png" type='file' onchange="readURL(this);" />
+                            //        <img class="img-fluid" id="imgSrc" src="@Url.Content("~"+image.Path)" alt="your image" />
+                            //    </div>
+                            //</div>
+                            <a href="@image.Path" target="_blank">
+                                <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
                             </a>
-               
-                }
+
+                        }
 
 
-            }
+                    }
 
-            @if(counter==0)
+                    @if (counter == 0)
                     {
                         <p>No National Id  Were Found</p>
                         <input asp-for="@Model.NationalIdImages" type="file" multiple class="form-control" />
                     }
-            }
-           
+                    else
+                    {
+                        <label asp-for="@Model.NationalIdImages"></label>
+                        <input asp-for="@Model.NationalIdImages" type="file" multiple class="form-control" accept="image/jpeg, image/png" />
+                    }
+                }
+
             </div>
 
         }
-     
-      
+
+
     </div>
 
     <div class="form-group">
         <label asp-for="@Model.Email"></label>
-        <input  asp-for="@Model.Email" class="form-control"
+        <input asp-for="@Model.Email" class="form-control"
                autocomplete="username" />
 
         <span asp-validation-for="@Model.Email" class="text-danger"></span>
@@ -140,7 +175,7 @@
     </div>*@
     <div class="form-group">
         <label asp-for="@Model.Birthdate"></label>
-        <input  asp-for="@Model.Birthdate" class="form-control"
+        <input asp-for="@Model.Birthdate" class="form-control"
                type="date" />
 
         <span asp-validation-for="@Model.Birthdate" class="text-danger"></span>

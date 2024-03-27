@@ -12,7 +12,7 @@
 
     @Html.HiddenFor(y=>y.Id)
 
-<h3>Education</h3>
+    <h3>Education</h3>
 
     @{
         var counter = 0;
@@ -24,67 +24,69 @@
 
                 <img src="@Url.Content("~"+image.Path)" width="150" height="150" />
             }
-
-
         }
 
-    @if (counter == 0)
-    {
-        <p>No Academic Qualification Images  Were Found</p>
-        <input asp-for="@Model.AcademicQualificationImages" type="file" multiple class="form-control" />
+        @if (counter == 0)
+        {
+            <p>No Academic Qualification Images  Were Found</p>
+            <input asp-for="@Model.AcademicQualificationImages" type="file" multiple class="form-control" />
+        }
+        else
+        {
+            <label asp-for="@Model.AcademicQualificationImages"></label>
+            <input asp-for="@Model.AcademicQualificationImages" type="file" multiple class="form-control" />
+        }
     }
 
+
+    @* <div id="prevImg"></div>
+    <button onclick="showImg()" class="btn btn-primary">Show</button>
+    <script>
+    function showImg(){
+    document.getElementById("prevImg").innerHTML = "<div style='z-index: 5555555; bottom: 93px; position: fixed; top: 25%; bottom: 150px; left: 5px; right: 5px; background-color: #e8efef; opacity: 0.9; border-radius: 30px;'> < img src = 'https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/06/095712/1.jpg?3534' /> </div > ";
+
     }
 
+    </script>*@
 
-       @* <div id="prevImg"></div>
-        <button onclick="showImg()" class="btn btn-primary">Show</button>
-        <script>
-            function showImg(){
-            document.getElementById("prevImg").innerHTML = "<div style='z-index: 5555555; bottom: 93px; position: fixed; top: 25%; bottom: 150px; left: 5px; right: 5px; background-color: #e8efef; opacity: 0.9; border-radius: 30px;'> < img src = 'https://eg.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/06/095712/1.jpg?3534' /> </div > ";
 
-            }
-     
-        </script>*@
 
-         
+    <div class="row">
 
-<div class="row">
+        <div class="form-group col-lg-4 col-sm-12">
+            <label asp-for="@Model.AcademicQualification"></label>
+            <input asp-for="@Model.AcademicQualification" class="form-control"
+                   autocomplete="username" />
 
-    <div class="form-group col-lg-4 col-sm-12">
-        <label asp-for="@Model.AcademicQualification"></label>
-        <input asp-for="@Model.AcademicQualification" class="form-control"
-               autocomplete="username" />
+            <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
 
-        <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
-            
+        </div>
+
+        <div class="form-group col-lg-4 col-sm-12">
+            <label asp-for="@Model.University"></label>
+            <input asp-for="@Model.University" class="form-control"
+                   autocomplete="username" />
+
+            <span asp-validation-for="@Model.University" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-lg-4 col-sm-12">
+            <label asp-for="@Model.GradutionYear"></label>
+            <input asp-for="@Model.GradutionYear" class="form-control"
+                   autocomplete="username" />
+
+            <span asp-validation-for="@Model.GradutionYear" class="text-danger"></span>
+        </div>
+
+
     </div>
 
-    <div class="form-group col-lg-4 col-sm-12">
-        <label asp-for="@Model.University"></label>
-        <input asp-for="@Model.University" class="form-control"
-               autocomplete="username" />
+    <div class="form-group">
+        <label asp-for="@Model.HighStudies"></label>
+        <input asp-for="@Model.HighStudies" class="form-control" />
 
-        <span asp-validation-for="@Model.University" class="text-danger"></span>
+        <span asp-validation-for="@Model.HighStudies" class="text-danger"></span>
     </div>
-
-    <div class="form-group col-lg-4 col-sm-12">
-    <label asp-for="@Model.GradutionYear"></label>
-    <input asp-for="@Model.GradutionYear" class="form-control"
-    autocomplete="username" />
-
-    <span asp-validation-for="@Model.GradutionYear" class="text-danger"></span>
-    </div>
-
-
-</div>
-
-<div class="form-group">
-    <label asp-for="@Model.HighStudies"></label>
-    <input asp-for="@Model.HighStudies" class="form-control" />
-
-    <span asp-validation-for="@Model.HighStudies" class="text-danger"></span>
-</div>
 
 
 

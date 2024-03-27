@@ -70,6 +70,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Academic Certificate.
+        /// </summary>
+        public static string academicqualificationImg {
+            get {
+                return ResourceManager.GetString("academicqualificationImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address in Arabic.
         /// </summary>
         public static string addressar {
@@ -246,6 +255,15 @@ namespace ESTA.Resources {
         public static string curr {
             get {
                 return ResourceManager.GetString("curr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current password.
+        /// </summary>
+        public static string currentpassword {
+            get {
+                return ResourceManager.GetString("currentpassword", resourceCulture);
             }
         }
         
@@ -592,6 +610,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to National Id Image.
+        /// </summary>
+        public static string NationalIdImagesImg {
+            get {
+                return ResourceManager.GetString("NationalIdImagesImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string orderdesc {
@@ -642,6 +669,15 @@ namespace ESTA.Resources {
         public static string passportcons {
             get {
                 return ResourceManager.GetString("passportcons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passport image.
+        /// </summary>
+        public static string passportImg {
+            get {
+                return ResourceManager.GetString("passportImg", resourceCulture);
             }
         }
         

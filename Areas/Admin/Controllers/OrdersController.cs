@@ -1,9 +1,11 @@
 ﻿using ESTA.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("RequireAdminRole")]
     public class OrdersController : Controller
     {
         private readonly IUnitOfWork unitOfWork;

@@ -39,7 +39,7 @@
 
 
 <div class="rounded-div" >
-  @*  <div class="row">
+@*    <div class="row">
         <form action="Search">
 			<input class="form-control" name="query" style="border-raduis:80px" id="search" oninput="SearchUser()" />
 			<input value="Search"  type="submit" />
@@ -84,8 +84,9 @@
        class="btn btn-info" asp-route-type=4 asp-area="Admin">@localizer["localmem"] </a>
 
 
-  
 
+
+    <a class="btn btn-success" asp-action="ExportUsersToFile" asp-controller="Users" asp-area="Admin"><i class="fa fa-regular fa-file-excel mx-1"></i>@localizer["exportToExcel"]</a>
 
 	<table id="courses-table" class="table table-striped animate__fadeIn " style="animation-duration:1s">
 		<thead>

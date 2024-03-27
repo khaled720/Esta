@@ -1,11 +1,13 @@
 ﻿using AutoMapper.Configuration.Conventions;
 using ESTA.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class PaymentsController : Controller
+    [Authorize("RequireAdminRole")]
+    public class PaymentsController : Controller
 	{
 		private readonly IUnitOfWork uow;
 

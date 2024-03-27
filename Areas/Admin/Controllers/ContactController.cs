@@ -1,10 +1,13 @@
 ﻿using ESTA.Models;
 using ESTA.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("RequireAdminRole")]
     public class ContactController : Controller
     {
         private readonly IUnitOfWork uow;

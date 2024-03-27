@@ -8,7 +8,7 @@ namespace ESTA.Repository
     {
         private readonly AppDbContext dbContext;
 
-        public UserImageRep( AppDbContext dbContext)
+        public UserImageRep(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -31,10 +31,25 @@ namespace ESTA.Repository
 
                 return false;
             }
-        
 
 
 
+
+        }
+
+        public async Task<bool> AddImages(UserImage images)
+        {
+            try
+            {
+                await dbContext.AddAsync(images);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public async Task<List<UserImage>> GetUserDocsImages(string userId)
@@ -56,15 +71,15 @@ namespace ESTA.Repository
         public async Task<List<UserImage>> GetUserNationalIdImages(string userId)
         {
             var Images = new List<UserImage>();
-         Images=await dbContext.UserImages.Where(x => x.UserId == userId&& x.TypeId==1).ToListAsync();
+            Images = await dbContext.UserImages.Where(x => x.UserId == userId && x.TypeId == 1).ToListAsync();
 
-            return Images;  
+            return Images;
         }
 
         public async Task<List<UserImage>> GetUserPassportImages(string userId)
         {
             var Images = new List<UserImage>();
-            Images = await dbContext.UserImages.Where(x => x.UserId == userId && x.TypeId ==2).ToListAsync();
+            Images = await dbContext.UserImages.Where(x => x.UserId == userId && x.TypeId == 2).ToListAsync();
 
             return Images;
         }
@@ -72,6 +87,14 @@ namespace ESTA.Repository
         public Task<bool> RemoveImage(int ImageId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task RemoveImageByTypeAsync(int TypeId, string userId)
+        {
+            var Images = new List<UserImage>();
+            Images = await dbContext.UserImages.Where(x => x.UserId == userId && x.TypeId == TypeId).ToListAsync();
+
+            dbContext.UserImages.RemoveRange(Images);
         }
     }
 }

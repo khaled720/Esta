@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("RequireAdminRole")]
     public class CoursesController : Controller
     {
         private readonly IUnitOfWork appRep;

@@ -8,9 +8,11 @@ namespace ESTA.Repository.IRepository
 
         public Task<bool> AddImage(UserImage image);
         public Task<bool> AddImages(List<UserImage> images);
+        public Task<bool> AddImages(UserImage images);
 
 
         public Task<bool> RemoveImage(int ImageId);
+        public Task RemoveImageByTypeAsync(int TypeId, string userId);
 
         public Task<List<UserImage>> GetUserNationalIdImages(string userId);
         public Task<List<UserImage>> GetUserPassportImages(string userId);

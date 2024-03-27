@@ -36,7 +36,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CertifiedMembers");
+                    b.ToTable("CertifiedMembers", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Areas.Admin.Models.PrerequisiteCourse", b =>
@@ -51,7 +51,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("PrerequisiteCourseId");
 
-                    b.ToTable("PrerequisiteCourses");
+                    b.ToTable("PrerequisiteCourses", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Areas.Payment.Models.CourseOrder", b =>
@@ -114,7 +114,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CoursesOrders");
+                    b.ToTable("CoursesOrders", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Areas.Payment.Models.CoursePayment", b =>
@@ -168,7 +168,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CoursesPayments");
+                    b.ToTable("CoursesPayments", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Areas.Payment.Models.MempershipOrder", b =>
@@ -234,7 +234,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MempershipOrders");
+                    b.ToTable("MempershipOrders", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Areas.Payment.Models.MempershipPayment", b =>
@@ -283,7 +283,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MempershipPayments");
+                    b.ToTable("MempershipPayments", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Areas.Payment.Models.Refund", b =>
@@ -329,7 +329,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefundRequests");
+                    b.ToTable("RefundRequests", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Contact", b =>
@@ -366,7 +366,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Content", b =>
@@ -391,7 +391,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contents");
+                    b.ToTable("Contents", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Course", b =>
@@ -445,7 +445,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Director", b =>
@@ -486,7 +486,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Directors");
+                    b.ToTable("Directors", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.EventsNews", b =>
@@ -533,7 +533,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventsNews");
+                    b.ToTable("EventsNews", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Forum", b =>
@@ -564,7 +564,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Forums");
+                    b.ToTable("Forums", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.ForumBannedUser", b =>
@@ -605,7 +605,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ForumBannedUser");
+                    b.ToTable("ForumBannedUser", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.GlobalConstants", b =>
@@ -624,7 +624,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Constants");
+                    b.ToTable("Constants", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.ImageType", b =>
@@ -641,7 +641,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ImageTypes");
+                    b.ToTable("ImageTypes", (string)null);
 
                     b.HasData(
                         new
@@ -675,7 +675,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels");
+                    b.ToTable("Levels", (string)null);
 
                     b.HasData(
                         new
@@ -712,7 +712,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ModeratorForums");
+                    b.ToTable("ModeratorForums", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.Question", b =>
@@ -736,7 +736,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
 
                     b.HasData(
                         new
@@ -818,7 +818,7 @@ namespace ESTA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("States");
+                    b.ToTable("States", (string)null);
 
                     b.HasData(
                         new
@@ -1051,7 +1051,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("UserAnswers");
+                    b.ToTable("UserAnswers", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
@@ -1080,7 +1080,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserCourses");
+                    b.ToTable("UserCourses", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.UserForum", b =>
@@ -1117,7 +1117,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("userId");
 
-                    b.ToTable("UsersForums");
+                    b.ToTable("UsersForums", (string)null);
                 });
 
             modelBuilder.Entity("ESTA.Models.UserImage", b =>
@@ -1145,7 +1145,7 @@ namespace ESTA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserImages");
+                    b.ToTable("UserImages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

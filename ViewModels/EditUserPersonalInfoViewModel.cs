@@ -108,20 +108,20 @@ namespace ESTA.ViewModels
         //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
         //    ErrorMessageResourceName = "required"
         //)]
-        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "passport")]
+        [Display(ResourceType = typeof(Resources.DataAnnotationsResource), Name = "passport")]
         public string? Passport { get; set; } = String.Empty;
 
-
+        [Display(ResourceType = typeof(Resources.DataAnnotationsResource), Name = "passportImg")]
         public List<IFormFile>?  PassportImages { get; set; }
-
+        [Display(ResourceType = typeof(Resources.DataAnnotationsResource), Name = "NationalIdImagesImg")]
         public List<IFormFile>?  NationalIdImages { get; set; }
 
         public List<UserImage> userImages { get; set; } =new List<UserImage>();
 
-        [Required(
-           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-           ErrorMessageResourceName = "required"
-       )]
+       // [Required(
+       //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+       //    ErrorMessageResourceName = "required"
+       //)]
         public string MembershipNumber { get; set; } = String.Empty;
 
 

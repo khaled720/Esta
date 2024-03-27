@@ -45,7 +45,11 @@ namespace ESTA.ViewModels
             Name = "highstudies"
         )]
         public string HighStudies { get; set; } = String.Empty;
-
+        //academicqualificationImg
+        [Display(
+            ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            Name = "academicqualificationImg"
+        )]
         public List<IFormFile> AcademicQualificationImages  { get; set; }
 
         public List<UserImage> userImages { get; set; } = new List<UserImage>();

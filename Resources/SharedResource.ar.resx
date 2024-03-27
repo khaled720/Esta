@@ -151,7 +151,7 @@
     <value>إضافة مستخدمين لهذه الدورة</value>
   </data>
   <data name="agreepolicy" xml:space="preserve">
-    <value>أوافق علي سياسة الإسترداد والخصوصية</value>
+    <value>أوافق على الشروط والأحكام وسياسة الخصوصية واسترداد الأموال والإلغاء</value>
   </data>
   <data name="allmem" xml:space="preserve">
     <value>جميع الاعضاء</value>
@@ -209,6 +209,9 @@
   </data>
   <data name="changepassheader" xml:space="preserve">
     <value>كلمة المرور الجديدة</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>تغيير كلمة السر</value>
   </data>
   <data name="codeofethics" xml:space="preserve">
     <value> قانون أخلاقيات المهنة</value>
@@ -270,6 +273,12 @@
   <data name="cpre" xml:space="preserve">
     <value>متطلبات الدورة</value>
   </data>
+  <data name="createadmin" xml:space="preserve">
+    <value>اضافة ادمن</value>
+  </data>
+  <data name="currentpassword" xml:space="preserve">
+    <value>كلمة السر القديمة</value>
+  </data>
   <data name="dashboard" xml:space="preserve">
     <value>شاشة التحكم</value>
   </data>
@@ -305,6 +314,9 @@
   </data>
   <data name="edu" xml:space="preserve">
     <value>التعليم</value>
+  </data>
+  <data name="education" xml:space="preserve">
+    <value>التعلم</value>
   </data>
   <data name="eduinfo" xml:space="preserve">
     <value>معلومات التعليم</value>
@@ -353,6 +365,9 @@
   </data>
   <data name="excellent" xml:space="preserve">
     <value>ممتاز</value>
+  </data>
+  <data name="exportToExcel" xml:space="preserve">
+    <value>تحميل ملف Excel</value>
   </data>
   <data name="fail" xml:space="preserve">
     <value>راسب</value>
@@ -472,7 +487,7 @@
     <value>المسؤولين</value>
   </data>
   <data name="movetopay" xml:space="preserve">
-    <value>الانتقال لصفحة الدفع</value>
+    <value>الدفع بالفيزا، ماستر كارد او ميزة</value>
   </data>
   <data name="mycourses" xml:space="preserve">
     <value>دوراتي</value>
@@ -544,21 +559,15 @@
     <value>ملاحظة: يجب أن تتكون كلمة المرور من 8 أحرف على الأقل، بما في ذلك حرف كبير وحرف صغير وحرف خاص[*,#,$] وارقام</value>
   </data>
   <data name="payinfo" xml:space="preserve">
-    <value>:سياسة الاسترجاع
-
-- رسوم العضوية لا يمكن استردادها
-
-:سياسة استرداد قيمة الدورة
-
-- استرداد كامل المبلغ: استرداد 100% إذا تم الإلغاء قبل أكثر من 7 أيام من بدء الدورة.
-
-- استرداد جزئي: استرداد 80% في حالة الإلغاء قبل 7 أيام من بداية الدورة.
-
-- لن يتم قبول أي استرداد في يوم بدء الدورة.
-
-- سياسة عدم الحضور: المرشحون المسجلون غير مؤهلين لاسترداد الأموال.
-
-- التحويل أو الرصيد: نحن نقدم خيار نقل التسجيل إلى دورة مستقبلية أو تقديم رصيد لعرض مختلف، والذي يمكن استخدامه خلال إطار زمني محدد.</value>
+    <value>&lt;p style='direction:rtl;'&gt;- لا يمكن استرداد رسوم العضوية (يتم تجديد العضوية في &lt;u&gt;يوليو من كل عام&lt;/u&gt;)&lt;br /&gt;
+&lt;br /&gt;
+&lt;strong&gt; سياسة استرداد وإلغاء الدورة التدريبية:&lt;/strong&gt;&lt;br /&gt;
+- استرداد كامل المبلغ: استرداد 100% إذا تم الإلغاء قبل أكثر من 7 أيام من بدء الدورة.&lt;br /&gt;
+- استرداد جزئي: استرداد 80% في حالة الإلغاء قبل &lt;u style="border-bottom: 1px dotted #000;
+    text-decoration: none;"&gt;7 أيام&lt;/u&gt; من بداية الدورة.&lt;br /&gt;
+- لن يتم قبول أي استرداد في يوم بدء الدورة.&lt;br /&gt;
+- سياسة عدم الحضور: المرشحون المسجلون غير مؤهلين لاسترداد الأموال.&lt;br /&gt;
+- التحويل أو الرصيد: نحن نقدم خيار نقل التسجيل إلى دورة مستقبلية أو تقديم رصيد لعرض مختلف، والذي يمكن استخدامه خلال إطار زمني محدد.&lt;/p&gt;</value>
   </data>
   <data name="paylater" xml:space="preserve">
     <value>الدفع لاحقا</value>
@@ -624,7 +633,7 @@
     <value>استرداد</value>
   </data>
   <data name="refundpolicy" xml:space="preserve">
-    <value>سياسة الإسترداد </value>
+    <value>سياسة الاسترداد والإلغاء</value>
   </data>
   <data name="regCourses" xml:space="preserve">
     <value>الدورات المسجلة</value>
@@ -712,6 +721,9 @@
   </data>
   <data name="upcourses" xml:space="preserve">
     <value>الدورات القادمة</value>
+  </data>
+  <data name="updatesSuccess" xml:space="preserve">
+    <value>لقد تم اجراء تعديلاتك بنجاح</value>
   </data>
   <data name="uremail" xml:space="preserve">
     <value>بريدك الالكتروني</value>

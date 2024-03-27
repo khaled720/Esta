@@ -1,12 +1,14 @@
 ﻿using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-	public class ResultsController : Controller
+    [Authorize("RequireAdminRole")]
+    public class ResultsController : Controller
 	{
 		private readonly IUnitOfWork uow;
 

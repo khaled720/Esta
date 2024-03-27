@@ -151,7 +151,7 @@
     <value>Add Users To This Course</value>
   </data>
   <data name="agreepolicy" xml:space="preserve">
-    <value>I Agree With Refund and Privacy Policy</value>
+    <value>I agree with Terms and conditions, privacy, refund and cancellation policy</value>
   </data>
   <data name="allmem" xml:space="preserve">
     <value>All Members</value>
@@ -220,6 +220,9 @@
   <data name="changepassheader" xml:space="preserve">
     <value>New Password</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
   <data name="codeofethics" xml:space="preserve">
     <value>Code of professional Ethics</value>
   </data>
@@ -280,6 +283,12 @@
   <data name="cpre" xml:space="preserve">
     <value>Course Prerequisite</value>
   </data>
+  <data name="createadmin" xml:space="preserve">
+    <value>Create Admin</value>
+  </data>
+  <data name="currentpassword" xml:space="preserve">
+    <value>Current password</value>
+  </data>
   <data name="dashboard" xml:space="preserve">
     <value>Admin Dashboard</value>
   </data>
@@ -314,6 +323,9 @@
     <value>Edit Level</value>
   </data>
   <data name="edu" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="education" xml:space="preserve">
     <value>Education</value>
   </data>
   <data name="eduinfo" xml:space="preserve">
@@ -363,6 +375,9 @@
   </data>
   <data name="excellent" xml:space="preserve">
     <value>Excellent</value>
+  </data>
+  <data name="exportToExcel" xml:space="preserve">
+    <value>Export to Excel</value>
   </data>
   <data name="fail" xml:space="preserve">
     <value>Failed</value>
@@ -485,7 +500,7 @@
     <value>Moderators</value>
   </data>
   <data name="movetopay" xml:space="preserve">
-    <value>Move to  Payment Page</value>
+    <value>Pay with visa, Master Card, Meeza</value>
   </data>
   <data name="mycourses" xml:space="preserve">
     <value>My Courses</value>
@@ -557,19 +572,15 @@
     <value>NOTE: password must be at least 8 characters including one uppercase,lowercase letter, one special character and alphanumeric characters</value>
   </data>
   <data name="payinfo" xml:space="preserve">
-    <value>- Membership fees can not be refunded
-
-Course Refund Policy:
-
-&lt;br&gt;- Full Refund:  100% refund if canceled more than 7 days before the course begins.
-
-&lt;br&gt;- Partial Refund: 80% refund for cancellations before 7 days from the beginning of the course.
-
-&lt;br&gt;- No Refund will be accepted the day of starting the course.
-
-&lt;br&gt;- No-Show Policy:  Registered Candidates are not eligible for a refund.
-
-&lt;br&gt;- Transfer or Credit: We offer the option to transfer the registration to a future course or provide a credit for a different offering, which can be used within a specific timeframe.</value>
+    <value>&lt;p&gt;- Membership fees cannot be refunded (membership renewal is in &lt;u&gt;July every year&lt;/u&gt;)&lt;br /&gt;
+ &lt;br /&gt;
+&lt;strong&gt; Course Refund &amp; Cancellation Policy:&lt;/strong&gt;&lt;br /&gt;
+- Full Refund: 100% refund if canceled more than 7 days before the course begins.&lt;br /&gt;
+- Partial Refund: 80% refund for cancellations before &lt;u style="border-bottom: 1px dotted #000;
+    text-decoration: none;"&gt;7 days&lt;/u&gt; from the beginning of the course.&lt;br /&gt;
+- No Refund will be accepted the day of starting the course.&lt;br /&gt;
+- No-Show Policy: Registered Candidates are not eligible for a refund.&lt;br /&gt;
+- Transfer or Credit: We offer the option to transfer the registration to a future course or provide a credit for a different offering, which can be used within a specific timeframe.&lt;/p&gt;</value>
   </data>
   <data name="paylater" xml:space="preserve">
     <value>Pay Later</value>
@@ -635,7 +646,7 @@ Course Refund Policy:
     <value>Refund</value>
   </data>
   <data name="refundpolicy" xml:space="preserve">
-    <value>Refund Policy</value>
+    <value>Refund &amp; Cancellation Policy</value>
   </data>
   <data name="regCourses" xml:space="preserve">
     <value>Registred Courses</value>
@@ -723,6 +734,9 @@ Course Refund Policy:
   </data>
   <data name="upcourses" xml:space="preserve">
     <value>Upcoming Courses</value>
+  </data>
+  <data name="updatesSuccess" xml:space="preserve">
+    <value>Your updates have been commited successfully</value>
   </data>
   <data name="uremail" xml:space="preserve">
     <value>Email</value>

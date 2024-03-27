@@ -1,18 +1,17 @@
-﻿
-@model object
+﻿@model object
 
 
 <form id="form1" runat="server">
-  
+
 
     <div id="embed-target"></div>
-   @* @Model.ToString()*@
+    @* @Model.ToString()*@
 
     <br />
 
 
-@*    <%-- <input type="button" value="Pay with Embedded Page" onclick="Checkout.showEmbeddedPage('#embed-target');" />--%>*@
- 
+    @*    <%-- <input type="button" value="Pay with Embedded Page" onclick="Checkout.showEmbeddedPage('#embed-target');" />--%>*@
+
 
 
     <div class="row justify-content-center">
@@ -20,38 +19,42 @@
         <h3 class="col-8">@localizer["refundpolicy"]</h3>
 
         <p class="col-8">
-            <div style="height:250px;overflow:auto;width:60%">
-			@Html.Raw( @localizer["payinfo"] )
-    </div>
-   
-        </p>
-  
-        <div  class="col-8 row  chk-ar" style="margin:25px;">
+            <div style="width:60%">
+                @Html.Raw( @localizer["payinfo"] )
 
-     
+                <a target="_blank" asp-area="" asp-action="terms" asp-controller="Home">@localizer["termsCon"]</a>
+                .
+                <a target="_blank" asp-area="" asp-action="privacy" asp-controller="Home">@localizer["pp"]</a>
+            </div>
+        </p>
+
+        <div class="col-8 row  chk-ar" style="margin:25px;">
+
+
             <label>
-                <input id="agree-chkbox" onchange="checkAgree()"  style="width:15px" type="checkbox" />
+                <input id="agree-chkbox" onchange="checkAgree()" style="width:15px" type="checkbox" />
                 @localizer["agreepolicy"]
             </label>
 
         </div>
 
-		<div class="col-12" style=" margin:25px;display:flex;justify-content:center; height:40px">
-			<img src="~/images/payment/mastercard acceptance sign.png" />
-			<img src="~/images/payment/meeza_cards_logo.png" />
-			<img src="~/images/payment/visa acceptance sign.png" />
-</div>
-	
+        <div class="col-12" style=" margin:25px;display:flex;justify-content:center; height:40px;gap: 5px;">
+            <img src="@Url.Content("~/images/payment/qnb alahli logo.png")" />
+            <img src="@Url.Content("~/images/payment/mastercard acceptance sign.png")" />
+            <img src="@Url.Content("~/images/payment/meeza_cards_logo.png")" />
+            <img src="@Url.Content("~/images/payment/visa acceptance sign.png")" />
+        </div>
 
-		<input class="btn col-8 btn-primary" id="movePaymentBtn"  disabled  type="button" value="@localizer["movetopay"]" onclick="Checkout.showPaymentPage();" />
 
-</div>
-	<br />
-	<br />
-<br />
-<br />
+        <input class="btn col-8 btn-primary" id="movePaymentBtn" disabled type="button" value="@localizer["movetopay"]" onclick="Checkout.showPaymentPage();" />
 
-	<script src="~/js/move-to-payment.js"></script>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <script src="~/js/move-to-payment.js"></script>
 
     <script src="https://qnbalahli.test.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"> </script>
     <script type="text/javascript">

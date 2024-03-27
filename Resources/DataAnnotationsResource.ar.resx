@@ -120,6 +120,9 @@
   <data name="academicqualification" xml:space="preserve">
     <value>المؤهل العلمي</value>
   </data>
+  <data name="academicqualificationImg" xml:space="preserve">
+    <value>صورة المؤهل الدراسي</value>
+  </data>
   <data name="addressar" xml:space="preserve">
     <value>العنوان بالعربية</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="curr" xml:space="preserve">
     <value>العملة</value>
+  </data>
+  <data name="currentpassword" xml:space="preserve">
+    <value>كلمة السر القديمة</value>
   </data>
   <data name="descar" xml:space="preserve">
     <value>الوصف باللغة العربية</value>
@@ -294,6 +300,9 @@
   <data name="nationalidcons" xml:space="preserve">
     <value>رقم بطاقة تحقيق الشخصية يجب ان يكون 14 رقما</value>
   </data>
+  <data name="NationalIdImagesImg" xml:space="preserve">
+    <value>صورة البطاقة</value>
+  </data>
   <data name="orderdesc" xml:space="preserve">
     <value>وصف الطلب</value>
   </data>
@@ -311,6 +320,9 @@
   </data>
   <data name="passportcons" xml:space="preserve">
     <value>رقم جواز السفر يجب ان يكون 8 ارقام</value>
+  </data>
+  <data name="passportImg" xml:space="preserve">
+    <value>صورة جواز السفر</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>كلمة المرور</value>

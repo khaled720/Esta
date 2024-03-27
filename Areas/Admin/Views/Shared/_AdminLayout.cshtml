@@ -11,11 +11,11 @@
     var isModerator = false;
     var user = await userManager.GetUserAsync(User);
 
-    if (await userManager.IsInRoleAsync(user, "Admin"))
+    if (user != null && await userManager.IsInRoleAsync(user, "Admin"))
     {
         Admin = true;
     }
-       if (await userManager.IsInRoleAsync(user, "Moderator"))
+    if (user != null && await userManager.IsInRoleAsync(user, "Moderator"))
     {
         isModerator = true;
     }
@@ -94,17 +94,17 @@
 
                                 @if (Admin)
                                 {
-                                   @* <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
-                                    </li>*@
-                             
-                                    <li class="nav-item-link">
+                                    @* <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
+                                </li>*@
+
+                                    @*<li class="nav-item-link">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
                                     </li>
 
                                     <li class="nav-item-link">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a>
-                                    </li>
+                                    </li>*@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
                                     </li>
@@ -115,28 +115,55 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a>
-                                    </li>
+                                    </li>*@
 
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
-                                    </li>
+                                    </li>*@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="Admin" asp-controller="Payments" asp-action="Index">@localizer["payments"]</a>
                                     </li>
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="Admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a>
+                                    </li>*@
+                                    
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            @localizer["education"]
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a></li>
+                                        </ul>
                                     </li>
-                                           <li class="nav-item">
-                                        <a class=" btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">@*@localizer["home"]*@
-                                        <i class="fas fa-home"></i>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            @localizer["usersmanagement"]
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Account" asp-action="CreateAdmin">@localizer["createadmin"]</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Account" asp-action="UserChangePassword">@localizer["ChangePassword"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class=" btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">
+                                            @*@localizer["home"]*@
+                                            <i class="fas fa-home"></i>
                                         </a>
                                     </li>
-                                }else if(isModerator){
+                                }
+                                else if (isModerator)
+                                {
                                     <li class="nav-item">
                                         <a class=" btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">
                                             @localizer["home"]
@@ -145,7 +172,7 @@
                                     </li>
 
                                 }
-                   
+
                             </ul>
 
 
