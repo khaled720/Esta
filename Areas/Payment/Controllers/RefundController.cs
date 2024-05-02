@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Configuration;
+using System.Security.Claims;
 using ESTA.Areas.Payment.Models;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
@@ -11,10 +12,13 @@ namespace ESTA.Areas.Payment.Controllers
     public class RefundController : Controller
     {
         private readonly IUnitOfWork uow;
+        private readonly IConfiguration _configuration;
 
-        public RefundController(IUnitOfWork dbContext)
+        public RefundController(IUnitOfWork dbContext,
+            IConfiguration configuration)
         {
             this.uow = dbContext;
+            _configuration = configuration;
         }
         [Authorize]
         public async Task<IActionResult> Index()
@@ -53,7 +57,8 @@ namespace ESTA.Areas.Payment.Controllers
                         "Esta Refund Request",
                         "Esta"
                     );
-         var email=await   uow.UserRep.GetAdminUserEmail();
+            //var email=await   uow.UserRep.GetAdminUserEmail();
+            var email = _configuration.GetValue<string>("Mail:AdminMail");
             EmailSender.Send_Mail(
                 email,
                      "refund request has been placed with <br> Serial Number <b>"

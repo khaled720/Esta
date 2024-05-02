@@ -57,12 +57,13 @@ namespace ESTA.Repository
                 DbCourse.SuccessPersentage = UpdatedCourse.SuccessPersentage;
                 DbCourse.Title = UpdatedCourse.Title;
                 DbCourse.Price = UpdatedCourse.Price;
-           //  DbCourse.PaymentLink = UpdatedCourse.PaymentLink;
+                //  DbCourse.PaymentLink = UpdatedCourse.PaymentLink;
                 DbCourse.Description = UpdatedCourse.Description;
                 DbCourse.DescriptionAr = UpdatedCourse.DescriptionAr;
                 DbCourse.TitleAr = UpdatedCourse.TitleAr;
                 DbCourse.PhotoPath = UpdatedCourse.PhotoPath;
-                if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount) {
+                if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount)
+                {
                     DbCourse.MaxAllowedMembersCount = UpdatedCourse.MaxAllowedMembersCount;
                 }
                 this.appContext.SaveChanges();
@@ -81,19 +82,19 @@ namespace ESTA.Repository
         {
             try
             {
-       return await appContext.Courses.AsNoTracking().ToListAsync();
-        
-     
+                return await appContext.Courses.AsNoTracking().ToListAsync();
+
+
             }
             catch (Exception)
             {
 
-          return Enumerable.Empty<Course>();
+                return Enumerable.Empty<Course>();
             }
-         
+
         }
 
-    
+
 
 
         public async Task<IEnumerable<Course>> GetAllCoursesByLevel(int LevelId)
@@ -106,29 +107,29 @@ namespace ESTA.Repository
 
         public async Task<IEnumerable<Course>> GetAllCetaCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId < 4).AsNoTracking().ToListAsync();
+            return await appContext.Courses.Where(y => y.LevelId < 4).OrderBy(x => x.StartDate).AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllOtherCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId == 4).AsNoTracking().ToListAsync();
+            return await appContext.Courses.Where(y => y.LevelId == 4).OrderBy(x => x.StartDate).AsNoTracking().ToListAsync();
         }
 
         public async Task<Course> GetCourse(int id)
         {
             try
             {
-      return await appContext.Courses
-                //.AsNoTracking()
-                .Include(y => y.level)
-                .Where(y => y.Id == id)
-                .FirstAsync();
+                return await appContext.Courses
+                          //.AsNoTracking()
+                          .Include(y => y.level)
+                          .Where(y => y.Id == id)
+                          .FirstAsync();
             }
             catch (Exception)
             {
                 return null;
             }
-      
+
         }
 
         public async Task<List<UserCourse>> GetEnrolledUsersInCourse(int id)
@@ -138,7 +139,7 @@ namespace ESTA.Repository
                 .AsNoTracking()
                 .Where(y => y.CourseId == id)
                 .Include(y => y.user)
-                .Include(y=>y.state)
+                .Include(y => y.state)
                 .ToListAsync();
         }
 
@@ -154,9 +155,9 @@ namespace ESTA.Repository
             var CetaHolders = new List<User>();
             var CompletedCetaCourses = await appContext.UserCourses
                 .Include(y => y.course)
-                .Include(y=>y.user)
+                .Include(y => y.user)
                 .Where(y => y.StateId == 3)
-                .Where(y=>y.course.LevelId!=4)
+                .Where(y => y.course.LevelId != 4)
                 .ToListAsync();
 
             var UniqueUsers = CompletedCetaCourses.DistinctBy(y => y.UserId);
@@ -177,8 +178,8 @@ namespace ESTA.Repository
 
             try
             {
-            
-                var course =await appContext.Courses.OrderBy(y=>y.StartDate)
+
+                var course = await appContext.Courses.OrderBy(y => y.StartDate)
                     .Where(y => y.StartDate > DateTime.Now).FirstOrDefaultAsync();
                 return course;
 
@@ -196,8 +197,8 @@ namespace ESTA.Repository
 
             try
             {
-             return   await appContext.Courses.AsQueryable().Where(y => y.Title.Contains(query)).ToListAsync();
-               
+                return await appContext.Courses.AsQueryable().Where(y => y.Title.Contains(query)).ToListAsync();
+
             }
             catch (Exception)
             {
@@ -211,7 +212,7 @@ namespace ESTA.Repository
         {
             try
             {
-             return await   appContext.UserCourses.Where(y=>y.CourseId==courseId&&y.UserId==userId).AnyAsync();
+                return await appContext.UserCourses.Where(y => y.CourseId == courseId && y.UserId == userId).AnyAsync();
             }
             catch (Exception ex)
             {
@@ -219,14 +220,14 @@ namespace ESTA.Repository
             }
         }
 
-        
+
 
 
 
         public async Task<int> GetEnrolledUsersInCourseLength(int courseId)
         {
 
-            var usersNumber= await appContext.UserCourses
+            var usersNumber = await appContext.UserCourses
             .AsNoTracking()
             .Where(y => y.CourseId == courseId).CountAsync();
             return usersNumber;
@@ -238,14 +239,15 @@ namespace ESTA.Repository
             try
             {
 
-         var usercourse = await appContext.UserCourses
-                .Where(y => y.CourseId == courseId && y.UserId == userId).AsTracking()
-                .FirstOrDefaultAsync();
+                var usercourse = await appContext.UserCourses
+                       .Where(y => y.CourseId == courseId && y.UserId == userId).AsTracking()
+                       .FirstOrDefaultAsync();
                 usercourse.StateId = StateId;
 
                 return true;
-        
-            }catch (Exception)
+
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -260,8 +262,8 @@ namespace ESTA.Repository
                 appContext.PrerequisiteCourses.RemoveRange(
                     appContext.PrerequisiteCourses.Where(y => y.MainCourseId == prerequisiteCourses[0].MainCourseId).ToList()
                     );
-                
-          await      appContext.PrerequisiteCourses.AddRangeAsync(prerequisiteCourses);
+
+                await appContext.PrerequisiteCourses.AddRangeAsync(prerequisiteCourses);
 
                 return true;
             }
@@ -278,9 +280,9 @@ namespace ESTA.Repository
             {
 
 
-                return await appContext.PrerequisiteCourses.Where(y => y.MainCourseId == MainCourseId 
+                return await appContext.PrerequisiteCourses.Where(y => y.MainCourseId == MainCourseId
                 && y.PrerequisiteCourseId == PreCourseId).AnyAsync();
-               
+
 
             }
             catch (Exception)
@@ -296,7 +298,7 @@ namespace ESTA.Repository
             {
 
 
-                return await appContext.PrerequisiteCourses.Where(y => y.MainCourseId == MainCourseId).Include(y=>y.prerequisiteCourse).ToListAsync();
+                return await appContext.PrerequisiteCourses.Where(y => y.MainCourseId == MainCourseId).Include(y => y.prerequisiteCourse).ToListAsync();
 
 
             }

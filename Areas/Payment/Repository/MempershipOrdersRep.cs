@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Areas.Payment.Repository
 {
-    public class MempershipOrdersRep :IMempershipOrders
+    public class MempershipOrdersRep : IMempershipOrders
     {
         private readonly AppDbContext appContext;
 
-        public MempershipOrdersRep( AppDbContext appContext) 
+        public MempershipOrdersRep(AppDbContext appContext)
         {
             this.appContext = appContext;
         }
@@ -19,7 +19,7 @@ namespace ESTA.Areas.Payment.Repository
         {
             try
             {
-                var result =await appContext.MempershipOrders.MaxAsync(y=>y.Id);
+                var result = await appContext.MempershipOrders.MaxAsync(y => y.Id);
                 return result;
             }
             catch (Exception)
@@ -33,11 +33,13 @@ namespace ESTA.Areas.Payment.Repository
         {
             try
             {
-                return await appContext.MempershipOrders.ToListAsync(); 
+                return await appContext.MempershipOrders
+                    .Include(x => x.User)
+                    .ToListAsync();
             }
             catch (Exception)
             {
-return new List<MempershipOrder>();
+                return new List<MempershipOrder>();
             }
         }
 
@@ -45,7 +47,7 @@ return new List<MempershipOrder>();
         {
             try
             {
-         return await appContext.MempershipOrders.FindAsync(orderId)??new MempershipOrder();
+                return await appContext.MempershipOrders.FindAsync(orderId) ?? new MempershipOrder();
 
             }
             catch (Exception)
@@ -53,7 +55,7 @@ return new List<MempershipOrder>();
 
                 throw;
             }
-   
+
         }
 
         public async Task<int> GetOrdersLength()
@@ -72,7 +74,7 @@ return new List<MempershipOrder>();
         public async Task<bool> SavePrepareOrder(MempershipOrder mempershipOrder)
         {
 
-          await  appContext.MempershipOrders.AddAsync(mempershipOrder);
+            await appContext.MempershipOrders.AddAsync(mempershipOrder);
 
             return true;
 
@@ -80,7 +82,7 @@ return new List<MempershipOrder>();
 
         public bool UpdatePrepareOrder(MempershipOrder mempershipOrder)
         {
-             appContext.MempershipOrders.Update(mempershipOrder);
+            appContext.MempershipOrders.Update(mempershipOrder);
 
             return true;
         }

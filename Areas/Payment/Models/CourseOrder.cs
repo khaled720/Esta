@@ -12,9 +12,9 @@ namespace ESTA.Areas.Payment.Models
     public class CourseOrder
     {
 
-        public int Id       { get; set; }
+        public int Id { get; set; }
 
-        public User? User { get;  set; }
+        public User? User { get; set; }
         public string UserId { get; set; } = string.Empty;
 
 
@@ -29,67 +29,67 @@ namespace ESTA.Areas.Payment.Models
 
         [Display(ResourceType = typeof(ESTA.Resources
             .DataAnnotationsResource), Name = "cdate")]
-        public string CreationTime { get; set; }=DateTime.Now.ToString();
+        public string CreationTime { get; set; } = DateTime.Now.ToString();
 
         [Display(ResourceType = typeof(ESTA.Resources
             .DataAnnotationsResource), Name = "orderum")]
-        public string OrderNumber    { get; set; } = string.Empty;
+        public string OrderNumber { get; set; } = string.Empty;
 
         [Display(ResourceType = typeof(ESTA.Resources
             .DataAnnotationsResource), Name = "curr")]
-        public string Currency      { get; set; } ="EGP";
+        public string Currency { get; set; } = "EGP";
         [Display(ResourceType = typeof(ESTA.Resources
         .DataAnnotationsResource), Name = "amount")]
-        public double Amount    { get; set; }
+        public double Amount { get; set; }
 
         [Display(ResourceType = typeof(ESTA.Resources
  .DataAnnotationsResource), Name = "orderdesc")]
-        public string?  OrderDescription      { get; set; } = string.Empty;
+        public string? OrderDescription { get; set; } = string.Empty;
         [Display(ResourceType = typeof(ESTA.Resources
  .DataAnnotationsResource), Name = "orderref")]
-        public string? OrderReference    {   get; set; } = string.Empty;
+        public string? OrderReference { get; set; } = string.Empty;
         [Display(ResourceType = typeof(ESTA.Resources
  .DataAnnotationsResource), Name = "transref")]
-        public string? TransactionReference   { get; set; } = string.Empty;
+        public string? TransactionReference { get; set; } = string.Empty;
 
-        [Column(TypeName ="ntext")]
-        public string?  PrepareJsonResponse         { get; set; } = string.Empty;
+        [Column(TypeName = "ntext")]
+        public string? PrepareJsonResponse { get; set; } = string.Empty;
 
         // "result": "SUCCESS"
         [Display(ResourceType = typeof(ESTA.Resources
 .DataAnnotationsResource), Name = "status")]
-        public string? OrderResult       { get; set; } = string.Empty;
+        public string? OrderResult { get; set; } = string.Empty;
 
-        public string? SessionId         { get; set; } = string.Empty; //save that 
+        public string? SessionId { get; set; } = string.Empty; //save that 
 
-        public string? SuccessIndicator  { get; set; } = string.Empty; //we save that in session
+        public string? SuccessIndicator { get; set; } = string.Empty; //we save that in session
 
         [Column(TypeName = "ntext")]
         public string? PostOrderJsonResponse { get; set; } = string.Empty;
 
 
 
-        public void BuildOrder(Course course) 
+        public void BuildOrder(Course course)
         {
             try
             {
-   Random random =new  Random(100);
+                Random random = new Random(100);
 
-        //    this.OrderNumber ="Co-"+random.NextInt64(500,1000000000000000000).ToString();
-            ////course.Title.Replace(" ","") + "_" + course.level.TypeName.Replace(" ", "")
-            //    + "_" +
-            this.OrderDescription = course.Title + " " + course.level.TypeName;
-            this.Amount = (double)course.Price;
-            this.Course = course;
-            this.CourseId = course.Id;
+                //    this.OrderNumber ="Co-"+random.NextInt64(500,1000000000000000000).ToString();
+                ////course.Title.Replace(" ","") + "_" + course.level.TypeName.Replace(" ", "")
+                //    + "_" +
+                this.OrderDescription = course.Title + " " + course.level.TypeName;
+                this.Amount = (double)course.Price;
+                this.Course = course;
+                this.CourseId = course.Id;
             }
             catch (Exception ex)
             {
 
-               // new LogManager(hostEnvironment).WriteInLogFile
+                // new LogManager(hostEnvironment).WriteInLogFile
 
             }
-         
+
             return;
 
         }
@@ -97,17 +97,17 @@ namespace ESTA.Areas.Payment.Models
         {
             try
             {
-var obj = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(response);
+                var obj = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(response);
 
-            this.TransactionReference = obj["transaction"]["reference"];
+                this.TransactionReference = obj["transaction"]["reference"];
 
-            this.PrepareJsonResponse = response;
+                this.PrepareJsonResponse = response;
 
-            this.OrderReference = obj["order"]["reference"];
+                this.OrderReference = obj["order"]["reference"];
             }
             catch (Exception ex)
             {
-   //             LogManager.WriteInLogFile(ex.Message);
+                //             LogManager.WriteInLogFile(ex.Message);
 
             }
 
@@ -127,12 +127,12 @@ var obj = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(response);
                 this.SuccessIndicator = obj2["successIndicator"];
 
                 this.SessionId = obj2["session"]["id"];
-                this.OrderResult=obj2["result"];
+                this.OrderResult = obj2["result"];
                 this.PostOrderJsonResponse = response;
             }
             catch (Exception ex)
             {
-         //       LogManager.WriteInLogFile(ex.Message);
+                //       LogManager.WriteInLogFile(ex.Message);
 
             }
 

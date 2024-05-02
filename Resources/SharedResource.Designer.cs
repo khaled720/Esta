@@ -1915,6 +1915,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User&apos;s answers.
+        /// </summary>
+        public static string usersAnswers {
+            get {
+                return ResourceManager.GetString("usersAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users Management.
         /// </summary>
         public static string usersmanagement {

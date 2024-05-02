@@ -13,22 +13,22 @@ namespace ESTA.Areas.Payment.Repository
         {
             this.appContext = appContext;
         }
-     public async Task<bool> SavePrepareOrder(CourseOrder courseOrder)
+        public async Task<bool> SavePrepareOrder(CourseOrder courseOrder)
         {
-          await   appContext.CoursesOrders.AddAsync(courseOrder);
+            await appContext.CoursesOrders.AddAsync(courseOrder);
             return true;
 
         }
 
-        public bool  UpdatePrepareOrder(CourseOrder courseOrder)
+        public bool UpdatePrepareOrder(CourseOrder courseOrder)
         {
-             appContext.CoursesOrders.Update(courseOrder);
+            appContext.CoursesOrders.Update(courseOrder);
 
             return true;
         }
         public async Task<CourseOrder> GetOrder(int orderId)
         {
-  return       await appContext.CoursesOrders.FindAsync(orderId)??new CourseOrder();
+            return await appContext.CoursesOrders.FindAsync(orderId) ?? new CourseOrder();
         }
 
         public Task<bool> PostOrder(CourseOrder courseOrder)
@@ -40,26 +40,29 @@ namespace ESTA.Areas.Payment.Repository
         {
             try
             {
-   return await  appContext.CoursesOrders.CountAsync();
+                return await appContext.CoursesOrders.CountAsync();
             }
             catch (Exception)
             {
                 return 0;
-            
+
             }
-   
+
         }
 
         public async Task<List<CourseOrder>> GetCoursesOrders()
         {
             try
             {
-                return await appContext.CoursesOrders.ToListAsync();    
+                return await appContext.CoursesOrders
+                    .Include(x => x.User)
+                    .Include(x => x.Course)
+                    .ToListAsync();
             }
             catch (Exception)
             {
 
-       return new List<CourseOrder>();
+                return new List<CourseOrder>();
             }
         }
 
@@ -67,7 +70,7 @@ namespace ESTA.Areas.Payment.Repository
         {
             try
             {
-                var result =await  appContext.CoursesOrders.MaxAsync(y => y.Id);
+                var result = await appContext.CoursesOrders.MaxAsync(y => y.Id);
                 return result;
             }
             catch (Exception)
@@ -76,12 +79,12 @@ namespace ESTA.Areas.Payment.Repository
             }
         }
 
-        public async Task<CourseOrder> GetOrderByNumber(string ordernumber,string userId)
+        public async Task<CourseOrder> GetOrderByNumber(string ordernumber, string userId)
         {
             try
             {
-       var courseOrder=         await appContext.CoursesOrders
-                    .Where(y => y.OrderNumber == ordernumber&&y.UserId==userId).FirstOrDefaultAsync();
+                var courseOrder = await appContext.CoursesOrders
+                             .Where(y => y.OrderNumber == ordernumber && y.UserId == userId).FirstOrDefaultAsync();
                 return courseOrder;
             }
             catch (Exception)

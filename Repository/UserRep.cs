@@ -178,7 +178,8 @@ namespace ESTA.Repository
                 {
                     case "Egypt":
                         return false;
-
+                    case "مصر":
+                        return false;
                     default:
                         return true;
                   

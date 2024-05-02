@@ -1,10 +1,9 @@
 ﻿//Registration Form JS
-document.getElementById("old").onclick = () =>
-{  if (document.getElementById("old").checked == true)
-    {
-    document.getElementById("memnumgroup").style.display = 'block';
-    document.getElementById("memnum").setAttribute("required", true);
-}
+document.getElementById("old").onclick = () => {
+    if (document.getElementById("old").checked == true) {
+        document.getElementById("memnumgroup").style.display = 'block';
+        document.getElementById("memnum").setAttribute("required", true);
+    }
 }
 document.getElementById("new").onclick = () => {
     if (document.getElementById("new").checked == true) {
@@ -17,69 +16,69 @@ document.getElementById("new").onclick = () => {
 
 
 //Image validation if provided national id then you have to add national id image if provided passport id then must add img if nor porvided anything idno required
- /*
+/*
 document.getElementById("idno").onblur = () =>
 {
-    var value = document.getElementById("idno").value;
-    if (value != "" && value != null) {
-        document.getElementById("idnoImg").setAttribute("required",true);
-        document.getElementById("passportImg").removeAttribute("required");
-        document.getElementById("passportImg-error").remove();
-    } else {
-        document.getElementById("idnoImg").setAttribute("required", true);
-        document.getElementById("passportImg").removeAttribute("required");
-    }
+   var value = document.getElementById("idno").value;
+   if (value != "" && value != null) {
+       document.getElementById("idnoImg").setAttribute("required",true);
+       document.getElementById("passportImg").removeAttribute("required");
+       document.getElementById("passportImg-error").remove();
+   } else {
+       document.getElementById("idnoImg").setAttribute("required", true);
+       document.getElementById("passportImg").removeAttribute("required");
+   }
 }
 document.getElementById("passport").onblur = () => {
-    var value = document.getElementById("passport").value;
-    if (value != "" && value != null) {
-        document.getElementById("passportImg").setAttribute("required", true);
-        document.getElementById("idno").removeAttribute("required");
-        document.getElementById("idnoImg").removeAttribute("required");
-        document.getElementById("idnoImg-error").remove();
+   var value = document.getElementById("passport").value;
+   if (value != "" && value != null) {
+       document.getElementById("passportImg").setAttribute("required", true);
+       document.getElementById("idno").removeAttribute("required");
+       document.getElementById("idnoImg").removeAttribute("required");
+       document.getElementById("idnoImg-error").remove();
 
-    } else {
-        document.getElementById("idnoImg").setAttribute("required", true);
-        document.getElementById("passportImg").removeAttribute("required");
-    }
+   } else {
+       document.getElementById("idnoImg").setAttribute("required", true);
+       document.getElementById("passportImg").removeAttribute("required");
+   }
 
 }
 
 
 
 document.onreadystatechange = () => {
-    if (document.readyState.toString() == "complete") {
-        var idno = document.getElementById("idno").value;
-        var pass = document.getElementById("passport").value;
-        if (idno != "" && idno != null) { //idno provided
-            document.getElementById("idnoImg").setAttribute("required", true);
-            document.getElementById("passportImg").removeAttribute("required");
-            document.getElementById("passportImg-error").remove();
-        } else {
-            if (pass != "" && pass != null) {
-                document.getElementById("passportImg").setAttribute("required", true);
+   if (document.readyState.toString() == "complete") {
+       var idno = document.getElementById("idno").value;
+       var pass = document.getElementById("passport").value;
+       if (idno != "" && idno != null) { //idno provided
+           document.getElementById("idnoImg").setAttribute("required", true);
+           document.getElementById("passportImg").removeAttribute("required");
+           document.getElementById("passportImg-error").remove();
+       } else {
+           if (pass != "" && pass != null) {
+               document.getElementById("passportImg").setAttribute("required", true);
 
-            } else {
-                document.getElementById("idnoImg").setAttribute("required", true);
-                document.getElementById("passportImg").removeAttribute("required");
-            }
-        }
+           } else {
+               document.getElementById("idnoImg").setAttribute("required", true);
+               document.getElementById("passportImg").removeAttribute("required");
+           }
+       }
 
 
-    }
+   }
 
 
 };
 */
 
-var currentTab =0; // Current tab is set to be the first tab (0)
+var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
 function showTab(n) {
     // This function will display the specified tab of the form ...
     var x = document.getElementsByClassName("tab");
 
-    if (n <= 4 ) {
+    if (n <= 4) {
         x[n].style.display = "block";
     }
     else {
@@ -102,7 +101,7 @@ function showTab(n) {
 
         document.getElementById("nextBtn").innerHTML = "Submit";
 
-        document.getElementById("nextBtn").desabled = true; /// when agree checkbox clicked this is changed
+        document.getElementById("nextBtn").disabled = true; /// when agree checkbox clicked this is changed
 
 
     } else {
@@ -142,7 +141,7 @@ function nextPrev(n) {
 
 
             }
-            
+
         }
 
 
@@ -152,7 +151,7 @@ function nextPrev(n) {
         // Hide the current tab:
         x[currentTab].style.display = "none";
 
-    
+
         // Increase or decrease the current tab by 1:
         currentTab = currentTab + n;
         // if you have reached the end of the form... :
@@ -161,7 +160,7 @@ function nextPrev(n) {
         if (currentTab >= x.length) {
             //...the form gets submitted:
             document.getElementById("spinner").style.display = "block";
-          //  document.getElementById("nextBtn").attributes.add("disabled");
+            //  document.getElementById("nextBtn").attributes.add("disabled");
             document.getElementById("regForm").submit();
             document.getElementById("nextBtn").display = "none";
             return false;
@@ -181,25 +180,24 @@ function nextPrev(n) {
 
 function validateForm() {
 
-   var s=$("#regForm").valid();
+    var s = $("#regForm").valid();
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
 
 
-    if (currentTab==0&&
+    if (currentTab == 0 &&
         document.getElementById("idnoImg").files != null
         &&
         document.getElementById("idnoImg").files.length < 2
-    )
-    {
+    ) {
         var country = document.getElementById("nationalty-select").value;
-        if (country == "Egypt") {
+        if (country == "Egypt" || country == "مصر") {
             document.getElementById("idcard-err").innerText = document.getElementById("localizedIdError").innerText;
             return false;
         }
-        }
+    }
 
-   valid = s;
+    valid = s;
     //x = document.getElementsByClassName("tab");
     //y = x[currentTab].getElementsByTagName("input");
     //// A loop that checks every input field in the current tab:
@@ -231,14 +229,13 @@ function fixStepIndicator(n) {
 
 //////
 
-function agreeterms()
-{
+function agreeterms() {
 
     if (document.getElementById("agree-chk").checked) {
-        document.getElementById("nextBtn").desabled = false;
+        document.getElementById("nextBtn").disabled = false;
     } else {
 
-        document.getElementById("nextBtn").desabled = true;
+        document.getElementById("nextBtn").disabled = true;
     }
 
 
@@ -248,19 +245,17 @@ function agreeterms()
 
 
 ////////////////////////////////
-function Check(ans, Id)
-{
- 
-    if (ans) {
-   
-        document.getElementById("t-" + Id).classList.remove("d-none");
-       // $("#t-"+Id).prop('required', true);
+function Check(ans, Id) {
 
-    } else
-    {
+    if (ans) {
+
+        document.getElementById("t-" + Id).classList.remove("d-none");
+        // $("#t-"+Id).prop('required', true);
+
+    } else {
 
         document.getElementById("t-" + Id).classList.add("d-none");
-    //    $("#t-" + Id).prop('required', false);
+        //    $("#t-" + Id).prop('required', false);
     }
 
 }
@@ -268,16 +263,16 @@ function Check(ans, Id)
 
 
 
-function previewImage(event){
+function previewImage(event) {
 
 
     console.log(event);
 
     var files = event.target.files;
-        document.getElementById("img-preview").innerHTML = "";
+    document.getElementById("img-preview").innerHTML = "";
     for (var i = 0; i < files.length; i++) {
 
-      var x=  URL.createObjectURL(files[i])
+        var x = URL.createObjectURL(files[i])
 
         document.getElementById("img-preview").innerHTML += "<img src=" + x + " style='    max-width: 200px; max-height: 200px;object-fit: cover; '/>";
 
@@ -295,7 +290,7 @@ function checkNationality() {
     var x = document.getElementById("nationalty-select").value;
     console.log(x);
 
-    if (x == "Egypt") {
+    if (x == "Egypt" || x == "مصر") {
         document.getElementById("idCard-sec").style.display = "block";
         document.getElementById("passport-sec").style.display = "none";
         // id staff required

@@ -44,7 +44,7 @@ namespace ESTA.Models
         )]
         [Range(
             0,
-            10000,
+            500000,
             ErrorMessageResourceName = "pricerange",
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource)
         )]

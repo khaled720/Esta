@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Claims;
 //using AspNetCore;
 using ESTA.API_Controllers;
+using ESTA.Areas.Payment.Models;
 using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
@@ -27,6 +28,7 @@ namespace ESTA.Controllers
         private readonly IUnitOfWork appRep;
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly IStringLocalizer<SharedResource> localizer;
+        private readonly IConfiguration _configuration;
 
         public AccountController(
             SignInManager<User> _signInManager,
@@ -34,7 +36,8 @@ namespace ESTA.Controllers
             UserManager<User> userManager,
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment
-            , IStringLocalizer<SharedResource> localizer
+            , IStringLocalizer<SharedResource> localizer,
+            IConfiguration configuration
         )
         {
             signInManager = _signInManager;
@@ -43,6 +46,7 @@ namespace ESTA.Controllers
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
             this.localizer = localizer;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -380,7 +384,7 @@ namespace ESTA.Controllers
 
                     var IsNationalityvalid = registerModel.IsNationalityClaimsValid();
 
-                    if (!IsNationalityvalid && registerModel.Country == "Egypt")
+                    if (!IsNationalityvalid && (registerModel.Country == "Egypt" || registerModel.Country == "مصر"))
                     {
                         if (string.IsNullOrEmpty(registerModel.NationalCardID))
                         {
@@ -400,7 +404,7 @@ namespace ESTA.Controllers
 
 
                     }
-                    if (!IsNationalityvalid && registerModel.Country != "Egypt")
+                    if (!IsNationalityvalid && (registerModel.Country != "Egypt" && registerModel.Country != "مصر"))
                     {
                         if (string.IsNullOrEmpty(registerModel.Passport))
                         {
@@ -516,9 +520,9 @@ namespace ESTA.Controllers
 
                                 userImages.Add(new UserImage() { TypeId = 2, Path = Constants.PassportsImagesSavingPath + PhotoName, UserId = user.Id });
                                 //add to db
-                                await appRep.ImageRep.AddImages(userImages);
+                                //await appRep.ImageRep.AddImages(userImages);
 
-                                await this.appRep.SaveChangesAsync();
+                                //await this.appRep.SaveChangesAsync();
                             }
 
                             //        user.PassportImagePath = Constants.PassportsImagesSavingPath + PhotoName;
@@ -573,6 +577,15 @@ namespace ESTA.Controllers
                             "Confirm Your Email",
                             "Esta"
                         );
+
+                        var email = _configuration.GetValue<string>("Mail:AdminMail");
+                        EmailSender.Send_Mail(
+                            email,
+                            user.FullName +
+                                 " registered to your website",
+                                 "New Registration",
+                                 "Esta"
+                             );
                         if (isEmailSent)
                         {
                             return View(

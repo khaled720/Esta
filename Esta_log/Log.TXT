@@ -340,3 +340,93 @@ Saturday, October 7, 2023 -> "AcceptMembershipOrder PostOrderReponse: {\"checkou
  
 10:20:57 AM -> OrdersController  Pay  SessionID =SESSION0002327420752I7712875E61 
  
+10:00:21 ص -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-11021\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":750.0,\"description\":\"ghjhgj Ceta Level 1\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+10:00:36 ص -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002073401269L1797890J87\",\"updateStatus\":\"SUCCESS\",\"version\":\"d62952c401\"},\"successIndicator\":\"5cd035ca83564ce7\"}" 
+ 
+10:00:44 ص -> OrdersController  Pay  SessionID =SESSION0002073401269L1797890J87 
+ 
+10:07:31 ص -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-101\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":750.0,\"description\":\"ghjhgj Ceta Level 1\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+10:07:39 ص -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002145173047J3970955J41\",\"updateStatus\":\"SUCCESS\",\"version\":\"3b70f39501\"},\"successIndicator\":\"c18f8cdef3dd4b54\"}" 
+ 
+10:07:58 ص -> OrdersController  Pay  SessionID =SESSION0002145173047J3970955J41 
+ 
+10:08:57 ص -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-102\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":750.0,\"description\":\"ghjhgj Ceta Level 1\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+10:09:03 ص -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002858559921F6293008H11\",\"updateStatus\":\"SUCCESS\",\"version\":\"3cfd4b5401\"},\"successIndicator\":\"27b802a6b3064ae5\"}" 
+ 
+10:19:41 AM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-103\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":750.0,\"description\":\"ghjhgj Ceta Level 1\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+10:19:45 AM -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002297450423F4267849I73\",\"updateStatus\":\"SUCCESS\",\"version\":\"2cbb69c101\"},\"successIndicator\":\"52d73d20904a472f\"}" 
+ 
+12:08:56 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-104\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+12:08:58 PM -> "PostOrderReponse: " 
+ 
+12:09:01 PM -> OrdersController  Pay  SessionID = 
+ 
+12:27:13 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1102\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+12:27:18 PM -> "PostOrderReponse: " 
+ 
+12:27:21 PM -> OrdersController  Pay  SessionID = 
+ 
+12:28:38 PM -> OrdersController  Pay  SessionID = 
+ 
+12:49:07 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1103\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+12:49:09 PM -> "PostOrderReponse: " 
+ 
+12:49:12 PM -> OrdersController  Pay  SessionID = 
+ 
+1:56:24 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1104\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+1:56:30 PM -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002262155268J27749822N9\",\"updateStatus\":\"SUCCESS\",\"version\":\"8956218b01\"},\"successIndicator\":\"404cf320e1704551\"}" 
+ 
+1:56:35 PM -> OrdersController  Pay  SessionID =SESSION0002262155268J27749822N9 
+ 
+1:58:26 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1105\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+1:58:30 PM -> "PostOrderReponse: " 
+ 
+1:58:32 PM -> OrdersController  Pay  SessionID = 
+ 
+2:00:06 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1106\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:00:09 PM -> "PostOrderReponse: " 
+ 
+2:00:12 PM -> OrdersController  Pay  SessionID = 
+ 
+2:02:28 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1107\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:02:31 PM -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002570739869L60311696M6\",\"updateStatus\":\"SUCCESS\",\"version\":\"abcd439001\"},\"successIndicator\":\"242c781c3cf342db\"}" 
+ 
+2:02:33 PM -> OrdersController  Pay  SessionID =SESSION0002570739869L60311696M6 
+ 
+2:16:14 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1108\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:16:17 PM -> "PostOrderReponse: " 
+ 
+2:16:26 PM -> OrdersController  Pay  SessionID = 
+ 
+2:33:29 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1109\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:33:44 PM -> "PostOrderReponse: " 
+ 
+2:34:44 PM -> OrdersController  Pay  SessionID = 
+ 
+2:35:59 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"TESTQNBAATEST001\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1110\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+2:36:15 PM -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"TESTQNBAATEST001\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002477486568J07296910H3\",\"updateStatus\":\"SUCCESS\",\"version\":\"7893c9ef01\"},\"successIndicator\":\"2b28c1637a754ffa\"}" 
+ 
+3:01:06 PM -> "PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveCoursePayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"CO-1111\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":100000.0,\"description\":\"dfa Non Ceta Level\"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+3:01:18 PM -> "PostOrderReponse: {\"checkoutMode\":\"WEBSITE\",\"merchant\":\"ESTAEGYPT\",\"result\":\"SUCCESS\",\"session\":{\"id\":\"SESSION0002932267186J9455034E70\",\"updateStatus\":\"SUCCESS\",\"version\":\"2471975301\"},\"successIndicator\":\"2a1c3b43e65e4000\"}" 
+ 
+3:01:25 PM -> OrdersController  Pay  SessionID =SESSION0002932267186J9455034E70 
+ 
+3:39:13 PM -> Exception: Course Payment Failed  Object reference not set to an instance of an object. 
+ 
+3:40:32 PM -> Exception: Course Payment Failed  Object reference not set to an instance of an object. 
+ 

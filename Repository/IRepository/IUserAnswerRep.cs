@@ -7,6 +7,7 @@ namespace ESTA.Repository.IRepository
 
 
         Task<bool> AddAnswers(List<UserAnswer> answers);
+        Task<List<UserAnswer>> GetUsersAnswers(string UserId);
 
     }
 }

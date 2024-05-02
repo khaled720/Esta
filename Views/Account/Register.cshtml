@@ -1,131 +1,129 @@
-﻿
-@using ESTA.ViewModels
+﻿@using ESTA.ViewModels
 
 @model RegisterViewModel
 @using Microsoft.Extensions.Localization
-@inject IStringLocalizer<SharedResource>  localizer;
+@inject IStringLocalizer<SharedResource> localizer;
 
 
 @*
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 *@
 
-	
+
 
 @*<input type='text' class="container form-control col-sm-6" id='date' />
 *@
 <div class="container">
-                                <br />
-                                <h2>@localizer["signup"]</h2>
-                                <br />
-
-   
-        
-            
-    
-
-                                <span class="text-danger">
-                                    @Html.ValidationSummary(excludePropertyErrors:true)
-
-                                </span>
-
-
-                                <form id="regForm" enctype="multipart/form-data" style="" asp-action="Register" method="post" asp-controller="Account">
-
-
-       
-                              
-                                    <!-- One "tab" for each step in the form: -->
-                                    <div class="tab">
-                                        <h3>@localizer["personalinfo"]</h3>
+    <br />
+    <h2>@localizer["signup"]</h2>
+    <br />
 
 
 
 
 
-                                        <div class="row">
-                                            <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for=@Model.FullName></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.FullName" class="form-control"
-                                                       autocomplete="name" />
 
-                                                <span asp-validation-for="@Model.FullName" class="text-danger"></span>
-                                            </div>
+    <span class="text-danger">
+        @Html.ValidationSummary(excludePropertyErrors:true)
 
-                                            <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.FullNameAr"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.FullNameAr" class="form-control"
-                                                       autocomplete="name" />
+    </span>
 
-                                                <span asp-validation-for="@Model.FullNameAr" class="text-danger"></span>
-                                            </div>
 
-                                        </div>
+    <form id="regForm" enctype="multipart/form-data" style="" asp-action="Register" method="post" asp-controller="Account">
+
+
+
+
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">
+            <h3>@localizer["personalinfo"]</h3>
 
 
 
 
 
-                                                          <div class="form-group">
-                                                <label asp-for="@Model.Country"></label>
+            <div class="row">
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label asp-for=@Model.FullName></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.FullName" class="form-control"
+                           autocomplete="name" />
+
+                    <span asp-validation-for="@Model.FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label asp-for="@Model.FullNameAr"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.FullNameAr" class="form-control"
+                           autocomplete="name" />
+
+                    <span asp-validation-for="@Model.FullNameAr" class="text-danger"></span>
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <label asp-for="@Model.Country"></label>
                 <select id="nationalty-select"
-                                                   onchange="checkNationality()" class="form-control" asp-for="@Model.Country" >
-                                               @foreach (var item in Model.Countries)
-                        {
-                                                                               <option  >@item</option>
-                        }
+                        onchange="checkNationality()" class="form-control" asp-for="@Model.Country">
+                    @foreach (var item in Model.Countries)
+                    {
+                        <option>@item</option>
+                    }
 
 
-                                               </select>
+                </select>
 
-                                                <span asp-validation-for="@Model.Country" class="text-danger"></span>
-                                            </div>
+                <span asp-validation-for="@Model.Country" class="text-danger"></span>
+            </div>
 
-                                      <div id="img-preview">
+            <div id="img-preview">
+            </div>
 
-                                      </div>
+            <div class="row" id="idCard-sec" style="display:none">
 
-                                        <div class="row" id="idCard-sec" style="display:none">
+                <div class="form-group col-12 ">
+                    <label asp-for="@Model.NationalCardID"></label><span class="text-danger m-1">*</span>
+                    <input id="idno" required asp-for="@Model.NationalCardID" class="form-control"
+                           autocomplete="username" />
 
-                                            <div class="form-group col-12 ">
-                                                <label asp-for="@Model.NationalCardID"></label><span class="text-danger m-1">*</span>
-                                                <input id="idno" required  asp-for="@Model.NationalCardID" class="form-control"
-                                                       autocomplete="username" />
+                    <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
+                </div>
 
-                                                <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
-                                            </div>
-                                      
-                                        
+
 
                 <div class=" col-12 ">
                     <label>National Card Image</label><span class="text-danger m-1">* Two Images Should be provided Front & Back</span>
 
 
-                    <input id="idnoImg"  multiple min="2"  accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)"
-                    asp-for=@Model.NationalCardImages type="file" />
-                    
+                    <input id="idnoImg" multiple min="2" accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)"
+                           asp-for=@Model.NationalCardImages type="file" />
+
                     <span id="idcard-err" asp-validation-for="@Model.NationalCardImages" class="text-danger"></span>
-                    <span id="localizedIdError" hidden >@localizer["IdCardLimit"]</span>
+                    <span id="localizedIdError" hidden>@localizer["IdCardLimit"]</span>
                 </div>
 
-          
-
-
-                                        </div>
 
 
 
+            </div>
 
-                                        
-                                        <div class="row" id="passport-sec">
-                                              <div class="form-group col-12 ">
+
+
+
+
+            <div class="row" id="passport-sec">
+                <div class="form-group col-12 ">
                     <label asp-for="@Model.Passport"></label><span class="text-danger m-1">*</span>
-                    <input id="passport"  asp-for="@Model.Passport" class="form-control"
-                                                       autocomplete="username" />
+                    <input id="passport" asp-for="@Model.Passport" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.Passport" class="text-danger"></span>
-                                            </div>
-                                                  <div class=" col-12 ">
+                    <span asp-validation-for="@Model.Passport" class="text-danger"></span>
+                </div>
+                <div class=" col-12 ">
                     <label>Passport Image</label><span class="text-danger m-1">*</span>
 
                     <input id="passportImg" multiple accept='.png,.jpg,.jpeg,.webp' onchange="previewImage(event)" asp-for="@Model.PassportImages" type="file" />
@@ -133,48 +131,48 @@
 
                 </div>
 
-                                            </div>
+            </div>
 
 
 
 
 
-<br />
+            <br />
             <div class=" row " style="justify-content: space-evenly;">
                 <div class="row col-lg-4 col-sm-12">
 
-   <p>Are You a New Member ?</p>
+                    <p>Are You a New Member ?</p>
                 </div>
                 <div class="form-group row col-lg-4 col-sm-12">
 
-                <input class="col-1" id="new" type="radio" value="true" asp-for="@Model.IsNewMember" /> 
-                <span class="col-1"></span>
-                <label class="" style="align-self:end">Yes</label>
-
-                </div> 
-
-               <div class="form-group row col-lg-4 col-sm-12">
-               
-                   <input class="col-1" id="old" type="radio" value="false" asp-for="@Model.IsNewMember" />
-                   <span class="col-1"></span>
-                    <label class="" style="align-self:end">No</label>
-
-            </div>
+                    <input class="col-1" id="new" type="radio" value="true" asp-for="@Model.IsNewMember" />
+                    <span class="col-1"></span>
+                    <label class="" style="align-self:end">Yes</label>
 
                 </div>
 
+                <div class="form-group row col-lg-4 col-sm-12">
+
+                    <input class="col-1" id="old" type="radio" value="false" asp-for="@Model.IsNewMember" />
+                    <span class="col-1"></span>
+                    <label class="" style="align-self:end">No</label>
+
+                </div>
+
+            </div>
 
 
-           
+
+
 
 
             <div id="memnumgroup" class="form-group" style="display:none">
                 <label asp-for="@Model.MembershipNumber"></label><span class="text-danger m-1">*</span>
 
-                <input id="memnum"  required data-val-required="This field is required" 
-                asp-for="@Model.MembershipNumber" class="form-control" />
-                   <span asp-validation-for="@Model.MembershipNumber" class="text-danger"></span>
-                                        </div>
+                <input id="memnum" required data-val-required="This field is required"
+                       asp-for="@Model.MembershipNumber" class="form-control" />
+                <span asp-validation-for="@Model.MembershipNumber" class="text-danger"></span>
+            </div>
 
 
 
@@ -183,104 +181,104 @@
 
 
 
-                                        <div class="form-group">
+            <div class="form-group">
                 <label asp-for="@Model.Email"></label><span class="text-danger m-1">*</span>
-                                            <input asp-for="@Model.Email" class="form-control"
-                                                   autocomplete="username" />
+                <input asp-for="@Model.Email" class="form-control"
+                       autocomplete="username" />
 
-                                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                                        </div>
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
 
-                                        <div class="row">
-                                            <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.Password"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" />
+            <div class="row">
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label asp-for="@Model.Password"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" />
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                                             
 
 
-                                             
-                                            </div>
-                                            <div class="form-group col-lg-6 col-sm-12">
 
-                                                <label asp-for="@Model.ConfirmPassword"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password" />
 
-                                                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
-                                            </div>
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+
+                    <label asp-for="@Model.ConfirmPassword"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password" />
+
+                    <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                </div>
                 <p class="text-success   form-group">
                     @localizer["passNote"]
                 </p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="@Model.Birthdate"></label><span class="text-danger m-1">*</span>
-                                            <input asp-for="@Model.Birthdate" class="form-control"
-                                                   type="date" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Birthdate"></label><span class="text-danger m-1">*</span>
+                <input asp-for="@Model.Birthdate" class="form-control"
+                       type="date" />
 
-                                            <span asp-validation-for="@Model.Birthdate" class="text-danger"></span>
-                                        </div>
-                                        <div class="row">
-
-
-
-                                            <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.HomePhone"></label>@*<span class="text-danger m-1">*</span>*@
-                                                <input asp-for="@Model.HomePhone" class="form-control"
-                                                       autocomplete="username" />
-
-                                                <span asp-validation-for="@Model.HomePhone" class="text-danger"></span>
-                                            </div>
-
-                                            <div class="form-group col-lg-6 col-sm-12">
-                                                <label asp-for="@Model.MobilePhone"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.MobilePhone" class="form-control"
-                                                       autocomplete="username" />
-
-                                                <span asp-validation-for="@Model.MobilePhone" class="text-danger"></span>
-                                            </div>
+                <span asp-validation-for="@Model.Birthdate" class="text-danger"></span>
+            </div>
+            <div class="row">
 
 
 
-                                        </div>
-                                        <div class="row">
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label asp-for="@Model.HomePhone"></label>@*<span class="text-danger m-1">*</span>*@
+                    <input asp-for="@Model.HomePhone" class="form-control"
+                           autocomplete="username" />
+
+                    <span asp-validation-for="@Model.HomePhone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-lg-6 col-sm-12">
+                    <label asp-for="@Model.MobilePhone"></label><span class="text-danger m-1">*</span>
+                    <input asp-for="@Model.MobilePhone" class="form-control"
+                           autocomplete="username" />
+
+                    <span asp-validation-for="@Model.MobilePhone" class="text-danger"></span>
+                </div>
 
 
 
-                                            <div class="form-group col-lg-6 col-sm-12 register-english-levels">
-                                                <label asp-for="@Model.EnglishReadingLevel"></label>
-                                                <br />
-                                                <input style="width:60%" value="Good" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["good"]</label>
-                                                <input style="width:60%" value="Intermediate" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["inter"]</label>
-                                                 <input style="width:60%" value="Very Good" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["vgood"]</label>
-                                                <input style="width:60%" value="Excellent" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["excellent"]</label>
-                                                <input style="width:60%" value="Non" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["non"]</label>
-
-                                                <span asp-validation-for="@Model.EnglishReadingLevel" class="text-danger"></span>
-                                            </div>
-
-                                            <div class="form-group col-lg-6 col-sm-12 register-english-levels">
-                                                <label asp-for="@Model.EnglishWritingLevel"></label>
-                                                <br />
-                                                <input style="width:60%" value="Good" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["good"]</label>
-
-                                                <input style="width:60%" value="Intermediate" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["inter"]</label>
-                                                <input style="width:60%" value="Very Good" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["vgood"]</label>
-                                                <input style="width:60%" value="Excellent" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["excellent"]</label>
-                                                <input style="width:60%" value="Non" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["non"]</label>
+            </div>
+            <div class="row">
 
 
+
+                <div class="form-group col-lg-6 col-sm-12 register-english-levels">
+                    <label asp-for="@Model.EnglishReadingLevel"></label>
+                    <br />
+                    <input style="width:60%" value="Good" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["good"]</label>
+                    <input style="width:60%" value="Intermediate" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["inter"]</label>
+                    <input style="width:60%" value="Very Good" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["vgood"]</label>
+                    <input style="width:60%" value="Excellent" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["excellent"]</label>
+                    <input style="width:60%" value="Non" type="radio" asp-for="@Model.EnglishReadingLevel" /> <label>@localizer["non"]</label>
+
+                    <span asp-validation-for="@Model.EnglishReadingLevel" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-lg-6 col-sm-12 register-english-levels">
+                    <label asp-for="@Model.EnglishWritingLevel"></label>
+                    <br />
+                    <input style="width:60%" value="Good" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["good"]</label>
+
+                    <input style="width:60%" value="Intermediate" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["inter"]</label>
+                    <input style="width:60%" value="Very Good" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["vgood"]</label>
+                    <input style="width:60%" value="Excellent" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["excellent"]</label>
+                    <input style="width:60%" value="Non" type="radio" asp-for="@Model.EnglishWritingLevel" /><label>@localizer["non"]</label>
 
 
 
 
-                                                <span asp-validation-for="@Model.EnglishWritingLevel" class="text-danger"></span>
-                                            </div>
+
+
+                    <span asp-validation-for="@Model.EnglishWritingLevel" class="text-danger"></span>
+                </div>
 
 
 
-                                        </div>
-                                    </div>
-                                     <div class="tab">
+            </div>
+        </div>
+        <div class="tab">
 
 
             <h3>@localizer["addressinfo"]</h3>
@@ -386,16 +384,16 @@
 
 
             <div class="form-group">
-           
+
                 <label asp-for="@Model.MessagingAddress"></label><span class="text-danger m-1">*</span>
                 <input asp-for="@Model.MessagingAddress" class="form-control"
                        autocomplete="username" />
-				
-					<input style="width:18px" type="checkbox" id="msg-addres-check" />
-                           <label class="col-5">Same as your Address ?</label>
-    
 
-                       
+                <input style="width:18px" type="checkbox" id="msg-addres-check" />
+                <label class="col-5">Same as your Address ?</label>
+
+
+
 
                 <span asp-validation-for="@Model.MessagingAddress" class="text-danger"></span>
             </div>
@@ -405,305 +403,313 @@
 
 
 
-                            
-                                    <div class="tab">
+
+        <div class="tab">
 
 
-                                        <h3>@localizer["workinfo"]</h3>
-                                        <hr />
+            <h3>@localizer["workinfo"]</h3>
+            <hr />
 
 
-                                        <div class="row">
+            <div class="row">
 
-                                            <div class="form-group col-lg-6 col-sm-12">
+                <div class="form-group col-lg-6 col-sm-12">
                     <label asp-for="@Model.Job"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.Job" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.Job" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.Job" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.Job" class="text-danger"></span>
+                </div>
 
 
-                                            <div class="form-group col-lg-6 col-sm-12">
+                <div class="form-group col-lg-6 col-sm-12">
                     <label asp-for="@Model.Company"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.Company" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.Company" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.Company" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.Company" class="text-danger"></span>
+                </div>
 
-                                        </div>
-
-
+            </div>
 
 
-                                        <div class="row">
 
 
-                                            <div class="form-group col-lg-4 col-sm-12">
+            <div class="row">
+
+
+                <div class="form-group col-lg-4 col-sm-12">
                     <label asp-for="@Model.WorkAddress"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.WorkAddress" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.WorkAddress" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.WorkAddress" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.WorkAddress" class="text-danger"></span>
+                </div>
 
 
-                                            <div class="form-group col-lg-4 col-sm-12">
+                <div class="form-group col-lg-4 col-sm-12">
                     <label asp-for="@Model.WorkPhone"></label>
-                                                <input asp-for="@Model.WorkPhone" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.WorkPhone" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.WorkPhone" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.WorkPhone" class="text-danger"></span>
+                </div>
 
 
-                                            <div class="form-group col-lg-4 col-sm-12">
+                <div class="form-group col-lg-4 col-sm-12">
                     <label asp-for="@Model.WorkFax"></label>
-                                                <input asp-for="@Model.WorkFax" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.WorkFax" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.WorkFax" class="text-danger"></span>
-                                            </div>
-
-
-
-
-
-                                        </div>
+                    <span asp-validation-for="@Model.WorkFax" class="text-danger"></span>
+                </div>
 
 
 
 
 
-
-
-                                     @*   <div class="form-group">
-                                            <label asp-for="@Model.WorkLeavingDate"></label>
-                                            <input asp-for="@Model.WorkLeavingDate" class="form-control"
-                                                   autocomplete="username" />
-
-                                            <span asp-validation-for="@Model.WorkLeavingDate" class="text-danger"></span>
-                                        </div>*@
-
-                                 @*       <div class="form-group">
-                                            <label asp-for="@Model.WorkLeavingReasons"></label>
-                                            <textarea asp-for="@Model.WorkLeavingReasons" class="form-control"
-                                                      autocomplete="username"></textarea>
-
-                                            <span asp-validation-for="@Model.WorkLeavingReasons" class="text-danger"></span>
-                                        </div>
-*@
+            </div>
 
 
 
 
 
-                                    </div>
 
-                                    <div class="tab">
 
-                                        <h3>@localizer["eduinfo"]</h3>
+            @*   <div class="form-group">
+            <label asp-for="@Model.WorkLeavingDate"></label>
+            <input asp-for="@Model.WorkLeavingDate" class="form-control"
+            autocomplete="username" />
 
-                                        <hr />
+            <span asp-validation-for="@Model.WorkLeavingDate" class="text-danger"></span>
+            </div>*@
 
-                                        <div class="row">
+            @*       <div class="form-group">
+            <label asp-for="@Model.WorkLeavingReasons"></label>
+            <textarea asp-for="@Model.WorkLeavingReasons" class="form-control"
+            autocomplete="username"></textarea>
 
-                                            <div class="form-group col-lg-4 col-sm-12">
+            <span asp-validation-for="@Model.WorkLeavingReasons" class="text-danger"></span>
+            </div>
+            *@
+
+
+
+
+
+        </div>
+
+        <div class="tab">
+
+            <h3>@localizer["eduinfo"]</h3>
+
+            <hr />
+
+            <div class="row">
+
+                <div class="form-group col-lg-4 col-sm-12">
                     <label asp-for="@Model.AcademicQualification"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.AcademicQualification" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.AcademicQualification" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
+                </div>
 
-                                            <div class="form-group col-lg-4 col-sm-12">
+                <div class="form-group col-lg-4 col-sm-12">
                     <label asp-for="@Model.University"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.University" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.University" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.University" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.University" class="text-danger"></span>
+                </div>
 
-                                            <div class="form-group col-lg-4 col-sm-12">
+                <div class="form-group col-lg-4 col-sm-12">
                     <label asp-for="@Model.GradutionYear"></label><span class="text-danger m-1">*</span>
-                                                <input asp-for="@Model.GradutionYear" class="form-control"
-                                                       autocomplete="username" />
+                    <input asp-for="@Model.GradutionYear" class="form-control"
+                           autocomplete="username" />
 
-                                                <span asp-validation-for="@Model.GradutionYear" class="text-danger"></span>
-                                            </div>
+                    <span asp-validation-for="@Model.GradutionYear" class="text-danger"></span>
+                </div>
 
 
-                                        </div>
+            </div>
 
-                                        <div class="form-group">
-                                            <label asp-for="@Model.HighStudies"></label>
-                                            <input asp-for="@Model.HighStudies" class="form-control" />
+            <div class="form-group">
+                <label asp-for="@Model.HighStudies"></label>
+                <input asp-for="@Model.HighStudies" class="form-control" />
 
-                                            <span asp-validation-for="@Model.HighStudies" class="text-danger"></span>
-                                        </div>
+                <span asp-validation-for="@Model.HighStudies" class="text-danger"></span>
+            </div>
 
 
             <div class="form-group">
 
                 <label asp-for="@Model.GraduationCertificateImages"></label><span class="text-danger m-1">*</span>
-                <input  multiple accept='.png,.jpg,.jpeg,.webp' type="file"  asp-for="@Model.GraduationCertificateImages" class="form-control" />
+                <input multiple accept='.png,.jpg,.jpeg,.webp' type="file" asp-for="@Model.GraduationCertificateImages" class="form-control" />
                 <span asp-validation-for="@Model.GraduationCertificateImages" class="text-danger"></span>
-            
+
             </div>
 
 
 
-                                    </div>
-
-                                 
-           <div class="tab">
-
-                                        <h3>@localizer["codeofethics"]</h3>
-                                        <div style="height:400px;overflow-y:auto;">
-
-                                        <p>
-                                            @if(!String.IsNullOrEmpty( Model.codeofEthics)){
-                                            @Html.Raw(Model.codeofEthics.Replace("../.",".").ToString())
-                                            } 
-                                        </p>
+        </div>
 
 
+        <div class="tab">
+
+            <h3>@localizer["codeofethics"]</h3>
+            <div style="height:400px;overflow-y:auto;">
+
+                <p>
+                    @if (!String.IsNullOrEmpty(Model.codeofEthics))
+                    {
+                        @Html.Raw(Model.codeofEthics.Replace("../.",".").ToString())
+                    }
+                </p>
 
 
 
-                                        </div>
-                                        <br />
-                            @*            <input type="checkbox" asp-for="@Model.HaveRead" style="width:10%" /> @localizer["haveread"]
 
-                                        <span asp-validation-for="@Model.HaveRead" class="text-danger"></span>
-                                    *@    <br />    <br />
 
-                                        @if(@Model.Questions != null){
+            </div>
+            <br />
+            @*            <input type="checkbox" asp-for="@Model.HaveRead" style="width:10%" /> @localizer["haveread"]
 
-                                        @for(var i=0;i<Model.Questions.Count;i++)
-{
-                                        @Html.HiddenFor(y=>Model.Questions[i].Id)
+            <span asp-validation-for="@Model.HaveRead" class="text-danger"></span>
+            *@    <br />    <br />
 
-                                        @if(Thread.CurrentThread.CurrentCulture.Name.Contains("ar")){
-                                           @Html.DisplayFor(y=>Model.Questions[i].QuestionArtxt)
-
-                                        }else{
-                                           @Html.DisplayFor(y=>Model.Questions[i].QuestionEntxt)
-
-                                        }
-                                     
-                                        @Html.HiddenFor(y=>Model.Questions[i].IsYesNo)
-                                        @Html.HiddenFor(y=>Model.Questions[i].QuestionEntxt)
-                                        @Html.HiddenFor(y=>Model.Questions[i].QuestionArtxt)
-            if (Model.Questions[i].IsYesNo)
+            @if (@Model.Questions != null)
             {
 
-                                        <div class="row">
-                                            <input class="col-2" type="radio"
-                                                   onclick="Check(true,@Model.Questions[i].Id)"
-                                                   asp-for=@Model.Questions[i].IsTrue value=true />
+                @for (var i = 0; i < Model.Questions.Count; i++)
+                {
+                    @Html.HiddenFor(y=>Model.Questions[i].Id)
 
-                                            <label class="col-4">Yes</label>
+                    @if (Thread.CurrentThread.CurrentCulture.Name.Contains("ar"))
+                    {
+                        @Html.DisplayFor(y=>Model.Questions[i].QuestionArtxt)
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(y=>Model.Questions[i].QuestionEntxt)
+
+                    }
+
+                    @Html.HiddenFor(y=>Model.Questions[i].IsYesNo)
+                    @Html.HiddenFor(y=>Model.Questions[i].QuestionEntxt)
+                    @Html.HiddenFor(y=>Model.Questions[i].QuestionArtxt)
+                    if (Model.Questions[i].IsYesNo)
+                    {
+
+                        <div class="row">
+                            <input class="col-2" type="radio"
+                                   onclick="Check(true,@Model.Questions[i].Id)"
+                                   asp-for=@Model.Questions[i].IsTrue value=true />
+
+                            <label class="col-4">Yes</label>
 
 
 
 
-                                            <input class="col-2" type="radio"
-                                                   onclick="Check(false,@Model.Questions[i].Id)"
-                                                   asp-for=@Model.Questions[i].IsTrue value=false />
+                            <input class="col-2" type="radio"
+                                   onclick="Check(false,@Model.Questions[i].Id)"
+                                   asp-for=@Model.Questions[i].IsTrue value=false />
 
-                                            <label class="col-4">No</label>
+                            <label class="col-4">No</label>
 
-                                        </div>
+                        </div>
 
                         <br />
-                        @if (@Model.Questions[i].Id ==9|| @Model.Questions[i].Id==5)
+                        @if (@Model.Questions[i].Id == 9 || @Model.Questions[i].Id == 5)
                         {
                             <textarea placeholder="Explain Why.." required
-                                                  type="text" id="t-@Model.Questions[i].Id"
-                                                  class="form-control d-none" asp-for=@Model.Questions[i].Answer></textarea>
+                                      type="text" id="t-@Model.Questions[i].Id"
+                                      class="form-control d-none" asp-for=@Model.Questions[i].Answer></textarea>
 
                             <span asp-validation-for="@Model.Questions[i].Answer" class="text-danger"></span>
                         }
                         <br />
 
+                    }
+
+
+
+                    else
+                    {
+                        <textarea placeholder="Explain ...." type="text"
+                                  id="t-@Model.Questions[i].Id"
+                                  class="form-control " asp-for=@Model.Questions[i].Answer>
+                                        </textarea>
+
+                        <span asp-validation-for="@Model.Questions[i].Answer"
+                              class="text-danger"></span>
+
+                    }
+
+                }
+
             }
 
+            <div class="row">
+                <label>
+                    <input id="agree-chk" onclick="agreeterms()" type="checkbox" />
+                    @*<p class="text-center">*@
+
+                    Agree to Our
+                    <a asp-controller="Home" asp-area="" asp-action="Terms">Terms&Conditions</a>|
+                    <a asp-action="Privacy" asp-controller="Home" asp-area="">Privacy Policy</a>
+                    @*</p>*@
+
+                </label>
+            </div>
 
 
-            else
-            {
-                                        <textarea placeholder="Explain ...." type="text"
-                                                  id="t-@Model.Questions[i].Id"
-                                                  class="form-control " asp-for=@Model.Questions[i].Answer>
-                </textarea>
-
-                                        <span asp-validation-for="@Model.Questions[i].Answer"
-                                              class="text-danger"></span>
-
-            }
-
-        }
-
-        }
-
-        <div class="row">
-<input id="agree-chk" onclick="agreeterms()"  type="checkbox"/>
-        <p class="text-center" >
-            
-            Agree to Our
-            <a asp-controller="Home" asp-area="" asp-action="Terms">Terms&Conditions</a>|
-            <a  asp-action="Privacy" asp-controller="Home" asp-area="" >Privacy Policy</a></p>
 
         </div>
 
 
 
-                                    </div>
-
-
-
-                                    <div style="display:none;
+        <div style="display:none;
                     animation-name: fade;
                     animation-duration: 0.5s;
                     animation-iteration-count: infinite;
                     " id="spinner">
 
-                                        <h3>Loading...</h3>
+            <h3>Loading...</h3>
 
-                                    </div>
+        </div>
 
-                                    <br />
+        <br />
 
 
-                                    <div style="overflow:auto;">
-                                        <div style="float:right;">
-                                            <button style="border:0" class="btn btn-light" type="button"
-                                                    id="prevBtn" onclick="nextPrev(-1)">
-                                                @localizer["previous"]
-                                                </button>
-                                                <button style="border:0" class="btn btn-primary" type="button"
-                                                        id="nextBtn" onclick="nextPrev(1)">
-                                                    @localizer["next"]
-                                                    </button>
-                                                </div>
-                                            </div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button style="border:0" class="btn btn-light" type="button"
+                        id="prevBtn" onclick="nextPrev(-1)">
+                    @localizer["previous"]
+                </button>
+                <button style="border:0" class="btn btn-primary" type="button"
+                        id="nextBtn" onclick="nextPrev(1)">
+                    @localizer["next"]
+                </button>
+            </div>
+        </div>
 
-                                            <!-- Circles which indicates the steps of the form: -->
-                                            <div style="text-align:center;margin-top:40px;">
-                                                <span class="step"></span>
-                                                <span class="step"></span>
-                                                <span class="step"></span>
-                                                <span class="step"></span>
-                                                <span class="step"></span>
-                                            </div>
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
 
-                                        </form>
+    </form>
 
-                                    </div>
+</div>
 
-@*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> 
+@*<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     flatpickr("#date", {
      dateFormat: "d/m/Y",
@@ -719,7 +725,7 @@
             <h3>Create a new account.</h3>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-       
+
             <h3>Personal Info</h3>
 
             <div class="row">
@@ -761,36 +767,36 @@
             </div>
 
             </div>
-         
+
            <div class="form-group">
                 <label asp-for="@Model.Email"></label>
                 <input asp-for="@Model.Email" class="form-control"
                 autocomplete="username"  />
-               
+
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
-          
+
             <div class="row">
 <div class="form-group col-lg-6 col-sm-12">
                 <label asp-for="@Model.Password"></label>
                 <input asp-for="@Model.Password" class="form-control" autocomplete="new-password"  />
-           
+
                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
             </div>
             <div class="form-group col-lg-6 col-sm-12">
 
                 <label asp-for="@Model.ConfirmPassword"></label>
                 <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password"/>
-             
+
                 <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
             </div>
 
             </div>
-         
+
          <div class="row" >
-       
-       
-       
+
+
+
           <div class="form-group col-lg-6 col-sm-12">
                 <label asp-for="@Model.HomePhone"></label>
                 <input asp-for="@Model.HomePhone" class="form-control"
@@ -798,7 +804,7 @@
 
                 <span asp-validation-for="@Model.HomePhone" class="text-danger"></span>
             </div>
-            
+
  <div class="form-group col-lg-6 col-sm-12">
                 <label asp-for="@Model.MobilePhone"></label>
                 <input asp-for="@Model.MobilePhone" class="form-control"
@@ -806,16 +812,16 @@
 
                 <span asp-validation-for="@Model.MobilePhone" class="text-danger"></span>
             </div>
-       
-       
-       
-       </div> 
-           
+
+
+
+       </div>
+
        <br />
        <h3>Address Info</h3>
          <hr />
 
-        
+
 
 
             <div class="row" >
@@ -852,7 +858,7 @@
 </div>
 
 
-        
+
 
 
 
@@ -860,7 +866,7 @@
 
 
             </div>
-       
+
             <div class="row">
                     <div class="form-group  col-lg-6 col-sm-12">
                 <label asp-for="@Model.Hometown"></label>
@@ -923,7 +929,7 @@
 
             <br>
             <h3>Work Info</h3>
-            <hr /> 
+            <hr />
 
 
             <div class="row">
@@ -986,7 +992,7 @@
             </div>
 
 
-         
+
 
 
 
@@ -1010,7 +1016,7 @@
 
 
 
-            
+
 
 
 
@@ -1027,8 +1033,8 @@
                        autocomplete="username" />
 
                 <span asp-validation-for="@Model.AcademicQualification" class="text-danger"></span>
-            </div> 
-            
+            </div>
+
             <div class="form-group col-lg-4 col-sm-12">
                 <label asp-for="@Model.University"></label>
                 <input asp-for="@Model.University" class="form-control"
@@ -1036,7 +1042,7 @@
 
                 <span asp-validation-for="@Model.University" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group col-lg-4 col-sm-12">
                 <label asp-for="@Model.GradutionYear"></label>
                 <input asp-for="@Model.GradutionYear" class="form-control"
@@ -1044,10 +1050,10 @@
 
                 <span asp-validation-for="@Model.GradutionYear" class="text-danger"></span>
             </div>
-            
+
 
           </div>
-          
+
             <div class="form-group">
                 <label asp-for="@Model.HighStudies"></label>
                 <input asp-for="@Model.HighStudies" class="form-control"
@@ -1065,37 +1071,37 @@
 
 
 
-          
-            
-            
+
+
+
             <button id="" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-    
-        
-        
+
+
+
         </form>
-   
-    
-    
-    
+
+
+
+
     </div>
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @*  <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to register.</h3>

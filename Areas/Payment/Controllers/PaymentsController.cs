@@ -25,7 +25,7 @@ namespace ESTA.Areas.Payment.Controllers
         private readonly IUnitOfWork appContext;
         private readonly IHostEnvironment hostEnvironment;
 
-        public PaymentsController(UserManager<User> userManager,IUnitOfWork appContext,IHostEnvironment hostEnvironment)
+        public PaymentsController(UserManager<User> userManager, IUnitOfWork appContext, IHostEnvironment hostEnvironment)
         {
             this.userManager = userManager;
             this.appContext = appContext;
@@ -33,33 +33,33 @@ namespace ESTA.Areas.Payment.Controllers
         }
         public IActionResult Index()
         {
-          //return  RedirectToAction("Index2", new { id = 45, gg = 789 });
-          return View();
+            //return  RedirectToAction("Index2", new { id = 45, gg = 789 });
+            return View();
         }
 
 
-        public IActionResult Index2(int id,int gg) 
+        public IActionResult Index2(int id, int gg)
         {
 
 
             return View();
-        } 
+        }
 
 
 
 
         public async Task<IActionResult> SaveCoursePayment()
-        {  
-            CoursePayment coursePayment = new CoursePayment(); 
+        {
+            CoursePayment coursePayment = new CoursePayment();
             var orderNumber = HttpContext.Session.GetString("OrderNumber");
-                var orderId = HttpContext.Session.GetString("OrderDbId");
+            var orderId = HttpContext.Session.GetString("OrderDbId");
             try
             {
                 ClassLibrary1.Interact PaymentManager = new ClassLibrary1.Interact();
-            
+
                 var courseOrder = await appContext.CourseOrdersRep.GetOrder(int.Parse(orderId.ToString()));
                 var response = PaymentManager.getOrder(orderNumber);
-             
+
                 coursePayment.UserId = courseOrder.UserId;
                 coursePayment.CourseId = courseOrder.CourseId;
                 coursePayment.OrderId = courseOrder.Id;
@@ -80,9 +80,9 @@ namespace ESTA.Areas.Payment.Controllers
                     //   Log("getOrderStatus", "resultIndicator:" + resultIndicator + "///sucessIndicator:" + sucessIndicator);
 
 
-                    var course = await appContext.CoursesRep.GetCourse(coursePayment.CourseId);  
+                    var course = await appContext.CoursesRep.GetCourse(coursePayment.CourseId);
 
-                               var usr = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                    var usr = await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
                     await appContext.UserRep.EnrollCourse(1, course.Id, usr.Id, true); //1 state means Enrolled
 
 
@@ -93,24 +93,24 @@ namespace ESTA.Areas.Payment.Controllers
                     await appContext.UserRep.UpdateUserLevel(usr.Id);
                     await appContext.SaveChangesAsync();
 
-                            new LogManager(hostEnvironment).WriteInLogFile("---Updating User  " + usr.FullName +
-                                "  Level  Id" );
+                    new LogManager(hostEnvironment).WriteInLogFile("---Updating User  " + usr.FullName +
+                        "  Level  Id");
 
-                       
+
                     //       Response.Redirect("receiptPage.aspx?a=" + amount + "&c=" + currency + "&s=" + status + "&t=" + lastUpdatedTime, false);
-                 //   return View("receipt", coursePayment);
+                    //   return View("receipt", coursePayment);
 
                     return RedirectToAction("receipt", new
                     {
                         status = coursePayment.Status,
                         orderNum = orderNumber,
-                        orderId =orderId,
+                        orderId = orderId,
                         lastupdatedate = coursePayment.LastUpdateTime,
                         amount = course.Price,
                         isFailed = false,
-                        
-                        CourseName=course.Title,
-                        CourseLevel=course.level.TypeName
+
+                        CourseName = course.Title,
+                        CourseLevelName = course.level.TypeName
                     });
 
 
@@ -129,26 +129,26 @@ namespace ESTA.Areas.Payment.Controllers
 
                     //if payment not okay
 
-                    new LogManager(hostEnvironment).WriteInLogFile("Payment not ok  orderId="+coursePayment.OrderId);
+                    new LogManager(hostEnvironment).WriteInLogFile("Payment not ok  orderId=" + coursePayment.OrderId);
 
                     return RedirectToAction("receipt", new
                     {
                         status = coursePayment.Status,
-           
+
                         lastupdatedate = coursePayment.LastUpdateTime,
-                     //   amount = course.,
+                        //   amount = course.,
                         isFailed = true,
                         orderNum = orderNumber,
                         orderId = orderId,
                         ErrorMsg = "Couldn't Complete Payment Proccess"
-                 
+
                     });
                 }
 
 
 
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
 
                 new LogManager(hostEnvironment).WriteInLogFile(
@@ -158,12 +158,12 @@ namespace ESTA.Areas.Payment.Controllers
                     status = coursePayment.Status,
                     orderId = coursePayment.OrderId,
                     lastupdatedate = coursePayment.LastUpdateTime,
-     //               amount = courseOrder.Amount,
+                    //               amount = courseOrder.Amount,
                     isFailed = true,
                     ErrorMsg = "Couldn't Complete Payment Proccess."
                 });
             }
-       
+
 
 
 
@@ -172,27 +172,27 @@ namespace ESTA.Areas.Payment.Controllers
 
 
 
-             public async Task<IActionResult> SaveMempershipPayment()
+        public async Task<IActionResult> SaveMempershipPayment()
         {
-                         MempershipPayment mempershipPayment = new();
-                           var mempershipOrder=new MempershipOrder(); 
-            
-            
-                var orderNumber = HttpContext.Session.GetString("OrderNumber");
-                var orderId = HttpContext.Session.GetString("OrderDbId");
+            MempershipPayment mempershipPayment = new();
+            var mempershipOrder = new MempershipOrder();
+
+
+            var orderNumber = HttpContext.Session.GetString("OrderNumber");
+            var orderId = HttpContext.Session.GetString("OrderDbId");
             try
             {
                 ClassLibrary1.Interact PaymentManager = new ClassLibrary1.Interact();
-             
+
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 new LogManager(hostEnvironment).WriteInLogFile("SavaMempershipPayment Was Called orderNumber= " + orderNumber);
-                 mempershipOrder = await appContext.MempershipOrdersRep.GetOrder(int.Parse(orderId.ToString()));
+                mempershipOrder = await appContext.MempershipOrdersRep.GetOrder(int.Parse(orderId.ToString()));
 
                 var response = PaymentManager.getOrder(orderNumber);
 
                 new LogManager(hostEnvironment).WriteInLogFile("Get Order Was called ordernumber= " + orderNumber + " RESPONCE= " + response);
 
-             
+
                 mempershipPayment.UserId = mempershipOrder.UserId;
 
                 mempershipPayment.OrderId = mempershipOrder.Id;
@@ -201,15 +201,15 @@ namespace ESTA.Areas.Payment.Controllers
                 var resultIndicator = HttpContext.Request.Query["resultIndicator"];
                 var sucessIndicator = HttpContext.Session.GetString("SuccessIndicator");
 
-          /*      mempershipPayment.SuccessIndicator = sucessIndicator;
-                mempershipPayment.OrderNumber = mempershipOrder.OrderNumber;
-                mempershipPayment.PrepareJsonResponse = mempershipOrder.PrepareJsonResponse;
-                mempershipPayment.PostOrderJsonResponse = mempershipOrder.PostOrderJsonResponse;
-                mempershipPayment.SessionId = mempershipOrder.SessionId;
-                mempershipPayment.OrderResult= mempershipOrder.OrderResult;
-                mempershipPayment.OrderReference = mempershipOrder.OrderReference;
-                mempershipPayment.TransactionReference = mempershipOrder.TransactionReference;
-                mempershipPayment.OrderDescription = mempershipOrder.OrderDescription;*/
+                /*      mempershipPayment.SuccessIndicator = sucessIndicator;
+                      mempershipPayment.OrderNumber = mempershipOrder.OrderNumber;
+                      mempershipPayment.PrepareJsonResponse = mempershipOrder.PrepareJsonResponse;
+                      mempershipPayment.PostOrderJsonResponse = mempershipOrder.PostOrderJsonResponse;
+                      mempershipPayment.SessionId = mempershipOrder.SessionId;
+                      mempershipPayment.OrderResult= mempershipOrder.OrderResult;
+                      mempershipPayment.OrderReference = mempershipOrder.OrderReference;
+                      mempershipPayment.TransactionReference = mempershipOrder.TransactionReference;
+                      mempershipPayment.OrderDescription = mempershipOrder.OrderDescription;*/
 
                 // insert Payment to database (Complet json & separated items)
                 await appContext.MempershipPaymentsRep.SaveGetOrder(mempershipPayment);
@@ -231,26 +231,27 @@ namespace ESTA.Areas.Payment.Controllers
                         await appContext.SaveChangesAsync();
 
                         //       Response.Redirect("receiptPage.aspx?a=" + amount + "&c=" + currency + "&s=" + status + "&t=" + lastUpdatedTime, false);
-                  //      return View("receipt", mempershipPayment);
+                        //      return View("receipt", mempershipPayment);
 
 
 
-                     return   RedirectToAction("receipt",new {
-                         status=mempershipPayment.Status,
-                         orderNum = orderNumber,
-                         orderId =orderId,
-                         lastupdatedate = mempershipPayment.LastUpdateTime,
-                         amount = mempershipOrder.Amount,
-                         isFailed= false
-                     });
+                        return RedirectToAction("receipt", new
+                        {
+                            status = mempershipPayment.Status,
+                            orderNum = orderNumber,
+                            orderId = orderId,
+                            lastupdatedate = mempershipPayment.LastUpdateTime,
+                            amount = mempershipOrder.Amount,
+                            isFailed = false
+                        });
 
                     }
                     catch (Exception ex)
                     {
-                //        return View("_info", new Info("Mempership Payment Ok But Not Saved ",
-                //"Couldn't Complete Payment Proccess"
-                //)
-                //    );
+                        //        return View("_info", new Info("Mempership Payment Ok But Not Saved ",
+                        //"Couldn't Complete Payment Proccess"
+                        //)
+                        //    );
                         return RedirectToAction("receipt", new
                         {
                             status = mempershipPayment.Status,
@@ -259,7 +260,7 @@ namespace ESTA.Areas.Payment.Controllers
                             lastupdatedate = mempershipPayment.LastUpdateTime,
                             amount = mempershipOrder.Amount,
                             isFailed = true,
-                            ErrorMsg= "Couldn't Complete Payment Proccess.Payment Done But Not Saved"
+                            ErrorMsg = "Couldn't Complete Payment Proccess.Payment Done But Not Saved"
                         });
 
 
@@ -302,9 +303,9 @@ namespace ESTA.Areas.Payment.Controllers
             catch (Exception ex)
             {
 
-                new LogManager(hostEnvironment).WriteInLogFile("Exception: Mempership Payment Failed  "+ex.Message);
+                new LogManager(hostEnvironment).WriteInLogFile("Exception: Mempership Payment Failed  " + ex.Message);
 
-       
+
 
                 return RedirectToAction("receipt", new
                 {
@@ -318,11 +319,11 @@ namespace ESTA.Areas.Payment.Controllers
                 });
             }
 
-          
 
 
 
-     //       return RedirectToAction("Profile", "User", new { area = "" });
+
+            //       return RedirectToAction("Profile", "User", new { area = "" });
 
         }
 
@@ -330,47 +331,64 @@ namespace ESTA.Areas.Payment.Controllers
 
 
         public IActionResult receipt(
-                string?    status,
-                 string?  orderNum,
+                string? status,
+                 string? orderNum,
                  string? lastupdatedate,
-               string? amount ,
+               string? amount,
                Boolean isFailed,
                string? orderId,
-               string? ErrorMsg
-     ,
+               string? ErrorMsg,
                string? CourseName,
-               string? CourseLevelName 
+               string? CourseLevelName
 
-            ) 
+            )
         {
-            var obj = new PaymentReceipt() { Status=status,OrderNumber=orderNum,
-                OrderId=orderId
-                ,LastUpdateDate=lastupdatedate,Amount=amount,IsFailed= isFailed,
-                ErrorMsg=ErrorMsg,CourseName=CourseName,CourseLevel=CourseLevelName
+            //status = coursePayment.Status,
+            //            orderNum = orderNumber,
+            //            orderId = orderId,
+            //            lastupdatedate = coursePayment.LastUpdateTime,
+            //            amount = course.Price,
+            //            isFailed = false,
+
+            //            CourseName = course.Title,
+            //            CourseLevel = course.level.TypeName
+            var obj = new PaymentReceipt()
+            {
+                Status = status,
+                OrderNumber = orderNum,
+                OrderId = orderId
+                ,
+                LastUpdateDate = lastupdatedate,
+                Amount = amount,
+                IsFailed = isFailed,
+                ErrorMsg = ErrorMsg,
+                CourseName = CourseName,
+                CourseLevel = CourseLevelName
             };
             ///send email with order number 
             ///making a refund form that admin can view
-            if (!string.IsNullOrEmpty(CourseName)&&!string.IsNullOrEmpty(CourseLevelName)) {
+            if (!string.IsNullOrEmpty(CourseName) && !string.IsNullOrEmpty(CourseLevelName))
+            {
                 EmailSender.Send_Mail(User.FindFirstValue(ClaimTypes.Email)
-                    , "<h3>Course Name :<p>" + CourseName
-                    + "<h3>Course Level :<p>" + CourseLevelName
-                    + "<h3>Order Number :<p>" + orderNum +
-                    "</p></h3>" + "<h3>Amount :<p>" + amount + "</p></h3>" +
-                    "<h3> Status:<p>" + status + "</p></h3>"
+                    , "<h3>Course Name :<p>" + CourseName + "</p></h3>"
+                    + "<h3>Course Level :<p>" + CourseLevelName + "</p></h3>"
+                    + "<h3>Order Number :<p>" + orderNum + "</p></h3>"
+                    + "<h3>Amount :<p>" + amount + "</p></h3>"
+                    + "<h3>Status:<p>" + status + "</p></h3>"
                     , "Esta Payment Receipt", "Esta");
             }
             else
             {
                 EmailSender.Send_Mail(User.FindFirstValue(ClaimTypes.Email)
-              ,  "<h3>Order Number :<p>" + orderNum +
-              "</p></h3>" + "<h3>Amount :<p>" + amount + "</p></h3>" +
-              "<h3> Status:<p>" + status + "</p></h3>"
+              , "<h3>Order Number :<p>" + orderNum + "</p></h3>"
+              + "<h3>Amount :<p>" + amount + "</p></h3>"
+              + "<h3>Status:<p>" + status + "</p></h3>"
               , "Esta Payment Receipt", "Esta");
             }
             return View(obj);
         }
 
-        
+
     }
 
 

@@ -157,9 +157,10 @@ app.UseRequestLocalization(
 );
 ImageHelper.Configure(app.Environment);
 
+EmailSender.Configure(builder.Configuration);
 // Configure the HTTP request pipeline.
 //if (!app.Environment.IsDevelopment())
-if(true)
+if (true)
 {
     app.UseDeveloperExceptionPage();
     //    app.UseExceptionHandler("/Home/Error");

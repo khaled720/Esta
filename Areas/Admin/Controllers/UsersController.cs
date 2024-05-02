@@ -50,30 +50,30 @@ namespace ESTA.Areas.Admin.Controllers
             {
                 case 1:
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).ToList();
+                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
                     break;
                 case 2:
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => !string.IsNullOrEmpty(y.MembershipNumber)).ToList();
+                          .GetAwaiter().GetResult() == true).Where(y => !string.IsNullOrEmpty(y.MembershipNumber)).OrderBy(x => x.FullName).ToList();
                     break;
                 case 3:
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => string.IsNullOrEmpty(y.MembershipNumber)).ToList();
+                          .GetAwaiter().GetResult() == true).Where(y => string.IsNullOrEmpty(y.MembershipNumber)).OrderByDescending(x => x.JoinDate).ToList();
                     break;
 
                 case 4:
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => y.Country == "Egypt").ToList();
+                          .GetAwaiter().GetResult() == true).Where(y => y.Country == "Egypt" || y.Country == "مصر").OrderBy(x => x.FullName).ToList();
                     break;
                 case 5:
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => y.Country != "Egypt").ToList();
+                          .GetAwaiter().GetResult() == true).Where(y => y.Country != "Egypt" && y.Country != "مصر").OrderBy(x => x.FullName).ToList();
                     break;
 
                 default:
 
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).ToList();
+                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
                     break;
 
             }
@@ -382,8 +382,9 @@ namespace ESTA.Areas.Admin.Controllers
             try
             {
                 var user = await appRep.UserRep.GetUser(userId);
-
                 user.userImages = await appRep.ImageRep.GetUserDocsImages(userId);
+
+                user.userAnswers = await appRep.UserAnswerRep.GetUsersAnswers(userId);
                 ViewBag.isCertified = await appRep.CertifiedMempersRep.IsCertifiedMember(user.FullName);
                 return View(user);
             }
@@ -400,7 +401,7 @@ namespace ESTA.Areas.Admin.Controllers
             List<User> users;
 
             users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).ToList();
+                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
 
             ExcelPackage Ep = new ExcelPackage();
             ExcelWorksheet Sheet = Ep.Workbook.Worksheets.Add("ESTA Members");

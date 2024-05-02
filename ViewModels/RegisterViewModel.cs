@@ -338,7 +338,7 @@ namespace ESTA.ViewModels
             //if country egypt natid image required
             // eles passportid img required
 
-            if (this.Country == "Egypt")
+            if (this.Country == "Egypt" || this.Country == "مصر")
             {
                 if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImages==null)
                 {
