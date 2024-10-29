@@ -55,7 +55,7 @@ namespace ESTA.Areas.Payment.Controllers
                         +refund.SerialNumber+"</b> <br> For Order <b>"+refund.OrderNumber
                         +"</b><br> we are working on it",
                         "Esta Refund Request",
-                        "Esta"
+                        "ESTA"
                     );
             //var email=await   uow.UserRep.GetAdminUserEmail();
             var email = _configuration.GetValue<string>("Mail:AdminMail");
@@ -65,7 +65,7 @@ namespace ESTA.Areas.Payment.Controllers
                      + refund.SerialNumber + "</b><br> For Order <br> <b>" + refund.OrderNumber
                      + "</b> <br>on "+refund.CreateDate+"<br> by User <b>"+User.FindFirstValue(ClaimTypes.Email)+"</b>",
                      "Esta Refund Request",
-                     "Esta"
+                     "ESTA"
                  );
             return RedirectToAction("profile","User",new { area=""});
         }
@@ -101,7 +101,7 @@ namespace ESTA.Areas.Payment.Controllers
                     await uow.CoursesRep.UpdateCourseState(courseOrder.CourseId, refund.UserId, 4);
                     //update user level
 
-                    uow.UserRep.UpdateUserLevel(refund.UserId);
+                    await uow.UserRep.UpdateUserLevel(refund.UserId);
 
                     await uow.SaveChangesAsync();
                 }
@@ -129,8 +129,8 @@ namespace ESTA.Areas.Payment.Controllers
                       "Your Refund Request State Has been updated  <br>Serial Number <b>"
                       + refund.SerialNumber + "</b><br>For Order <b>" + refund.OrderNumber
                       + "</b><br> State  <b>" + newState + "</b>",
-                      "Esta Refund Request",
-                      "Esta"
+                      "ESTA Refund Request",
+                      "ESTA"
                   );
 
             }

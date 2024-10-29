@@ -9,9 +9,9 @@ namespace ESTA.API_Controllers
     [Route("api/[controller]")]
     public class EmailController : ControllerBase
     {
-        public IActionResult Index()
+        public IActionResult Index(ContactEmail contactEmail)
         {
-            EmailSender.Send_Mail("info@estaegypt.org", "test test","test","Esta");
+            EmailSender.Send_Mail(contactEmail.Email, contactEmail.Message, contactEmail.Subject, "ESTA");
             return Ok();
         }
     }

@@ -20,20 +20,20 @@ namespace ESTA.Controllers
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly IConfiguration configuration;
 
-        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment,IConfiguration configuration)
+        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, IConfiguration configuration)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
             this.configuration = configuration;
         }
 
-      
+
 
         public async Task<IActionResult> OtherCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllOtherCourses();
             return View(courses);
-           
+
         }
 
         public async Task<IActionResult> CetaCourses()
@@ -52,7 +52,7 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> CetaHolders()
         {
-            List<CertifiedMember> users =await appRep.CertifiedMempersRep.GetAllMembers();// (List<User>)await appRep.CoursesRep.GetAllCetaHolders();
+            List<CertifiedMember> users = await appRep.CertifiedMempersRep.GetAllMembers();// (List<User>)await appRep.CoursesRep.GetAllCetaHolders();
             return View(users);
         }
 
@@ -60,32 +60,32 @@ namespace ESTA.Controllers
         {
             try
             {
-                      await   appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
-                      await appRep.SaveChangesAsync();
+                await appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
+                await appRep.SaveChangesAsync();
 
 
-         
+
                 var cdvm = new CourseDetailsViewModel();
 
 
 
-                 cdvm.course= await appRep.CoursesRep.GetCourse(id);
-       
-                 cdvm.UsersEnrolledCount= await appRep.CoursesRep.GetEnrolledUsersInCourseLength(id);
-                 cdvm.isCourseEnrolled = await appRep.CoursesRep.IsCourseEnrolledByUser(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+                cdvm.course = await appRep.CoursesRep.GetCourse(id);
 
-                cdvm.IsCourseRefunded=await appRep.UsersCoursesRep.IsCourseRefunded(cdvm.course.Id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+                cdvm.UsersEnrolledCount = await appRep.CoursesRep.GetEnrolledUsersInCourseLength(id);
+                cdvm.isCourseEnrolled = await appRep.CoursesRep.IsCourseEnrolledByUser(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                cdvm.IsCourseRefunded = await appRep.UsersCoursesRep.IsCourseRefunded(cdvm.course.Id, User.FindFirstValue(ClaimTypes.NameIdentifier));
                 cdvm.userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                cdvm.IsMempershipPaid =await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                cdvm.IsMempershipPaid = await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
 
-            cdvm.PrerequisiteCourses=await  appRep.CoursesRep.GetPrerequisiteCourses(cdvm.course.Id);
-              var userCourses = await   appRep.UserRep.GetMyCourses(cdvm.userid);
-                int MatchCounter=0;
+                cdvm.PrerequisiteCourses = await appRep.CoursesRep.GetPrerequisiteCourses(cdvm.course.Id);
+                var userCourses = await appRep.UserRep.GetMyCourses(cdvm.userid);
+                int MatchCounter = 0;
                 for (int i = 0; i < cdvm.PrerequisiteCourses.Count(); i++)
                 {
-                var isfound=    userCourses.Where(y => y.CourseId ==
-                        cdvm.PrerequisiteCourses[i].PrerequisiteCourseId).Any();
+                    var isfound = userCourses.Where(y => y.CourseId ==
+                            cdvm.PrerequisiteCourses[i].PrerequisiteCourseId).Any();
 
                     if (isfound)
                     {
@@ -93,7 +93,7 @@ namespace ESTA.Controllers
                         MatchCounter++;
                     }
                 }
-                if (String.IsNullOrEmpty(cdvm.userid)&&MatchCounter == cdvm.PrerequisiteCourses.Count()) cdvm.IsPrerequisiteCoursesPassed = true;
+                if (String.IsNullOrEmpty(cdvm.userid) && MatchCounter == cdvm.PrerequisiteCourses.Count()) cdvm.IsPrerequisiteCoursesPassed = true;
 
                 return View(cdvm);
             }
@@ -102,12 +102,12 @@ namespace ESTA.Controllers
 
                 return View();
             }
-       
+
         }
 
-   
+
     }
 
- 
- 
+
+
 }

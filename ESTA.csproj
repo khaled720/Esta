@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.1" />
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="EntityFrameworkCore.UseRowNumberForPaging" Version="0.4.0" />
@@ -266,7 +267,7 @@
 
   <ItemGroup>
     <Reference Include="ClassLibrary1">
-      <HintPath>..\old\ClassLibrary1.dll</HintPath>
+      <HintPath>..\ClassLibrary1.dll</HintPath>
     </Reference>
   </ItemGroup>
 

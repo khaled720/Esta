@@ -23,6 +23,7 @@ using EntityFrameworkCore.UseRowNumberForPaging;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using AspNetCore.ReCaptcha;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,7 @@ builder.Services.AddDbContext<AppDbContext>(
     );
 
 
+builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha"));
 ////
 ///
 

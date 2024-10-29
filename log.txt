@@ -117,3 +117,12 @@
    at System.Net.WebClient.UploadString(Uri address, String method, String data)
    at System.Net.WebClient.UploadString(String address, String method, String data)
    at ClassLibrary1.Interact.postOrder(String orderJSON)
+2024-08-12T15:46:26 : postOrder : System.Net.WebException: The remote server returned an error: (400) .
+   at System.Net.HttpWebRequest.GetResponse()
+   at System.Net.WebClient.GetWebResponse(WebRequest request)
+   at System.Net.WebClient.DownloadBits(WebRequest request, Stream writeStream)
+   at System.Net.WebClient.UploadBits(WebRequest request, Stream readStream, Byte[] buffer, Int32 chunkSize, Byte[] header, Byte[] footer)
+   at System.Net.WebClient.UploadDataInternal(Uri address, String method, Byte[] data, WebRequest& request)
+   at System.Net.WebClient.UploadString(Uri address, String method, String data)
+   at System.Net.WebClient.UploadString(String address, String method, String data)
+   at ClassLibrary1.Interact.postOrder(String orderJSON)

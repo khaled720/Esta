@@ -16,12 +16,15 @@ namespace ESTA.Helpers
                 try
                 {
                     listOfCountries.Add(new RegionInfo(culturesInfo.LCID).EnglishName);
+                    listOfCountries.Remove("Israel");
+                    listOfCountries.Add("Palestine");
                 }
                 catch (Exception)
                 {
                     continue;
                 }
             }
+
 
             return listOfCountries;
         }

@@ -430,3 +430,9 @@ Saturday, October 7, 2023 -> "AcceptMembershipOrder PostOrderReponse: {\"checkou
  
 3:40:32 PM -> Exception: Course Payment Failed  Object reference not set to an instance of an object. 
  
+9:52:47 AM -> Exception: Course Payment Failed  Object reference not set to an instance of an object. 
+ 
+3:46:20 PM -> "AcceptMembershipOrder PrepareOrderResponse : {\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-2104\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}" 
+ 
+3:46:24 PM -> MempershipOrder Object = {"Id":2005,"User":null,"UserId":"17135e54-aa93-44e5-8fc9-428e5574547a","CreationTime":"8/12/2024 3:46:06 PM","OrderNumber":"Mem-2104","Currency":"EGP","Amount":1500.0,"OrderDescription":"Mempership Payment Order ","OrderReference":"7361352a-b2b3-4c4f-954d-153322b867ne","TransactionReference":"QNBAA_TESTING_274","PrepareJsonResponse":"{\"apiOperation\":\"INITIATE_CHECKOUT\",\"interaction\":{\"timeout\":1800,\"returnUrl\":\"https://devtest.mist-net.com/esta/Payment/Payments/SaveMempershipPayment\",\"operation\":\"PURCHASE\",\"merchant\":{\"name\":\"ESTAEGYPT\"}},\"order\":{\"currency\":\"EGP\",\"id\":\"Mem-2104\",\"reference\":\"7361352a-b2b3-4c4f-954d-153322b867ne\",\"amount\":1500.0,\"description\":\"Mempership Payment Order \"},\"transaction\":{\"reference\":\"QNBAA_TESTING_274\"}}","OrderResult":"","SessionId":"","SuccessIndicator":"","PostOrderJsonResponse":""} 
+ 

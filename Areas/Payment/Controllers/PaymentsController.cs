@@ -375,7 +375,7 @@ namespace ESTA.Areas.Payment.Controllers
                     + "<h3>Order Number :<p>" + orderNum + "</p></h3>"
                     + "<h3>Amount :<p>" + amount + "</p></h3>"
                     + "<h3>Status:<p>" + status + "</p></h3>"
-                    , "Esta Payment Receipt", "Esta");
+                    , "Esta Payment Receipt", "ESTA");
             }
             else
             {
@@ -383,7 +383,7 @@ namespace ESTA.Areas.Payment.Controllers
               , "<h3>Order Number :<p>" + orderNum + "</p></h3>"
               + "<h3>Amount :<p>" + amount + "</p></h3>"
               + "<h3>Status:<p>" + status + "</p></h3>"
-              , "Esta Payment Receipt", "Esta");
+              , "Esta Payment Receipt", "ESTA");
             }
             return View(obj);
         }

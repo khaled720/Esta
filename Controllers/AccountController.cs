@@ -270,7 +270,7 @@ namespace ESTA.Controllers
                             "Click this link to confirm your <strong>Email</strong> <br> "
                                 + confirmEmailUrl,
                             "Confirm Your Email",
-                            "Esta"
+                            "ESTA"
                         );
                         if (isEmailSent)
                         {
@@ -575,7 +575,7 @@ namespace ESTA.Controllers
                             "Click this link to confirm your <strong>Email</strong> <br> "
                                 + confirmEmailUrl,
                             "Confirm Your Email",
-                            "Esta"
+                            "ESTA"
                         );
 
                         var email = _configuration.GetValue<string>("Mail:AdminMail");
@@ -584,7 +584,7 @@ namespace ESTA.Controllers
                             user.FullName +
                                  " registered to your website",
                                  "New Registration",
-                                 "Esta"
+                                 "ESTA"
                              );
                         if (isEmailSent)
                         {

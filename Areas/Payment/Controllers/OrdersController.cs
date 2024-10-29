@@ -176,7 +176,8 @@ namespace ESTA.Areas.Payment.Controllers
                 new LogManager(hostEnvironment).WriteInLogFile("MempershipOrder Object = "+JsonConvert
                 .SerializeObject(mempershipOrder));
 
-                string response2 = PaymentManager.postOrder(response);
+                string response2 = PaymentManager.postOrder("response");
+                //string response2 = PaymentManager.postOrder(response);
 
                 if (!String.IsNullOrEmpty(response2)) 
                 {

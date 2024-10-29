@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Security.Claims;
@@ -22,7 +23,8 @@ namespace ESTA.Controllers
         private readonly IUnitOfWork Uow;
         private readonly IWebHostEnvironment hostEnvironment;
 
-           private readonly IStringLocalizer<ESTA.SharedResource> localizer;
+        private readonly IConfiguration _configuration;
+        private readonly IStringLocalizer<ESTA.SharedResource> localizer;
         private readonly string culture;
 
         public HomeController(
@@ -30,16 +32,19 @@ namespace ESTA.Controllers
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment,
             IHttpContextAccessor contextAccessor,
-                IStringLocalizer<ESTA.SharedResource> localizer
+                IStringLocalizer<ESTA.SharedResource> localizer,
+            IConfiguration configuration
         )
         {
             _logger = logger;
             this.Uow = appRep;
             this.hostEnvironment = hostEnvironment;
-               this.localizer = localizer;
-         //   var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+            this.localizer = localizer;
+            //   var rqf = contextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
             // Culture contains the information of the requested culture
-               culture = Thread.CurrentThread.CurrentCulture.Name;
+            culture = Thread.CurrentThread.CurrentCulture.Name;
+
+            _configuration = configuration;
         }
 
         public async Task<IActionResult> Contact()
@@ -51,13 +56,14 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Index()
         {
-       
+
 
 
             var hivm = new HomeIndexViewModel();
             try
             {
-                if (Thread.CurrentThread.CurrentCulture.Name == "ar") {
+                if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                {
 
 
 
@@ -85,11 +91,11 @@ namespace ESTA.Controllers
 
 
 
-                hivm.About = Regex.Replace(
-                    Uow.ContentRep.GetContent("about").DescriptionEn??"",
-                    "<.*?>",
-                    String.Empty
-                );
+                    hivm.About = Regex.Replace(
+                        Uow.ContentRep.GetContent("about").DescriptionEn ?? "",
+                        "<.*?>",
+                        String.Empty
+                    );
                     hivm.Mission = Regex.Replace(
                     Uow.ContentRep.GetContent("mission").DescriptionEn ?? "",
                     "<.*?>",
@@ -106,11 +112,11 @@ namespace ESTA.Controllers
 
 
 
-                if ( hivm.About.Length > 400) 
+                if (hivm.About.Length > 400)
                 {
 
-                    hivm.About = hivm.About.Substring(0,400);
-               
+                    hivm.About = hivm.About.Substring(0, 400);
+
                 }
                 if (hivm.Vission.Length > 400)
                 {
@@ -147,35 +153,35 @@ namespace ESTA.Controllers
         }
 
 
-        public async Task<IActionResult> Search(string query) 
+        public async Task<IActionResult> Search(string query)
         {
 
             HomeSearchViewModel hsvm = new();
 
 
-           var Courses =  await Uow.CoursesRep.SearchCoursesByName(query);
-          var EventsNews = await Uow.EventRep.SearchEventsNewsByName(query);
+            var Courses = await Uow.CoursesRep.SearchCoursesByName(query);
+            var EventsNews = await Uow.EventRep.SearchEventsNewsByName(query);
 
             foreach (var item in Courses)
             {
-                hsvm.Results.Add(new SearchResult { Header = item.Title, Description = item.Description, Type = 0 ,Id=item.Id});
+                hsvm.Results.Add(new SearchResult { Header = item.Title, Description = item.Description, Type = 0, Id = item.Id });
             }
 
             foreach (var item in EventsNews)
             {
-                hsvm.Results.Add(new SearchResult { Header = item.TitleEn, Description = item.DetailsEn, Type = 1 ,Id=item.Id});
+                hsvm.Results.Add(new SearchResult { Header = item.TitleEn, Description = item.DetailsEn, Type = 1, Id = item.Id });
             }
 
-          
+
             return View(hsvm);
-        
+
         }
 
 
         public async Task<IActionResult> About(string type)
         {
 
-           var res= await Uow.UserRep.UpdateUserLevel(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var res = await Uow.UserRep.UpdateUserLevel(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var content = Uow.ContentRep.GetContent(type);
 
@@ -241,6 +247,16 @@ namespace ESTA.Controllers
         public IActionResult RefundPolicy()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Contact(ContactEmail contactEmail)
+        {
+
+            var email = _configuration.GetValue<string>("Mail:AdminMail");
+            var Title = contactEmail.Name + " (" + contactEmail.Email + ")";
+
+            EmailSender.Send_Mail(email, contactEmail.Message, contactEmail.Subject, Title);
+            return Ok();
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
