@@ -155,9 +155,9 @@
 
 
 
-                                            <a style="display:none" onclick="changeLang('en')"
+                                            <a onclick="changeLang('en')"
                                                data-toggle="tooltip" title="@langTooltip">
-                                                <span style="color:aquamarine" class="ti-world"></span>
+                                                <span style="color:white" class="ti-world"></span>
                                             </a>
 
 
@@ -184,9 +184,9 @@
 
 
 
-                                            <a style="display:none" onclick="changeLang('ar')"
+                                            <a onclick="changeLang('ar')"
                                                data-toggle="tooltip" title="@langTooltip">
-                                                <span style="color:aquamarine" class="ti-world"></span>
+                                                <span style="color:white" class="ti-world"></span>
                                             </a>
 
 
@@ -211,8 +211,8 @@
             <!-- /end header-top -->
             <!-- header-bottom -->
             <div class="header-bottom-area header-sticky" style="transition: .2s;">
-                <div class="container">
-                    <div class="row align-items-center justify-content-between">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-between mx-md-2">
                         <div class="">
                             <div class="logo ar">
                                 <a style="display:flex;align-items:center" asp-controller="Home" asp-action="Index" asp-area="">
@@ -227,7 +227,7 @@
 
 
                         <div class="">
-                            <div class="header-bottom-icon f-right">
+                            @*<div class="header-bottom-icon f-right">
                                 <ul>
                                     <li class="toggle-search-icon">
                                         <a href="#">
@@ -242,7 +242,7 @@
                                     </li>
 
                                 </ul>
-                            </div>
+                            </div>*@
                             <div class="main-menu f-right">
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
@@ -319,8 +319,17 @@
                                             <a asp-area="" asp-controller="Home" asp-action="contact">@localizer["contacts"]</a>
                                         </li>
 
-
-
+                                        <li class="toggle-search-icon">
+                                            <a href="#" style="">
+                                                <span class="ti-search"></span>
+                                                <div class="toggle-search-box" style="">
+                                                    <form asp-action="search" asp-controller="Home" id="searchbox">
+                                                        <input style="width:300px" name="query" placeholder="Search" type="text">
+                                                        <button onclick="this.form.submit();" style="" class="button-search"><i class="ti-search"></i></button>
+                                                    </form>
+                                                </div>
+                                            </a>
+                                        </li>
 
                                         @*<li>
                                         <form asp-controller="Lang" asp-action="SetCulture" asp-route-returnUrl="@returnUrl"

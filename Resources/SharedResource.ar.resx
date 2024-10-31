@@ -153,6 +153,9 @@
   <data name="agreepolicy" xml:space="preserve">
     <value>أوافق على الشروط والأحكام وسياسة الخصوصية واسترداد الأموال والإلغاء</value>
   </data>
+  <data name="AllBoard" xml:space="preserve">
+    <value>جميع اعضاء مجلس الإدارة</value>
+  </data>
   <data name="allmem" xml:space="preserve">
     <value>جميع الاعضاء</value>
   </data>
@@ -215,6 +218,9 @@
   </data>
   <data name="codeofethics" xml:space="preserve">
     <value> قانون أخلاقيات المهنة</value>
+  </data>
+  <data name="completedCourse" xml:space="preserve">
+    <value>تهاني! لقد أكملت هذه الدورة بنجاح.</value>
   </data>
   <data name="confirm" xml:space="preserve">
     <value>تاكيد</value>
@@ -444,6 +450,9 @@
   <data name="lastupdatedate" xml:space="preserve">
     <value>اخر تاريخ للتحديث</value>
   </data>
+  <data name="Latest" xml:space="preserve">
+    <value>الأحدث</value>
+  </data>
   <data name="level" xml:space="preserve">
     <value>مستوى</value>
   </data>
@@ -609,6 +618,9 @@
     <value>المتطلبات</value>
   </data>
   <data name="prev" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
     <value>السابق</value>
   </data>
   <data name="price" xml:space="preserve">

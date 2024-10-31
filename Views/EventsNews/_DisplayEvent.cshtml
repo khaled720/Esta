@@ -25,7 +25,9 @@
                 <div class="col-xl-12">
                     <div class="courses-view-more-btn">
                         <button onclick="LoadMoreEvents('@Model.DivId',@Model.Flag,@Model.EventType)"
-                        class="btn gray-border-btn"><span class="">@ESTA.Resources.EventsNews.viewMore</span></button>
+                                class="btn gray-border-btn">
+                            <span class="">@ESTA.Resources.EventsNews.viewMore</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -34,7 +36,9 @@
 }
 else
 {
-    <div>
-        <h2>@ESTA.Resources.EventsNews.StayTuned__</h2>
+    <div class="blog-grid-area pt-50 pb-50">
+        <div class="container">
+            <h2>@ESTA.Resources.EventsNews.StayTuned__</h2>
+        </div>
     </div>
 }

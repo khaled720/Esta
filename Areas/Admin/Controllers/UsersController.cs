@@ -71,21 +71,19 @@ namespace ESTA.Areas.Admin.Controllers
                     break;
 
                 default:
-
                     users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
                           .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
                     break;
 
             }
 
+            //pagerViewModel.CurrentPage = page;
 
-            pagerViewModel.CurrentPage = page;
-
-            pagerViewModel.Update(users);
+            //pagerViewModel.Update(users);
 
             ViewBag.type = type;
 
-            return View(pagerViewModel);
+            return View(users);
 
 
         }
@@ -395,13 +393,26 @@ namespace ESTA.Areas.Admin.Controllers
 
         }
 
-        public async Task<IActionResult> ExportUsersToFileAsync()
+        public async Task<IActionResult> ExportUsersToFileAsync(int type)
         {
             var allUsers = (List<User>)await appRep.UserRep.GetAllUsers();
-            List<User> users;
 
-            users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
+            //list of users only not admin or moderator
+            List<User> users = type switch
+            {
+                1 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList(),
+                2 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => !string.IsNullOrEmpty(y.MembershipNumber)).OrderBy(x => x.FullName).ToList(),
+                3 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => string.IsNullOrEmpty(y.MembershipNumber)).OrderByDescending(x => x.JoinDate).ToList(),
+                4 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => y.Country == "Egypt" || y.Country == "مصر").OrderBy(x => x.FullName).ToList(),
+                5 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => y.Country != "Egypt" && y.Country != "مصر").OrderBy(x => x.FullName).ToList(),
+                _ => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList(),
+            };
 
             ExcelPackage Ep = new ExcelPackage();
             ExcelWorksheet Sheet = Ep.Workbook.Worksheets.Add("ESTA Members");
@@ -415,6 +426,8 @@ namespace ESTA.Areas.Admin.Controllers
             Sheet.Cells["H1"].Value = "National ID";
             Sheet.Cells["I1"].Value = "Passport";
             Sheet.Cells["J1"].Value = "Mempership number";
+            Sheet.Cells["K1"].Value = "Certificate";
+            Sheet.Cells["L1"].Value = "Job";
             int row = 2;
 
             foreach (var item in users)
@@ -429,6 +442,8 @@ namespace ESTA.Areas.Admin.Controllers
                 Sheet.Cells[string.Format("H{0}", row)].Value = item.NationalCardID;
                 Sheet.Cells[string.Format("I{0}", row)].Value = item.Passport;
                 Sheet.Cells[string.Format("J{0}", row)].Value = item.MembershipNumber;
+                Sheet.Cells[string.Format("K{0}", row)].Value = item.AcademicQualification;
+                Sheet.Cells[string.Format("L{0}", row)].Value = item.Job;
                 row++;
             }
 

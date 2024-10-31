@@ -21,7 +21,7 @@ namespace ESTA.Controllers
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly UserManager<User> userManager;
 
-        public UserController(IStringLocalizer<SharedResource> localizer ,
+        public UserController(IStringLocalizer<SharedResource> localizer,
             IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, UserManager<User> userManager)
         {
             this.localizer = localizer;
@@ -30,27 +30,27 @@ namespace ESTA.Controllers
             this.userManager = userManager;
         }
 
-  
+
         public async Task<IActionResult> Profile()
         {
 
             //  await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
-               
-               await   appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
-               await appRep.SaveChangesAsync();
-            
-            ViewBag.ExpiryMonth= await appRep.ConstantsRep.getMempershipExpiryMonth();
-      
-            
+
+            await appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
+            await appRep.SaveChangesAsync();
+
+            ViewBag.ExpiryMonth = await appRep.ConstantsRep.getMempershipExpiryMonth();
+
+
             return View();
         }
 
         public async Task<IActionResult> Courses()
         {
-  
+
             // user corses shuild be lodd her
             //User Id Must be Dynamic
-          var courses=    await  appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var courses = await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             return View(courses);
         }
@@ -60,10 +60,10 @@ namespace ESTA.Controllers
 
 
         //enroll & pay later
-        public async Task<IActionResult> EnrollCourse(int Id,int level)
+        public async Task<IActionResult> EnrollCourse(int Id, int level)
         {
 
-            if (User!=null&&User.Identity.IsAuthenticated)
+            if (User != null && User.Identity.IsAuthenticated)
             {
 
 
@@ -71,20 +71,20 @@ namespace ESTA.Controllers
 
 
 
-                if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier))) 
+                if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 {
 
                     return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Mempership Is Not Paid "));
 
                 }
-        
+
                 var course = await appRep.CoursesRep.GetCourse(Id);
                 var applicants = await appRep.CoursesRep.GetEnrolledUsersInCourseLength(Id);
                 if (course.MaxAllowedMembersCount > applicants)
                 {
 
 
-                    if (course.StartDate != null && (course.StartDate - DateTime.Now).Value.Days> 10)
+                    if (course.StartDate != null && (course.StartDate - DateTime.Now).Value.Days > 10)
                     {
 
 
@@ -129,14 +129,15 @@ namespace ESTA.Controllers
                     }
                     else
                     {
-                        return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Course Will start in less than 10 days" ));
+                        return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Course Will start in less than 10 days"));
                     }
 
 
 
                 }
-                else {
-                return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("coursecomplete") ));
+                else
+                {
+                    return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("coursecomplete")));
                 }
 
 
@@ -150,10 +151,10 @@ namespace ESTA.Controllers
         }
 
         //course Id Enroll + pay now
-        public async Task<IActionResult> PayEnrollCourse(int Id,int level)
+        public async Task<IActionResult> PayEnrollCourse(int Id, int level)
         {
 
-     
+
 
 
             if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
@@ -168,9 +169,9 @@ namespace ESTA.Controllers
                 return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Foreign Users Can not pay online "));
 
             }
-            var course=await  appRep.CoursesRep.GetCourse(Id);
-        var applicants= await    appRep.CoursesRep.GetEnrolledUsersInCourseLength(Id);
-            if (course.MaxAllowedMembersCount > applicants) 
+            var course = await appRep.CoursesRep.GetCourse(Id);
+            var applicants = await appRep.CoursesRep.GetEnrolledUsersInCourseLength(Id);
+            if (course.MaxAllowedMembersCount > applicants)
             {
                 try
                 {
@@ -214,7 +215,7 @@ namespace ESTA.Controllers
                 }
                 catch (Exception e)
                 {
-                    return View("_Info", new Info(localizer.GetString("cannotenroll")+" !", localizer.GetString("coursecomplete")));
+                    return View("_Info", new Info(localizer.GetString("cannotenroll") + " !", localizer.GetString("coursecomplete")));
 
 
                 }
@@ -224,24 +225,24 @@ namespace ESTA.Controllers
             }
             else
             {
-                return View("_Info",new Info(localizer.GetString("cannotenroll"), localizer.GetString("coursecomplete")) );
+                return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("coursecomplete")));
             }
-         
 
-          
-         
+
+
+
 
         }
         public IActionResult CourseEnrolled()
         {
-           
+
 
 
             return View();
         }
 
 
-        
+
 
     }
 }

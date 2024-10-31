@@ -79,6 +79,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event Details.
+        /// </summary>
+        public static string details {
+            get {
+                return ResourceManager.GetString("details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arabic details is rquired.
         /// </summary>
         public static string DetailsArError {

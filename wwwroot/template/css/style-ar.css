@@ -118,10 +118,13 @@ nav {
     float: left !important;
 }
 
-.toggle-search-box {
-    left: 0 !important;
-}
-
-    .toggle-search-box form button {
-        right: 35px !important;
+@media (min-width:1200px) {
+    .toggle-search-box {
+        left: 0 !important;
+        right: auto !important;
     }
+}
+.toggle-search-box form button {
+    left: 11px !important;
+    right: auto !important;
+}

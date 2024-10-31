@@ -5,10 +5,32 @@
 }
 <br />
 
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png")" );">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">@ViewBag.about</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="#">@localizer["home"]</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@localizer["termsCon"]</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="container">
 
-<h3>Terms & Conditions</h3>
+<div class="container" style="margin:50px auto 50px auto">
+
+    <h3>Terms & Conditions</h3>
 
 
 
@@ -30,5 +52,6 @@
     <br /> 8. Conclusion<br />
     By using ESTA's services, you agree to abide by these Terms and Conditions. If you do not agree with any part of these Terms, please refrain from using our services.
 
-</div>   <br />
-    <br />
+</div>
+<br />
+<br />

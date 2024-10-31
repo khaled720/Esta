@@ -10,7 +10,7 @@ namespace ESTA.Repository
         private readonly AppDbContext appDbContext;
         private readonly UserManager<User> userManager;
 
-        public UsersCoursesRep(AppDbContext appDbContext,UserManager<User> userManager)
+        public UsersCoursesRep(AppDbContext appDbContext, UserManager<User> userManager)
         {
             this.appDbContext = appDbContext;
             this.userManager = userManager;
@@ -20,10 +20,31 @@ namespace ESTA.Repository
         {
             try
             {
-               appDbContext.UserCourses.Add(
-                    new UserCourse { CourseId = courseId, UserId = userId,
-                    isPaid = true,StateId=3,Grade=100 });
+                appDbContext.UserCourses.Add(
+                     new UserCourse
+                     {
+                         CourseId = courseId,
+                         UserId = userId,
+                         isPaid = true,
+                         StateId = 3,
+                         Grade = 100
+                     });
                 return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool IsUserCompletedCourse(int courseId, string userId)
+        {
+            try
+            {
+                var Res = appDbContext.UserCourses.Where(x => x.UserId == userId && x.CourseId == courseId).FirstOrDefault();
+                
+                return Res != null ? Res.StateId == 3 : false;
             }
             catch (Exception)
             {
@@ -37,27 +58,27 @@ namespace ESTA.Repository
             try
             {
                 var usercourse = await appDbContext.UserCourses.Where(y => y.UserId == uid && y.CourseId == cId).FirstAsync();
-                if (usercourse!=null&&usercourse.isPaid==false&&usercourse.Grade==0) 
+                if (usercourse != null && usercourse.isPaid == false && usercourse.Grade == 0)
                 {
-                     appDbContext.Remove<UserCourse>(usercourse);
+                    appDbContext.Remove<UserCourse>(usercourse);
                     return true;
                 }
 
                 return false;
             }
-            catch (Exception e )
+            catch (Exception e)
             {
                 return false;
             }
         }
 
-        public List<UserCourse>     GetAllUsersEnrolledinCourse(int courseId)
-            {
+        public List<UserCourse> GetAllUsersEnrolledinCourse(int courseId)
+        {
 
-      return     appDbContext.UserCourses.AsQueryable().Where(y => y.CourseId == courseId).Include(y => y.user).ToList();
+            return appDbContext.UserCourses.AsQueryable().Where(y => y.CourseId == courseId).Include(y => y.user).ToList();
 
 
-}
+        }
 
         public List<User> GetAllUsersNotEnrolledinCourse(int courseId)
         {
@@ -66,27 +87,27 @@ namespace ESTA.Repository
             var notUsers = new List<User>();
             var UsersRegistredInCourse = new List<User>();
             var allusers = new List<User>();
-           // var wherecon;
-           allusers = appDbContext.Users.ToList();
+            // var wherecon;
+            allusers = appDbContext.Users.ToList();
             foreach (var user in allusers)
             {
-                if (userManager.IsInRoleAsync(user, "User").GetAwaiter().GetResult()) 
+                if (userManager.IsInRoleAsync(user, "User").GetAwaiter().GetResult())
                 {
 
                     notUsers.Add(user);
                 }
             }
-            
-            
-            
+
+
+
             var us = appDbContext.UserCourses.AsQueryable().Where(y => y.CourseId == courseId).ToList();
 
-            
+
 
             foreach (var usercourse in us)
             {
-               
-                foreach (var user in notUsers) 
+
+                foreach (var user in notUsers)
                 {
 
                     if (usercourse.UserId == user.Id) { UsersRegistredInCourse.Add(user); break; }
@@ -98,7 +119,7 @@ namespace ESTA.Repository
 
         }
 
-        public async Task<UserCourse>  GetUserCourse(int courseId, string userId)
+        public async Task<UserCourse> GetUserCourse(int courseId, string userId)
         {
             try
             {
@@ -107,7 +128,7 @@ namespace ESTA.Repository
                                  .AsTracking()
                     .Where(y => y.CourseId == courseId && y.UserId == userId).FirstAsync();
 
-   
+
             }
             catch (Exception)
             {
@@ -119,7 +140,7 @@ namespace ESTA.Repository
         {
             try
             {
-                return await appDbContext.UserCourses.Where(y=>y.UserId==userId&&(y.StateId==3|| y.StateId == 5)).Include(y=>y.course).ToListAsync();
+                return await appDbContext.UserCourses.Where(y => y.UserId == userId && (y.StateId == 3 || y.StateId == 5)).Include(y => y.course).ToListAsync();
             }
             catch (Exception)
             {
@@ -132,58 +153,58 @@ namespace ESTA.Repository
         {
             try
             {
-             var usercourse=await   appDbContext.UserCourses.AsQueryable()
-                    .Where(y => y.UserId == userId && y.CourseId == courseId).FirstAsync();
+                var usercourse = await appDbContext.UserCourses.AsQueryable()
+                       .Where(y => y.UserId == userId && y.CourseId == courseId).FirstAsync();
 
-                if (usercourse.StateId==4)
+                if (usercourse.StateId == 4)
                 {
-             return true;
+                    return true;
                 }
             }
             catch (Exception)
             {
 
-            return false;
+                return false;
 
             }
             return false;
         }
 
-        public  async Task<bool> RemovePaylaterUsersExceeded3days()
+        public async Task<bool> RemovePaylaterUsersExceeded3days()
         {
             try
             {
-             var querable = appDbContext.UserCourses.AsEnumerable();
+                var querable = appDbContext.UserCourses.AsEnumerable();
 
-               
-            var Exdd3DaysCourse = querable.Where(
-                y=>y.isPaid==false && 
-            (DateTime.Now-y.EnrollmentDate).TotalDays  > 3  ).ToList();
-               
-            await Task.Delay(10);
-            appDbContext.UserCourses.RemoveRange(Exdd3DaysCourse);
-            return true;
+
+                var Exdd3DaysCourse = querable.Where(
+                    y => y.isPaid == false &&
+                (DateTime.Now - y.EnrollmentDate).TotalDays > 3).ToList();
+
+                await Task.Delay(10);
+                appDbContext.UserCourses.RemoveRange(Exdd3DaysCourse);
+                return true;
             }
             catch (Exception e)
             {
 
                 return false;
             }
-        
+
 
         }
 
-        public bool UpdateUserCoursePaymentStatus(string UserId,int CourseId,bool NewState) 
+        public bool UpdateUserCoursePaymentStatus(string UserId, int CourseId, bool NewState)
         {
             try
             {
-  var uc=   this.appDbContext.UserCourses.Where(y => y.CourseId == CourseId && y.UserId == UserId).AsTracking().FirstOrDefault();
-            if (uc!=null && uc.isPaid != NewState)
-            {
-                uc.isPaid = NewState;
+                var uc = this.appDbContext.UserCourses.Where(y => y.CourseId == CourseId && y.UserId == UserId).AsTracking().FirstOrDefault();
+                if (uc != null && uc.isPaid != NewState)
+                {
+                    uc.isPaid = NewState;
 
-                    
-            }
+
+                }
 
                 return true;
             }
@@ -192,7 +213,7 @@ namespace ESTA.Repository
 
                 return false;
             }
-       
+
 
 
         }
@@ -201,20 +222,21 @@ namespace ESTA.Repository
         {
             try
             {
-                var obj=await appDbContext.UserCourses.AsQueryable().AsTracking()
-                   .Where(y => y.CourseId == courseId && y.UserId == userId).Include(y=>y.course).FirstAsync();
-                var SuccessGrade = appDbContext.Courses.AsQueryable().Where(y=>y.Id==courseId).First().SuccessPersentage;
-                if (grade < obj.course.FinalGrade&&grade>=0) 
+                var obj = await appDbContext.UserCourses.AsQueryable().AsTracking()
+                   .Where(y => y.CourseId == courseId && y.UserId == userId).Include(y => y.course).FirstAsync();
+                var SuccessGrade = appDbContext.Courses.AsQueryable().Where(y => y.Id == courseId).First().SuccessPersentage;
+                if (grade < obj.course.FinalGrade && grade >= 0)
                 {
 
                     obj.Grade = grade;
 
-                    if (grade >= (SuccessGrade*(obj.course.FinalGrade / 100)))
+                    if (grade >= (SuccessGrade * (obj.course.FinalGrade / 100)))
                     {
                         //passed
                         obj.StateId = 3;
                     }
-                    else {
+                    else
+                    {
                         //failed
                         obj.StateId = 5;
 

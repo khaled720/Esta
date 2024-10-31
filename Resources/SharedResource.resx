@@ -153,6 +153,9 @@
   <data name="agreepolicy" xml:space="preserve">
     <value>I agree with Terms and conditions, privacy, refund and cancellation policy</value>
   </data>
+  <data name="AllBoard" xml:space="preserve">
+    <value>All Board memebers</value>
+  </data>
   <data name="allmem" xml:space="preserve">
     <value>All Members</value>
   </data>
@@ -225,6 +228,9 @@
   </data>
   <data name="codeofethics" xml:space="preserve">
     <value>Code of professional Ethics</value>
+  </data>
+  <data name="completedCourse" xml:space="preserve">
+    <value>congratulations! You have successfully completed this course.</value>
   </data>
   <data name="confirm" xml:space="preserve">
     <value>Confirm</value>
@@ -454,6 +460,9 @@
   <data name="lastupdatedate" xml:space="preserve">
     <value>Last Update Date</value>
   </data>
+  <data name="Latest" xml:space="preserve">
+    <value>Latest</value>
+  </data>
   <data name="level" xml:space="preserve">
     <value>Level</value>
   </data>
@@ -622,6 +631,9 @@
     <value>Prerequisites</value>
   </data>
   <data name="prev" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
     <value>Previous</value>
   </data>
   <data name="price" xml:space="preserve">

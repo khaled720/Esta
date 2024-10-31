@@ -27,7 +27,7 @@
                 @if (eventObj.Date.HasValue)
                 {
                     <div class="blog-meta">
-                        <span>@eventObj.Date.Value.ToString("yyyy-MMM-dd")</span>
+                        <span><i class="fa fa-calendar mx-1"></i> @eventObj.Date.Value.ToString("yyyy-MMM-dd hh:mm:ss tt")</span>
                     </div>
                 }
                 else

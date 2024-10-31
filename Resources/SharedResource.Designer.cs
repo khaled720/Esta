@@ -169,6 +169,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Board memebers.
+        /// </summary>
+        public static string AllBoard {
+            get {
+                return ResourceManager.GetString("AllBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Members.
         /// </summary>
         public static string allmem {
@@ -356,6 +365,15 @@ namespace ESTA.Resources {
         public static string codeofethics {
             get {
                 return ResourceManager.GetString("codeofethics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to congratulations! You have successfully completed this course..
+        /// </summary>
+        public static string completedCourse {
+            get {
+                return ResourceManager.GetString("completedCourse", resourceCulture);
             }
         }
         
@@ -1044,6 +1062,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Latest.
+        /// </summary>
+        public static string Latest {
+            get {
+                return ResourceManager.GetString("Latest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string level {
@@ -1533,6 +1560,15 @@ namespace ESTA.Resources {
         public static string prev {
             get {
                 return ResourceManager.GetString("prev", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         

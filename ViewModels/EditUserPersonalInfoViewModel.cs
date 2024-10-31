@@ -122,7 +122,7 @@ namespace ESTA.ViewModels
        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
        //    ErrorMessageResourceName = "required"
        //)]
-        public string MembershipNumber { get; set; } = String.Empty;
+        public string? MembershipNumber { get; set; } = String.Empty;
 
 
     }

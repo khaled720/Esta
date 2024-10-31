@@ -11,6 +11,7 @@ namespace ESTA.Repository.IRepository
         public List<User> GetAllUsersNotEnrolledinCourse(int courseId);
 
         public bool AddUsertoCourseAsCompleted(int courseId,string userId);
+        public bool IsUserCompletedCourse(int courseId,string userId);
 
 
         public bool UpdateUserCoursePaymentStatus(string UserId, int CourseId, bool NewState);

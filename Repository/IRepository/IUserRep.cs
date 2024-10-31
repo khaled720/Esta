@@ -2,8 +2,8 @@
 
 namespace ESTA.Repository.IRepository
 {
-	public interface IUserRep
-	{
+    public interface IUserRep
+    {
 
 
         Task<string> GetAdminUserEmail();
@@ -17,18 +17,18 @@ namespace ESTA.Repository.IRepository
         public Task<bool> PayMempership(string userId);
 
 
-        public Task<bool>  RevokeMempershipPayment(string userId);
+        public Task<bool> RevokeMempershipPayment(string userId);
 
 
         public Task<bool> IsUserMempershipPaid(string userId);
 
         public Task<bool> DeleteUser(string id);
-        public Task<bool> EditUserApproval(string id,bool isApproved);
+        public Task<bool> EditUserApproval(string id, bool isApproved);
 
         public Task<bool> EditUserEmailConfirmationApproval(string id, bool isConfirmed);
 
-Task<bool>   UpdateUserLevel(string userId);
+        Task<bool> UpdateUserLevel(string userId);
         Task<bool> IsForeignUser(string UserId);
-   
+
     }
 }

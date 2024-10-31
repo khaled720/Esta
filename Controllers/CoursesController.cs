@@ -78,6 +78,7 @@ namespace ESTA.Controllers
                 cdvm.userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 cdvm.IsMempershipPaid = await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
+                cdvm.isCompleted = appRep.UsersCoursesRep.IsUserCompletedCourse(id, cdvm.userid);
 
                 cdvm.PrerequisiteCourses = await appRep.CoursesRep.GetPrerequisiteCourses(cdvm.course.Id);
                 var userCourses = await appRep.UserRep.GetMyCourses(cdvm.userid);

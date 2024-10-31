@@ -6,8 +6,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace ESTA.Controllers
 {
-   // [Authorize("RequireAdminRole")]
-   
+    // [Authorize("RequireAdminRole")]
+
     public class DirectorController : Controller
     {
         private readonly IUnitOfWork uow;
@@ -24,19 +24,27 @@ namespace ESTA.Controllers
         {
             try
             {
- 
-
-            return View(await uow.DirectorRep.GetAllDirectors());
+                return View(await uow.DirectorRep.GetAllDirectors());
             }
             catch (Exception)
             {
                 return View(new List<Director>());
 
             }
-         
         }
 
+        public async Task<IActionResult> GetDirector(int id)
+        {
+            try
+            {
+                return View(await uow.DirectorRep.GetDirector(id));
+            }
+            catch (Exception)
+            {
+                return View(new Director());
 
+            }
+        }
 
     }
 }

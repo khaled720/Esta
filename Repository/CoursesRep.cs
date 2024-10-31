@@ -107,12 +107,12 @@ namespace ESTA.Repository
 
         public async Task<IEnumerable<Course>> GetAllCetaCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId < 4).OrderBy(x => x.StartDate).AsNoTracking().ToListAsync();
+            return await appContext.Courses.Where(y => y.LevelId < 4).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllOtherCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId == 4).OrderBy(x => x.StartDate).AsNoTracking().ToListAsync();
+            return await appContext.Courses.Where(y => y.LevelId == 4).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
         }
 
         public async Task<Course> GetCourse(int id)

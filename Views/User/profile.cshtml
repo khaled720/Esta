@@ -15,89 +15,96 @@
 <div class="container">
 
 
-	<br />
+    <br />
 
-	<br />
+    <br />
 
-	<br />
+    <br />
 
     <div style="display:flex;justify-content: space-between;">
         <h3>@localizer["profile"]  </h3>
         @if (userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier))
         .GetAwaiter().GetResult().IsMempershipPaid)
         {
-            
-       <p><img width="20px" height="20px"  src="@Url.Content("~/Images/success.png")">
-				@localizer["mempaid"]
-     
-           <br>
-				@localizer["endsin"]  @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)ViewBag.ExpiryMonth)
 
-			</p>
-       @*     <a class="btn btn-info" asp-action="Create" 
-           asp-controller="Refund" 
-           asp-area="Payment">@localizer["refund"]</a>*@
+            <p>
+                <img width="20px" height="20px" src="@Url.Content("~/Images/success.png")">
+                @localizer["mempaid"]
 
-        }else{
-               <a class="btn btn-info" asp-action="AcceptMembershipOrder"
-    asp-controller="Orders"
-    asp-area="Payment">@localizer["paymem"]</a>
+                <br>
+                @localizer["endsin"]  @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)ViewBag.ExpiryMonth)
+
+            </p>
+            @*     <a class="btn btn-info" asp-action="Create"
+        asp-controller="Refund"
+        asp-area="Payment">@localizer["refund"]</a>*@
+
         }
-  @*      <a class="btn btn-info" asp-action="UserChangePassword"
-           asp-controller="Account">@localizer["changepassheader"]</a>*@
-        
-    </div>
-    
+        else
+        {
+            <a class="btn btn-info" asp-action="AcceptMembershipOrder"
+               asp-controller="Orders"
+               asp-area="Payment">@localizer["paymem"]</a>
+        }
+        @*      <a class="btn btn-info" asp-action="UserChangePassword"
+        asp-controller="Account">@localizer["changepassheader"]</a>*@
 
-@*
+    </div>
+
+
+    @*
     <a href="/User/Courses" class="btn btn-primary">My Courses</a>*@
 
 
-	<br />
-	<br />
+    <br />
+    <br />
 
-    @if (await userManager.IsInRoleAsync(await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)) , "Moderator"))
+    @if (await userManager.IsInRoleAsync(await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)), "Moderator"))
     {
         <a class="btn btn-danger" asp-action="Index" asp-controller="Forums" asp-area="Admin">@localizer["forumdash"]</a>
 
     }
     <br />   <br />
     <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-2 col-lg-2">
-            <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news"
-                type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">@localizer["mycourses"]</button>
-                <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social" 
-                type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">@localizer["results"]</button>
-                <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta"
+        <div class="row">
+            <div class="col-sm-6 col-md-2 col-lg-2">
+                <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news"
+                            type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">
+                        @localizer["mycourses"]
+                    </button>
+                    <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social"
+                            type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">
+                        @localizer["results"]
+                    </button>
+                    <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta"
                             type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">
                         @localizer["forums"]
                     </button>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-10 col-lg-10 profile-section" >
-            <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
+            <div class="col-sm-12 col-md-10 col-lg-10 profile-section">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
 
 
                         @await Component.InvokeAsync("UserCourses")
-                        
 
-                   </div>
-                <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
                         @await Component.InvokeAsync("UserResults")
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
+                        @await Component.InvokeAsync("UserForums"/*,new {userId= User.FindFirstValue(ClaimTypes.NameIdentifier*/)
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
-           @await Component.InvokeAsync("UserForums"/*,new {userId= User.FindFirstValue(ClaimTypes.NameIdentifier*/) 
-                </div>
+                <input type="hidden" value="1" id="pageNews" />
+                <input type="hidden" value="1" id="pageSocial" />
+                <input type="hidden" value="1" id="pageEsta" />
             </div>
-            <input type="hidden" value="1" id="pageNews" />
-            <input type="hidden" value="1" id="pageSocial" />
-            <input type="hidden" value="1" id="pageEsta" />
         </div>
     </div>
-</div>
 
 
 
@@ -106,7 +113,7 @@
 
 </div>
 
-                <br />
+<br />
 
 
 @*<ul class="nav nav-tabs ">
@@ -117,7 +124,7 @@
 </ul>
 
 <div class="tab-content">
- 
+
     <div id="menu1" class="tab-pane fade active">
         <h3>@localizer["mycourses"]</h3>
         <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>

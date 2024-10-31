@@ -11,9 +11,9 @@
 
 
 
-    <style>
+<style>
 
-     .team-social-info::-webkit-scrollbar-track {
+    .team-social-info::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         background-color: transparent;
         border-radius: 10px;
@@ -22,23 +22,22 @@
     .team-social-info::-webkit-scrollbar {
         width: 7px;
         background-color: transparent;
-        margin:5px
+        margin: 5px
     }
 
     .team-social-info::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(50,153,217)), color-stop(0.72, rgb(20,125,189)), color-stop(0.86, rgb(28,58,148)));
-    
     }
 
-    </style>
+</style>
 
 
 <!-- slider-start -->
 <div class="slider-area">
     <div class="page-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center"
-        style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
+             style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -58,67 +57,62 @@
     </div>
 </div>
 <!-- slider-end -->
-
-
-
 <!-- team start -->
 <div class="team-area pt-50 pb-50">
     <div class="container">
 
         <div class="team-list">
             <div class="row">
-                @if (Model.Count()>0)
+                @if (Model.Count() > 0)
                 {
-                       @foreach (var item in Model)
-             {
-                 <div class="col-xl-3 col-lg-3 col-md-6">
-                    <div class="team-wrapper mb-30">
-                        <div class="team-thumb">
-                            <img src="@Url.Content("~"+@item.PhotoPath)" alt="board" />
-                        </div>
-                        <div class="team-social-info text-center" style="    overflow: auto;height: 200px;">
-                            <div class="team-social-para">
-                                <p>
-                                        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                        {
-                                            @item.BioAr
-                                        }else{
-                                            @item.BioEn
-                                        }
-                                    </p>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-xl-3 col-lg-3 col-md-6">
+                            <div class="team-wrapper mb-30">
+                                <div class="team-thumb">
+                                    <img src="@Url.Content("~"+@item.PhotoPath)" alt="board" />
+                                </div>
+                                <a href="@Url.Action("GetDirector",new{id=item.Id})" class="team-social-info text-center" style="    overflow: auto;height: 200px;">
+                                    <div class="team-social-para">
+                                        <p>
+                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                            {
+                                                @ESTA.Helpers.HtmlHelper.RemoveHTMLTags(item.BioAr)
+
+                                            }
+                                            else
+                                            {
+                                                @ESTA.Helpers.HtmlHelper.RemoveHTMLTags(item.BioEn)
+
+                                            }
+                                        </p>
+                                    </div>
+
+                                </a>
+                                <div class="team-teacher-info text-center">
+
+                                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                    {
+                                        <h1><a href="@Url.Action("GetDirector",new{id=item.Id})">@item.NameAr</a></h1>
+                                        <h2>@item.JobAr</h2>
+                                    }
+                                    else
+                                    {
+                                        <h1><a href="@Url.Action("GetDirector",new{id=item.Id})">@item.NameEn</a></h1>
+                                        <h2>@item.JobEn</h2>
+                                    }
+
+                                </div>
                             </div>
-
                         </div>
-                        <div class="team-teacher-info text-center">
+                    }
 
-                                @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                {
-                                    <h1>@item.NameAr</h1>
-                                    <h2>@item.JobAr</h2>
-                                }else{
-                                    <h1>@item.NameEn</h1>
-                            <h2>@item.JobEn</h2>
-                                }
-                        
-                        
-                        </div>
-                    </div>
-                </div> 
-             }
-                
                 }
-          
-               
-              
+
+
+
             </div>
         </div>
     </div>
 </div>
 <!-- team end -->
-
-
-
-
-
-
-

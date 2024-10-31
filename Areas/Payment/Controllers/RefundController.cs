@@ -23,16 +23,19 @@ namespace ESTA.Areas.Payment.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-        var result=    await uow.RefundRep.GetAllRefundRequests();
+            var result = await uow.RefundRep.GetAllRefundRequests();
 
             return View(result);
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int CourseId)
         {
-        
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var Order = uow.CourseOrdersRep.GetUserCourseOrderNumber(CourseId, userId);
+
+            ViewBag.OrderNumber = Order != null ? Order.OrderNumber : "0";
             return View();
         }
         [Authorize]
@@ -41,33 +44,33 @@ namespace ESTA.Areas.Payment.Controllers
         {
 
             refund.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            refund.SerialNumber = (await uow.RefundRep.GetMaxId()+100).ToString();
+            refund.SerialNumber = (await uow.RefundRep.GetMaxId() + 100).ToString();
             refund.Status = RefundStates.Pending.ToString();
-            refund.Type=RefundTypes.Course.ToString();
+            refund.Type = RefundTypes.Course.ToString();
 
 
-          await uow.RefundRep.AddRefundRequest(refund);
-     await       uow.SaveChangesAsync();
+            await uow.RefundRep.AddRefundRequest(refund);
+            await uow.SaveChangesAsync();
 
-           EmailSender.Send_Mail(
-                     User.FindFirstValue(ClaimTypes.Email),
-                        "you have sent a refund request with<br> Serial Number :<b>"
-                        +refund.SerialNumber+"</b> <br> For Order <b>"+refund.OrderNumber
-                        +"</b><br> we are working on it",
-                        "Esta Refund Request",
-                        "ESTA"
-                    );
+            EmailSender.Send_Mail(
+                      User.FindFirstValue(ClaimTypes.Email),
+                         "you have sent a refund request with<br> Serial Number :<b>"
+                         + refund.SerialNumber + "</b> <br> For Order <b>" + refund.OrderNumber
+                         + "</b><br> we are working on it",
+                         "Esta Refund Request",
+                         "ESTA"
+                     );
             //var email=await   uow.UserRep.GetAdminUserEmail();
             var email = _configuration.GetValue<string>("Mail:AdminMail");
             EmailSender.Send_Mail(
                 email,
                      "refund request has been placed with <br> Serial Number <b>"
                      + refund.SerialNumber + "</b><br> For Order <br> <b>" + refund.OrderNumber
-                     + "</b> <br>on "+refund.CreateDate+"<br> by User <b>"+User.FindFirstValue(ClaimTypes.Email)+"</b>",
+                     + "</b> <br>on " + refund.CreateDate + "<br> by User <b>" + User.FindFirstValue(ClaimTypes.Email) + "</b>",
                      "Esta Refund Request",
                      "ESTA"
                  );
-            return RedirectToAction("profile","User",new { area=""});
+            return RedirectToAction("profile", "User", new { area = "" });
         }
 
 
@@ -77,10 +80,10 @@ namespace ESTA.Areas.Payment.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult>  Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-       
-            var result=await     uow.RefundRep.GetRefundRequest(id);
+
+            var result = await uow.RefundRep.GetRefundRequest(id);
             return View(result);
         }
         [Authorize]
@@ -89,7 +92,8 @@ namespace ESTA.Areas.Payment.Controllers
         {
             //////
             ///
-            if (refund.Status != RefundStates.Refunded.ToString() ) {
+            if (refund.Status != RefundStates.Refunded.ToString())
+            {
                 if (
                     newState == RefundStates.Refunded.ToString()
                     &&

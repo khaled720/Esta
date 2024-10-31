@@ -1,32 +1,21 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using Microsoft.AspNetCore.Identity;
-@inject SignInManager<User> signInManager;
-@inject UserManager<User> userManager;
-@{
-    var admin = false;
-    var IsSigned = signInManager.IsSignedIn(User);
-    if (signInManager.IsSignedIn(User))
-    {
-        var user = await userManager.GetUserAsync(User);
-        admin = await userManager.IsInRoleAsync(user, "Admin");
-    }
-}
+
 @model ESTA.ViewModels.DisplayEvents
 
-@*<div class="slider-area">
+<div class="slider-area">
     <div class="pages-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(~/template/img/inner-bg.png);">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/event.jpg"));">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="slider-content slider-content-breadcrumb text-center">
-                            <h1 class="white-color f-700">News Details</h1>
+                            <h1 class="white-color f-700">@ESTA.Resources.EventsNews.details</h1>
                             <nav class="text-center" aria-label="breadcrumb">
                                 <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">News Details</li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","EventsNews")">@ESTA.Resources.EventsNews.News_Events</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@ESTA.Resources.EventsNews.details</li>
                                 </ol>
                             </nav>
                         </div>
@@ -35,50 +24,45 @@
             </div>
         </div>
     </div>
-</div>*@
+</div>
+
 <div class="news-details-area pt-50 pb-50">
     <div class="container">
         <div class="row">
 
-            @if (Model ==null)
+            @if (Model == null)
             {
                 <p>
- @localizer["notfound"]
+                    @localizer["notfound"]
                 </p>
-               
-            }else{
-            
-                     <div class="col-xl-12 col-lg-12">
-                <div class="blog-wrapper blog-list blog-details blue-blog mb-50">
-                    <div class="blog-thumb mb-35">
-                        <img src="@Url.Content("../../"+Model.Image)" alt="">
 
-                    </div>
-                    <div class="blog-content news-content">
-                        <div class="blog-meta news-meta">
-                            @if (Model.Date.HasValue)
-                            {
-                                <span>@Model.Date.Value.ToString("yyyy-MMM-dd")</span>
-                            }
+            }
+            else
+            {
+
+                <div class="col-xl-12 col-lg-12">
+                    <div class="blog-wrapper blog-list blog-details blue-blog mb-50">
+                        <div class="blog-thumb mb-35">
+                            <img src="@Url.Content("~/"+Model.Image)" alt="">
+
                         </div>
-                        <h5>@Model.Title</h5>
-                        <p>
-                            @Html.Raw(Model.Description)
-                        </p>
+                        <div class="blog-content news-content">
+                            <div class="blog-meta news-meta">
+                                @if (Model.Date.HasValue)
+                                {
+                                    <span><i class="fa fa-calendar mx-1"></i>@Model.Date.Value.ToString("yyyy-MMM-dd hh:mm:ss tt")</span>
+                                }
+                            </div>
+                            <h5>@Model.Title</h5>
+                            <p>
+                                @Html.Raw(Model.Description)
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             }
 
-   
-       @*     @if (admin)
-            {
-                <div class="col-12 mt-3">
-                    <a asp-action="EditEvent" asp-route-id="@Model.Id" class="btn btn-secondary">@ESTA.Resources.EventsNews.Edit</a>
-                  <a asp-action="DeleteEvent" asp-route-id="@Model.Id" class="btn btn-danger">@ESTA.Resources.EventsNews.Delete</a>
-                </div>
-            }*@
 
         </div>
     </div>

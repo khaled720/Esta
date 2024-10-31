@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Repository
 {
-	public class UserRep : IUserRep
-	{
+    public class UserRep : IUserRep
+    {
 
         private readonly AppDbContext appContext;
 
-        
+
 
         public UserRep(AppDbContext appContext)
         {
@@ -50,7 +50,7 @@ namespace ESTA.Repository
 
                 return false;
             }
-            
+
         }
 
         public async Task<bool> EditUserEmailConfirmationApproval(string id, bool isConfirmed)
@@ -71,7 +71,7 @@ namespace ESTA.Repository
 
         //public Task<bool> EditUserLevel(int newLevel, string userId)
         //{
-            
+
         //    return true;
 
 
@@ -80,21 +80,21 @@ namespace ESTA.Repository
 
         //}
 
-        public async Task<bool> EnrollCourse(int StateId,int CourseId,string UserId,bool isPaymentCompleted)
-		{
+        public async Task<bool> EnrollCourse(int StateId, int CourseId, string UserId, bool isPaymentCompleted)
+        {
 
             try
             {
 
 
-           var isRegistredBefore= 
-                    appContext.UserCourses.Where(y => y.UserId == UserId && y.CourseId == CourseId).Any();
+                var isRegistredBefore =
+                         appContext.UserCourses.Where(y => y.UserId == UserId && y.CourseId == CourseId).Any();
                 if (isRegistredBefore)
                 {    //course  registred befor
-                    
-                    var usercourse= appContext.UserCourses.Where(y => y.UserId == UserId && 
+
+                    var usercourse = appContext.UserCourses.Where(y => y.UserId == UserId &&
            y.CourseId == CourseId).AsTracking().FirstOrDefault();
-                    if (usercourse.StateId == 4) 
+                    if (usercourse.StateId == 4)
                     {
 
                         usercourse.StateId = StateId;
@@ -109,47 +109,47 @@ namespace ESTA.Repository
                 else
                 {
                     //course not registred befor
-            UserCourse userCourse = new UserCourse();
-            userCourse.isPaid = isPaymentCompleted;
-            userCourse.CourseId=CourseId;
-            userCourse.UserId=UserId;
-            userCourse.StateId = StateId; 
-                await appContext.AddAsync<UserCourse>(userCourse);
+                    UserCourse userCourse = new UserCourse();
+                    userCourse.isPaid = isPaymentCompleted;
+                    userCourse.CourseId = CourseId;
+                    userCourse.UserId = UserId;
+                    userCourse.StateId = StateId;
+                    await appContext.AddAsync<UserCourse>(userCourse);
 
                 }
-        
-            return true;
+
+                return true;
             }
             catch (Exception)
             {
                 return false;
             }
-           
 
 
-           
-		}
+
+
+        }
 
         public async Task<string> GetAdminUserEmail()
         {
-       var adminrole=     appContext.Roles.Where(y => y.NormalizedName == "ADMIN").First();
-          var userole= appContext.UserRoles.Where(y=>y.RoleId==adminrole.Id).First();
- var user= await       appContext.Users.FindAsync(userole.UserId);
+            var adminrole = appContext.Roles.Where(y => y.NormalizedName == "ADMIN").First();
+            var userole = appContext.UserRoles.Where(y => y.RoleId == adminrole.Id).First();
+            var user = await appContext.Users.FindAsync(userole.UserId);
             return user.Email;
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return await appContext.Users.Where(y=>y.IsDeleted!=true).ToListAsync();
+            return await appContext.Users.Where(y => y.IsDeleted != true).ToListAsync();
         }
 
         public async Task<IEnumerable<UserCourse>> GetMyCourses(string UserId)
         {
-            
+
             //where ..........
 
             return await appContext.UserCourses.AsNoTracking()
-                .Include(y => y.state).Include(y => y.course).Where(y=>y.UserId==UserId).ToListAsync();
+                .Include(y => y.state).Include(y => y.course).Where(y => y.UserId == UserId).OrderByDescending(x => x.EnrollmentDate).ToListAsync();
         }
 
         public async Task<User> GetUser(string userId)
@@ -157,7 +157,7 @@ namespace ESTA.Repository
             try
             {
 
-                return await appContext.Users.FirstAsync(y=>y.Id==userId);
+                return await appContext.Users.FirstAsync(y => y.Id == userId);
             }
             catch (Exception)
             {
@@ -182,7 +182,7 @@ namespace ESTA.Repository
                         return false;
                     default:
                         return true;
-                  
+
                 }
 
             }
@@ -226,23 +226,23 @@ namespace ESTA.Repository
             }
         }
 
-        public async  Task<bool> PayMempership(string userId)
+        public async Task<bool> PayMempership(string userId)
         {
-         
+
             try
             {
-              var user=  await appContext.Users.Where(y => y.Id == userId).FirstAsync();
+                var user = await appContext.Users.Where(y => y.Id == userId).FirstAsync();
                 user.IsMempershipPaid = true;
                 appContext.Users.Update(user);
-            
+
             }
             catch (Exception)
             {
 
                 throw;
             }
-           
-return  await  Task.FromResult(true);
+
+            return await Task.FromResult(true);
         }
 
         public async Task<bool> RevokeMempershipPayment(string userId)

@@ -4,7 +4,7 @@
     // meanmenu
     jQuery('#mobile-menu').meanmenu({
         meanMenuContainer: '.mobile-menu',
-        meanScreenWidth: "991"
+        meanScreenWidth: "1200"
     });
 
     // One Page Nav

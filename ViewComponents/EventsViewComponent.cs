@@ -42,13 +42,13 @@ namespace ESTA.ViewComponents
                 {
                     details = culture == "en" ? eventItem.DetailsEn : eventItem.DetailsAr;
                     title = culture == "en" ? eventItem.TitleEn : eventItem.TitleAr;
-                    if (title.Length > 25)
-                        title = title.Substring(0, 25);
+                    //if (title.Length > 25)
+                    //    title = title.Substring(0, 25);
                     DisplayEvent.Add(new DisplayEvents()
                     {
                         Date = eventItem.Date,
                         Title = title,
-                        Description = HtmlHelper.RemoveHTMLTags(details),
+                        Description = HtmlHelper.RemoveHTMLTags(details, 200),
                         Id = eventItem.Id,
                         Image = eventItem.Image,
                         Flag = eventItem.Flag

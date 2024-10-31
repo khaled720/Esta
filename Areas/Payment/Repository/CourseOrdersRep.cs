@@ -66,6 +66,19 @@ namespace ESTA.Areas.Payment.Repository
             }
         }
 
+        public CourseOrder? GetUserCourseOrderNumber(int courseId, string userId)
+        {
+            try
+            {
+                return appContext.CoursesOrders.Where(x => x.CourseId == courseId && x.UserId == userId).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+
         public async Task<int> GetMaxId()
         {
             try

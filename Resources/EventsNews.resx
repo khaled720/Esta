@@ -123,6 +123,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="details" xml:space="preserve">
+    <value>Event Details</value>
+  </data>
   <data name="DetailsArError" xml:space="preserve">
     <value>Arabic details is rquired</value>
   </data>

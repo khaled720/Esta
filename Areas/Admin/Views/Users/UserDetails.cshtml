@@ -64,8 +64,6 @@
 
         </div>
 
-
-
         <div id="menu1" class="tab-pane fade">
 
             @{
@@ -78,8 +76,6 @@
             }
 
         </div>
-
-
 
         <div id="menu2" class="tab-pane fade">
 
@@ -109,17 +105,14 @@
 
 
         </div>
+        
         <div id="menu4" class="tab-pane fade">
             <br>
             @{
 
                 @await Component.InvokeAsync("UserCourses",new {userId=@Model.Id })
-                ;
 
             }
-
-
-
 
         </div>
 
