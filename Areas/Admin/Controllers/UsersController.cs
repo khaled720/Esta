@@ -45,37 +45,21 @@ namespace ESTA.Areas.Admin.Controllers
             var allUsers = (List<User>)await appRep.UserRep.GetAllUsers();
 
             //list of users only not admin or moderator
-            List<User> users;
-            switch (type)
+            List<User> users = type switch
             {
-                case 1:
-                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
-                    break;
-                case 2:
-                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => !string.IsNullOrEmpty(y.MembershipNumber)).OrderBy(x => x.FullName).ToList();
-                    break;
-                case 3:
-                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => string.IsNullOrEmpty(y.MembershipNumber)).OrderByDescending(x => x.JoinDate).ToList();
-                    break;
-
-                case 4:
-                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => y.Country == "Egypt" || y.Country == "مصر").OrderBy(x => x.FullName).ToList();
-                    break;
-                case 5:
-                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).Where(y => y.Country != "Egypt" && y.Country != "مصر").OrderBy(x => x.FullName).ToList();
-                    break;
-
-                default:
-                    users = allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
-                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList();
-                    break;
-
-            }
+                1 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList(),
+                2 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => !string.IsNullOrEmpty(y.MembershipNumber)).OrderBy(x => x.FullName).ToList(),
+                3 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => string.IsNullOrEmpty(y.MembershipNumber)).OrderByDescending(x => x.JoinDate).ToList(),
+                4 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => y.Country == "Egypt" || y.Country == "مصر").OrderBy(x => x.FullName).ToList(),
+                5 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => y.Country != "Egypt" && y.Country != "مصر").OrderBy(x => x.FullName).ToList(),
+                _ => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList(),
+            };
 
             //pagerViewModel.CurrentPage = page;
 
