@@ -62,10 +62,10 @@ namespace ESTA.Repository
                 DbCourse.DescriptionAr = UpdatedCourse.DescriptionAr;
                 DbCourse.TitleAr = UpdatedCourse.TitleAr;
                 DbCourse.PhotoPath = UpdatedCourse.PhotoPath;
-                if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount)
-                {
+                //if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount)
+                //{
                     DbCourse.MaxAllowedMembersCount = UpdatedCourse.MaxAllowedMembersCount;
-                }
+                //}
                 this.appContext.SaveChanges();
 
                 //appContext.Entry<Course>(DbCourse).State = EntityState.Modified;

@@ -67,7 +67,7 @@
                @* @Html.EditorFor(M=>M.course.MaxAllowedMembersCount,
                 new { htmlAttributes = new { @class = "form-" } })*@
 
-                <input asp-for="@Model.course.MaxAllowedMembersCount" class="" min="@Model.course.MaxAllowedMembersCount" />
+                <input asp-for="@Model.course.MaxAllowedMembersCount" class="" min="0" />
                 @Html.ValidationMessageFor(k=>k.course.MaxAllowedMembersCount,"",new {@class="text-danger"})
 
             </div>

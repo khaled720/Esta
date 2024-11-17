@@ -35,11 +35,11 @@
         {
             if (Thread.CurrentThread.CurrentCulture.Name == "ar")
             {
-                @Html.Raw(Model.CETAContent.DescriptionAr.Replace("../../","../"))
+                @Html.Raw(Model.CETAContent.DescriptionAr.Replace("../../", "../"))
             }
             else
             {
-                @Html.Raw(Model.CETAContent.DescriptionEn.Replace("../../","../"))
+                @Html.Raw(Model.CETAContent.DescriptionEn.Replace("../../", "../"))
             }
 
         }
@@ -48,10 +48,10 @@
 
             <p>  No Content to display</p>
         }
-@*        <p>
+        @*        <p>
 
 
-            @localizer["cetaprogram"]
+        @localizer["cetaprogram"]
         </p>*@
     </div>
 </div>
@@ -75,92 +75,89 @@
                     {
                         @foreach (var item in Model.courses)
                         {
-                            <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
-                                <div class="courses-wrapper courses-wrapper-3 mb-30">
-                                    <div class="courses-thumb">
-                                        <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
-                                    </div>
-                                    <div class="courses-content courses-content-3 clearfix">
-                                        <div class="courses-heading mt-25 d-flex">
-                                            <div class="course-title-3">
-                                                <h1>
-                                                    <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">
+                            if (item.MaxAllowedMembersCount > 0)
+                            {
+                                <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                                    <div class="courses-wrapper courses-wrapper-3 mb-30">
+                                        <div class="courses-thumb">
+                                            <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id"><img src="@Url.Content("~"+@item.PhotoPath) " alt=""></a>
+                                        </div>
+                                        <div class="courses-content courses-content-3 clearfix">
+                                            <div class="courses-heading mt-25 d-flex">
+                                                <div class="course-title-3">
+                                                    <h1>
+                                                        <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">
 
-                                                        @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                            {
+                                                                @item.TitleAr
+                                                            }
+                                                            else
+                                                            {
+                                                                @item.Title
+                                                            }
+
+                                                        </a>
+                                                    </h1>
+                                                </div>
+                                                <div class="courses-pricing-3">
+                                                    <span>
+                                                        @if (item.Price <= 0)
                                                         {
-                                                            @item.TitleAr
+                                                            @localizer["free"]
                                                         }
                                                         else
                                                         {
-                                                            @item.Title
-                                                        }
+                                                            @item.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
 
-                                                    </a>
-                                                </h1>
+                                                        }
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="courses-pricing-3">
-                                                <span>
-                                                    @if (item.Price <= 0)
+                                            <div class="courses-para mt-15">
+
+                                                @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                {
+                                                    @if (item.DescriptionAr.Count() > 45)
                                                     {
-                                                        @localizer["free"]
+                                                        <p>@item.DescriptionAr.Substring(0, 45) ..</p>
                                                     }
                                                     else
                                                     {
-                                                        @item.Price.ToString("c",CultureInfo.GetCultureInfo(Constants.PriceCulture))
-
+                                                        <p>@item.DescriptionAr</p>
                                                     }
-                                                </span>
+                                                }
+                                                else
+                                                {
+                                                    @if (item.Description.Count() > 45)
+                                                    {
+                                                        <p>@item.Description.Substring(0, 45) ..</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>@item.Description</p>
+                                                    }
+                                                }
+
+
+
                                             </div>
-                                        </div>
-                                        <div class="courses-para mt-15">
-
-                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                            {
-                                                @if (item.DescriptionAr.Count() > 45)
-                                                {
-                                                    <p>@item.DescriptionAr.Substring(0,45) ..</p>
-                                                }
-                                                else
-                                                {
-                                                    <p>@item.DescriptionAr</p>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                @if (item.Description.Count() > 45)
-                                                {
-                                                    <p>@item.Description.Substring(0,45) ..</p>
-                                                }
-                                                else
-                                                {
-                                                    <p>@item.Description</p>
-                                                }
-                                            }
+                                            <div class="course-date mt-15">
+                                                <span class="course-date-icon ti-calendar"></span>
+                                                <span class="start-date-text">@localizer["stdate"] </span>
+                                                <span>@item.StartDate.Value.Year/@item.StartDate.Value.Month/@item.StartDate.Value.Day</span>
+                                            </div>
+                                            <div class="courses-wrapper-bottom clearfix mt-35">
+                                                <div class="courses-button">
+                                                    <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">@localizer["details"]</a>
 
 
-
-                                        </div>
-                                        <div class="course-date mt-15">
-                                            <span class="course-date-icon ti-calendar"></span>
-                                            <span class="start-date-text">@localizer["stdate"] </span>
-                                            <span>@item.StartDate.Value.Year/@item.StartDate.Value.Month/@item.StartDate.Value.Day</span>
-                                        </div>
-                                        <div class="courses-wrapper-bottom clearfix mt-35">
-                                            <div class="courses-button">
-                                                <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">@localizer["details"]</a>
-
-
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-
-
-
-
+                            }
                         }
 
                     }

@@ -104,8 +104,8 @@ namespace ESTA.Models
         ErrorMessageResourceName = "required"
     )]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "maxcoursemembers")]
-        [RegularExpression("[1-9][0-9]{1,3}", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-        ErrorMessageResourceName = "maxallowedmemberserr")]
+        //[RegularExpression("[1-9][0-9]{1,3}", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //ErrorMessageResourceName = "maxallowedmemberserr")]
         public int MaxAllowedMembersCount { get; set; } = 100;
 
 
