@@ -169,6 +169,7 @@ namespace ESTA.Models
         public DbSet<CertifiedMember> CertifiedMembers { get; set; }
 
         public DbSet<PrerequisiteCourse> PrerequisiteCourses { get; set; }
+        public DbSet<HomeBanner> HomeBanners { get; set; }
 
 
     }

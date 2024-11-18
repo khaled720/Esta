@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESTA.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Payments")]
     public class PaymentsController : Controller
 	{
 		private readonly IUnitOfWork uow;

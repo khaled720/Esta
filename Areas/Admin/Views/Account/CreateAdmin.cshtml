@@ -1,12 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+
 @using ESTA.ViewModels
 @model CreateAdmin
-@using Microsoft.Extensions.Localization
-@inject IStringLocalizer<SharedResource> localizer;
 
 <style>
     .form-label {
@@ -54,6 +51,13 @@
                     <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">@localizer["UserRole"]</label>
+                    <select class="form-select select2" asp-for="RoleId" id="Roles" asp-items="@ViewBag.roleList" multiple="multiple">
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+
                 <div>
                 </div>
                 <div>
@@ -71,6 +75,13 @@
 
 
 @section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+
+    </script>
     @{
         await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
     }

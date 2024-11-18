@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Education")]
     public class ModeratorController : Controller
     {
         private readonly IUnitOfWork appRep;

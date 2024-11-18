@@ -1,0 +1,167 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ESTA.Areas.Admin.ViewModels.GetBanner;
+<style>
+    .file-upload {
+        background-color: #ffffff;
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 2px dashed black;
+        position: relative;
+    }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            /*background-color: antiquewhite;*/
+            border: 2px dashed black;
+        }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: black;
+    }
+
+    .drag-text {
+        text-align: center;
+    }
+
+        .drag-text h3 {
+            font-weight: 100;
+            text-transform: uppercase;
+            color: black;
+            padding: 60px 0;
+        }
+
+</style>
+<form asp-action="InsertBanner" method="post" class="row gy-3" enctype="multipart/form-data">
+
+    <input type="hidden" value="@ViewBag.type" asp-for="Type" />
+
+    @if (ViewBag.Edit != null)
+    {
+        if (ViewBag.Edit)
+        {
+            <div class="alert alert-success" role="alert" id="alert">
+                @localizer["success"]
+            </div>
+        }
+        else if (ViewBag.Edit)
+        {
+            <div class="alert alert-danger" role="alert" id="alert">
+                @localizer["failure"]
+            </div>
+        }
+    }
+
+    <div class="file-upload mb-3">
+        <div class="image-upload-wrap">
+            <input asp-for="ImageFile" class="file-upload-input" id="img" accept="image/jpeg, image/png, video/mp4" type='file' onchange="readURL(this);" />
+
+            @if (Model != null && Model.FilePath != null)
+            {
+                if (Model.FilePath.Split('.')[1] == "mp4")
+                {
+                    <video width="75%" loop muted autoplay playsinline class="img-fluid" id="vidSrc" src="@Url.Content("~/Images/Banners/"+Model.FilePath)">
+                        Your browser does not support HTML video.
+                    </video>
+                    <img class="img-fluid" id="imgSrc" src="#" alt="your image" style="display:none;" />
+                }
+                else
+                {
+                    <video width="75%" loop muted autoplay playsinline class="img-fluid" id="vidSrc" style="display:none;">
+                        Your browser does not support HTML video.
+                    </video>
+                    <img class="img-fluid" id="imgSrc" src="@Url.Content("~/Images/Banners/"+Model.FilePath)" alt="your image" />
+                }
+            }
+            else
+            {
+                <video width="75%" loop muted autoplay playsinline class="img-fluid" id="vidSrc" style="display:none;">
+                    Your browser does not support HTML video.
+                </video>
+
+                <img class="img-fluid" id="imgSrc" src="#" alt="your image" style="display:none;" />
+                <div class="drag-text">
+                    <h3>@localizer["imgclick"]</h3>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-12 mt-3">
+        <label class="form-label">@localizer["titlear"]</label>
+        <input class="form-control" asp-for="SloganAr" />
+        <span asp-validation-for="SloganAr" class="text-danger"></span>
+    </div>
+
+    <div class="col-12 mt-3">
+        <label class="form-label">@localizer["title"]</label>
+        <input class="form-control" asp-for="SloganEn" />
+        <span asp-validation-for="SloganEn" class="text-danger"></span>
+    </div>
+
+    <div class="col-12 mt-3">
+        <label class="form-label">@localizer["secTitleAr"]</label>
+        <input class="form-control" asp-for="DetailsAr" />
+    </div>
+
+    <div class="col-12 mt-3">
+        <label class="form-label">@localizer["secTitleEn"]</label>
+        <input class="form-control" asp-for="DetailsEn" />
+    </div>
+
+    <div class="col-12 mt-3">
+        <button type="submit" class="btn-primary btn">@localizer["submit"]</button>
+    </div>
+
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_validationscriptspartial.cshtml");
+    }
+    <script>
+        $(document).ready(function () {
+            setTimeout(() => { $('#alert').css('display', 'none') }, 10000)
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var formData = new FormData();
+                const url = URL.createObjectURL(input.files[0]);
+                //var extension = input.files[0].split('.')[1];
+
+                if (input.files[0].type == "video/mp4") {
+                    $('#vidSrc').attr('src', url);
+                    $('#vidSrc').css('display', 'block');
+
+                    $('#imgSrc').css('display', 'none');
+                } else {
+                    $('#imgSrc').attr('src', url);
+                    $('#imgSrc').css('display', 'block');
+
+                    $('#vidSrc').css('display', 'none');
+                }
+
+                $('.drag-text').hide();
+            }
+        }
+    </script>
+}

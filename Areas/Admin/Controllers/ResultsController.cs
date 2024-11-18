@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Education")]
     public class ResultsController : Controller
 	{
 		private readonly IUnitOfWork uow;

@@ -1,6 +1,6 @@
 ﻿@{
 
-   Layout="_AdminLayout";
+    Layout = "_AdminLayout";
 
 }
 
@@ -15,97 +15,97 @@
 <h3>@localizer["edit"]</h3>
 
 
-@Html.HiddenFor(y=>y.Id)
+@Html.HiddenFor(y => y.Id)
 
 <div class="neuDiv" id="kk" style="margin:auto">
 
-<form method="post"  enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
 
 
-    <input style="display:none" asp-for=@Model.Photo id="upload" type="file" accept="image/*"
-           onchange="ImageChange(event)">
+        <input style="display:none" asp-for=@Model.Photo id="upload" type="file" accept="image/*"
+               onchange="ImageChange(event)">
 
 
 
         @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
-    <div onclick="GetPhoto()" id="photoDiv" class="" style="width:35%;border-radius:170px;
+        <div onclick="GetPhoto()" id="photoDiv" class="" style="width:35%;border-radius:170px;
 background-image:url('@Url.Content("~"+@Model.PhotoPath)')">
             <h5>@localizer["imgclick"]</h5>
-    </div>
+        </div>
 
 
-@Html.HiddenFor(y=>y.PhotoPath)
+        @Html.HiddenFor(y => y.PhotoPath)
 
-    <div class="row">
-<div class="form-group col-6">
+        <div class="row">
+            <div class="form-group col-6">
                 <label asp-for="@Model.NameEn"></label>
-    <div class="title">
-  <input asp-for=@Model.NameEn, class="" type="text" />
-          
+                <div class="title">
+                    <input asp-for="@Model.NameEn" class="" type="text" />
 
-    </div>
-            @Html.ValidationMessageFor(k=>k.NameEn,"",new {@class="text-danger"})
 
-    
-</div>
+                </div>
+                @Html.ValidationMessageFor(k => k.NameEn, "", new { @class = "text-danger" })
+
+
+            </div>
             <div class="form-group col-6">
                 <label asp-for="@Model.JobEn"></label>
                 @*   <input type="text" class="form-control"  />*@
-                @Html.EditorFor(M=>M.JobEn, new { htmlAttributes = new { @class = "form-" } })
-                @Html.ValidationMessageFor(k=>k.JobEn,"",new {@class="text-danger"})
+                @Html.EditorFor(M => M.JobEn, new { htmlAttributes = new { @class = "form-" } })
+                @Html.ValidationMessageFor(k => k.JobEn, "", new { @class = "text-danger" })
 
             </div>
 
-     
-    </div>
 
-        
+        </div>
 
-    <div class="row">
+
+
+        <div class="row">
             <div class="form-group col-6">
                 <label asp-for="@Model.NameAr"></label>
 
                 <input asp-for=@Model.NameAr class="" type="text" />
-                @Html.ValidationMessageFor(k=>k.NameAr,"",new {@class="text-danger"})
+                @Html.ValidationMessageFor(k => k.NameAr, "", new { @class = "text-danger" })
 
 
             </div>
-<div class="form-group col-6">
+            <div class="form-group col-6">
                 <label asp-for="@Model.JobAr"></label>
-        @*   <input type="text" class="form-control"  />*@
-        @Html.EditorFor(M=>M.JobAr, new { htmlAttributes = new { @class = "" } })
-        @Html.ValidationMessageFor(k=>k.JobAr,"",new {@class="text-danger"})
+                @*   <input type="text" class="form-control"  />*@
+                @Html.EditorFor(M => M.JobAr, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(k => k.JobAr, "", new { @class = "text-danger" })
 
-    </div>
-  
-       
+            </div>
 
 
 
-    </div>
+
+
+        </div>
 
 
         <div class="form-group ">
             <label asp-for="@Model.BioAr"></label>
             @*   <input type="text" class="form-control"  />*@
-            @Html.TextAreaFor(M=>M.BioAr, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(k=>k.BioAr,"",new {@class="text-danger"})
+            @Html.TextAreaFor(M => M.BioAr, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(k => k.BioAr, "", new { @class = "text-danger" })
 
         </div>
 
         <div class="form-group ">
             <label asp-for="@Model.BioEn"></label>
             @*   <input type="text" class="form-control"  />*@
-            @Html.TextAreaFor(M=>M.BioEn, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(k=>k.BioEn,"",new {@class="text-danger"})
+            @Html.TextAreaFor(M => M.BioEn, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(k => k.BioEn, "", new { @class = "text-danger" })
 
         </div>
-		@Html.ValidationSummary(false,"","text-danger")
+        @Html.ValidationSummary(false, "", "text-danger")
 
-<button style="margin:auto" type="submit" class="btn btn-primary" >@localizer["submit"]</button>
+        <button style="margin:auto" type="submit" class="btn btn-primary">@localizer["submit"]</button>
 
 
-</form>
+    </form>
 
 
 

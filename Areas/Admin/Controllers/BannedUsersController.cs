@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("AdminOrModerator")]
+    [Authorize(Roles = "Admin,Education,Moderator")]
     public class BannedUsersController : Controller
     {
         private readonly IMapper _mapper;

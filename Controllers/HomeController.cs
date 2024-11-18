@@ -56,17 +56,14 @@ namespace ESTA.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-
-
             var hivm = new HomeIndexViewModel();
+
             try
             {
+                var banners = Uow.BannerRep.GetAllBanners();
+
                 if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                 {
-
-
-
                     hivm.About = Regex.Replace(
                         Uow.ContentRep.GetContent("about").DescriptionAr ?? "",
                         "<.*?>",
@@ -82,35 +79,44 @@ namespace ESTA.Controllers
                         "<.*?>",
                         String.Empty
                     );
-
-
+                    banners.ForEach(x =>
+                    {
+                        hivm.BannerList.Add(new ViewBanner
+                        {
+                            FilePath = x.FilePath,
+                            Title = x.SloganAr,
+                            Details = x.DetailsAr
+                        });
+                    });
                 }
-
                 else
                 {
-
-
-
                     hivm.About = Regex.Replace(
                         Uow.ContentRep.GetContent("about").DescriptionEn ?? "",
                         "<.*?>",
                         String.Empty
                     );
                     hivm.Mission = Regex.Replace(
-                    Uow.ContentRep.GetContent("mission").DescriptionEn ?? "",
-                    "<.*?>",
-                    String.Empty
-                );
+                        Uow.ContentRep.GetContent("mission").DescriptionEn ?? "",
+                        "<.*?>",
+                        String.Empty
+                    );
                     hivm.Vission = Regex.Replace(
-                    Uow.ContentRep.GetContent("vission").DescriptionEn ?? "",
-                    "<.*?>",
-                    String.Empty
-                );
+                        Uow.ContentRep.GetContent("vission").DescriptionEn ?? "",
+                        "<.*?>",
+                        String.Empty
+                    );
 
-
+                    banners.ForEach(x =>
+                    {
+                        hivm.BannerList.Add(new ViewBanner
+                        {
+                            FilePath = x.FilePath,
+                            Title = x.SloganEn,
+                            Details = x.DetailsEn
+                        });
+                    });
                 }
-
-
 
                 if (hivm.About.Length > 400)
                 {
@@ -131,14 +137,7 @@ namespace ESTA.Controllers
 
                 }
 
-
-
-
-
                 hivm.UpcomingCourse = await this.Uow.CoursesRep.GetUpcomingCourse();
-
-
-
 
             }
             catch (Exception ex)

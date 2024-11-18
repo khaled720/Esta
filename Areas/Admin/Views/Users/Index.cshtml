@@ -152,17 +152,14 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink(@localizer["resetpassword"], "ResetPassword", new { Email = item.Email }, new { @class = "btn btn-warning", @onclick = "return confirm('Reset Password for this  user?');" })
+                            @Html.ActionLink(localizer["resetpassword"], "ResetPassword", new { Email = item.Email }, new { @class = "btn btn-warning", @onclick = "return confirm('Reset Password for this  user?');" })
 
                         </td>
                         <td>
 
                             @Html.ActionLink(localizer["details"], "UserDetails", new { userId = item.Id },
                                  new { @class = "btn btn-Info" })
-                            <!--<a>
-                            <i class="fas fa-bars" style="color: #325087;"></i>
-                            </a>-->
-
+                            
                         </td>
 
                     </tr>

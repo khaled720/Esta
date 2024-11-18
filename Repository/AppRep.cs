@@ -59,6 +59,8 @@ namespace ESTA.Repository
 
         public ICertifiedMembersRep CertifiedMempersRep => new CertifiedMembersRep(appContext);
 
+        public IBannerRep BannerRep => new BannerRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;

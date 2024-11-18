@@ -14,7 +14,7 @@ using OfficeOpenXml;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Users")]
     public class UsersController : Controller
     {
         private readonly IUnitOfWork appRep;
@@ -92,6 +92,18 @@ namespace ESTA.Areas.Admin.Controllers
         {
             await appRep.UserRep.EditUserApproval(id, isApproved);
             await appRep.SaveChangesAsync();
+
+            var ApprovedUser = await appRep.UserRep.GetUser(id);
+
+            if (isApproved)
+            {
+                EmailSender.Send_Mail(
+                    ApprovedUser.Email,
+                    "Your Request to join ESTA has been Approved",
+                    "Request Approval",
+                    "ESTA"
+                );
+            }
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> DeleteUser(string userId)
@@ -104,6 +116,17 @@ namespace ESTA.Areas.Admin.Controllers
         {
             await appRep.UserRep.EditUserEmailConfirmationApproval(id, isConfirmed);
             await appRep.SaveChangesAsync();
+            var ApprovedUser = await appRep.UserRep.GetUser(id);
+
+            if (isConfirmed)
+            {
+                EmailSender.Send_Mail(
+                    ApprovedUser.Email,
+                    "Your Email has been Approved by ESTA admins",
+                    "Email approval",
+                    "ESTA"
+                );
+            }
             return RedirectToAction("Index");
         }
 
@@ -352,10 +375,14 @@ namespace ESTA.Areas.Admin.Controllers
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
                 var j = userManager.ResetPasswordAsync(user, token, rpvm.NewPassword);
 
-
+                EmailSender.Send_Mail(
+                    email,
+                    "Your Password has been resetted",
+                    "Password reset",
+                    "ESTA"
+                );
             }
             return RedirectToAction("Index", "Users", new { area = "Admin" });
-
 
         }
 

@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Microsoft.AspNetCore.Http;
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> userManager;
+
+<style>
+    h1 {
+        color: red;
+    }
+
+    h6 {
+        color: red;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="text-center">
+    <h1><code>Access Denied</code></h1>
+    <hr style="margin:auto;width:50%">
+    <h3>@localizer["needPermission"]</h3>
+    <h3>🚫🚫🚫🚫</h3>
+
+    @{
+        var user = await userManager.GetUserAsync(User);
+        if ((!await userManager.IsInRoleAsync(user, "Moderator") && !await userManager.IsInRoleAsync(user, "User")) || await userManager.IsInRoleAsync(user, "Admin"))
+        {
+            @Html.ActionLink(localizer["Goback"], "index", "Home", new { area = "Admin" })
+        }
+        else if (await userManager.IsInRoleAsync(user, "Moderator") && await userManager.IsInRoleAsync(user, "User"))
+        {
+            @Html.ActionLink(localizer["Goback"], "profile", "user")
+        }
+        else if (await userManager.IsInRoleAsync(user, "Moderator"))
+        {
+                //
+            @Html.ActionLink(localizer["Goback"], "index", "Forums", new { area = "Admin" })
+        }
+        else
+        {
+            @Html.ActionLink(localizer["Goback"], "Index", "Home")
+        }
+    }
+</div>

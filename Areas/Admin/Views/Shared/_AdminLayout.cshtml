@@ -11,7 +11,7 @@
     var isModerator = false;
     var user = await userManager.GetUserAsync(User);
 
-    if (user != null && await userManager.IsInRoleAsync(user, "Admin"))
+    if (user != null && !await userManager.IsInRoleAsync(user, "Moderator") && !await userManager.IsInRoleAsync(user, "User"))
     {
         Admin = true;
     }
@@ -109,6 +109,17 @@
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
                                     </li>
 
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            @localizer["HomeBanner"]
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="1">@localizer["Banner"]1</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="2">@localizer["Banner"]2</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="3">@localizer["Banner"]3</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="4">@localizer["Banner"]4</a></li>
+                                        </ul>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
                                     </li>
@@ -148,7 +159,7 @@
                                             @localizer["usersmanagement"]
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Account" asp-action="CreateAdmin">@localizer["createadmin"]</a></li>
+                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Account" asp-action="Index">@localizer["admins"]</a></li>
                                             <li><a class="dropdown-item" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a></li>
                                         </ul>
                                     </li>

@@ -8,7 +8,7 @@ namespace ESTA.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Authorize(Roles ="Admin" )]
+    [Authorize(Roles = "Admin,Education")]
     public class CertifiedMembersController : Controller
     {
         private readonly IUnitOfWork unitOfWork;

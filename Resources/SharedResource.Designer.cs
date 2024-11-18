@@ -241,6 +241,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Banner.
+        /// </summary>
+        public static string Banner {
+            get {
+                return ResourceManager.GetString("Banner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ban Reasons.
         /// </summary>
         public static string banresons {
@@ -927,6 +936,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to go back.
+        /// </summary>
+        public static string Goback {
+            get {
+                return ResourceManager.GetString("Goback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Good.
         /// </summary>
         public static string good {
@@ -968,6 +986,15 @@ namespace ESTA.Resources {
         public static string home {
             get {
                 return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home banner.
+        /// </summary>
+        public static string HomeBanner {
+            get {
+                return ResourceManager.GetString("HomeBanner", resourceCulture);
             }
         }
         
@@ -1247,6 +1274,15 @@ namespace ESTA.Resources {
         public static string nameen {
             get {
                 return ResourceManager.GetString("nameen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You dont have permission to view this page..
+        /// </summary>
+        public static string needPermission {
+            get {
+                return ResourceManager.GetString("needPermission", resourceCulture);
             }
         }
         
@@ -1744,6 +1780,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Second Title in Arabic.
+        /// </summary>
+        public static string secTitleAr {
+            get {
+                return ResourceManager.GetString("secTitleAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second Title in English.
+        /// </summary>
+        public static string secTitleEn {
+            get {
+                return ResourceManager.GetString("secTitleEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Level ......
         /// </summary>
         public static string selectlevel {
@@ -1938,6 +1992,15 @@ namespace ESTA.Resources {
         public static string urname {
             get {
                 return ResourceManager.GetString("urname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User&apos;s roles.
+        /// </summary>
+        public static string UserRole {
+            get {
+                return ResourceManager.GetString("UserRole", resourceCulture);
             }
         }
         

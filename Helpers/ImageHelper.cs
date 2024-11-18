@@ -22,5 +22,23 @@ namespace ESTA.Helpers
             }
             return uniqueFileName;
         }
+        public static void DeleteFile(string path,string FileName)
+        {
+            string uploadsFolder = Path.Combine(_webHost.WebRootPath, path);
+            string filePath = Path.Combine(uploadsFolder, FileName);
+            FileInfo file = new(filePath);
+            try
+            {
+                if (file.Exists)//check file exsit or not
+                {
+                    file.Delete();
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
     }
 }

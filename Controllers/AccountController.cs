@@ -192,9 +192,9 @@ namespace ESTA.Controllers
                             LoginModel.Password, false, false);
                         if (result.Succeeded)
                         {
-                            if (await userManager.IsInRoleAsync(user, "Admin"))
+                            if ((!await userManager.IsInRoleAsync(user, "Moderator") && !await userManager.IsInRoleAsync(user, "User"))|| await userManager.IsInRoleAsync(user, "Admin"))
                             {
-                                return RedirectToAction("index", "courses", new { area = "Admin" });
+                                return RedirectToAction("index", "Home", new { area = "Admin" });
                             }
                             else if (await userManager.IsInRoleAsync(user, "Moderator") && await userManager.IsInRoleAsync(user, "User"))
                             {
@@ -773,6 +773,9 @@ namespace ESTA.Controllers
             return View();
         }
 
-
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

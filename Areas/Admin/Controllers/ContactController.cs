@@ -7,7 +7,7 @@ using System.Data;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Contacts")]
     public class ContactController : Controller
     {
         private readonly IUnitOfWork uow;

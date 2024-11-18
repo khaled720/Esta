@@ -20,5 +20,10 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(DataAnnotationsResource), Name = "confirmpassword")]
         [Compare("NewPassword")]
         public string ConfirmPassword { get; set; }
+        [Required(
+                 ErrorMessageResourceType = typeof(DataAnnotationsResource),
+        ErrorMessageResourceName = "required"
+             )]
+        public List<string> RoleId { get; set; }
     }
 }

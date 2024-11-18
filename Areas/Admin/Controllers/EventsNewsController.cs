@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Events & News")]
     public class EventsNewsController : Controller
     {
         private readonly IUnitOfWork appRep;

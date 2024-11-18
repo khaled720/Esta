@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Role";
+}
+
+<a asp-action="CreateRole" class="btn btn-primary">CreateRole</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in ViewBag.Roles)
+        {
+            <tr>
+                <td>@role.Name</td>
+                <td>
+                    <a asp-action="DeleteRole" asp-route-id="@role.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

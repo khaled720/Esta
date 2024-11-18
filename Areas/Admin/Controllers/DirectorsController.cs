@@ -7,7 +7,7 @@ using System.Data;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Board of directors")]
     public class DirectorsController : Controller
     {
         private readonly IUnitOfWork uow;

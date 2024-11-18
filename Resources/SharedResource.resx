@@ -798,4 +798,25 @@
   <data name="workinfo" xml:space="preserve">
     <value>Work Info</value>
   </data>
+  <data name="UserRole" xml:space="preserve">
+    <value>User's roles</value>
+  </data>
+  <data name="needPermission" xml:space="preserve">
+    <value>You dont have permission to view this page.</value>
+  </data>
+  <data name="Goback" xml:space="preserve">
+    <value>go back</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="HomeBanner" xml:space="preserve">
+    <value>Home banner</value>
+  </data>
+  <data name="secTitleEn" xml:space="preserve">
+    <value>Second Title in English</value>
+  </data>
+  <data name="secTitleAr" xml:space="preserve">
+    <value>Second Title in Arabic</value>
+  </data>
 </root>

@@ -15,75 +15,99 @@
 
 <!-- slider-start -->
 <div class="slider-area pos-relative">
-
-
     <div class="slider-active">
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center">
-            <div id="video-div" style="height:500px;">
 
-                <video width="100%" loop muted autoplay playsinline>
-                    <source src="@Url.Content("~/template/img/slider/1.mp4")" type="video/mp4" />
-                    Your browser does not support HTML video.
-                </video>
+        @foreach (var banner in Model.BannerList)
+        {
 
-            </div>
+            @if (banner.FilePath.Split('.')[1] == "mp4")
+            {
+                <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center">
 
-            <div class="container top-mob" style="position:absolute">
-                <div class="row  justify-content-center" style="z-index:999999">
-                    <div class="">
-                        <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <a asp-action="About" asp-controller="Home" asp-area="" asp-route-type="about">
-                                <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@localizer["wel"]</h1>
-                                <p data-animation="fade-up" data-delay=".4s">@localizer["esta"]</p>
-                            </a>
+                    <div id="video-div" style="height:500px;">
 
+                        <video width="100%" loop muted autoplay playsinline>
+                            <source src="@Url.Content("~/Images/Banners/"+banner.FilePath)" type="video/mp4" />
+                            Your browser does not support HTML video.
+                        </video>
+
+                    </div>
+                    <div class="container top-mob" style="position:absolute">
+                        <div class="row  justify-content-center" style="z-index:999999">
+                            <div class="">
+                                <div class="slider-content slider-content-2 slider-content-3 text-center">
+                                    <a asp-action="About" asp-controller="Home" asp-area="" asp-route-type="about">
+                                        <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@banner.Title</h1>
+                                        <p data-animation="fade-up" data-delay=".4s">@banner.Details</p>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/Images/Banners/"+banner.FilePath))">
+                    <div class="container">
+                        <div class="row  justify-content-center">
+                            <div class="">
+                                <div class="slider-content slider-content-2 slider-content-3 text-center">
+                                    <a asp-action="Register" asp-controller="Account" asp-area="">
+                                        <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@banner.Title </h1>
+                                        @* <p data-animation="fade-up" data-delay=".4s">   @localizer["wel2desc"]                  </p> *@
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
 
+        }
+        @*         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner2.jpg"))">
+        <div class="container">
+        <div class="row  justify-content-center">
+        <div class="">
+        <div class="slider-content slider-content-2 slider-content-3 text-center">
+        <a asp-action="Register" asp-controller="Account" asp-area="">
+        <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel2"])  </h1>
+        <p data-animation="fade-up" data-delay=".4s">   @localizer["wel2desc"]                  </p>
+        </a>
         </div>
-        <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center"
-             style="background-image: url(@Url.Content("~/template/img/slider/banner2.jpg"))">
-            <div class="container">
-                <div class="row  justify-content-center">
-                    <div class="">
-                        <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <a asp-action="Register" asp-controller="Account" asp-area="">
-                                <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel2"])  </h1>
-                                <p data-animation="fade-up" data-delay=".4s">   @localizer["wel2desc"]                  </p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        </div>
+        </div>
         </div>
         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner3.png"))">
-            <div class="container">
-                <div class="row  justify-content-center">
-                    <div class="">
-                        <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <a asp-action="Register" asp-controller="Account" asp-area="">
-                                <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel3"])  </h1>
-                                <p data-animation="fade-up" data-delay=".4s"> @localizer["wel3desc"]  </p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container">
+        <div class="row  justify-content-center">
+        <div class="">
+        <div class="slider-content slider-content-2 slider-content-3 text-center">
+        <a asp-action="Register" asp-controller="Account" asp-area="">
+        <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel3"])  </h1>
+        <p data-animation="fade-up" data-delay=".4s"> @localizer["wel3desc"]  </p>
+        </a>
+        </div>
+        </div>
+        </div>
+        </div>
         </div>
         <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/template/img/slider/banner4.jpg"))">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="">
-                        <div class="slider-content slider-content-2 slider-content-3 text-center">
-                            <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel4"])  </h1>
-                            <p data-animation="fade-up" data-delay=".4s">           @localizer["wel4desc"]                    </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="container">
+        <div class="row justify-content-center">
+        <div class="">
+        <div class="slider-content slider-content-2 slider-content-3 text-center">
+        <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@Html.Raw(@localizer["wel4"])  </h1>
+        <p data-animation="fade-up" data-delay=".4s">           @localizer["wel4desc"]                    </p>
         </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        *@
     </div>
 </div>
 <!-- slider-end -->
@@ -315,7 +339,7 @@
         transition: 0.5s ease-in-out;
         overflow: hidden;
         /*z-index:10;
-                                        */
+                                                                                    */
     }
 
 </style>
@@ -323,7 +347,7 @@
 
 
 
-@section Scripts{
+@section Scripts {
 
 
     <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>-->

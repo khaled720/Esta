@@ -7,7 +7,7 @@ using System.Data;
 namespace ESTA.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize("RequireAdminRole")]
+    [Authorize(Roles = "Admin,Education")]
     public class LevelsController : Controller
 	{
         private readonly IUnitOfWork appRep;
