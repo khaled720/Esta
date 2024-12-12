@@ -79,10 +79,11 @@ namespace ESTA.Controllers
                 cdvm.PrerequisiteCourses = await appRep.CoursesRep.GetPrerequisiteCourses(cdvm.course.Id);
                 var userCourses = await appRep.UserRep.GetMyCourses(cdvm.userid);
                 int MatchCounter = 0;
-                for (int i = 0; i < cdvm.PrerequisiteCourses.Count(); i++)
+                for (int i = 0; i < cdvm.PrerequisiteCourses.Count; i++)
                 {
+                    //search this course, only if the state is 3 as in completed.
                     var isfound = userCourses.Where(y => y.CourseId ==
-                            cdvm.PrerequisiteCourses[i].PrerequisiteCourseId).Any();
+                            cdvm.PrerequisiteCourses[i].PrerequisiteCourseId && y.StateId == 3).Any();
 
                     if (isfound)
                     {

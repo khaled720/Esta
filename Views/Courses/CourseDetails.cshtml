@@ -187,29 +187,19 @@ top:0;bottom:0;right:0;left:0 ">
                                                                 @localizer["stdate"]:@item.prerequisiteCourse.StartDate.Value.ToShortDateString()
                                                                 <br>
 
-                                                                @*<br> @localizer["state"]:@item.state.StateName*@
-
                                                                 <br>@localizer["price"]: <strong style="color:green"> @item.prerequisiteCourse.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
 
-                                                                @*<br>  @localizer["state"]: <strong style="color:green"> @item.state.StateName</strong>*@
-
-                                                                <br> @*@localizer["state"]:*@
                                                                 @if (item.isPassed)
                                                                 {
                                                                     <strong style="color:green">  @localizer["enrolled"] </strong>
                                                                 }
                                                                 else
                                                                 {
-
                                                                     <strong style="color:red">  @localizer["notenrolled"] </strong>
-
                                                                 }
-
-
                                                             </div>
                                                         </div>
                                                     </a>
-
                                                 }
                                             </div>
                                         }
@@ -298,10 +288,8 @@ top:0;bottom:0;right:0;left:0 ">
                                                     }
                                                     else
                                                     {
-
                                                         <h4 class="text-danger">@localizer["coursecomplete"]</h4>
                                                     }
-
                                                 }
                                             }
                                             else
@@ -311,7 +299,6 @@ top:0;bottom:0;right:0;left:0 ">
                                         }
                                         else
                                         {
-
                                             <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" asp-controller="Account" asp-action="Register">
                                                 <span class="btn-text bg-red">@localizer["join"]</span>
                                             </a>
@@ -323,7 +310,6 @@ top:0;bottom:0;right:0;left:0 ">
                         </div>
                     </div>
                 </div>
-
             </div>
         }
         else
