@@ -478,9 +478,6 @@
   <data name="markpaid" xml:space="preserve">
     <value>Mark as Paid</value>
   </data>
-  <data name="maxcoursemembers" xml:space="preserve">
-    <value>The maximum number of people who can apply</value>
-  </data>
   <data name="membership" xml:space="preserve">
     <value>Membership</value>
   </data>
@@ -818,5 +815,32 @@
   </data>
   <data name="secTitleAr" xml:space="preserve">
     <value>Second Title in Arabic</value>
+  </data>
+  <data name="upcourses_events" xml:space="preserve">
+    <value>Upcoming Courses &amp; Events</value>
+  </data>
+  <data name="Changepfp" xml:space="preserve">
+    <value>Change Profile picture</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="nationalId_passport" xml:space="preserve">
+    <value>National ID/Passport</value>
+  </data>
+  <data name="birthdate" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="job" xml:space="preserve">
+    <value>Job</value>
+  </data>
+  <data name="mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="showInfo" xml:space="preserve">
+    <value>Show my info to other memebers</value>
+  </data>
+  <data name="institutionalMem" xml:space="preserve">
+    <value>Institutional member</value>
   </data>
 </root>

@@ -468,10 +468,6 @@
   <data name="markpaid" xml:space="preserve">
     <value>تاكيد الدفع</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="maxcoursemembers" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="membership" xml:space="preserve">
     <value>العضوية</value>
   </data>
@@ -809,5 +805,32 @@
   </data>
   <data name="secTitleAr" xml:space="preserve">
     <value>العنوان الثاني بالعربية</value>
+  </data>
+  <data name="upcourses_events" xml:space="preserve">
+    <value>الدورات والاحداث القادمة</value>
+  </data>
+  <data name="Changepfp" xml:space="preserve">
+    <value>تغيير الصورة الشخصية</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="nationalId_passport" xml:space="preserve">
+    <value>الرقم القومي او جواز السفر</value>
+  </data>
+  <data name="birthdate" xml:space="preserve">
+    <value>تاريخ الميلاد</value>
+  </data>
+  <data name="job" xml:space="preserve">
+    <value>الوظيفة</value>
+  </data>
+  <data name="mobile" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="showInfo" xml:space="preserve">
+    <value>اظهر معلوماتي لباقي الاعضاء</value>
+  </data>
+  <data name="institutionalMem" xml:space="preserve">
+    <value>عضو مؤسسي</value>
   </data>
 </root>

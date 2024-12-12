@@ -9,26 +9,26 @@ namespace ESTA.Areas.Admin.Controllers
     [Area("Admin")]
     [Authorize(Roles = "Admin,Education")]
     public class ResultsController : Controller
-	{
-		private readonly IUnitOfWork uow;
+    {
+        private readonly IUnitOfWork uow;
 
-		public ResultsController(IUnitOfWork uow)
-		{
-			this.uow = uow;
-		}
-		public IActionResult Index(int courseId)
-		{
-			uow.UsersCoursesRep.GetAllUsersEnrolledinCourse(courseId);
+        public ResultsController(IUnitOfWork uow)
+        {
+            this.uow = uow;
+        }
+        public IActionResult Index(int courseId)
+        {
+            uow.UsersCoursesRep.GetAllUsersEnrolledinCourse(courseId);
 
 
 
 
             return View();
-		}
+        }
 
-        public async Task<IActionResult> AddResult(int courseId,string userId)
+        public async Task<IActionResult> AddResult(int courseId, string userId)
         {
-      var usercourse=  await    uow.UsersCoursesRep.GetUserCourse(courseId,userId);
+            var usercourse = await uow.UsersCoursesRep.GetUserCourse(courseId, userId);
 
 
 
@@ -36,10 +36,10 @@ namespace ESTA.Areas.Admin.Controllers
             return View(usercourse);
         }
         [HttpPost]
-        public async Task<IActionResult>  AddResult(UserCourse userCourse)
+        public async Task<IActionResult> AddResult(UserCourse userCourse)
         {
-        await    uow.UsersCoursesRep.UpdateUserCourseResult(userCourse.CourseId,userCourse.UserId,userCourse.Grade);
-           await uow.SaveChangesAsync();
+            await uow.UsersCoursesRep.UpdateUserCourseResult(userCourse.CourseId, userCourse.UserId, userCourse.Grade);
+            await uow.SaveChangesAsync();
 
 
 

@@ -8,16 +8,13 @@
 
 
 
-    <div class="page-head" >
+<div class="page-head">
 
+    <h2>@localizer["board"]</h2>
 
-<h2 col-6>@localizer["board"]</h2>
+    @Html.ActionLink(localizer["adddirector"], "AddDirector", null, null, new { @class = "btn btn-primary" })
 
-
-
-@Html.ActionLink(localizer["adddirector"],"AddDirector",null,null,new { @class="btn btn-primary"})
-
-    </div>
+</div>
 
 
 
@@ -28,8 +25,6 @@
         @foreach (var item in Model)
         {
             <div class="card" style="height:fit-content; position:relative">
-
-
 
                 <img src="@Url.Content("~"+item.PhotoPath)" height="200px" />
 
@@ -48,46 +43,30 @@
                     </div>
                 }
 
-
-                @Html.ActionLink(@localizer["edit"], "EditDirector", new { id = item.Id }, new { @class = "btn btn-light" }) 
+                @Html.ActionLink(@localizer["edit"], "EditDirector", new { id = item.Id }, new { @class = "btn btn-light" })
                 @Html.ActionLink(localizer["delete"], "DeleteDirector", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
-
-
-
 
             </div>
         }
-
-  
-
-
-
-
-
-
-   
-
-
     </div>
 
-    }
-    <br />
+}
+<br />
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-  
 
 
- <style>
-        .card{
-        transition:0.5s ease-in-out; overflow:hidden;
+
+<style>
+    .card {
+        transition: 0.5s ease-in-out;
+        overflow: hidden;
         /*z-index:10;
-        */
+            */
+    }
+
+        .card:hover {
+            transform: scale(0.94,.94);
         }
 
-        .card:hover{
-
-     transform: scale(0.94,.94);
-        
-        }
-
-    </style>
+</style>

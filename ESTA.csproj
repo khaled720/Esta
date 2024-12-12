@@ -58,6 +58,7 @@
     <Folder Include="wwwroot\Images\Banners\" />
     <Folder Include="wwwroot\Images\News\" />
     <Folder Include="wwwroot\editor_images\" />
+    <Folder Include="wwwroot\Images\Users\ProfilePicture\" />
     <Folder Include="wwwroot\template\img\" />
   </ItemGroup>
 

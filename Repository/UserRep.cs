@@ -82,51 +82,38 @@ namespace ESTA.Repository
 
         public async Task<bool> EnrollCourse(int StateId, int CourseId, string UserId, bool isPaymentCompleted)
         {
-
             try
             {
+                //var isRegistredBefore = appContext.UserCourses.Where(y => y.UserId == UserId && y.CourseId == CourseId).Any();
 
-
-                var isRegistredBefore =
-                         appContext.UserCourses.Where(y => y.UserId == UserId && y.CourseId == CourseId).Any();
-                if (isRegistredBefore)
-                {    //course  registred befor
-
-                    var usercourse = appContext.UserCourses.Where(y => y.UserId == UserId &&
-           y.CourseId == CourseId).AsTracking().FirstOrDefault();
-                    if (usercourse.StateId == 4)
-                    {
-
-                        usercourse.StateId = StateId;
-                        usercourse.isPaid = isPaymentCompleted;
-                        await appContext.SaveChangesAsync();
-
-                    }
-
-
-
-                }
-                else
-                {
-                    //course not registred befor
-                    UserCourse userCourse = new UserCourse();
-                    userCourse.isPaid = isPaymentCompleted;
-                    userCourse.CourseId = CourseId;
-                    userCourse.UserId = UserId;
-                    userCourse.StateId = StateId;
-                    await appContext.AddAsync<UserCourse>(userCourse);
-
-                }
+                //if (isRegistredBefore)
+                //{
+                //    //course  registred before
+                //    var usercourse = appContext.UserCourses.Where(y => y.UserId == UserId && y.CourseId == CourseId).AsTracking().FirstOrDefault();
+                //    if (usercourse.StateId == 4)
+                //    {
+                //        usercourse.StateId = StateId;
+                //        usercourse.isPaid = isPaymentCompleted;
+                //        await appContext.SaveChangesAsync();
+                //    }
+                //}
+                //else
+                //{
+                //course not registred befor
+                UserCourse userCourse = new UserCourse();
+                userCourse.isPaid = isPaymentCompleted;
+                userCourse.CourseId = CourseId;
+                userCourse.UserId = UserId;
+                userCourse.StateId = StateId;
+                await appContext.AddAsync<UserCourse>(userCourse);
+                //}
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
-
-
-
 
         }
 

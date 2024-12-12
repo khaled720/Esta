@@ -26,7 +26,12 @@ p, h1, h2, h3, h4, h5, h6, a {
 }
 
 .courses-heading {
-    flex-direction: row-reverse;
+    direction: rtl;
+}
+
+.courses-content-3::after {
+    right: 46px;
+    left: auto;
 }
 
 .ti-angle-double-right {
@@ -124,7 +129,55 @@ nav {
         right: auto !important;
     }
 }
+
 .toggle-search-box form button {
     left: 11px !important;
     right: auto !important;
+}
+
+.main-menu ul li ul.submenu {
+    right: 0;
+}
+
+.profile-nav ul > li > .nav-link:hover, .profile-nav ul > li > .nav-link:focus, .profile-nav ul li > .nav-link.active {
+    border-left: 0 !important;
+    border-right: 5px solid var(--primary-color);
+}
+
+.profile-nav ul > li > .nav-link {
+    border-right: 5px solid #fff;
+    border-left: 0 !important;
+}
+
+    .profile-nav ul > li > .nav-link > .badge {
+        float: left;
+    }
+
+.profile-nav ul > li {
+    direction: rtl;
+}
+
+    .profile-nav ul > li > .nav-link > i {
+        padding-left: 10px;
+        padding-right: 0px;
+    }
+
+.course-date {
+    direction: rtl;
+}
+
+.courses-pricing-3 {
+    margin-right: 20px;
+    margin-left: 0px;
+}
+
+.news-content {
+    text-align: right;
+}
+
+#courses-grid {
+    direction: rtl;
+}
+.bio-graph-info{
+    direction:rtl;
 }

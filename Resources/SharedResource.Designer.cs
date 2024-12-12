@@ -277,6 +277,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Birth date.
+        /// </summary>
+        public static string birthdate {
+            get {
+                return ResourceManager.GetString("birthdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Board Of Directors.
         /// </summary>
         public static string board {
@@ -365,6 +374,15 @@ namespace ESTA.Resources {
         public static string ChangePassword {
             get {
                 return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Profile picture.
+        /// </summary>
+        public static string Changepfp {
+            get {
+                return ResourceManager.GetString("Changepfp", resourceCulture);
             }
         }
         
@@ -1026,6 +1044,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Institutional member.
+        /// </summary>
+        public static string institutionalMem {
+            get {
+                return ResourceManager.GetString("institutionalMem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Intermediate.
         /// </summary>
         public static string inter {
@@ -1040,6 +1067,15 @@ namespace ESTA.Resources {
         public static string ispre {
             get {
                 return ResourceManager.GetString("ispre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Job.
+        /// </summary>
+        public static string job {
+            get {
+                return ResourceManager.GetString("job", resourceCulture);
             }
         }
         
@@ -1143,15 +1179,6 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum number of people who can apply.
-        /// </summary>
-        public static string maxcoursemembers {
-            get {
-                return ResourceManager.GetString("maxcoursemembers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Membership.
         /// </summary>
         public static string membership {
@@ -1202,6 +1229,15 @@ namespace ESTA.Resources {
         public static string mist {
             get {
                 return ResourceManager.GetString("mist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mobile.
+        /// </summary>
+        public static string mobile {
+            get {
+                return ResourceManager.GetString("mobile", resourceCulture);
             }
         }
         
@@ -1274,6 +1310,15 @@ namespace ESTA.Resources {
         public static string nameen {
             get {
                 return ResourceManager.GetString("nameen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to National ID/Passport.
+        /// </summary>
+        public static string nationalId_passport {
+            get {
+                return ResourceManager.GetString("nationalId_passport", resourceCulture);
             }
         }
         
@@ -1762,6 +1807,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string search {
@@ -1821,6 +1875,15 @@ namespace ESTA.Resources {
         public static string sendusmessage {
             get {
                 return ResourceManager.GetString("sendusmessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show my info to other memebers.
+        /// </summary>
+        public static string showInfo {
+            get {
+                return ResourceManager.GetString("showInfo", resourceCulture);
             }
         }
         
@@ -1956,6 +2019,15 @@ namespace ESTA.Resources {
         public static string upcourses {
             get {
                 return ResourceManager.GetString("upcourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upcoming Courses &amp; Events.
+        /// </summary>
+        public static string upcourses_events {
+            get {
+                return ResourceManager.GetString("upcourses_events", resourceCulture);
             }
         }
         

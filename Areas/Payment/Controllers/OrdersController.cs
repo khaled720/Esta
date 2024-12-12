@@ -149,7 +149,8 @@ namespace ESTA.Areas.Payment.Controllers
 
                 var returnUrl = configuration.GetValue<string>("ClassLibrary1_Config:MembershipreturnUrl");
 
-                var mempershipFee = await appRep.ConstantsRep.getMempershipFee();
+                //var mempershipFee = await appRep.ConstantsRep.getMempershipFee();
+                var mempershipFee = await GetTotalMembershipAsync();
 
                 MempershipOrder mempershipOrder = new();
                 Random random = new Random();
@@ -256,7 +257,40 @@ namespace ESTA.Areas.Payment.Controllers
             return RedirectToAction("Pay", "Orders", new { area = "Payment" });
         }
 
+        private async Task<double> GetTotalMembershipAsync()
+        {
+            var ConstantsFees = await appRep.ConstantsRep.getConstants();
+            var LoggedInuser = await userManager.GetUserAsync(User);
+            var TotalFee = ConstantsFees.MempershipFee;
 
+            if (LoggedInuser == null)
+            {
+                return 0;
+            }
+            else
+            {
+                var CurrentMonth = DateTime.Now.Month;
+
+                //currentMonth < Expiry.
+                //currentMonth > Expiry and < penalty.
+                //currentMonth > penalty.
+                //currentMonth >= ConstantsFees.PenaltyMonth && currentMonth < ConstantsFees.MempershipExpiryMonth
+                //currentMonth < ConstantsFees.PenaltyMonth && currentMonth >= ConstantsFees.MempershipExpiryMonth
+
+                if (!(CurrentMonth >= ConstantsFees.MempershipExpiryMonth && CurrentMonth < ConstantsFees.PenaltyMonth))
+                    TotalFee += ConstantsFees.LatePenalty;
+                if (string.IsNullOrEmpty(LoggedInuser.MembershipNumber))
+                    TotalFee += ConstantsFees.NewMempershipFee;
+                else
+                    TotalFee += ConstantsFees.RenewalFee;
+            }
+
+            //if late -> lateness penalty
+            //if user new -> mempershipFee + NewFee 
+            //else -> mempershipFee + RenewalFee 
+
+            return TotalFee;
+        }
 
 
 

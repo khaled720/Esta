@@ -71,7 +71,7 @@ namespace ESTA.Models
           ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
           ErrorMessageResourceName = "required"
       )]
-        
+
         public int SuccessPersentage { get; set; } = 50;
 
         [Required(
@@ -104,17 +104,11 @@ namespace ESTA.Models
         ErrorMessageResourceName = "required"
     )]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "maxcoursemembers")]
-        [RegularExpression("[1-9][0-9]{1,3}", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        [RegularExpression("[0-9]{1,3}", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
         ErrorMessageResourceName = "maxallowedmemberserr")]
         public int MaxAllowedMembersCount { get; set; } = 100;
 
-
-
-
-
-
-
-  //      public IEnumerable<PrerequisiteCourse>? PrerequisiteCourses { get; set; }
+        //      public IEnumerable<PrerequisiteCourse>? PrerequisiteCourses { get; set; }
 
         public IEnumerable<UserCourse>? users { get; set; }
     }

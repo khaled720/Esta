@@ -20,6 +20,7 @@ namespace ESTA.Repository.IRepository
         public Task<List<UserImage>>  GetUserGraduationImages(string userId);
 
         public Task<List<UserImage>> GetUserDocsImages(string userId);
+        public UserImage? GetUserProfilePic(string userId);
 
 
 

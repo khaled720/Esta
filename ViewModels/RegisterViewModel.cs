@@ -7,13 +7,13 @@ using Microsoft.Extensions.Localization;
 
 namespace ESTA.ViewModels
 {
-    public class RegisterViewModel 
+    public class RegisterViewModel
     {
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
-        [EmailAddress(ErrorMessageResourceName ="emailerr",ErrorMessageResourceType =typeof(ESTA.Resources.DataAnnotationsResource))]
+        [EmailAddress(ErrorMessageResourceName = "emailerr", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource))]
         [RegularExpression(
             @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$",
             ErrorMessageResourceName = "emailformaterr",
@@ -26,7 +26,7 @@ namespace ESTA.ViewModels
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
-       
+
 
         [DataType(DataType.Password)]
         [RegularExpression(
@@ -36,7 +36,7 @@ namespace ESTA.ViewModels
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password",ErrorMessageResourceType =typeof(ESTA.Resources.DataAnnotationsResource),ErrorMessageResourceName = "confirmpassworderr")]
+        [Compare("Password", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "confirmpassworderr")]
         [Display(
             ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             Name = "confirmpassword"
@@ -53,7 +53,7 @@ namespace ESTA.ViewModels
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
-   
+
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "fullname")]
         public string FullName { get; set; } = String.Empty;
@@ -196,14 +196,14 @@ namespace ESTA.ViewModels
         //    ErrorMessageResourceName = "required"
         //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "workfax")]
-        public string?  WorkFax { get; set; } = String.Empty;
+        public string? WorkFax { get; set; } = String.Empty;
 
-       // [Display(
-       //     ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-       //     Name = "workleavedate"
-       // )]
-       //[DataType(DataType.Date)]
-       // public DateTime? WorkLeavingDate { get; set; }
+        // [Display(
+        //     ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //     Name = "workleavedate"
+        // )]
+        //[DataType(DataType.Date)]
+        // public DateTime? WorkLeavingDate { get; set; }
 
         //[Display(
         //    ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -229,7 +229,7 @@ namespace ESTA.ViewModels
         [RegularExpression(@"(.{14})", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "nationalidcons")]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "idno")]
-        public string?  NationalCardID { get; set; } = String.Empty;
+        public string? NationalCardID { get; set; } = String.Empty;
 
         //[RegularExpression(@"(.{8})", ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
         //    ErrorMessageResourceName = "passportcons")]
@@ -238,7 +238,7 @@ namespace ESTA.ViewModels
         //    ErrorMessageResourceName = "required"
         //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "passport")]
-        public string?  Passport { get; set; } = String.Empty;
+        public string? Passport { get; set; } = String.Empty;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -286,11 +286,11 @@ namespace ESTA.ViewModels
             ResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             Name = "highstudies"
         )]
-        public string?  HighStudies { get; set; } = String.Empty;
+        public string? HighStudies { get; set; } = String.Empty;
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "haveread")]
         [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
-        
+
         public bool HaveRead { get; set; }
 
         public string? codeofEthics { get; set; }
@@ -311,41 +311,36 @@ namespace ESTA.ViewModels
         public bool IsNewMember { get; set; } = true;
 
 
-        public string?  MembershipNumber { get; set; }
+        public string? MembershipNumber { get; set; }
 
-      //  [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
+        //  [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
         public List<IFormFile>? NationalCardImages { get; set; }
 
 
-       // [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
+        // [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
         public List<IFormFile>? PassportImages { get; set; }
 
 
-          [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
-
+        [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
         public List<IFormFile> GraduationCertificateImages { get; set; }
 
+        public IFormFile? ProfilePicture { get; set; }
 
+        public List<string> Countries { get; set; } = CultureManager.GetCountries().ToList();
 
-
-        public List<string> Countries { get; set; } =  CultureManager.GetCountries().ToList();
-
-
-
-
-       public bool IsNationalityClaimsValid() 
+        public bool IsNationalityClaimsValid()
         {
             //if country egypt natid image required
             // eles passportid img required
 
             if (this.Country == "Egypt" || this.Country == "مصر")
             {
-                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImages==null)
+                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImages == null)
                 {
                     return false;
                 }
             }
-            else 
+            else
             {
                 if (string.IsNullOrEmpty(this.Passport) || this.PassportImages == null)
                 {

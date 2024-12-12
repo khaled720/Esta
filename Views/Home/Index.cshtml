@@ -57,6 +57,7 @@
                                 <div class="slider-content slider-content-2 slider-content-3 text-center">
                                     <a asp-action="Register" asp-controller="Account" asp-area="">
                                         <h1 class="white-color f-700" data-animation="fade-up" data-delay=".2s">@banner.Title </h1>
+                                        <p data-animation="fade-up" data-delay=".4s">@banner.Details</p>
                                         @* <p data-animation="fade-up" data-delay=".4s">   @localizer["wel2desc"]                  </p> *@
                                     </a>
                                 </div>
@@ -193,7 +194,7 @@
                  data-aos-anchor-placement="center-center" data-aos-duration="1000">
                 <div class="section-title mb-50 text-center">
                     <div class="section-title-heading mb-20">
-                        <h1 class="white-color">Courses & Events </h1>
+                        <h1 class="white-color">@localizer["upcourses_events"]</h1>
                     </div>
 
                 </div>
@@ -339,7 +340,7 @@
         transition: 0.5s ease-in-out;
         overflow: hidden;
         /*z-index:10;
-                                                                                    */
+                                                                                        */
     }
 
 </style>

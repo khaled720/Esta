@@ -7,8 +7,8 @@
 
 <style>
     .form-label {
-        top: -15px !important;
-        color: blueviolet;
+        /* top: -15px !important; */
+        color: rgb(182, 69, 69);
     }
 
 </style>
@@ -17,50 +17,48 @@
     <div class="row" style="justify-content:center ; height:100%;align-items:center">
         <div class="col-md-4">
             <br /><br />
-            <section>
-                <form id="Account" asp-action="Login" method="post">
-                    <h2> @localizer["wel"] </h2>
-                    <hr />
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-floating">
-                        <label asp-for="@Model.Email" class="form-label"></label>
-                        <input asp-for="@Model.Email" class="form-control" autocomplete="username" aria-required="true" />
+            <form id="Account" asp-action="Login" method="post">
+                <h2> @localizer["wel"] </h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.Email" class="form-label"></label>
+                    <input asp-for="@Model.Email" class="form-control" autocomplete="username" aria-required="true" />
 
-                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-floating">
-                        <label asp-for="@Model.Password" class="form-label"></label>
-                        <input asp-for="@Model.Password" class="form-control" autocomplete="current-password" type="password" aria-required="true" />
-                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                    </div>
-                    <div>
-                        @*  <div class="checkbox">
-                        <label asp-for="@Model.RememberMe" class="form-label">
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Password" class="form-label"></label>
+                    <input asp-for="@Model.Password" class="form-control" autocomplete="current-password" type="password" aria-required="true" />
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                <div>
+                    @*  <div class="checkbox">
+                    <label asp-for="@Model.RememberMe" class="form-label">
 
-                        @Html.DisplayNameFor(m => m.RememberMe)
-                        <input class="form-check-input" asp-for="@Model.RememberMe" />
-                        </label>
-                        </div>*@
-                    </div>
-                    <div>
-                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@localizer["signin"]</button>
-                    </div>
-                    <div>
-                        @*     <p>
-                        <a id="forgot-password" href="/Register">Forgot your password?</a>
-                        </p>*@
-                        <p>
-                            <a asp-action="register" asp-controller="account">@localizer["signup"]</a>
-                        </p>
-                        <p>
-                            <a asp-action="resetpassword" asp-controller="account">@localizer["resetpassword"]</a>
-                        </p>
-                        @* <p>
-                        <a id="resend-confirmation" href="/Register">Resend email confirmation</a>
-                        </p>*@
-                    </div>
-                </form>
-            </section>
+                    @Html.DisplayNameFor(m => m.RememberMe)
+                    <input class="form-check-input" asp-for="@Model.RememberMe" />
+                    </label>
+                    </div>*@
+                </div>
+                <div class="form-group">
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@localizer["signin"]</button>
+                </div>
+                <div>
+                    @*     <p>
+                    <a id="forgot-password" href="/Register">Forgot your password?</a>
+                    </p>*@
+                    <p>
+                        <a asp-action="register" asp-controller="account">@localizer["signup"]</a>
+                    </p>
+                    <p>
+                        <a asp-action="resetpassword" asp-controller="account">@localizer["resetpassword"]</a>
+                    </p>
+                    @* <p>
+                    <a id="resend-confirmation" href="/Register">Resend email confirmation</a>
+                    </p>*@
+                </div>
+            </form>
         </div>
 
     </div>

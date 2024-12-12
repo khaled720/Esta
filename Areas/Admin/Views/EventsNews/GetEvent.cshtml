@@ -39,41 +39,36 @@
 
 <div class="news-details-area pt-50 pb-50">
     <div class="container">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12">
-                <div class="blog-wrapper blog-list blog-details blue-blog mb-50">
-                    <div class="blog-thumb mb-35">
-                        <img style="max-width:80%" src="@Url.Content("~/"+Model.Image)" alt="">
 
-                    </div>
-                    <div class="blog-content news-content">
-                        <div class="blog-meta news-meta">
-                            @if (Model.Date.HasValue)
-                            {
-                                <span>@Model.Date.Value.ToString("yyyy-MMM-dd hh:mm:ss tt")</span>
-                            }
-                        </div>
-                        <h5>@Model.Title</h5>
-                        <p>
-                            @Html.Raw(Model.Description)
-                        </p>
-                    </div>
-                </div>
-
+        <div class="blog-wrapper row">
+            <div class="blog-thumb mb-35 col-md-4">
+                <img src="@Url.Content("~/"+Model.Image)" class="img-fluid" alt="">
             </div>
-            @if (admin)
-            {
+            <div class="blog-content news-content col-md-8">
+                <div class="blog-meta news-meta">
+                    @if (Model.Date.HasValue)
+                    {
+                        <span><i class="fa fa-calendar mx-1"></i>@Model.Date.Value.ToString("yyyy-MMM-dd hh:mm:ss tt")</span>
+                    }
+                </div>
+                <h5>@Model.Title</h5>
+                <p>
+                    @Html.Raw(Model.Description)
+                </p>
+            </div>
+        </div>
+        @if (admin)
+        {
+            <div class="row">
                 <div class="col-12 mt-3">
                     <a asp-action="EditEvent" asp-route-id="@Model.Id" class="btn btn-secondary">@ESTA.Resources.EventsNews.Edit</a>
                     @Html.ActionLink(localizer["delete"], "DeleteEvent", new { id = @Model.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
-          
 
                 </div>
-            }
+            </div>
+        }
 
-        </div>
     </div>
 </div>
 
 
-            

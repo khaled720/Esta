@@ -405,4 +405,19 @@
   <data name="workphone" xml:space="preserve">
     <value>Work Phone</value>
   </data>
+  <data name="latepen" xml:space="preserve">
+    <value>lateness penalty</value>
+  </data>
+  <data name="newmemfee" xml:space="preserve">
+    <value>New Membership Fee</value>
+  </data>
+  <data name="renewfee" xml:space="preserve">
+    <value>Renewal Fee</value>
+  </data>
+  <data name="penaltymonth" xml:space="preserve">
+    <value>The month of application of the late fine</value>
+  </data>
+  <data name="upcourses_events" xml:space="preserve">
+    <value>Upcoming Courses &amp; Events</value>
+  </data>
 </root>

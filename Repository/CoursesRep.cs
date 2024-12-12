@@ -62,10 +62,11 @@ namespace ESTA.Repository
                 DbCourse.DescriptionAr = UpdatedCourse.DescriptionAr;
                 DbCourse.TitleAr = UpdatedCourse.TitleAr;
                 DbCourse.PhotoPath = UpdatedCourse.PhotoPath;
-                if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount)
-                {
-                    DbCourse.MaxAllowedMembersCount = UpdatedCourse.MaxAllowedMembersCount;
-                }
+                DbCourse.MaxAllowedMembersCount = UpdatedCourse.MaxAllowedMembersCount;
+                //if (UpdatedCourse.MaxAllowedMembersCount > DbCourse.MaxAllowedMembersCount)
+                //{
+                //DbCourse.MaxAllowedMembersCount = UpdatedCourse.MaxAllowedMembersCount;
+                //}
                 this.appContext.SaveChanges();
 
                 //appContext.Entry<Course>(DbCourse).State = EntityState.Modified;
@@ -82,7 +83,7 @@ namespace ESTA.Repository
         {
             try
             {
-                return await appContext.Courses.AsNoTracking().ToListAsync();
+                return await appContext.Courses.Where(x => x.MaxAllowedMembersCount > 0).AsNoTracking().ToListAsync();
 
 
             }
@@ -100,19 +101,19 @@ namespace ESTA.Repository
         public async Task<IEnumerable<Course>> GetAllCoursesByLevel(int LevelId)
         {
             return await appContext.Courses
-                .Where(y => y.LevelId == LevelId)
+                .Where(y => y.LevelId == LevelId && y.MaxAllowedMembersCount > 0)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllCetaCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId < 4).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
+            return await appContext.Courses.Where(y => y.LevelId < 4 && y.MaxAllowedMembersCount > 0).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllOtherCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId == 4).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
+            return await appContext.Courses.Where(y => y.LevelId == 4 && y.MaxAllowedMembersCount > 0).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
         }
 
         public async Task<Course> GetCourse(int id)
@@ -145,7 +146,7 @@ namespace ESTA.Repository
 
         public async Task<string> SearchForCourse(string Name)
         {
-            var courses = await appContext.Courses.Where(y => y.Title.Contains(Name)).ToListAsync();
+            var courses = await appContext.Courses.Where(y => y.Title.Contains(Name) && y.MaxAllowedMembersCount > 0).ToListAsync();
 
             return JsonSerializer.Serialize(courses);
         }
@@ -197,7 +198,7 @@ namespace ESTA.Repository
 
             try
             {
-                return await appContext.Courses.AsQueryable().Where(y => y.Title.Contains(query)).ToListAsync();
+                return await appContext.Courses.AsQueryable().Where(y => y.Title.Contains(query) && y.MaxAllowedMembersCount > 0).ToListAsync();
 
             }
             catch (Exception)

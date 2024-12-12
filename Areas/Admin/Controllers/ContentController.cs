@@ -60,6 +60,45 @@ namespace ESTA.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public  IActionResult InstitutionalMem()
+        {
+
+            var about =  appRep.ContentRep.GetContent("institutionalMem");
+
+
+            return View(about);
+        }
+        [HttpPost]
+        public async Task<IActionResult> InstitutionalMem(Content content)
+        {
+
+
+            try
+            {
+                if (content.Id == 0)
+                {
+                    content.Type = "institutionalMem";
+                    await appRep.ContentRep.AddContent(content);
+                    await appRep.SaveChangesAsync();
+                }
+                else
+                {
+
+                    await appRep.ContentRep.UpdateContent(content);
+                    await appRep.SaveChangesAsync();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return View();
+            }
+
+
+            return RedirectToAction("Index");
+        }
 
 
 

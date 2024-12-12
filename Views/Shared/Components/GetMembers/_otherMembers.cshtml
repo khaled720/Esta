@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/lib/datatable/datatables.min.css" rel="stylesheet" />
+@model IEnumerable<ESTA.Models.User>
+
+<table class="table table-striped" id="table">
+    <thead style="background: var(--primary-color);color: white;">
+        <tr>
+            <th>@localizer["nameen"]</th>
+            <th>@localizer["namear"]</th>
+            <th>@localizer["email"]</th>
+            <th>@localizer["job"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.FullNameAr</td>
+                <td>@user.Email</td>
+                <td>@user.Job</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+
+}

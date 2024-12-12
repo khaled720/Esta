@@ -5,6 +5,7 @@ using ESTA.Areas.Payment.Repository.IRespository;
 using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
+using ESTA.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -41,8 +42,79 @@ namespace ESTA.Controllers
 
             ViewBag.ExpiryMonth = await appRep.ConstantsRep.getMempershipExpiryMonth();
 
+            var CurrentUser = await userManager.GetUserAsync(User);
+            var PFP = appRep.ImageRep.GetUserProfilePic(CurrentUser.Id);
+            var userCourses = CurrentUser.Courses;
 
-            return View();
+            ViewProfile profile = new()
+            {
+                Id = CurrentUser.Id,
+                FullNameAr = CurrentUser.FullNameAr,
+                FullName = CurrentUser.FullName,
+                Email = CurrentUser.Email,
+                Birthdate = CurrentUser.Birthdate,
+                Country = CurrentUser.Country,
+                Job = CurrentUser.Job,
+                UserId = CurrentUser.NationalCardID ?? CurrentUser.Passport ?? "",
+                MembershipNumber = CurrentUser.MembershipNumber,
+                MobilePhone = CurrentUser.MobilePhone,
+                ProfilePic = PFP != null ? PFP.Path : Constants.DefaultPFP,
+                IsMempershipPaid = CurrentUser.IsMempershipPaid,
+                Visible = CurrentUser.VisibleProfile,
+                IsModerator = await userManager.IsInRoleAsync(CurrentUser, "Moderator"),
+                CoursesCount = userCourses != null ? userCourses.Count() : 0,
+                FinishedCourses = userCourses != null ? userCourses.Where(x => x.StateId == 3 || x.StateId == 5).Count() : 0,
+                ForumsCount = appRep.ForumRep.GetSpecificForumByLevelId(CurrentUser.LevelId).Count(),
+            };
+
+            return View(profile);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UploadPfpAsync(IFormFile Photo)
+        {
+            var CurrentUser = await userManager.GetUserAsync(User);
+            var PFP = appRep.ImageRep.GetUserProfilePic(CurrentUser.Id);
+            await appRep.ImageRep.RemoveImageByTypeAsync(4, CurrentUser.Id);
+            var SavePath = hostEnvironment.WebRootPath + Constants.ProfilePicturesImagesSavingPath;
+
+            var PhotoName = await FileUpload.SavePhotoAsync(
+                Photo,
+                CurrentUser.FullName,
+                SavePath
+            );
+
+            var userImages = new UserImage() { TypeId = 4, Path = Constants.ProfilePicturesImagesSavingPath + PhotoName, UserId = CurrentUser.Id };
+            var res = await appRep.ImageRep.AddImages(userImages);
+
+            if (res)
+            {
+                await appRep.SaveChangesAsync();
+
+                if (PFP != null)
+                {
+                    try
+                    {
+                        System.IO.File.Delete(hostEnvironment.WebRootPath + PFP.Path);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+            return Json(true);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProfileVisibilityAsync(string visible)
+        {
+            var CurrentUser = await userManager.GetUserAsync(User);
+            CurrentUser.VisibleProfile = bool.Parse(visible.ToLower());
+
+            // Apply the changes if any to the db
+            await userManager.UpdateAsync(CurrentUser);
+
+            return Json(true);
         }
 
         public async Task<IActionResult> Courses()
@@ -65,12 +137,6 @@ namespace ESTA.Controllers
 
             if (User != null && User.Identity.IsAuthenticated)
             {
-
-
-
-
-
-
                 if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 {
 
@@ -83,13 +149,8 @@ namespace ESTA.Controllers
                 if (course.MaxAllowedMembersCount > applicants)
                 {
 
-
                     if (course.StartDate != null && (course.StartDate - DateTime.Now).Value.Days > 10)
                     {
-
-
-
-
                         var PrerequisiteCourses = await appRep.CoursesRep.GetPrerequisiteCourses(Id);
                         var userCourses = await appRep.UserRep.GetMyCourses(User.FindFirstValue(ClaimTypes.NameIdentifier));
                         int MatchCounter = 0;
@@ -139,10 +200,6 @@ namespace ESTA.Controllers
                 {
                     return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("coursecomplete")));
                 }
-
-
-
-
             }
             else
             {
@@ -153,9 +210,6 @@ namespace ESTA.Controllers
         //course Id Enroll + pay now
         public async Task<IActionResult> PayEnrollCourse(int Id, int level)
         {
-
-
-
 
             if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {

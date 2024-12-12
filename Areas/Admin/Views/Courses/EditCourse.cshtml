@@ -9,123 +9,123 @@
 <h2>Edit Course</h2>
 <div class="neuDiv" id="kk" style="margin:auto">
 
-<form method="post" enctype="multipart/form-data">
-    @Html.HiddenFor(M=>M.course.Id)
+    <form method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(M => M.course.Id)
 
-    <input style="display:none" asp-for=@Model.ImgFile id="upload" type="file" accept="image/*"
-           onchange="ImageChange(event)">
-           @Html.HiddenFor(y=>y.course.PhotoPath)
+        <input style="display:none" asp-for=@Model.ImgFile id="upload" type="file" accept="image/*"
+               onchange="ImageChange(event)">
+        @Html.HiddenFor(y => y.course.PhotoPath)
 
 
-    @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
+        @*   @Html.EditorFor(M=>M.ImgFile,"xxx","sss",new{ @type="file"})*@
         <div onclick="GetPhoto()" id="photoDiv" class="" style="background-image:url('@Url.Content("~"+Model.course.PhotoPath)')">
-        Click to add image
-    </div>
+            Click to add image
+        </div>
 
 
 
 
-    @*  @Html.ValidationSummary(false,"","text-danger")*@
-    <div class="row">
-        <div class="form-group col-6">
-            <label>Title</label>
+        @*  @Html.ValidationSummary(false,"","text-danger")*@
+        <div class="row">
+            <div class="form-group col-6">
+                <label>Title</label>
 
-            <input asp-for=@Model.course.Title class="" type="text" />
-            @Html.ValidationMessageFor(k=>k.course.Title,"",new {@class="text-danger"})
+                <input asp-for=@Model.course.Title class="" type="text" />
+                @Html.ValidationMessageFor(k => k.course.Title, "", new { @class = "text-danger" })
+
+
+            </div>
+            <div class="form-group col-6">
+                <label>Title in Arabic</label>
+
+                <input asp-for=@Model.course.TitleAr class="" type="text" />
+                @Html.ValidationMessageFor(k => k.course.TitleAr, "", new { @class = "text-danger" })
+
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group ">
+            <label>Start Date</label>
+            <input asp-for=@Model.course.StartDate type="date" />
+
+
+            @*  @Html.EditorFor(M=>M.course.StartDate,
+            new { htmlAttributes = new { @class = "" ,@type="date" } })*@
+            @Html.ValidationMessageFor(k => k.course.StartDate, "", new { @class = "text-danger" })
 
 
         </div>
-        <div class="form-group col-6">
-            <label>Title in Arabic</label>
-
-            <input asp-for=@Model.course.TitleAr class="" type="text" />
-            @Html.ValidationMessageFor(k=>k.course.TitleAr,"",new {@class="text-danger"})
 
 
-        </div>
-
-    </div>
-
-
-    <div class="form-group ">
-        <label>Start Date</label>
- <input asp-for=@Model.course.StartDate type="date" />
-    
-      
-      @*  @Html.EditorFor(M=>M.course.StartDate,
-        new { htmlAttributes = new { @class = "" ,@type="date" } })*@
-        @Html.ValidationMessageFor(k=>k.course.StartDate,"",new {@class="text-danger"})
-   
-    
-    </div>
-
-
-    <div class="row">
+        <div class="row">
             <div class="form-group col-lg-3 col-sm-12">
                 <label asp-for="@Model.course.MaxAllowedMembersCount"></label>
                 @*   <input type="text" class="form-control"  />*@
-               @* @Html.EditorFor(M=>M.course.MaxAllowedMembersCount,
+                @* @Html.EditorFor(M=>M.course.MaxAllowedMembersCount,
                 new { htmlAttributes = new { @class = "form-" } })*@
 
-                <input asp-for="@Model.course.MaxAllowedMembersCount" class="" min="@Model.course.MaxAllowedMembersCount" />
-                @Html.ValidationMessageFor(k=>k.course.MaxAllowedMembersCount,"",new {@class="text-danger"})
+                <input asp-for="@Model.course.MaxAllowedMembersCount" class="" min="0" />
+                @Html.ValidationMessageFor(k => k.course.MaxAllowedMembersCount, "", new { @class = "text-danger" })
 
             </div>
-      
-        <div class="form-group col-3">
-            <label>Price</label>
-            @*   <input type="text" class="form-control"  />*@
-            @Html.EditorFor(M=>M.course.Price, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(k=>k.course.Price,"",new {@class="text-danger"})
 
-        </div>
+            <div class="form-group col-3">
+                <label>Price</label>
+                @*   <input type="text" class="form-control"  />*@
+                @Html.EditorFor(M => M.course.Price, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(k => k.course.Price, "", new { @class = "text-danger" })
 
-        <div class="form-group  col-3">
-            <label>Final Grade</label>
-            @Html.EditorFor(M=>M.course.FinalGrade, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(k=>k.course.FinalGrade,"",new {@class="text-danger"})
-        </div>
+            </div>
+
+            <div class="form-group  col-3">
+                <label>Final Grade</label>
+                @Html.EditorFor(M => M.course.FinalGrade, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(k => k.course.FinalGrade, "", new { @class = "text-danger" })
+            </div>
             <div class="form-group  col-3">
                 <label>Success Grade</label>
-                @Html.EditorFor(M=>M.course.SuccessPersentage, new { htmlAttributes = new { @class = "" } })
-                @Html.ValidationMessageFor(k=>k.course.SuccessPersentage,"",new {@class="text-danger"})
+                @Html.EditorFor(M => M.course.SuccessPersentage, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(k => k.course.SuccessPersentage, "", new { @class = "text-danger" })
             </div>
-    </div>
-
-       
-
-
-    <div class="form-group">
-        <label>Level</label>
-        @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), "Select Course Level ......", new { @class = " " })
-
-        @Html.ValidationMessageFor(k=>k.course.LevelId,"",new {@class="text-danger"})
-    </div>
+        </div>
 
 
 
-    <div class="form-group col-12">
-        <label>Description</label>
 
-        <textarea asp-for=@Model.course.Description class=""></textarea>
-        @Html.ValidationMessageFor(k=>k.course.Description,"",new {@class="text-danger"})
-@*
-        <span asp-validation-for=@Model.course.Description style="color: blue;"></span>*@
-    </div>
+        <div class="form-group">
+            <label>Level</label>
+            @Html.DropDownListFor(model => model.course.LevelId, new SelectList(Model.Levels, "Id", "TypeName"), "Select Course Level ......", new { @class = " " })
 
-    <div class="form-group col-12">
-        <label>Description In Arabic</label>
+            @Html.ValidationMessageFor(k => k.course.LevelId, "", new { @class = "text-danger" })
+        </div>
 
 
-        <textarea asp-for=@Model.course.DescriptionAr class=""></textarea>
 
-        @Html.ValidationMessageFor(k=>k.course.DescriptionAr,"",new {@class="text-danger"})
+        <div class="form-group col-12">
+            <label>Description</label>
 
-@*        <span asp-validation-for=@Model.course.DescriptionAr style="color: blue;"></span>*@
-    </div>
+            <textarea asp-for=@Model.course.Description class=""></textarea>
+            @Html.ValidationMessageFor(k => k.course.Description, "", new { @class = "text-danger" })
+            @*
+            <span asp-validation-for=@Model.course.Description style="color: blue;"></span>*@
+        </div>
 
-    <button style="margin:auto" type="submit" class="btn btn-primary">@localizer["submit"]</button>
+        <div class="form-group col-12">
+            <label>Description In Arabic</label>
 
 
-</form>
+            <textarea asp-for=@Model.course.DescriptionAr class=""></textarea>
+
+            @Html.ValidationMessageFor(k => k.course.DescriptionAr, "", new { @class = "text-danger" })
+
+            @*        <span asp-validation-for=@Model.course.DescriptionAr style="color: blue;"></span>*@
+        </div>
+
+        <button style="margin:auto" type="submit" class="btn btn-primary">@localizer["submit"]</button>
+
+
+    </form>
 </div><script src="~/js/course.js"></script>

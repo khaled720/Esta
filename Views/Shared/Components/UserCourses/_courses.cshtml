@@ -20,19 +20,17 @@
     {
         <div class="accordion" id="accordionExample">
             <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            @localizer["Latest"]
-                        </button>
-                    </h2>
+                <div class="card-header p-0" id="headingOne">
+                    <button class="btn btn-block" type="button" style="padding:.75rem 1.25rem" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        @localizer["Latest"]
+                    </button>
                 </div>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
 
                         <div id="courses-grid" style="display:grid;gap:10px; grid-template-columns:1fr 1fr 1fr ">
 
-                            @foreach (var item in Model.Where(x => x.StateId != 3).ToList())
+                            @foreach (var item in Model.Where(x => x.StateId == 1 || x.StateId == 2).ToList())
                             {
 
 
@@ -63,17 +61,25 @@ background: rgba(100%,100%,100%,50%);
 
 
                                     <div class="card-body">
-                                        @localizer["stdate"]:    @item.course.StartDate.Value.ToShortDateString()
+                                        <strong>  @localizer["stdate"]: </strong>   @item.course.StartDate.Value.ToShortDateString()
                                         <br>
-                                        @localizer["enrolldate"]:    @item.EnrollmentDate.ToShortDateString()
+                                        <strong>
+                                            @localizer["enrolldate"]:
+                                        </strong>    @item.EnrollmentDate.ToShortDateString()
 
-                                        <br> @localizer["state"]:@item.state.StateName
+                                        <br>  <strong>
+                                            @localizer["state"]:
+                                        </strong>@item.state.StateName
 
-                                        <br>  @localizer["price"]: <strong style="color:green"> @item.course.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
+                                        <br>   <strong>
+                                            @localizer["price"]:
+                                        </strong> <strong style="color:green"> @item.course.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
 
                                         @*         <br>  @localizer["state"]: <strong style="color:green"> @item.state.StateName</strong>*@
 
-                                        <br> @localizer["paystate"]:
+                                        <br>  <strong>
+                                            @localizer["paystate"]:
+                                        </strong>
                                         @if (item.isPaid)
                                         {
                                             <strong style="color:green">  @localizer["done"] </strong>
@@ -100,12 +106,10 @@ background: rgba(100%,100%,100%,50%);
             </div>
 
             <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            @localizer["Previous"]
-                        </button>
-                    </h2>
+                <div class="card-header p-0" id="headingTwo">
+                    <button class="btn btn-block collapsed" style="padding:.75rem 1.25rem" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @localizer["Previous"]
+                    </button>
                 </div>
 
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -113,7 +117,7 @@ background: rgba(100%,100%,100%,50%);
 
                         <div id="courses-grid" style="display:grid;gap:10px; grid-template-columns:1fr 1fr 1fr ">
 
-                            @foreach (var item in Model.Where(x => x.StateId == 3).ToList())
+                            @foreach (var item in Model.Where(x => x.StateId != 1 && x.StateId != 2).ToList())
                             {
 
 
@@ -144,17 +148,28 @@ background: rgba(100%,100%,100%,50%);
 
 
                                     <div class="card-body">
-                                        @localizer["stdate"]:    @item.course.StartDate.Value.ToShortDateString()
+                                        <strong>  @localizer["stdate"]: </strong>   @item.course.StartDate.Value.ToShortDateString()
                                         <br>
-                                        @localizer["enrolldate"]:    @item.EnrollmentDate.ToShortDateString()
+                                        <strong>
+                                            @localizer["enrolldate"]:
+                                        </strong>    @item.EnrollmentDate.ToShortDateString()
 
-                                        <br> @localizer["state"]:@item.state.StateName
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                @localizer["state"]:
+                                            </strong> @item.state.StateName
+                                        </span>
 
-                                        <br>  @localizer["price"]: <strong style="color:green"> @item.course.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
+                                        <br>   <strong>
+                                            @localizer["price"]:
+                                        </strong> <strong style="color:green"> @item.course.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))</strong>
 
                                         @*         <br>  @localizer["state"]: <strong style="color:green"> @item.state.StateName</strong>*@
 
-                                        <br> @localizer["paystate"]:
+                                        <br>  <strong>
+                                            @localizer["paystate"]:
+                                        </strong>
                                         @if (item.isPaid)
                                         {
                                             <strong style="color:green">  @localizer["done"] </strong>
@@ -183,17 +198,17 @@ background: rgba(100%,100%,100%,50%);
         </div>
 
     }
+</div>
+<style>
+    .card {
+        transition: 0.5s ease-in-out;
+        overflow: hidden;
+        /*z-index:10;
+                                                                                                                            */
+    }
 
-    <style>
-        .card {
-            transition: 0.5s ease-in-out;
-            overflow: hidden;
-            /*z-index:10;
-                                                                                */
+        .card:hover {
+            transform: translateY(-5px);
         }
 
-            .card:hover {
-                transform: translateY(-5px);
-            }
-
-    </style>
+</style>

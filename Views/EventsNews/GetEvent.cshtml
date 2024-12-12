@@ -6,7 +6,7 @@
 
 <div class="slider-area">
     <div class="pages-title">
-        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/event.jpg"));">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
@@ -28,42 +28,36 @@
 
 <div class="news-details-area pt-50 pb-50">
     <div class="container">
-        <div class="row">
 
-            @if (Model == null)
-            {
-                <p>
-                    @localizer["notfound"]
-                </p>
+        @if (Model == null)
+        {
+            <p>
+                @localizer["notfound"]
+            </p>
 
-            }
-            else
-            {
-
-                <div class="col-xl-12 col-lg-12">
-                    <div class="blog-wrapper blog-list blog-details blue-blog mb-50">
-                        <div class="blog-thumb mb-35">
-                            <img src="@Url.Content("~/"+Model.Image)" alt="">
-
-                        </div>
-                        <div class="blog-content news-content">
-                            <div class="blog-meta news-meta">
-                                @if (Model.Date.HasValue)
-                                {
-                                    <span><i class="fa fa-calendar mx-1"></i>@Model.Date.Value.ToString("yyyy-MMM-dd hh:mm:ss tt")</span>
-                                }
-                            </div>
-                            <h5>@Model.Title</h5>
-                            <p>
-                                @Html.Raw(Model.Description)
-                            </p>
-                        </div>
-                    </div>
+        }
+        else
+        {
+            <div class="blog-wrapper blog-list row">
+                <div class="blog-thumb mb-35 col-md-4">
+                    <img src="@Url.Content("~/"+Model.Image)" class="img-fluid" alt="">
 
                 </div>
-            }
+                <div class="blog-content news-content col-md-8">
+                    <div class="blog-meta news-meta">
+                        @if (Model.Date.HasValue)
+                        {
+                            <span><i class="fa fa-calendar mx-1"></i>@Model.Date.Value.ToString("yyyy-MMM-dd hh:mm:ss tt")</span>
+                        }
+                    </div>
+                    <h5>@Model.Title</h5>
+                    <p>
+                        @Html.Raw(Model.Description)
+                    </p>
+                </div>
+            </div>
+        }
 
 
-        </div>
     </div>
 </div>

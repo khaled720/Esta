@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Drawing;
+using ESTA.Helpers;
 
 namespace ESTA.Areas.Admin.Controllers
 {
@@ -79,6 +80,12 @@ namespace ESTA.Areas.Admin.Controllers
                     ViewForum.UserForum.Select(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(y.userId, id)).ToList()).ToList();
 
                     ViewBag.CheckMoreComments = appRep.ForumRep.CheckMoreComments(1, ForumId: id);
+
+                    foreach (var item in ViewForum.UserForum)
+                    {
+                        var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                        item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+                    }
 
                     return View(ViewForum);
                 }
@@ -175,9 +182,14 @@ namespace ESTA.Areas.Admin.Controllers
             {
                 GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
                 var commentList = new List<GetUserForums>
-            {
-                addedComment
-            };
+                {
+                    addedComment
+                };
+                foreach (var item in commentList)
+                {
+                    var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                    item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+                }
                 var renderComment = new RenderComment()
                 {
                     showAllLink = true,
@@ -240,7 +252,11 @@ namespace ESTA.Areas.Admin.Controllers
             getUserForums.ForEach(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, forumId));
             getUserForums.ForEach(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, forumId)).ToList());
             getUserForums.ForEach(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id));
-
+            foreach (var item in getUserForums)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -257,8 +273,10 @@ namespace ESTA.Areas.Admin.Controllers
             GetUserForums getUserForums = _mapper.Map<UserForum, GetUserForums>(forumsList);
             getUserForums.Banned = appRep.ForumBannedUserRep.IsUserBanned(getUserForums.userId, getUserForums.forumId);
             getUserForums.Replies.Select(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(getUserForums.userId, getUserForums.forumId)).ToList();
-
             getUserForums.RepliesCount = appRep.ForumRep.GetRepliesCount(getUserForums.Id);
+
+            var pfp = appRep.ImageRep.GetUserProfilePic(getUserForums.userId);
+            getUserForums.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
 
             return View(getUserForums);
         }
@@ -285,11 +303,14 @@ namespace ESTA.Areas.Admin.Controllers
                 var ModForums = appRep.ModeratorRep.GetModeratorForumById(user.Id);
 
                 getComments = getComments.Where(f => ModForums.Any(x => x.ForumId == f.forumId)).ToList();
-
                 getComments.ForEach(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, x.forumId));
                 getComments.ForEach(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(y.userId, y.forumId)).ToList());
             }
-
+            foreach (var item in getComments)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             ViewBag.query = query;
 
             return View(getComments);
@@ -309,6 +330,12 @@ namespace ESTA.Areas.Admin.Controllers
             List<GetUserForums> getComments = _mapper.Map<List<UserForum>, List<GetUserForums>>(list);
             getComments.ForEach(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, x.forumId));
             getComments.ForEach(x => x.Replies.Select(y => y.Banned = appRep.ForumBannedUserRep.IsUserBanned(y.userId, y.forumId)).ToList());
+            
+            foreach (var item in getComments)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
 
             var renderComment = new RenderComment()
             {
@@ -324,7 +351,11 @@ namespace ESTA.Areas.Admin.Controllers
             var forumsList = appRep.ForumRep.GetReplies(parentId, page);
             List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(forumsList);
             getUserForums.Select(x => x.Banned = appRep.ForumBannedUserRep.IsUserBanned(x.userId, x.forumId)).ToList();
-
+            foreach (var item in getUserForums)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             return Json(getUserForums);
         }
         [HttpGet]

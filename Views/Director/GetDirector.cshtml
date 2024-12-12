@@ -31,47 +31,40 @@
 
 <div class="news-details-area pt-50 pb-50">
     <div class="container">
-        <div class="row">
 
-            @if (Model == null)
-            {
-                <p>
-                    @localizer["notfound"]
-                </p>
-
-            }
-            else
-            {
-
-                <div class="col-xl-12 col-lg-12">
-                    <div class="blog-wrapper blog-list blog-details blue-blog mb-50">
-                        <div class="blog-thumb mb-35">
-                            <img src="@Url.Content("~"+Model.PhotoPath)" alt="board" />
-                        </div>
-                        <div class="blog-content news-content">
-                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                            {
-                                <h4>@Model.NameAr</h4>
-                                <h5>@Model.JobAr</h5>
-                                <p>
-                                    @Html.Raw(Model.BioAr)
-                                </p>
-                            }
-                            else
-                            {
-                                <h4>@Model.NameEn</h4>
-                                <h5>@Model.JobEn</h5>
-                                <p>
-                                    @Html.Raw(Model.BioEn)
-                                </p>
-                            }
-
-                        </div>
-                    </div>
+        @if (Model == null)
+        {
+            <p>
+                @localizer["notfound"]
+            </p>
+        }
+        else
+        {
+            <div class="blog-wrapper blog-list row">
+                <div class="blog-thumb mb-35 col-md-4">
+                    <img src="@Url.Content("~"+Model.PhotoPath)" alt="board" class="img-fluid"/>
+                </div>
+                <div class="blog-content news-content col-md-8">
+                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                    {
+                        <h4>@Model.NameAr</h4>
+                        <h5>@Model.JobAr</h5>
+                        <p>
+                            @Html.Raw(Model.BioAr)
+                        </p>
+                    }
+                    else
+                    {
+                        <h4>@Model.NameEn</h4>
+                        <h5>@Model.JobEn</h5>
+                        <p>
+                            @Html.Raw(Model.BioEn)
+                        </p>
+                    }
 
                 </div>
-            }
+            </div>
 
-        </div>
+        }
     </div>
 </div>

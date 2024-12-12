@@ -3,7 +3,6 @@
 namespace ESTA.Models
 {
     public class State
-    
     {
 
         [Key]

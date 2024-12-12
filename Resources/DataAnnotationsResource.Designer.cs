@@ -493,6 +493,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to lateness penalty.
+        /// </summary>
+        public static string latepen {
+            get {
+                return ResourceManager.GetString("latepen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string level {
@@ -619,6 +628,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Membership Fee.
+        /// </summary>
+        public static string newmemfee {
+            get {
+                return ResourceManager.GetString("newmemfee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string orderdesc {
@@ -709,6 +727,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The month of application of the late fine.
+        /// </summary>
+        public static string penaltymonth {
+            get {
+                return ResourceManager.GetString("penaltymonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone Lines.
         /// </summary>
         public static string phones {
@@ -768,6 +795,15 @@ namespace ESTA.Resources {
         public static string remember {
             get {
                 return ResourceManager.GetString("remember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renewal Fee.
+        /// </summary>
+        public static string renewfee {
+            get {
+                return ResourceManager.GetString("renewfee", resourceCulture);
             }
         }
         
@@ -876,6 +912,15 @@ namespace ESTA.Resources {
         public static string university {
             get {
                 return ResourceManager.GetString("university", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upcoming Courses &amp; Events.
+        /// </summary>
+        public static string upcourses_events {
+            get {
+                return ResourceManager.GetString("upcourses_events", resourceCulture);
             }
         }
         

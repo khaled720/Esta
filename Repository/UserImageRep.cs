@@ -84,6 +84,13 @@ namespace ESTA.Repository
             return Images;
         }
 
+        public UserImage? GetUserProfilePic(string userId)
+        {
+            var Images = dbContext.UserImages.Where(x => x.UserId == userId && x.TypeId == 4).FirstOrDefault();
+
+            return Images;
+        }
+
         public Task<bool> RemoveImage(int ImageId)
         {
             throw new NotImplementedException();

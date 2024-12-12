@@ -73,7 +73,6 @@
     <link rel="stylesheet" href="~/template/aos/aos.css" />
     @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
     {
-
         <link href="~/template/css/style-ar.css" rel="stylesheet" />
 
     }
@@ -139,10 +138,6 @@
                                         </div>
                                     </div>
                                 }
-
-
-
-
                             </div>
                         </div>
                         <div class="">
@@ -152,18 +147,10 @@
                                     {
 
                                         <li>
-
-
-
                                             <a onclick="changeLang('en')"
                                                data-toggle="tooltip" title="@langTooltip">
                                                 <span style="color:white" class="ti-world"></span>
                                             </a>
-
-
-
-
-
                                             <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
                                         </li>
 
@@ -174,33 +161,17 @@
 
                                     else
                                     {
-
-
-
                                         <li><a href="https://www.linkedin.com/company/egyptian-society-of-technical-analysts-esta/" target="_blank"><span class="ti-linkedin"></span></a></li>
                                         <li><a href="https://www.facebook.com/ESTA.Mainpage?sfnsn=scwspwa&mibextid=RUbZ1f" target="_blank"><span class="ti-facebook"></span></a></li>
 
                                         <li>
-
-
-
                                             <a onclick="changeLang('ar')"
                                                data-toggle="tooltip" title="@langTooltip">
                                                 <span style="color:white" class="ti-world"></span>
                                             </a>
-
-
-
-
                                             <input type="hidden" value="@Url.Action("SetCulture","Lang",new {area=""})" id="langUrl" />
                                         </li>
-
-
-
                                     }
-
-
-
 
                                 </ul>
                             </div>
@@ -212,7 +183,7 @@
             <!-- header-bottom -->
             <div class="header-bottom-area header-sticky" style="transition: .2s;">
                 <div class="container-fluid">
-                    <div class="row align-items-center justify-content-between mx-md-2">
+                    <div class="row align-items-center justify-content-between">
                         <div class="">
                             <div class="logo ar">
                                 <a style="display:flex;align-items:center" asp-controller="Home" asp-action="Index" asp-area="">
@@ -226,29 +197,27 @@
                         </div>
 
 
-                        <div class="">
+                        <div class="mx-2">
                             @*<div class="header-bottom-icon f-right">
-                                <ul>
-                                    <li class="toggle-search-icon">
-                                        <a href="#">
-                                            <span class="ti-search"></span>
-                                            <div class="toggle-search-box">
-                                                <form asp-action="search" asp-controller="Home" id="searchbox">
-                                                    <input style="width:300px" name="query" placeholder="Search" type="text">
-                                                    <button class="button-search"><span class="ti-search"></span></button>
-                                                </form>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                </ul>
+                            <ul>
+                            <li class="toggle-search-icon">
+                            <a href="#">
+                            <span class="ti-search"></span>
+                            <div class="toggle-search-box">
+                            <form asp-action="search" asp-controller="Home" id="searchbox">
+                            <input style="width:300px" name="query" placeholder="Search" type="text">
+                            <button class="button-search"><span class="ti-search"></span></button>
+                            </form>
+                            </div>
+                            </a>
+                            </li>
+                            </ul>
                             </div>*@
                             <div class="main-menu f-right">
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         <li>
                                             <a asp-controller="Home" asp-action="Index" asp-area="">@localizer["home"]</a>
-
                                         </li>
                                         <li>
                                             <a href="#">@localizer["about"]</a>
@@ -280,20 +249,14 @@
                                                 <li>
                                                     <a asp-area="" asp-controller="courses" asp-action="OtherCourses">@localizer["othercourses"]</a>
                                                 </li>
-                                                <li>
-                                                    <a asp-area="" asp-controller="courses" asp-action="CetaHolders">@localizer["cetaholders"]</a>
-                                                </li>
-
                                             </ul>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="courses" asp-action="CetaHolders">@localizer["cetaholders"]</a>
                                         </li>
                                         <li>
                                             <a href="#">@localizer["membership"]</a>
                                             <ul class="submenu">
-
-
-
-
-
                                                 <li>
                                                     <a asp-area="" asp-controller="Forums" asp-action="Index">@localizer["discussionbf"]</a>
                                                 </li>
@@ -305,6 +268,11 @@
                                                 <li>
                                                     <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="benefits">
                                                         @localizer["benefits"]
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="institutionalMem">
+                                                        @localizer["institutionalMem"]
                                                     </a>
                                                 </li>
                                                 <li>
@@ -324,7 +292,7 @@
                                                 <span class="ti-search"></span>
                                                 <div class="toggle-search-box" style="">
                                                     <form asp-action="search" asp-controller="Home" id="searchbox">
-                                                        <input style="width:300px" name="query" placeholder="Search" type="text">
+                                                        <input style="width:300px" name="query" placeholder="@localizer["search"]" type="text">
                                                         <button onclick="this.form.submit();" style="" class="button-search"><i class="ti-search"></i></button>
                                                     </form>
                                                 </div>
@@ -509,7 +477,7 @@
     <!-- <script src="~/template/js/custom.js"></script> -->
     <script src="~/template/js/custom.min.js"></script>
 
-    @await RenderSectionAsync("Scripts",required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>

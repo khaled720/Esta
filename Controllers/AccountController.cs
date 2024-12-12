@@ -192,7 +192,7 @@ namespace ESTA.Controllers
                             LoginModel.Password, false, false);
                         if (result.Succeeded)
                         {
-                            if ((!await userManager.IsInRoleAsync(user, "Moderator") && !await userManager.IsInRoleAsync(user, "User"))|| await userManager.IsInRoleAsync(user, "Admin"))
+                            if ((!await userManager.IsInRoleAsync(user, "Moderator") && !await userManager.IsInRoleAsync(user, "User")) || await userManager.IsInRoleAsync(user, "Admin"))
                             {
                                 return RedirectToAction("index", "Home", new { area = "Admin" });
                             }
@@ -447,7 +447,7 @@ namespace ESTA.Controllers
                                  registerModel.FullName,
                                     SavePath
                                 );
-                                //               user.GradutionImagePath = Constants.GraduationCertificateImagesSavingPath + PhotoName;
+                                //user.GradutionImagePath = Constants.GraduationCertificateImagesSavingPath + PhotoName;
                                 userImages.Add(new UserImage() { TypeId = 3, Path = Constants.GraduationCertificateImagesSavingPath + PhotoName, UserId = user.Id });
                                 //we should add images to database
 
@@ -505,8 +505,6 @@ namespace ESTA.Controllers
                     /////// // Uploading Passport ID Image
                     try
                     {
-
-
                         if (registerModel.PassportImages != null)
                         {
                             foreach (var image in registerModel.PassportImages)
@@ -539,14 +537,10 @@ namespace ESTA.Controllers
                             "Passport Card Image Is Required"
                         );
                     }
+
+                    //add default profile picture to user
+                    //userImages.Add(new UserImage() { TypeId = 4, Path = Constants.ProfilePicturesImagesSavingPath + "default.jpeg", UserId = user.Id });
                     //////////////////////////
-                    ///
-
-
-
-
-
-
 
 
                     user.ConvertRegisterModelToUser(registerModel);

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.ViewComponents
 {
-    public class UserResultsViewComponent :ViewComponent
+    public class UserResultsViewComponent : ViewComponent
     {
         private readonly IUnitOfWork uow;
         private readonly IHttpContextAccessor contextAccessor;
@@ -18,11 +18,11 @@ namespace ESTA.ViewComponents
             this.userManager = userManager;
         }
 
-        public  IViewComponentResult Invoke() 
+        public IViewComponentResult Invoke()
         {
-            var user =  userManager.GetUserAsync(contextAccessor.HttpContext!.User).Result;
-          var UserResults=  uow.UsersCoursesRep.GetUserCoursesResults(user.Id).Result;
-            return View("_results",UserResults);
+            var user = userManager.GetUserAsync(contextAccessor.HttpContext!.User).Result;
+            var UserResults = uow.UsersCoursesRep.GetUserCoursesResults(user.Id).Result;
+            return View("_results", UserResults);
         }
     }
 }

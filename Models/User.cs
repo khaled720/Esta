@@ -63,11 +63,11 @@ namespace ESTA.Models
         )]
         public string EnglishWritingLevel { get; set; } = String.Empty;
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
-        public string Hometown { get; set; } = String.Empty;
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
+        public string? Hometown { get; set; } = String.Empty;
 
         //  [Display(Name = "Street Name")]
         [Required(
@@ -125,9 +125,6 @@ namespace ESTA.Models
         )]
 
         public string Job { get; set; } = String.Empty;
-
-
-
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
@@ -239,6 +236,7 @@ namespace ESTA.Models
         //public string?  PassportImagePath { get; set; } = String.Empty;
         //public string GradutionImagePath { get; set; } = String.Empty;
         public string? MembershipNumber { get; set; } = String.Empty;
+        public bool VisibleProfile { get; set; } = false;
 
         /// /////////////
 

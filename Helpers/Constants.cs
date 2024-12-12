@@ -14,7 +14,10 @@
 
         public static string PassportsImagesSavingPath => "/Images/Users/Passports/";
 
+        public static string ProfilePicturesImagesSavingPath => "/Images/Users/ProfilePicture/";
+
         public static string GraduationCertificateImagesSavingPath => "/Images/Users/GraduationCertificates/";
+        public static string DefaultPFP => "/Images/Users/ProfilePicture/default.jpeg";
     
     
     

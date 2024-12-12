@@ -616,10 +616,22 @@ namespace ESTA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<double>("LatePenalty")
+                        .HasColumnType("float");
+
                     b.Property<int>("MempershipExpiryMonth")
                         .HasColumnType("int");
 
                     b.Property<double>("MempershipFee")
+                        .HasColumnType("float");
+
+                    b.Property<double>("NewMempershipFee")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PenaltyMonth")
+                        .HasColumnType("int");
+
+                    b.Property<double>("RenewalFee")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -694,6 +706,11 @@ namespace ESTA.Migrations
                         {
                             Id = 3,
                             Name = "Gradution"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "ProfilePicture"
                         });
                 });
 
@@ -876,6 +893,11 @@ namespace ESTA.Migrations
                         {
                             Id = 4,
                             StateName = "Refunded"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            StateName = "Failed"
                         });
                 });
 
@@ -963,7 +985,6 @@ namespace ESTA.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Hometown")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
@@ -1047,6 +1068,9 @@ namespace ESTA.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<bool>("VisibleProfile")
+                        .HasColumnType("bit");
+
                     b.Property<string>("WorkAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1092,11 +1116,14 @@ namespace ESTA.Migrations
 
             modelBuilder.Entity("ESTA.Models.UserCourse", b =>
                 {
-                    b.Property<int>("CourseId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
@@ -1107,10 +1134,16 @@ namespace ESTA.Migrations
                     b.Property<int>("StateId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("isPaid")
                         .HasColumnType("bit");
 
-                    b.HasKey("CourseId", "UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("StateId");
 
@@ -1209,29 +1242,6 @@ namespace ESTA.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "8f50c09b-8b0b-4a8b-9b79-5801499288f7",
-                            ConcurrencyStamp = "61b4999f-425e-4cb8-b42f-928bf4341391",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "f8121134-6d8e-405d-b3cd-7912615f3d86",
-                            ConcurrencyStamp = "8f02b48f-fbc3-4137-9805-2feb77188faa",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "25386113-9b3e-49d0-ba37-0fa14f291e01",
-                            ConcurrencyStamp = "14f8533e-38f2-4eaa-aab8-a23881866712",
-                            Name = "Moderator",
-                            NormalizedName = "MODERATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

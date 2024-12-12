@@ -1,14 +1,14 @@
 /*news details*/
 .news-details-area .blog-thumb img{
-float: right;
+/*float: right;
     margin: 40px 20px 20px 20px;
     width: 400px;
     height: auto;
-    border-radius:5px;
+    border-radius:5px;*/
 }
 .news-details-area .blog-content p{
     height:auto;
-    text-align: justify;
+    /*text-align: justify;*/
 }
 
 @media  (max-width: 600px) {

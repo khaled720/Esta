@@ -53,7 +53,7 @@ namespace ESTA.Controllers
                     var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
 
                     //forumList = forumList.Where(f => f.levelId <= user.LevelId).ToList();
-                    if(BannedForums.Count > 0)
+                    if (BannedForums.Count > 0)
                         forumList = forumList.Where(x => BannedForums.Any(y => y.ForumId != x.Id)).ToList();
                 }
             }
@@ -76,7 +76,7 @@ namespace ESTA.Controllers
                     if (!roles)
                     {
                         var BannedForums = appRep.ForumBannedUserRep.GetForumsByUserId(user.Id);
-                        
+
                         banned = BannedForums.Any(y => y.ForumId == id);
                     }
 
@@ -92,6 +92,12 @@ namespace ESTA.Controllers
                             1,
                             ForumId: id
                         );
+
+                        foreach (var item in ViewForum.UserForum)
+                        {
+                            var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                            item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+                        }
 
                         return View(ViewForum);
                     }
@@ -199,6 +205,12 @@ namespace ESTA.Controllers
             newComment = appRep.ForumRep.GetCommentById(newComment.Id);
             GetUserForums addedComment = _mapper.Map<UserForum, GetUserForums>(newComment);
             var commentList = new List<GetUserForums> { addedComment };
+
+            foreach (var item in commentList)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -256,6 +268,11 @@ namespace ESTA.Controllers
                 forumsList
             );
             getUserForums.ForEach(x => x.RepliesCount = appRep.ForumRep.GetRepliesCount(x.Id));
+            foreach (var item in getUserForums)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -271,6 +288,9 @@ namespace ESTA.Controllers
             var forumsList = appRep.ForumRep.GetCommentById(id);
             GetUserForums getUserForums = _mapper.Map<UserForum, GetUserForums>(forumsList);
             getUserForums.RepliesCount = appRep.ForumRep.GetRepliesCount(getUserForums.Id);
+
+            var pfp = appRep.ImageRep.GetUserProfilePic(getUserForums.userId);
+            getUserForums.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
 
             return View(getUserForums);
         }
@@ -299,7 +319,11 @@ namespace ESTA.Controllers
                 if (BannedForums.Count > 0)
                     getComments = getComments.Where(x => BannedForums.Any(y => y.ForumId != x.forumId)).ToList();
             }
-
+            foreach (var item in getComments)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             ViewBag.query = query;
 
             return View(getComments);
@@ -327,6 +351,11 @@ namespace ESTA.Controllers
                 if (BannedForums.Count > 0)
                     getComments = getComments.Where(x => BannedForums.Any(y => y.ForumId != x.forumId)).ToList();
             }
+            foreach (var item in getComments)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             var renderComment = new RenderComment()
             {
                 showAllLink = true,
@@ -343,7 +372,11 @@ namespace ESTA.Controllers
             List<GetUserForums> getUserForums = _mapper.Map<List<UserForum>, List<GetUserForums>>(
                 forumsList
             );
-
+            foreach (var item in getUserForums)
+            {
+                var pfp = appRep.ImageRep.GetUserProfilePic(item.userId);
+                item.userPic = pfp != null ? pfp.Path : Constants.DefaultPFP;
+            }
             return Json(getUserForums);
         }
 

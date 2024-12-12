@@ -2,141 +2,290 @@
 @using ESTA.ViewComponents
 @using Microsoft.AspNetCore.Identity
 @using System.Globalization
-@inject UserManager<User> userManager;
-
-
-
+@model ESTA.ViewModels.ViewProfile
 
 <style>
-    .nav-pills .nav-link {
-        border: 0px
+    .file-upload {
+        background-color: #ffffff;
+        /* width: 600px; */
+        margin: 0 auto;
+        padding: 20px;
     }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 2px dashed black;
+        position: relative;
+    }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            /*background-color: antiquewhite;*/
+            border: 2px dashed black;
+        }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: black;
+    }
+
 </style>
-<div class="container">
-
-
-    <br />
-
-    <br />
-
-    <br />
-
-    <div style="display:flex;justify-content: space-between;">
-        <h3>@localizer["profile"]  </h3>
-        @if (userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier))
-        .GetAwaiter().GetResult().IsMempershipPaid)
-        {
-
-            <p>
-                <img width="20px" height="20px" src="@Url.Content("~/Images/success.png")">
-                @localizer["mempaid"]
-
-                <br>
-                @localizer["endsin"]  @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)ViewBag.ExpiryMonth)
-
-            </p>
-            @*     <a class="btn btn-info" asp-action="Create"
-        asp-controller="Refund"
-        asp-area="Payment">@localizer["refund"]</a>*@
-
-        }
-        else
-        {
-            <a class="btn btn-info" asp-action="AcceptMembershipOrder"
-               asp-controller="Orders"
-               asp-area="Payment">@localizer["paymem"]</a>
-        }
-        @*      <a class="btn btn-info" asp-action="UserChangePassword"
-        asp-controller="Account">@localizer["changepassheader"]</a>*@
-
-    </div>
-
-
-    @*
-    <a href="/User/Courses" class="btn btn-primary">My Courses</a>*@
-
-
-    <br />
-    <br />
-
-    @if (await userManager.IsInRoleAsync(await userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)), "Moderator"))
-    {
-        <a class="btn btn-danger" asp-action="Index" asp-controller="Forums" asp-area="Admin">@localizer["forumdash"]</a>
-
-    }
-    <br />   <br />
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-2 col-lg-2">
-                <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active" id="v-pills-news-tab" data-toggle="pill" data-target="#v-pills-news"
-                            type="button" role="tab" aria-controls="v-pills-news" aria-selected="true">
-                        @localizer["mycourses"]
-                    </button>
-                    <button class="nav-link" id="v-pills-social-tab" data-toggle="pill" data-target="#v-pills-social"
-                            type="button" role="tab" aria-controls="v-pills-social" aria-selected="false">
-                        @localizer["results"]
-                    </button>
-                    <button class="nav-link" id="v-pills-esta-tab" data-toggle="pill" data-target="#v-pills-esta"
-                            type="button" role="tab" aria-controls="v-pills-esta" aria-selected="false">
-                        @localizer["forums"]
-                    </button>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-10 col-lg-10 profile-section">
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-news" role="tabpanel" aria-labelledby="v-pills-news-tab">
-
-
-                        @await Component.InvokeAsync("UserCourses")
-
-
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-social" role="tabpanel" aria-labelledby="v-pills-social-tab">
-                        @await Component.InvokeAsync("UserResults")
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-esta" role="tabpanel" aria-labelledby="v-pills-esta-tab">
-                        @await Component.InvokeAsync("UserForums"/*,new {userId= User.FindFirstValue(ClaimTypes.NameIdentifier*/)
+<!-- slider-start -->
+<div class="slider-area">
+    <div class="page-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">@localizer["profile"]</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="#">@localizer["home"]</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@localizer["profile"]</li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-                <input type="hidden" value="1" id="pageNews" />
-                <input type="hidden" value="1" id="pageSocial" />
-                <input type="hidden" value="1" id="pageEsta" />
             </div>
         </div>
     </div>
+</div>
+<!-- slider-end -->
+<div class="container profile">
+    <div class="row">
+        <div class="profile-nav col-md-3">
+            <div class="card">
+                <div class="card-header user-heading text-center">
+                    <a href="#">
+                        <img src="@Url.Content("~"+Model.ProfilePic)" alt="" class="rounded-circle img-fluid">
+                    </a>
+                    <button type="button" data-toggle="modal" data-target="#exampleModal" style="position: relative;top: 35px;right: 35px;">
+                        <i class="fa fa-pen-square"></i>
+                    </button>
+                    <h1 class="h5 mt-3">@Model.FullName</h1>
+                    <p class="text-muted">@Model.Email</p>
+                    <div style="display:flex;flex-direction: column;gap: 10px;">
+                        @if (Model.IsMempershipPaid)
+                        {
+                            <p>
+                                <img width="20px" height="20px" src="@Url.Content("~/Images/success.png")">
+                                @localizer["mempaid"]
+                                <br>
+                                @localizer["endsin"]  @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName((int)ViewBag.ExpiryMonth)
+                            </p>
+                        }
+                        else
+                        {
+                            <a class="btn btn-danger" style="background: #dc3545 !important;" asp-action="AcceptMembershipOrder"
+                               asp-controller="Orders"
+                               asp-area="Payment">@localizer["paymem"]</a>
+                        }
+                        @if (Model.IsModerator)
+                        {
+                            <a class="btn btn-info" style="background:#17a2b8" asp-action="Index" asp-controller="Forums" asp-area="Admin">@localizer["forumdash"]</a>
+                        }
+                    </div>
 
+                </div>
+                <ul class="nav flex-column nav-pills" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-toggle="tab" data-target="#about" type="button" role="tab">
+                            <i class="fa fa-user-circle"></i>@localizer["personalinfo"]
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-toggle="tab" data-target="#members" type="button" role="tab">
+                            <i class="fa fa-users"></i>@localizer["allmem"]
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-toggle="tab" data-target="#courses" type="button" role="tab">
+                            <i class="fa fa-book"></i>@localizer["mycourses"]
+                            <span class="badge badge-primary">@Model.CoursesCount</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-toggle="tab" data-target="#results" type="button" role="tab">
+                            <i class="fa fa-certificate"></i> @localizer["results"]
+                            <span class="badge badge-primary">@Model.FinishedCourses</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-toggle="tab" data-target="#forums" type="button" role="tab">
+                            <i class="fa fa-edit"></i>@localizer["forums"]
+                            <span class="badge badge-primary">@Model.ForumsCount</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-
-
-
-
+        <div class="profile-info col-md-9 tab-content">
+            <div class="tab-pane fade show active" id="about" role="tabpanel">
+                <div class="panel card">
+                    <div class="bio-graph-heading">
+                        @* <h4>About me</h4> *@
+                    </div>
+                    <div class="panel-body bio-graph-info card-body">
+                        <div class="row">
+                            <div class="bio-row">
+                                <p><span>@localizer["nameen"]</span>: @Model.FullName</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["namear"]</span>: @Model.FullNameAr</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["country"]</span>: @Model.Country</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["nationalId_passport"] </span>: @Model.UserId</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["birthdate"]</span>: @Model.Birthdate.ToString("yyyy MMM,dd")</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["job"]</span>: @Model.Job</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["membership"] </span>: @Model.MembershipNumber</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>@localizer["mobile"] </span>: @Model.MobilePhone</p>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-check col-8">
+                                @if (Model.Visible)
+                                {
+                                    <input type="checkbox" class="form-check-input" id="visibleProfile" onchange="profileVisibility(this)" checked>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="form-check-input" id="visibleProfile" onchange="profileVisibility(this)">
+                                }
+                                <label class="form-check-label" for="visibleProfile">@localizer["showInfo"]</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="courses" role="tabpanel">
+                @await Component.InvokeAsync("UserCourses")
+            </div>
+            <div class="tab-pane fade" id="results" role="tabpanel">
+                @await Component.InvokeAsync("UserResults")
+            </div>
+            <div class="tab-pane fade" id="forums" role="tabpanel">
+                @await Component.InvokeAsync("UserForums")
+            </div>
+            <div class="tab-pane fade" id="members" role="tabpanel">
+                @await Component.InvokeAsync("GetMembers")
+            </div>
+            <div class="alert alert-success" role="alert" style="display:none;" id="success-alert">
+                @localizer["updatesSuccess"]
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@localizer["Changepfp"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="file-upload my-2">
+                    <div class="image-upload-wrap rounded-circle">
+                        <input class="file-upload-input" type='file' id="file-upload" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png" />
+                        <img class="img-fluid rounded-circle" id="imgSrc" src="@Url.Content("~"+Model.ProfilePic)" alt="your image" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="uploadPicture()">@localizer["Save"]</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@localizer["cancel"]</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<br />
+@section Scripts {
+    <script src="~/lib/datatable/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "bDestroy": true,
+                "bSearchable": true,
+                "responsive": true,
+            });
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var formData = new FormData();
+                const url = URL.createObjectURL(input.files[0]);
+                $('#imgSrc').attr('src', url);
+                $('#imgSrc').css('display', 'block');
+            }
+        }
+        function uploadPicture() {
+            var formData = new FormData();
+            formData.append('Photo', $("#file-upload").get(0).files[0])
 
-
-@*<ul class="nav nav-tabs ">
-
-    <li><a class="btn btn-light" data-toggle="tab" href="#menu1">@localizer["mycourses"]</a></li>
-    <li><a class="btn btn-light" data-toggle="tab" href="#menu2">@localizer["results"]</a></li>
-    <li><a class="btn btn-light" data-toggle="tab" href="#menu3">@localizer["forums"]</a></li>
-</ul>
-
-<div class="tab-content">
-
-    <div id="menu1" class="tab-pane fade active">
-        <h3>@localizer["mycourses"]</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-        <h3>@localizer["results"]</h3>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-    <div id="menu3" class="tab-pane fade">
-        <h3>@localizer["forums"]</h3>
-        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    </div>
-</div>
-
-*@
+            $.ajax({
+                url: '@Url.Action("UploadPfp", "User")',
+                method: 'post',
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: formData,
+                success: function (data) {
+                    $('#success-alert').css('display', 'block')
+                    setTimeout(() => {
+                        $('#success-alert').css('display', 'none')
+                    }, 5000);
+                    $('#exampleModal').modal('hide')
+                    window.location.reload(true);
+                    //window.location.href = window.location
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+        function profileVisibility(check) {
+            var formData = new FormData();
+            formData.append('visible', $(check).is(":checked"))
+            $.ajax({
+                url: '@Url.Action("ProfileVisibility", "User")',
+                method: 'post',
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: formData,
+                success: function (data) {
+                    $('#success-alert').css('display', 'block')
+                    setTimeout(() => {
+                        $('#success-alert').css('display', 'none')
+                    }, 5000);
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+    </script>
+}

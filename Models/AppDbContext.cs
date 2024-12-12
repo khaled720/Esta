@@ -43,7 +43,7 @@ namespace ESTA.Models
             modelBuilder.Entity<ModeratorForum>().HasOne(y => y.Forum).WithMany(b => b.ModeratorForums).HasForeignKey(y => y.ForumId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<ModeratorForum>().HasOne(y => y.User).WithMany(b => b.ModeratorForums).HasForeignKey(y => y.UserId).OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<UserCourse>().HasKey(x => new { x.CourseId, x.UserId });
+            //modelBuilder.Entity<UserCourse>().HasKey(x => new { x.CourseId, x.UserId });
             modelBuilder.Entity<UserCourse>().HasOne(y => y.course).WithMany(b => b.users).HasForeignKey(y => y.CourseId);
             modelBuilder.Entity<UserCourse>().HasOne(y => y.user).WithMany(b => b.Courses).HasForeignKey(y => y.UserId);
 
@@ -60,10 +60,11 @@ namespace ESTA.Models
             modelBuilder.Entity<State>().HasData(new State() { Id = 2, StateName = "In Progress" });
             modelBuilder.Entity<State>().HasData(new State() { Id = 3, StateName = "Completed" });
             modelBuilder.Entity<State>().HasData(new State() { Id = 4, StateName = "Refunded" });
+            modelBuilder.Entity<State>().HasData(new State() { Id = 5, StateName = "Failed" });
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Moderator", NormalizedName = "MODERATOR" });
+            //modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Admin", NormalizedName = "ADMIN" });
+            //modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "User", NormalizedName = "USER" });
+            //modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole() { Name = "Moderator", NormalizedName = "MODERATOR" });
 
 
             modelBuilder.Entity<UserAnswer>().HasKey(y => new { y.UserId, y.QuestionId });
@@ -107,11 +108,10 @@ namespace ESTA.Models
             //    .WithMany(b => b.PrerequisiteCourses).HasForeignKey(y => y.PrerequisiteCourseId);
 
 
-            modelBuilder.Entity<ImageType>().HasData(new ImageType() {Id=1,Name="NationalId" });
-
+            modelBuilder.Entity<ImageType>().HasData(new ImageType() { Id = 1, Name = "NationalId" });
             modelBuilder.Entity<ImageType>().HasData(new ImageType() { Id = 2, Name = "Passport" });
-
             modelBuilder.Entity<ImageType>().HasData(new ImageType() { Id = 3, Name = "Gradution" });
+            modelBuilder.Entity<ImageType>().HasData(new ImageType() { Id = 4, Name = "ProfilePicture" });
 
 
             base.OnModelCreating(modelBuilder);
@@ -155,16 +155,16 @@ namespace ESTA.Models
         public DbSet<ForumBannedUser> ForumBannedUser { get; set; }
 
 
-       public DbSet<MempershipOrder> MempershipOrders { get; set; }
+        public DbSet<MempershipOrder> MempershipOrders { get; set; }
 
         public DbSet<MempershipPayment> MempershipPayments { get; set; }
 
 
         public DbSet<CourseOrder> CoursesOrders { get; set; }
-        public DbSet<CoursePayment>  CoursesPayments { get; set; }
+        public DbSet<CoursePayment> CoursesPayments { get; set; }
         public DbSet<GlobalConstants> Constants { get; set; }
 
-        public DbSet<Refund> RefundRequests   { get; set; }
+        public DbSet<Refund> RefundRequests { get; set; }
 
         public DbSet<CertifiedMember> CertifiedMembers { get; set; }
 

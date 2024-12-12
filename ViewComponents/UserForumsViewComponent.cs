@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ESTA.ViewComponents
 {
-    public class UserForumsViewComponent:ViewComponent
+    public class UserForumsViewComponent : ViewComponent
     {
         private readonly IUnitOfWork uow;
         private readonly IHttpContextAccessor contextAccessor;
         private readonly UserManager<User> userManager;
 
-        public UserForumsViewComponent(IUnitOfWork uo, IHttpContextAccessor  contextAccessor, UserManager<User> userManager)
+        public UserForumsViewComponent(IUnitOfWork uo, IHttpContextAccessor contextAccessor, UserManager<User> userManager)
         {
             this.uow = uo;
             this.contextAccessor = contextAccessor;
@@ -21,8 +21,8 @@ namespace ESTA.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-           
-            var user=   userManager.GetUserAsync(contextAccessor.HttpContext!.User).Result;
+
+            var user = userManager.GetUserAsync(contextAccessor.HttpContext!.User).Result;
             // return forums with same level or lower
             var xyz = uow.ForumRep.GetSpecificForumByLevelId(user.LevelId);
             var BannedForums = uow.ForumBannedUserRep.GetForumsByUserId(user.Id);
@@ -30,7 +30,7 @@ namespace ESTA.ViewComponents
             if (BannedForums.Count > 0)
                 xyz = xyz.Where(x => BannedForums.Any(y => y.ForumId != x.Id)).ToList();
 
-            return View("_forums",xyz);
+            return View("_forums", xyz);
         }
     }
 }

@@ -63,11 +63,7 @@ namespace ESTA.Controllers
                 await appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
                 await appRep.SaveChangesAsync();
 
-
-
                 var cdvm = new CourseDetailsViewModel();
-
-
 
                 cdvm.course = await appRep.CoursesRep.GetCourse(id);
 
@@ -94,7 +90,10 @@ namespace ESTA.Controllers
                         MatchCounter++;
                     }
                 }
-                if (String.IsNullOrEmpty(cdvm.userid) && MatchCounter == cdvm.PrerequisiteCourses.Count()) cdvm.IsPrerequisiteCoursesPassed = true;
+                if (!String.IsNullOrEmpty(cdvm.userid) && MatchCounter == cdvm.PrerequisiteCourses.Count)
+                {
+                    cdvm.IsPrerequisiteCoursesPassed = true;
+                }
 
                 return View(cdvm);
             }
