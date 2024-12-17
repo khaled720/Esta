@@ -67,8 +67,8 @@ namespace ESTA.Areas.Payment.Models
         [Column(TypeName = "ntext")]
         public string? PostOrderJsonResponse { get; set; } = string.Empty;
 
-
-
+        [NotMapped]
+        public string PaymentMethod { get; set; }
         public void BuildOrder(Course course)
         {
             try

@@ -1,0 +1,65 @@
+﻿@model ESTA.Areas.Payment.Data.FawryObject
+
+
+<div class=" container" style="padding:50px">
+
+    <div id="embed-target"></div>
+    @* @Model.ToString()*@
+
+    <br />
+
+    <div class="row justify-content-center">
+
+        <h3 class="col-lg-8">@localizer["refundpolicy"]</h3>
+
+        <div class="col-lg-7">
+            @Html.Raw(@localizer["payinfo"])
+
+            <a target="_blank" asp-area="" asp-action="terms" asp-controller="Home">@localizer["termsCon"]</a>
+            .
+            <a target="_blank" asp-area="" asp-action="privacy" asp-controller="Home">@localizer["pp"]</a>
+        </div>
+
+        <div class="col-lg-8 chk-ar" style="margin:25px;">
+
+            <label>
+                <input id="agree-chkbox" onchange="checkAgree()" style="width:15px" type="checkbox" />
+                @localizer["agreepolicy"]
+            </label>
+
+        </div>
+
+        <!-- Import FawryPay CSS Library-->
+        <link rel="stylesheet" href="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/css/fawrypay-payments.css">
+        <input type="image" onclick="checkout();" class="btn col-8 btn-primary" id="movePaymentBtn" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg" disabled type="button" value="@localizer["movetopay"]" onclick="Checkout.showPaymentPage();" />
+
+        <!-- FawryPay Checkout Button -->
+        @* <input type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg"
+        alt="pay-using-fawry" id="fawry-payment-btn" /> *@
+
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</div>
+@section Scripts {
+
+    <script src="~/js/move-to-payment.js"></script>
+    <!-- Import FawryPay Staging JavaScript Library-->
+    <script type="text/javascript" src="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/js/fawrypay-payments.js"></script>
+
+    <script type="text/javascript">
+        function checkout() {
+            var obj = @Html.Raw(Json.Serialize(Model));
+            console.log(obj)
+            const configuration = {
+                locale: "en",  //default en
+                mode: DISPLAY_MODE.SEPARATED,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE , SEPARATED]
+            };
+            FawryPay.checkout(obj, configuration);
+        }
+    </script>
+}

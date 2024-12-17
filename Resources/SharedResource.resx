@@ -843,4 +843,19 @@
   <data name="institutionalMem" xml:space="preserve">
     <value>Institutional member</value>
   </data>
+  <data name="latepen" xml:space="preserve">
+    <value>lateness penalty</value>
+  </data>
+  <data name="memfee" xml:space="preserve">
+    <value>Mempership Fee</value>
+  </data>
+  <data name="newmemfee" xml:space="preserve">
+    <value>New Membership Fee</value>
+  </data>
+  <data name="renewfee" xml:space="preserve">
+    <value>Renewal Fee</value>
+  </data>
+  <data name="membershipconfirm" xml:space="preserve">
+    <value>Confirm Purchase</value>
+  </data>
 </root>

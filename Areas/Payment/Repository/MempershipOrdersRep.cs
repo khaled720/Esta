@@ -29,6 +29,21 @@ namespace ESTA.Areas.Payment.Repository
             }
         }
 
+        public async Task<List<MempershipOrder>> GetUnpaidMempershipFawryOrders()
+        {
+            try
+            {
+                return await appContext.MempershipOrders
+                    .Where(x => x.OrderResult == "UNPAID" && x.TransactionReference == "Fawry_Transaction")
+                    .Include(x => x.User)
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+                return new List<MempershipOrder>();
+            }
+        }
+
         public async Task<List<MempershipOrder>> GetMempershipOrders()
         {
             try

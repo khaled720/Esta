@@ -27,8 +27,6 @@ namespace ESTA.Controllers
             this.configuration = configuration;
         }
 
-
-
         public async Task<IActionResult> OtherCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllOtherCourses();

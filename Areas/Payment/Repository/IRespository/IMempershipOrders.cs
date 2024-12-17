@@ -5,13 +5,13 @@ namespace ESTA.Areas.Payment.Repository.IRespository
 {
     public interface IMempershipOrders
     {
-    Task<bool> SavePrepareOrder(MempershipOrder mempershipOrder);
-
-     Task< List<MempershipOrder>>  GetMempershipOrders();
+        Task<bool> SavePrepareOrder(MempershipOrder mempershipOrder);
+        Task<List<MempershipOrder>> GetMempershipOrders();
+        Task<List<MempershipOrder>> GetUnpaidMempershipFawryOrders();
         Task<int> GetOrdersLength();
         Task<int> GetMaxId();
         bool UpdatePrepareOrder(MempershipOrder mempershipOrder);
-          Task<MempershipOrder> GetOrder(int orderId);
+        Task<MempershipOrder> GetOrder(int orderId);
 
     }
 }

@@ -24,6 +24,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using AspNetCore.ReCaptcha;
+using ESTA.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +92,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services
     .AddMvc()
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
@@ -115,11 +117,14 @@ builder.Services.AddAuthorization(
 );
 builder.Services
     .AddIdentity<User, IdentityRole>(
-    options => {
+    options =>
+    {
         options.SignIn.RequireConfirmedEmail = true;
-        })
+    })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddHostedService<FawryPullOrderService>();
 
 //builder.Services.AddAuthentication()
 //    .AddCookie(options =>
@@ -161,11 +166,10 @@ ImageHelper.Configure(app.Environment);
 
 EmailSender.Configure(builder.Configuration);
 // Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-if (true)
+if (!app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    //    app.UseExceptionHandler("/Home/Error");
+    //app.UseDeveloperExceptionPage();
+    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }

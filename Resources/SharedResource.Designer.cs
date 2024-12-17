@@ -1125,6 +1125,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to lateness penalty.
+        /// </summary>
+        public static string latepen {
+            get {
+                return ResourceManager.GetString("latepen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Latest.
         /// </summary>
         public static string Latest {
@@ -1184,6 +1193,24 @@ namespace ESTA.Resources {
         public static string membership {
             get {
                 return ResourceManager.GetString("membership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Purchase.
+        /// </summary>
+        public static string membershipconfirm {
+            get {
+                return ResourceManager.GetString("membershipconfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mempership Fee.
+        /// </summary>
+        public static string memfee {
+            get {
+                return ResourceManager.GetString("memfee", resourceCulture);
             }
         }
         
@@ -1364,6 +1391,15 @@ namespace ESTA.Resources {
         public static string newmem {
             get {
                 return ResourceManager.GetString("newmem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Membership Fee.
+        /// </summary>
+        public static string newmemfee {
+            get {
+                return ResourceManager.GetString("newmemfee", resourceCulture);
             }
         }
         
@@ -1758,6 +1794,15 @@ namespace ESTA.Resources {
         public static string remember {
             get {
                 return ResourceManager.GetString("remember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renewal Fee.
+        /// </summary>
+        public static string renewfee {
+            get {
+                return ResourceManager.GetString("renewfee", resourceCulture);
             }
         }
         

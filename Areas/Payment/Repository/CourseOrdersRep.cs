@@ -106,5 +106,22 @@ namespace ESTA.Areas.Payment.Repository
                 throw;
             }
         }
+
+        public async Task<List<CourseOrder>> GetUnpaidCoursesFawryOrders()
+        {
+            try
+            {
+                return await appContext.CoursesOrders
+                    .Where(x => x.OrderResult == "UNPAID" && x.TransactionReference == "Fawry_Transaction")
+                    .Include(x => x.User)
+                    .Include(x => x.Course)
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+
+                return new List<CourseOrder>();
+            }
+        }
     }
 }

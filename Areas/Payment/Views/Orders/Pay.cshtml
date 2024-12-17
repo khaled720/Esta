@@ -44,34 +44,26 @@
 
         <input class="btn col-8 btn-primary" id="movePaymentBtn" disabled type="button" value="@localizer["movetopay"]" onclick="Checkout.showPaymentPage();" />
 
+
+
     </div>
     <br />
     <br />
     <br />
     <br />
 
-    <script src="~/js/move-to-payment.js"></script>
-    <script src="https://qnbalahli.gateway.mastercard.com/static/checkout/checkout.min.js"
-            data-error="errorCallback"
-            data-cancel="cancelCallback">
-    </script>
-    <script type="text/javascript">
-        function errorCallback(error) { console.log(JSON.stringify(error)); }
-        function cancelCallback() { console.log('Payment cancelled'); }
-    </script>
-
-    <script>
-        Checkout.configure({ session: { id: "@Model.ToString()" } });
-        debugger;
-    </script>
 </div>
+<script src="~/js/move-to-payment.js"></script>
+<script src="https://qnbalahli.gateway.mastercard.com/static/checkout/checkout.min.js"
+        data-error="errorCallback"
+        data-cancel="cancelCallback">
+</script>
+<script type="text/javascript">
+    function errorCallback(error) { console.log(JSON.stringify(error)); }
+    function cancelCallback() { console.log('Payment cancelled'); }
+</script>
 
-
-
-
-
-
-
-
-
-
+<script>
+    Checkout.configure({ session: { id: "@Model.ToString()" } });
+    debugger;
+</script>

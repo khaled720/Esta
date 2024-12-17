@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using System.Globalization
+@using ESTA.Helpers
+@model ESTA.Areas.Payment.Models.MembershipFeeDetails
+
+
+<h4 class="text=danger" style="text-align:center">
+    @localizer["membershipconfirm"]
+</h4>
+<div class="rounded-div mr">
+    <form asp-action="AcceptMembershipOrder" asp-controller="Orders" method="post" id="form">
+        <div style="display:flex;flex-direction:column;">
+
+            <div class="row">
+
+                <div class="col-lg-8 col-sm-12 font-weight-bold"> @localizer["memfee"]</div>
+                <div class="col-lg-4 col-sm-12">
+                    <h3 class="text-danger" style="font-weight: bold;">
+                        @Model.MembershipFee.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-8 col-sm-12 font-weight-bold"> @localizer["newmemfee"]</div>
+                <div class="col-lg-4 col-sm-12">
+                    <h3 class="text-danger" style="font-weight: bold;">
+                        @Model.NewMempershipFee.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-8 col-sm-12 font-weight-bold">  @localizer["renewfee"]</div>
+                <div class="col-lg-4 col-sm-12">
+                    <h3 class="text-danger" style="font-weight: bold;">
+                        @Model.RenewalFee.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-8 col-sm-12 font-weight-bold">@localizer["latepen"] </div>
+                <div class="col-lg-4 col-sm-12 ">
+
+                    <h3 class="text-danger" style="font-weight: bold;">
+                        @Model.LatePenalty.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
+                    </h3>
+
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-lg-8 col-sm-12 font-weight-bold">@localizer["price"] </div>
+                <div class="col-lg-4 col-sm-12 ">
+
+                    <h3 class="text-danger" style="font-weight: bold;">
+                        @Model.Total.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
+                    </h3>
+
+                </div>
+
+            </div>
+
+            @Html.HiddenFor(x => x.MembershipFee)
+            @Html.HiddenFor(x => x.NewMempershipFee)
+            @Html.HiddenFor(x => x.RenewalFee)
+            @Html.HiddenFor(x => x.LatePenalty)
+            @Html.HiddenFor(x => x.Total)
+            @Html.HiddenFor(x => x.PaymentMethod, new { @id = "PayMehtod" })
+
+            <br />
+            <div class="row justify-content-between">
+
+                <a style="background-color:red" class="col-lg-3 col-sm-12 btn btn-warning" asp-action="profile" asp-controller="User" asp-area="">@localizer["cancel"]</a>
+
+                <!-- Submit Button 1 -->
+                <button type="submit" onclick="submitForm('Fawry');" class="col-lg-3 col-sm-12 btn btn-primary" value="@localizer["confirm"] FAWRY"></button>
+                <!-- Submit Button 2 -->
+                <button type="submit" onclick="submitForm('Bank');" class="col-lg-3 col-sm-12 btn btn-primary" value="@localizer["confirm"] BANK"></button>
+
+                @* <button type="submit" class="col-lg-10 col-sm-12 btn btn-primary">@localizer["confirm"]</button> *@
+            </div>
+
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <script>
+        function submitForm(type) {
+            var form = document.getElementById("form");
+            var pay = document.getElementById("PayMehtod")
+            pay.value = type
+            form.submit();
+        }
+    </script>
+}

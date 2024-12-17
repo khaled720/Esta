@@ -833,4 +833,19 @@
   <data name="institutionalMem" xml:space="preserve">
     <value>عضو مؤسسي</value>
   </data>
+  <data name="latepen" xml:space="preserve">
+    <value>عقوبة التأخير</value>
+  </data>
+  <data name="memfee" xml:space="preserve">
+    <value>تكلفة العضوية</value>
+  </data>
+  <data name="newmemfee" xml:space="preserve">
+    <value>رسوم العضوية الجديدة</value>
+  </data>
+  <data name="renewfee" xml:space="preserve">
+    <value>رسوم التجديد</value>
+  </data>
+  <data name="membershipconfirm" xml:space="preserve">
+    <value>تأكيد الدفع</value>
+  </data>
 </root>
