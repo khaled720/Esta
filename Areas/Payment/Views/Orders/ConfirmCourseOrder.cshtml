@@ -60,15 +60,15 @@
             @Html.HiddenFor(x => x.PaymentMethod, new { @id = "PayMehtod" })
 
             <br />
-            <div class="row">
+            <div class="row justify-content-between">
 
                 <a style="background-color:red" class="col-lg-2 col-sm-12 btn btn-warning"
                    asp-route-id="@Model.CourseId" asp-action="CourseDetails" asp-controller="Courses"
                    asp-area="">@localizer["cancel"]</a>
                 <!-- Submit Button 1 -->
-                <button type="submit" onclick="submitForm('Fawry');" class="col-lg-3 col-sm-12 btn btn-primary" value="@localizer["confirm"] FAWRY"></button>
+                <button type="submit" onclick="submitForm('Fawry');" class="col-lg-3 col-sm-12 btn btn-primary">@localizer["payFawry"]</button>
                 <!-- Submit Button 2 -->
-                <button type="submit" onclick="submitForm('Bank');" class="col-lg-3 col-sm-12 btn btn-primary" value="@localizer["confirm"] BANK"></button>
+                <button type="submit" onclick="submitForm('Bank');" class="col-lg-3 col-sm-12 btn btn-primary">@localizer["PayNowBank"]</button>
 
                 @* <button type="submit" class="col-lg-10 col-sm-12 btn btn-primary">@localizer["confirm"]</button> *@
             </div>

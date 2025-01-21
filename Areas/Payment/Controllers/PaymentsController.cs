@@ -13,23 +13,19 @@ using Newtonsoft.Json;
 
 namespace ESTA.Areas.Payment.Controllers
 {
-
-
-
     [Area("Payment")]
     [Authorize]
-
     public class PaymentsController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly IUnitOfWork appContext;
-        private readonly IHostEnvironment hostEnvironment;
+        private readonly LogManager<PaymentsController> logger;
 
-        public PaymentsController(UserManager<User> userManager, IUnitOfWork appContext, IHostEnvironment hostEnvironment)
+        public PaymentsController(UserManager<User> userManager, LogManager<PaymentsController> _logger, IUnitOfWork appContext, IHostEnvironment hostEnvironment)
         {
             this.userManager = userManager;
             this.appContext = appContext;
-            this.hostEnvironment = hostEnvironment;
+            logger = _logger;
         }
         public IActionResult Index()
         {
@@ -75,7 +71,7 @@ namespace ESTA.Areas.Payment.Controllers
                     && coursePayment.TotalRefundedAmount == 0)    // payment is OK
                 {
 
-                    new LogManager(hostEnvironment).WriteInLogFile("Payment  ok Payment Id = " + coursePayment.OrderId);
+                    logger.WriteInfo("Payment  ok Payment Id = " + coursePayment.OrderId);
 
                     //   Log("getOrderStatus", "resultIndicator:" + resultIndicator + "///sucessIndicator:" + sucessIndicator);
 
@@ -93,8 +89,7 @@ namespace ESTA.Areas.Payment.Controllers
                     await appContext.UserRep.UpdateUserLevel(usr.Id);
                     await appContext.SaveChangesAsync();
 
-                    new LogManager(hostEnvironment).WriteInLogFile("---Updating User  " + usr.FullName +
-                        "  Level  Id");
+                    logger.WriteInfo("---Updating User  " + usr.FullName + "  Level  Id");
 
 
                     //       Response.Redirect("receiptPage.aspx?a=" + amount + "&c=" + currency + "&s=" + status + "&t=" + lastUpdatedTime, false);
@@ -129,7 +124,7 @@ namespace ESTA.Areas.Payment.Controllers
 
                     //if payment not okay
 
-                    new LogManager(hostEnvironment).WriteInLogFile("Payment not ok  orderId=" + coursePayment.OrderId);
+                    logger.WriteInfo("Payment not ok  orderId=" + coursePayment.OrderId);
 
                     return RedirectToAction("receipt", new
                     {
@@ -151,8 +146,7 @@ namespace ESTA.Areas.Payment.Controllers
             catch (Exception ex)
             {
 
-                new LogManager(hostEnvironment).WriteInLogFile(
-                    "Exception: Course Payment Failed  " + ex.Message);
+                logger.WriteError("Exception: Course Payment Failed  " + ex.Message);
                 return RedirectToAction("receipt", new
                 {
                     status = coursePayment.Status,
@@ -185,12 +179,12 @@ namespace ESTA.Areas.Payment.Controllers
                 ClassLibrary1.Interact PaymentManager = new ClassLibrary1.Interact();
 
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                new LogManager(hostEnvironment).WriteInLogFile("SavaMempershipPayment Was Called orderNumber= " + orderNumber);
+                logger.WriteInfo("SavaMempershipPayment Was Called orderNumber= " + orderNumber);
                 mempershipOrder = await appContext.MempershipOrdersRep.GetOrder(int.Parse(orderId.ToString()));
 
                 var response = PaymentManager.getOrder(orderNumber);
 
-                new LogManager(hostEnvironment).WriteInLogFile("Get Order Was called ordernumber= " + orderNumber + " RESPONCE= " + response);
+                logger.WriteInfo("Get Order Was called ordernumber= " + orderNumber + " RESPONCE= " + response);
 
 
                 mempershipPayment.UserId = mempershipOrder.UserId;
@@ -220,7 +214,7 @@ namespace ESTA.Areas.Payment.Controllers
                     && mempershipPayment.TotalRefundedAmount == 0)    // payment is OK
                 {
 
-                    new LogManager(hostEnvironment).WriteInLogFile("Payment  ok Payment Id = " + mempershipPayment.OrderId);
+                    logger.WriteInfo("Payment  ok Payment Id = " + mempershipPayment.OrderId);
 
                     //   Log("getOrderStatus", "resultIndicator:" + resultIndicator + "///sucessIndicator:" + sucessIndicator);
 
@@ -283,7 +277,7 @@ namespace ESTA.Areas.Payment.Controllers
 
                     //if payment not okay
 
-                    new LogManager(hostEnvironment).WriteInLogFile("Payment NOT OK  Payment Id= " +
+                    logger.WriteInfo("Payment NOT OK  Payment Id= " +
                         mempershipPayment.OrderId);
                     return RedirectToAction("receipt", new
                     {
@@ -303,7 +297,7 @@ namespace ESTA.Areas.Payment.Controllers
             catch (Exception ex)
             {
 
-                new LogManager(hostEnvironment).WriteInLogFile("Exception: Mempership Payment Failed  " + ex.Message);
+                logger.WriteError("Exception: Mempership Payment Failed  " + ex.Message);
 
 
 
@@ -388,8 +382,6 @@ namespace ESTA.Areas.Payment.Controllers
             return View(obj);
         }
 
-
     }
-
 
 }

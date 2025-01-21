@@ -4,6 +4,7 @@ using ESTA.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ESTA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241224115922_dropPenalty")]
+    partial class dropPenalty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -627,9 +629,6 @@ namespace ESTA.Migrations
 
                     b.Property<double>("NewMempershipFee")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("PenaltyMonth")
-                        .HasColumnType("datetime2");
 
                     b.Property<double>("RenewalFee")
                         .HasColumnType("float");

@@ -1539,6 +1539,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pay with fawry.
+        /// </summary>
+        public static string payFawry {
+            get {
+                return ResourceManager.GetString("payFawry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;p&gt;- Membership fees cannot be refunded (membership renewal is in &lt;u&gt;July every year&lt;/u&gt;)&lt;br /&gt;
         /// &lt;br /&gt;
         ///&lt;strong&gt; Course Refund &amp; Cancellation Policy:&lt;/strong&gt;&lt;br /&gt;
@@ -1582,7 +1591,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pay with Visa-Master Card-Meeza.
+        ///   Looks up a localized string similar to Pay with Visa, Master card or Fawry.
         /// </summary>
         public static string paynow {
             get {
@@ -1596,6 +1605,15 @@ namespace ESTA.Resources {
         public static string paynow2 {
             get {
                 return ResourceManager.GetString("paynow2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay using visa or mastercard.
+        /// </summary>
+        public static string PayNowBank {
+            get {
+                return ResourceManager.GetString("PayNowBank", resourceCulture);
             }
         }
         

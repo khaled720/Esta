@@ -588,7 +588,7 @@
     <value>المدفوعات</value>
   </data>
   <data name="paynow" xml:space="preserve">
-    <value>Visa-Master Card-Meeza الدفع بواسطة</value>
+    <value>الدفع بواسطة فيزا او ماستر كارد او فوري</value>
   </data>
   <data name="paynow2" xml:space="preserve">
     <value>الدفع الان</value>
@@ -847,5 +847,11 @@
   </data>
   <data name="membershipconfirm" xml:space="preserve">
     <value>تأكيد الدفع</value>
+  </data>
+  <data name="payFawry" xml:space="preserve">
+    <value>الدفع بواسطة فوري</value>
+  </data>
+  <data name="PayNowBank" xml:space="preserve">
+    <value>الدفع بواسطة فيزا ,ماستر كارد او ميزة</value>
   </data>
 </root>

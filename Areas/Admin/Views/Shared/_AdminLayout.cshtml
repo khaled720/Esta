@@ -92,77 +92,97 @@
                             <ul class="navbar-nav flex-grow-1">
 
 
-                                @if (Admin)
+                                @if (!isModerator)
                                 {
                                     @* <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["home"]</a>
                                 </li>*@
 
                                     @*<li class="nav-item-link">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
-                                    </li>
+                                <a class="nav-link text-dark" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a>
+                                </li>
 
-                                    <li class="nav-item-link">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a>
-                                    </li>*@
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            @localizer["HomeBanner"]
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="1">@localizer["Banner"]1</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="2">@localizer["Banner"]2</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="3">@localizer["Banner"]3</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="4">@localizer["Banner"]4</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
-                                    </li>
+                                <li class="nav-item-link">
+                                <a class="nav-link text-dark" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a>
+                                </li>*@
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Content"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Content" asp-action="Index">@localizer["content"]</a>
+                                        </li>
+                                    }
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Banners"))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                @localizer["HomeBanner"]
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="1">@localizer["Banner"]1</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="2">@localizer["Banner"]2</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="3">@localizer["Banner"]3</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="4">@localizer["Banner"]4</a></li>
+                                            </ul>
+                                        </li>
+                                    }@if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Board of directors"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
+                                        </li>
+                                    }
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Contacts"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Contact" asp-action="Index">@localizer["contacts"]</a>
+                                        </li>
+                                    }
                                     @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a>
-                                    </li>*@
-
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
-                                    </li>
+                                <a class="nav-link text-dark" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a>
+                                </li>*@
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Events & News"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="admin" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
+                                        </li>
+                                    }
                                     @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
-                                    </li>*@
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Payments" asp-action="Index">@localizer["payments"]</a>
-                                    </li>
+                                <a class="nav-link text-dark" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a>
+                                </li>*@
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Payments"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Payments" asp-action="Index">@localizer["payments"]</a>
+                                        </li>
+                                    }
                                     @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a>
-                                    </li>*@
-                                    
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            @localizer["education"]
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            @localizer["usersmanagement"]
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Account" asp-action="Index">@localizer["admins"]</a></li>
-                                            <li><a class="dropdown-item" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a></li>
-                                        </ul>
-                                    </li>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a>
+                                </li>*@
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Education"))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                @localizer["education"]
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Levels" asp-action="Index">@localizer["levels"]</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Courses" asp-action="Index">@localizer["courses"]</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="CertifiedMembers" asp-action="Index">@localizer["cetaholders"]</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Forums" asp-action="Index">@localizer["forums"]</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Users"))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                @localizer["usersmanagement"]
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Account" asp-action="Index">@localizer["admins"]</a></li>
+                                                <li><a class="dropdown-item" asp-area="admin" asp-controller="Users" asp-action="Index">@localizer["users"]</a></li>
+                                            </ul>
+                                        </li>
+                                    }
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="admin" asp-controller="Account" asp-action="UserChangePassword">@localizer["ChangePassword"]</a>
                                     </li>

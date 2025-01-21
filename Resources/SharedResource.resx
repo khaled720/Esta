@@ -598,7 +598,7 @@
     <value>Payments</value>
   </data>
   <data name="paynow" xml:space="preserve">
-    <value>Pay with Visa-Master Card-Meeza</value>
+    <value>Pay with Visa, Master card or Fawry</value>
   </data>
   <data name="paynow2" xml:space="preserve">
     <value>Pay Online</value>
@@ -857,5 +857,11 @@
   </data>
   <data name="membershipconfirm" xml:space="preserve">
     <value>Confirm Purchase</value>
+  </data>
+  <data name="payFawry" xml:space="preserve">
+    <value>Pay with fawry</value>
+  </data>
+  <data name="PayNowBank" xml:space="preserve">
+    <value>Pay using visa or mastercard</value>
   </data>
 </root>

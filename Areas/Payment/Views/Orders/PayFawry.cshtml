@@ -10,9 +10,9 @@
 
     <div class="row justify-content-center">
 
-        <h3 class="col-lg-8">@localizer["refundpolicy"]</h3>
+        <h3 class="col-12">@localizer["refundpolicy"]</h3>
 
-        <div class="col-lg-7">
+        <div class="col-12">
             @Html.Raw(@localizer["payinfo"])
 
             <a target="_blank" asp-area="" asp-action="terms" asp-controller="Home">@localizer["termsCon"]</a>
@@ -20,7 +20,7 @@
             <a target="_blank" asp-area="" asp-action="privacy" asp-controller="Home">@localizer["pp"]</a>
         </div>
 
-        <div class="col-lg-8 chk-ar" style="margin:25px;">
+        <div class="col-12 chk-ar" style="margin:25px;">
 
             <label>
                 <input id="agree-chkbox" onchange="checkAgree()" style="width:15px" type="checkbox" />
@@ -28,10 +28,12 @@
             </label>
 
         </div>
+    </div>
+    <div class="row justify-content-center">
 
         <!-- Import FawryPay CSS Library-->
         <link rel="stylesheet" href="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/css/fawrypay-payments.css">
-        <input type="image" onclick="checkout();" class="btn col-8 btn-primary" id="movePaymentBtn" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg" disabled type="button" value="@localizer["movetopay"]" onclick="Checkout.showPaymentPage();" />
+        <input onclick="checkout();" class="col-3" id="movePaymentBtn" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg" disabled type="image" value="@localizer["payFawry"]" />
 
         <!-- FawryPay Checkout Button -->
         @* <input type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg"

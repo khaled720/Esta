@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ESTA.Models
 {
@@ -21,16 +22,14 @@ namespace ESTA.Models
             ErrorMessageResourceName = "required"
         )]
         public double LatePenalty { get; set; }
+
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "penaltymonth")]
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
             )]
-        [RegularExpression("1[0-2]|[1-9]",
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "memmonthexpiryerr")]
-        public int PenaltyMonth { get; set; }
+        public DateTime PenaltyMonth { get; set; } = DateTime.Today;
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "newmemfee")]
 

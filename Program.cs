@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using AspNetCore.ReCaptcha;
 using ESTA.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -108,6 +109,11 @@ builder.Services
     //    }
     );
 
+// Add serilog services to the container and read config from appsettings
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+builder.Services.AddSingleton(typeof(LogManager<>));
+
 builder.Services.AddAuthorization(
     opt =>
     {
@@ -165,16 +171,21 @@ app.UseRequestLocalization(
 ImageHelper.Configure(app.Environment);
 
 EmailSender.Configure(builder.Configuration);
+
+// Configure Serilog for logging (middleware)
+app.UseSerilogRequestLogging();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    //app.UseDeveloperExceptionPage();
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseSession();
 /*
 var supportedCultures = new[] { "en", "ar" };
@@ -190,8 +201,6 @@ app.UseAuthentication();
 
 
 app.UseAuthorization();
-
-
 
 //app.UseEndpoints(endpoints =>
 //{   
@@ -239,6 +248,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
     catch (Exception ex)
     {
         app.UseExceptionHandler("/Home/Error");
+        throw;
     }
 
 
@@ -280,7 +290,7 @@ void CreateSuperUser(UserManager<User> userManager)
                 var res = userManager.AddToRoleAsync(admin, "Admin").GetAwaiter().GetResult();
             }
         }
-        catch (Exception ex) { }
+        catch (Exception ex) { throw; }
     }
 }
 #endregion

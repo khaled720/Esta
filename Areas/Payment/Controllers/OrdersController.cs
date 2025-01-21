@@ -18,16 +18,16 @@ namespace ESTA.Areas.Payment.Controllers
     public class OrdersController : Controller
     {
         private readonly IUnitOfWork appRep;
-        private readonly IHostEnvironment hostEnvironment;
+        private readonly LogManager<OrdersController> logger;
         private readonly IConfiguration configuration;
         private readonly UserManager<User> userManager;
 
-        public OrdersController(IUnitOfWork appRep, IHostEnvironment hostEnvironment, IConfiguration configuration, UserManager<User> userManager)
+        public OrdersController(IUnitOfWork appRep, LogManager<OrdersController> _logger, IConfiguration configuration, UserManager<User> userManager)
         {
             this.appRep = appRep;
-            this.hostEnvironment = hostEnvironment;
             this.configuration = configuration;
             this.userManager = userManager;
+            logger = _logger;
         }
 
         public IActionResult MakeOrder()
@@ -66,23 +66,17 @@ namespace ESTA.Areas.Payment.Controllers
                     var response = PaymentManager.perpareOrder(order.OrderNumber,
                         (decimal)order.Amount, order.Currency, order.OrderDescription, returnUrl);
                     order.SetDataAfterPrepareOrder(response);
-                    new LogManager(hostEnvironment).WriteInLogFile(JsonConvert
+                    logger.WriteInfo(JsonConvert
                         .SerializeObject("PrepareOrderResponse : " + response));
                     //save to db
                     await appRep.CourseOrdersRep.SavePrepareOrder(order);
                     await appRep.SaveChangesAsync();
 
                     string response2 = PaymentManager.postOrder(response);
-                    try
-                    {
-                        new LogManager(hostEnvironment).WriteInLogFile(JsonConvert
-                            .SerializeObject("PostOrderReponse: " + response2));
 
-                    }
-                    catch (Exception ex)
-                    {
+                    logger.WriteInfo(JsonConvert
+                        .SerializeObject("PostOrderReponse: " + response2));
 
-                    }
                     order.SetDataAfterPostOrder(response2);
 
                     //sesion id succesindi
@@ -126,7 +120,7 @@ namespace ESTA.Areas.Payment.Controllers
             }
             catch (Exception e)
             {
-                new LogManager(hostEnvironment).WriteInLogFile("Exception in  AcceptCourseOrder: " + e.Message);
+                logger.WriteError("Exception in  AcceptCourseOrder: " + e.Message);
             }
 
             return RedirectToAction("Pay", "Orders", new { area = "Payment" });
@@ -166,30 +160,22 @@ namespace ESTA.Areas.Payment.Controllers
                     //   mempershipOrder.BuildOrder(response);
 
                     mempershipOrder.SetDataAfterPrepareOrder(response);
-                    new LogManager(hostEnvironment).WriteInLogFile(JsonConvert
+                    logger.WriteInfo(JsonConvert
                     .SerializeObject("AcceptMembershipOrder PrepareOrderResponse : " + response));
                     //save to db
                     await appRep.MempershipOrdersRep.SavePrepareOrder(mempershipOrder);
                     await appRep.SaveChangesAsync();
-                    new LogManager(hostEnvironment).WriteInLogFile("MempershipOrder Object = " + JsonConvert
+                    logger.WriteInfo("MempershipOrder Object = " + JsonConvert
                     .SerializeObject(mempershipOrder));
 
                     string response2 = PaymentManager.postOrder(response);
 
                     if (!String.IsNullOrEmpty(response2))
                     {
-                        try
-                        {
-                            new LogManager(hostEnvironment)
-                                .WriteInLogFile("AcceptMembershipOrder PostOrderReponse : -->  ");
+                        logger.WriteInfo("AcceptMembershipOrder PostOrderReponse : -->  ");
 
-                            new LogManager(hostEnvironment).WriteInLogFile(JsonConvert
-                                .SerializeObject(response2));
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
+                        logger.WriteInfo(JsonConvert
+                            .SerializeObject(response2));
                         mempershipOrder.SetDataAfterPostOrder(response2);
                         //sesion id succesindi
                         appRep.MempershipOrdersRep.UpdatePrepareOrder(mempershipOrder);
@@ -200,11 +186,9 @@ namespace ESTA.Areas.Payment.Controllers
                         HttpContext.Session.SetString("OrderDbId", mempershipOrder.Id.ToString());
                         HttpContext.Session.SetString("SessionId", mempershipOrder.SessionId);
                     }
-
                     else
                     {
-                        new LogManager(hostEnvironment)
-                        .WriteInLogFile("AcceptMembershipOrder PrepareOrderResponse : Response Is Null ####  ");
+                        logger.WriteInfo("AcceptMembershipOrder PrepareOrderResponse : Response Is Null ####  ");
 
                     }
 
@@ -242,7 +226,7 @@ namespace ESTA.Areas.Payment.Controllers
             }
             catch (Exception e)
             {
-                new LogManager(hostEnvironment).WriteInLogFile("Exception in  AcceptMembershipOrder: " + e.Message);
+                logger.WriteError("Exception in  AcceptMembershipOrder: " + e.Message);
             }
 
             return RedirectToAction("Pay", "Orders", new { area = "Payment" });
@@ -261,7 +245,7 @@ namespace ESTA.Areas.Payment.Controllers
             }
             else
             {
-                var CurrentMonth = DateTime.Now.Month;
+                var CurrentMonth = DateTime.Now;
 
                 //currentMonth < Expiry.
                 //currentMonth > Expiry and < penalty.
@@ -275,7 +259,7 @@ namespace ESTA.Areas.Payment.Controllers
                     TotalFee += ConstantsFees.RenewalFee;
 
                     //penalty only on old members.
-                    if (!(CurrentMonth >= ConstantsFees.MempershipExpiryMonth && CurrentMonth < ConstantsFees.PenaltyMonth))
+                    if (DateTime.Now.Date >= ConstantsFees.PenaltyMonth)
                     {
                         FeesDetails.LatePenalty = ConstantsFees.LatePenalty;
                         TotalFee += ConstantsFees.LatePenalty;
@@ -298,7 +282,7 @@ namespace ESTA.Areas.Payment.Controllers
             await Task.Delay(200);
             try
             {
-                new LogManager(hostEnvironment).WriteInLogFile("OrdersController  Pay  SessionID =" + HttpContext.Session.GetString("SessionId").ToString());
+                logger.WriteInfo("OrdersController  Pay  SessionID =" + HttpContext.Session.GetString("SessionId").ToString());
 
                 object sessionId = HttpContext.Session.GetString("SessionId");
 
@@ -306,8 +290,7 @@ namespace ESTA.Areas.Payment.Controllers
             }
             catch (Exception ex)
             {
-                new LogManager(hostEnvironment)
-                  .WriteInLogFile("OrdersController  Pay  Exception" + ex.Message.ToString());
+                logger.WriteError("OrdersController  Pay  Exception" + ex.Message.ToString());
 
                 return View("Pay", "Can not complete payment now. Try Again Later! ");
             }
@@ -323,6 +306,8 @@ namespace ESTA.Areas.Payment.Controllers
             //var val = HttpContext.Request.QueryString.Value;
             try
             {
+                logger.WriteInfo("OrdersController  FawryMemberShipResult: " + HttpContext.Request.Query["statusDescription"]);
+
                 if (HttpContext.Request.Query["statusCode"].ToString() == "200")
                 {
                     order.OrderResult = HttpContext.Request.Query["orderStatus"];
@@ -374,9 +359,8 @@ namespace ESTA.Areas.Payment.Controllers
             }
             catch (Exception ex)
             {
-                new LogManager(hostEnvironment)
-                  .WriteInLogFile("OrdersController  FawryMemberShipResult  Exception" + ex.Message.ToString());
-                
+                logger.WriteError("OrdersController  FawryMemberShipResult  Exception" + ex.Message.ToString());
+
                 return RedirectToAction("receipt", "Payments", new
                 {
                     area = "Payment",
@@ -396,6 +380,8 @@ namespace ESTA.Areas.Payment.Controllers
             //var val = HttpContext.Request.QueryString.Value;
             try
             {
+                logger.WriteInfo("OrdersController  FawryCourseResult: " + HttpContext.Request.Query["statusDescription"]);
+
                 if (HttpContext.Request.Query["statusCode"].ToString() == "200")
                 {
                     courseOrder.OrderResult = HttpContext.Request.Query["orderStatus"];
@@ -447,11 +433,11 @@ namespace ESTA.Areas.Payment.Controllers
                         ErrorMsg = HttpContext.Request.Query["statusDescription"]
                     });
                 }
+
             }
             catch (Exception ex)
             {
-                new LogManager(hostEnvironment)
-                  .WriteInLogFile("OrdersController  FawryMemberShipResult  Exception" + ex.Message.ToString());
+                logger.WriteError("OrdersController  FawryMemberShipResult  Exception" + ex.Message.ToString());
 
                 return RedirectToAction("receipt", "Payments", new
                 {

@@ -88,18 +88,18 @@ namespace ESTA.Areas.Payment.Models
             try
             {
 
-         
-      //      this.Amount = Convert.ToDouble(jObj["amount"]);
-         //   this.Currency = jObj["currency"].ToString();
-            this.NameOnCard = jObj["sourceOfFunds"]["provided"]["card"]["nameOnCard"].ToString();
+
+                //      this.Amount = Convert.ToDouble(jObj["amount"]);
+                //   this.Currency = jObj["currency"].ToString();
+                this.NameOnCard = jObj["sourceOfFunds"]["provided"]["card"]["nameOnCard"].ToString();
                 this.CreationTime = DateTime.Now.ToString(); // jObj["creationTime"].ToString();
-            this.LastUpdateTime = jObj["lastUpdatedTime"].ToString();
-            this.Status = jObj["status"].ToString();
-            this.TotalAuthorizedAmount = Convert.ToDouble(jObj["totalAuthorizedAmount"]);
-            this.TotalCapturedAmount = Convert.ToDouble(jObj["totalCapturedAmount"]);
-            this.TotalRefundedAmount = Convert.ToDouble(jObj["totalRefundedAmount"]);
-            this.CardType = jObj["sourceOfFunds"]["provided"]["card"]["brand"].ToString();
-            this.ResultJsonResponse = response;
+                this.LastUpdateTime = jObj["lastUpdatedTime"].ToString();
+                this.Status = jObj["status"].ToString();
+                this.TotalAuthorizedAmount = Convert.ToDouble(jObj["totalAuthorizedAmount"]);
+                this.TotalCapturedAmount = Convert.ToDouble(jObj["totalCapturedAmount"]);
+                this.TotalRefundedAmount = Convert.ToDouble(jObj["totalRefundedAmount"]);
+                this.CardType = jObj["sourceOfFunds"]["provided"]["card"]["brand"].ToString();
+                this.ResultJsonResponse = response;
             }
             catch (Exception)
             {

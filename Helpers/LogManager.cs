@@ -2,34 +2,36 @@
 
 namespace ESTA.Helpers
 {
-    public class LogManager
+    public class LogManager<T>
     {
-        private readonly IHostEnvironment hostEnvironment;
+        private readonly ILogger<T> logger;
 
-        public LogManager(IHostEnvironment hostEnvironment)
+        public LogManager(ILogger<T> _logger)
         {
-            this.hostEnvironment = hostEnvironment;
-        
+            logger = _logger;
         }
 
-        public  void WriteInLogFile( string str) 
+        public void WriteError(string str)
         {
             try
-            { 
-             
-        File.AppendAllText(hostEnvironment.ContentRootPath+"/Esta_log/Log.txt",DateTime.Now.ToLongTimeString()+" -> "+str+ " \n \n");
-        
+            {
+                logger.LogError(str);
             }
             catch (Exception ex)
             {
-
                 throw;
             }
-    
-        
         }
-
-
-
+        public void WriteInfo(string str)
+        {
+            try
+            {
+                logger.LogInformation(str);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

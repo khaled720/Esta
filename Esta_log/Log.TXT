@@ -572,3 +572,53 @@ Saturday, October 7, 2023 -> "AcceptMembershipOrder PostOrderReponse: {\"checkou
  
 2:58:00 PM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
  
+10:31:43 AM -> Exception in  AcceptMembershipOrder: Unable to cast object of type 'ESTA.Areas.Payment.Models.MembershipFeeDetails' to type 'System.IConvertible'. 
+ 
+10:31:44 AM -> OrdersController  Pay  ExceptionObject reference not set to an instance of an object. 
+ 
+12:07:24 PM -> Starting FawryPullOrderService... 
+ 
+10:35:29 AM -> Starting FawryPullOrderService... 
+ 
+10:40:00 AM -> Starting FawryPullOrderService... 
+ 
+10:44:43 AM -> OrdersController  FawryMemberShipResult: Operation done successfully 
+ 
+10:47:01 AM -> OrdersController  FawryMemberShipResult: Operation done successfully 
+ 
+11:09:57 AM -> Starting FawryPullOrderService... 
+ 
+11:20:43 AM -> Starting FawryPullOrderService... 
+ 
+11:25:43 AM -> Starting DoWorkAsync... 
+ 
+11:25:44 AM -> After Calling FAWRY PULL result. StatusCode: OK 
+ 
+11:25:45 AM -> After Calling FAWRY PULL result. StatusCode: OK 
+ 
+11:25:47 AM -> DoWorkAsync completed successfully. 
+ 
+11:30:43 AM -> Starting DoWorkAsync... 
+ 
+11:30:44 AM -> After Calling FAWRY PULL result. StatusCode: OK 
+ 
+11:30:44 AM -> DoWorkAsync completed successfully. 
+ 
+11:35:43 AM -> Starting DoWorkAsync... 
+ 
+11:35:43 AM -> After Calling FAWRY PULL result. StatusCode: OK 
+ 
+11:35:43 AM -> DoWorkAsync completed successfully. 
+ 
+11:40:43 AM -> Starting DoWorkAsync... 
+ 
+11:40:43 AM -> After Calling FAWRY PULL result. StatusCode: OK 
+ 
+11:40:44 AM -> DoWorkAsync completed successfully. 
+ 
+11:45:43 AM -> Starting DoWorkAsync... 
+ 
+11:45:43 AM -> After Calling FAWRY PULL result. StatusCode: OK 
+ 
+11:45:44 AM -> DoWorkAsync completed successfully. 
+ 
