@@ -9,7 +9,7 @@ namespace ESTA.ViewModels
         public string?  About  { get; set; }
         public string? Mission { get; set; }
         public string?  Vission { get; set; }
-        public Course UpcomingCourse { get; set; }
+        public List<Course> UpcomingCourse { get; set; }
         public List<ViewBanner> BannerList { get; set; }=new List<ViewBanner>();
     }
 }

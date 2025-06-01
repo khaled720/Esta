@@ -1,9 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using System.Globalization;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
-//using AspNetCore;
+﻿//using AspNetCore;
 using ESTA.API_Controllers;
 using ESTA.Areas.Payment.Models;
 using ESTA.Helpers;
@@ -17,6 +12,12 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
+using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Security.Claims;
+using System.Text.Json;
 
 namespace ESTA.Controllers
 {
@@ -375,13 +376,10 @@ namespace ESTA.Controllers
             try
             {
                 var validationStatesValues = ModelState.Values;
-
                 /// Next is edit passport and nationalid client and server validation
-
 
                 if (ModelState.IsValid)
                 {
-
                     var IsNationalityvalid = registerModel.IsNationalityClaimsValid();
 
                     if (!IsNationalityvalid && (registerModel.Country == "Egypt" || registerModel.Country == "مصر"))
@@ -389,20 +387,19 @@ namespace ESTA.Controllers
                         if (string.IsNullOrEmpty(registerModel.NationalCardID))
                         {
                             ModelState.TryAddModelError(nameof(registerModel.NationalCardID), localizer["required"]);
-
                         }
-                        if (registerModel.NationalCardImages == null)
+                        if (registerModel.NationalCardImagesFront == null)
                         {
-                            ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["required"]);
-
+                            ModelState.TryAddModelError(nameof(registerModel.NationalCardImagesFront), localizer["required"]);
                         }
-                        if (registerModel.NationalCardImages != null && registerModel.NationalCardImages.Count < 2)
+                        if (registerModel.NationalCardImagesBack == null)
                         {
-                            ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["IdCardLimit"]);
-
+                            ModelState.TryAddModelError(nameof(registerModel.NationalCardImagesBack), localizer["required"]);
                         }
-
-
+                        //if (registerModel.NationalCardImages != null && registerModel.NationalCardImages.Count < 2)
+                        //{
+                        //    ModelState.TryAddModelError(nameof(registerModel.NationalCardImages), localizer["IdCardLimit"]);
+                        //}
                     }
                     if (!IsNationalityvalid && (registerModel.Country != "Egypt" && registerModel.Country != "مصر"))
                     {
@@ -417,24 +414,20 @@ namespace ESTA.Controllers
 
                         }
                     }
-
                     if (registerModel.IsNewMember == false && String.IsNullOrEmpty(registerModel.MembershipNumber))
                     {
 
                         ModelState.AddModelError(nameof(registerModel.MembershipNumber), localizer["required"]);
                         return View(registerModel);
-
-
-
                     }
-
 
                     ///
 
-                    User user = new User();
+                    User user = new();
 
                     ////////// uploading Graduation Certificate Image
                     var userImages = new List<UserImage>();
+
                     try
                     {
                         if (registerModel.GraduationCertificateImages != null)
@@ -472,10 +465,28 @@ namespace ESTA.Controllers
                     ///// Uploading National ID Image
                     try
                     {
-                        if (registerModel.NationalCardImages != null)
+                        if (registerModel.NationalCardImagesFront != null)
                         {
 
-                            foreach (var image in registerModel.NationalCardImages)
+                            foreach (var image in registerModel.NationalCardImagesFront)
+                            {
+                                var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
+                                var PhotoName = await FileUpload.SavePhotoAsync(
+                                 image,
+                                      registerModel.FullName,
+                                    SavePath
+                                );
+                                userImages.Add(new UserImage() { TypeId = 1, Path = Constants.NationalIDsImagesSavingPath + PhotoName, UserId = user.Id });
+                                //adding to database
+
+                            }
+
+                            //     user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
+                        }
+                        if (registerModel.NationalCardImagesBack != null)
+                        {
+
+                            foreach (var image in registerModel.NationalCardImagesBack)
                             {
                                 var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
                                 var PhotoName = await FileUpload.SavePhotoAsync(
@@ -502,7 +513,7 @@ namespace ESTA.Controllers
                             "National Card Image Is Required"
                         );
                     }
-                    /////// // Uploading Passport ID Image
+                    ///////// Uploading Passport ID Image
                     try
                     {
                         if (registerModel.PassportImages != null)
@@ -541,7 +552,6 @@ namespace ESTA.Controllers
                     //add default profile picture to user
                     //userImages.Add(new UserImage() { TypeId = 4, Path = Constants.ProfilePicturesImagesSavingPath + "default.jpeg", UserId = user.Id });
                     //////////////////////////
-
 
                     user.ConvertRegisterModelToUser(registerModel);
 
@@ -620,7 +630,8 @@ namespace ESTA.Controllers
                     }
                 }
                 else
-                { // Model not valid
+                {
+                    // Model not valid
                     //var errors = ModelState
                     //    .Select(x => x.Value.Errors)
                     //    .Where(y => y.Count > 0)
@@ -765,6 +776,37 @@ namespace ESTA.Controllers
         public IActionResult CreateUser(Level level)
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ValidateEmail([FromBody] JsonElement data)
+        {
+            try
+            {
+
+                if (!data.TryGetProperty("email", out JsonElement emailElement) || emailElement.ValueKind != JsonValueKind.String)
+                {
+                    return Json(new { isValid = false, error = "Email is required." });
+                }
+
+                string email = emailElement.GetString();
+
+                var result = await userManager.FindByEmailAsync(email);
+
+                if (result != null)
+                {
+                    return Json(new { isValid = false });
+                }
+                else
+                {
+                    return Json(new { isValid = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isValid = false, error = ex.Message });
+            }
+
         }
 
         public IActionResult AccessDenied()

@@ -9,9 +9,9 @@ namespace ESTA.Models
         {
             _configuration = configuration;
         }
-        public static  bool Send_Mail(string to, string body, string subject, string fromtitle)
+        public static bool Send_Mail(string to, string body, string subject, string fromtitle)
         {
-            
+
 
             try
             {
@@ -52,7 +52,7 @@ namespace ESTA.Models
                 smtpClient.EnableSsl = EnableSslValue;
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = new System.Net.NetworkCredential(frommail, password);
-                 smtpClient.Send(message);
+                smtpClient.Send(message);
 
 
                 return true;

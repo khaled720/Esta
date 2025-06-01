@@ -30,6 +30,10 @@
     {
         <span>@localizer["forignmem"] </span>
     }
+    else if (ViewBag.type == 6)
+    {
+        <span>@localizer["unpaidMembership"] </span>
+    }
 
 </h2>
 
@@ -85,6 +89,9 @@
 
     <a asp-action="Index" style="decoration:none" asp-controller="Users"
        class="btn btn-info" asp-route-type=4 asp-area="Admin">@localizer["localmem"] </a>
+
+    <a asp-action="Index" style="decoration:none" asp-controller="Users"
+       class="btn btn-info" asp-route-type=6 asp-area="Admin">@localizer["unpaidMembership"] </a>
 
     <a class="btn btn-success" asp-route-type="@ViewBag.type" asp-action="ExportUsersToFile" asp-controller="Users" asp-area="Admin"><i class="fa fa-regular fa-file-excel mx-1"></i>@localizer["exportToExcel"]</a>
 

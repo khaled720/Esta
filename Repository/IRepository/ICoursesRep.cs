@@ -16,6 +16,7 @@ namespace ESTA.Repository.IRepository
 
         public Task<Course> GetCourse(int id);
         public Task<Course> GetUpcomingCourse();
+        public List<Course> Get3UpcomingCourses();
 
         public Task<bool> AddCourse(Course course);
 

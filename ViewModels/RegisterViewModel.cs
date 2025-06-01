@@ -26,8 +26,6 @@ namespace ESTA.ViewModels
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
         )]
-
-
         [DataType(DataType.Password)]
         [RegularExpression(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&_])[A-Za-z\\d@$!%*?&_]{8,}$",
@@ -314,7 +312,8 @@ namespace ESTA.ViewModels
         public string? MembershipNumber { get; set; }
 
         //  [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
-        public List<IFormFile>? NationalCardImages { get; set; }
+        public List<IFormFile>? NationalCardImagesFront { get; set; }
+        public List<IFormFile>? NationalCardImagesBack { get; set; }
 
 
         // [Required(ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource), ErrorMessageResourceName = "required")]
@@ -335,7 +334,7 @@ namespace ESTA.ViewModels
 
             if (this.Country == "Egypt" || this.Country == "مصر")
             {
-                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImages == null)
+                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImagesFront == null|| this.NationalCardImagesBack == null)
                 {
                     return false;
                 }

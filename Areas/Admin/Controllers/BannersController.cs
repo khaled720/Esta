@@ -55,8 +55,8 @@ namespace ESTA.Areas.Admin.Controllers
                     FilePath = ImageHelper.UploadedFile(GetBanner.ImageFile, "Images/Banners"),
                     SloganAr = GetBanner.SloganAr,
                     SloganEn = GetBanner.SloganEn,
-                    DetailsAr = GetBanner.DetailsAr,
-                    DetailsEn = GetBanner.DetailsEn
+                    DetailsAr = GetBanner.DetailsAr ?? "",
+                    DetailsEn = GetBanner.DetailsEn ?? ""
                 };
 
                 appRep.BannerRep.InsertBanner(Banner);
@@ -66,8 +66,8 @@ namespace ESTA.Areas.Admin.Controllers
             {
                 Banner.SloganAr = GetBanner.SloganAr;
                 Banner.SloganEn = GetBanner.SloganEn;
-                Banner.DetailsAr = GetBanner.DetailsAr;
-                Banner.DetailsEn = GetBanner.DetailsEn;
+                Banner.DetailsAr = GetBanner.DetailsAr ?? "";
+                Banner.DetailsEn = GetBanner.DetailsEn ?? "";
 
                 string OldPhoto = string.Empty;
 

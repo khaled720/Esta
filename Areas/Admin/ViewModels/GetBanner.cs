@@ -18,7 +18,7 @@ ErrorMessageResourceName = "required"
 ErrorMessageResourceName = "required"
      )]
         public string SloganEn { get; set; }
-        public string DetailsAr { get; set; }
-        public string DetailsEn { get; set; }
+        public string? DetailsAr { get; set; }
+        public string? DetailsEn { get; set; }
     }
 }

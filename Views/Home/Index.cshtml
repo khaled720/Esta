@@ -6,12 +6,7 @@
 }
 
 @model ESTA.ViewModels.HomeIndexViewModel
-
 @inject IStringLocalizer<ESTA.SharedResource> localizer;
-
-
-
-
 
 <!-- slider-start -->
 <div class="slider-area pos-relative">
@@ -27,7 +22,7 @@
                     <div id="video-div" style="height:500px;">
 
                         <video width="100%" loop muted autoplay playsinline>
-                            <source src="@Url.Content("~/Images/Banners/"+banner.FilePath)" type="video/mp4" />
+                            <source src="@Url.Content("~/Images/Banners/" + banner.FilePath)" type="video/mp4" />
                             Your browser does not support HTML video.
                         </video>
 
@@ -50,7 +45,7 @@
             }
             else
             {
-                <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/Images/Banners/"+banner.FilePath))">
+                <div class="single-slider slider-height slider-height-3 d-flex align-items-center justify-content-center" style="background-image: url(@Url.Content("~/Images/Banners/" + banner.FilePath))">
                     <div class="container">
                         <div class="row  justify-content-center">
                             <div class="">
@@ -112,6 +107,7 @@
     </div>
 </div>
 <!-- slider-end -->
+
 <!-- about start -->
 <div id="about" class="about-area pt-80 pb-70">
     <div class="container">
@@ -119,7 +115,7 @@
             <div class="col-xl-7 col-lg-7">
                 <div class="about-title-section mb-30 aos-init  aos-animate" data-aos="flip-up" data-aos-duration="1200">
                     <h1>@localizer["about"] ESTA</h1>
-                    <h5>@localizer["esta"] ( ESTA )</h5>
+                    <h5>@localizer["esta"] ESTA</h5>
                     <p>
 
 
@@ -144,11 +140,117 @@
     </div>
 </div>
 <!-- about end -->
+
 <!-- latest_news start -->
 @await Component.InvokeAsync("Events")
-<!-- latest_blog end -->
-<!-- choose section -->
-<div id="choose" class="visionMission events-bg-height pt-70 pb-20 ">
+<!-- latest_news end -->
+
+<!-- courses start -->
+@if (Model.UpcomingCourse != null)
+{
+    <div class="latest_news-area pt-70 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 aos-init aos-animate" data-aos="fade-up"
+                          data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                    <div class="section-title mb-50 text-center">
+                        <div class="section-title-heading mb-20">
+                            <h1 class="primary-color">@localizer["upcourses"]</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in Model.UpcomingCourse)
+                {
+                    <div class="col-xl-4 col-lg-4 col-md-6 aos-init aos-animate" data-aos="zoom-in-up" data-aos-duration="1500">
+                        <div class="courses-wrapper courses-wrapper-3 mb-30">
+                            <div class="courses-thumb">
+                                <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id"><img src="@Url.Content("~" + @item.PhotoPath) " alt=""></a>
+                            </div>
+                            <div class="courses-content courses-content-3 clearfix">
+                                <div class="courses-heading mt-25 d-flex">
+                                    <div class="course-title-3">
+                                        <h1>
+                                            <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">
+
+                                                @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                                {
+                                                    @item.TitleAr
+                                                }
+                                                else
+                                                {
+                                                    @item.Title
+                                                }
+
+                                            </a>
+                                        </h1>
+                                    </div>
+                                    @* <div class="courses-pricing-3">
+                                <span>
+                                    @if (item.Price <= 0)
+                                    {
+                                        @localizer["free"]
+                                    }
+                                    else
+                                    {
+                                        @item.Price.ToString("c", CultureInfo.GetCultureInfo(Constants.PriceCulture))
+
+                                    }
+                                </span>
+                            </div> *@
+                                </div>
+                                <div class="courses-para mt-15">
+
+                                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+                                    {
+                                        @if (item.DescriptionAr.Count() > 45)
+                                        {
+                                            <p>@item.DescriptionAr.Substring(0, 45) ..</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.DescriptionAr</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @if (item.Description.Count() > 45)
+                                        {
+                                            <p>@item.Description.Substring(0, 45) ..</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.Description</p>
+                                        }
+                                    }
+                                </div>
+                                <div class="course-date mt-15">
+                                    <span class="course-date-icon ti-calendar"></span>
+                                    <span class="start-date-text">@localizer["stdate"] </span>
+                                    <span>@item.StartDate.Value.Year/@item.StartDate.Value.Month/@item.StartDate.Value.Day</span>
+                                </div>
+                                <div class="courses-wrapper-bottom clearfix mt-35">
+                                    <div class="courses-button">
+                                        <a asp-action="coursedetails" asp-controller="courses" asp-route-id="@item.Id">@localizer["details"]</a>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+
+<!-- courses end -->
+
+<!-- choose start -->
+<div id="upComingCourses" class="gray-bg pt-70 pb-20 ">
     <div class="container">
         <div class="row">
             <div class="col-12  aos-init aos-animate" data-aos="fade-up"
@@ -185,9 +287,10 @@
         </div>
     </div>
 </div>
-<!-- end choose section -->
-<!-- courses start -->
-<div id="upComingCourses" class="events-area events-bg-height pt-100 pb-50" style="background-image: url(@Url.Content("~/template/img/shop_bg.jpg"))">
+<!-- choose end -->
+
+<!-- calendar start -->
+<div id="choose" class="pt-100 pb-50" style="background-image: url(@Url.Content("~/template/img/shop_bg.jpg"))">
     <div class="container">
         <div class="row">
             <div class=" col-12 aos-init aos-animate" data-aos="fade-up"
@@ -218,112 +321,22 @@
 
                     <div id="courses-calendar"></div>
 
-
-
                 </div>
 
-                <!--
-                @*
-                @if (Model.UpcomingCourse != null)
-                {
-                                           <div class="col-lg-5 col-sm-12 aos-init aos-animate" data-aos="fade-up"
-                                                data-aos-duration="1500">
-                                               <div class="single-events mb-30">
-                                                   <div class="events-wrapper">
-                                                       <div class="events-inner d-flex">
-                                                           <div class="events-thumb">
-                                                               <img style="width: 165px;
-                   height: 100%;" src="@Url.Content("~"+@Model.UpcomingCourse.PhotoPath) " alt="">
-                                                           </div>
-                                                           <div class="events-text white-bg">
-                                                               <div class="event-text-heading mb-20">
-                                                                   <div class="events-calendar text-center f-left">
-                                                                       <span class="date">
-                                                    @Model.UpcomingCourse.StartDate.Value.Day
-                                                                       </span>
-                                                                       <span class="month">      @Model.UpcomingCourse.StartDate.Value.ToString("MMM") ,
-                                                    @Model.UpcomingCourse.StartDate.Value.Year</span>
-                                                                   </div>
-                                                                   <div class="events-text-title clearfix">
-                                                                       <a asp-action="CourseDetails" asp-controller="Courses" asp-route-id="@Model.UpcomingCourse.Id">
-
-
-
-
-                                                    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                                    {
-                                                                                                <h4>  @Model.UpcomingCourse.TitleAr  </h4>
-                                                    }
-                                                    else
-                                                    {
-                                                                                               <h4>  @Model.UpcomingCourse.Title  </h4>
-                                                    }
-
-
-
-
-                                                                       </a>
-                                                                       <div class="time-area">
-                                                                           <span class="ti-time"></span>
-                                                                           <span class="published-time">05:23 AM - 09:23 AM</span>
-                                                                       </div>
-                                                                   </div>
-                                                               </div>
-                                                               <div class="events-para">
-
-
-                                            @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-                                            {
-                                                @if (Model.UpcomingCourse.DescriptionAr.Count() > 100)
-                                                {
-                                                                                                       <p>  @Model.UpcomingCourse.DescriptionAr.Substring(0,100)  </p>
-                                                }
-                                                else
-                                                {
-
-                                                                                                       <p>  @Model.UpcomingCourse.DescriptionAr.ToString()  </p>
-                                                }
-
-                                            }
-                                            else
-                                            {
-                                                @if (Model.UpcomingCourse.Description.Count() > 100)
-                                                {
-                                                                                               <p>  @Model.UpcomingCourse.Description.Substring(0,100)  </p>
-
-                                                }
-                                                else
-                                                {
-                                                                                                       <p>  @Model.UpcomingCourse.Description.ToString()  </p>
-                                                }
-                                            }
-                                                               </div>
-                                                               <div class="events-speaker">
-                                                  <!--<h2>Speaker : <span>Alexzender</span></h2>-->
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                                               </div>
-
-                                           </div>
-
-                }
-                *@-->
             </div>
         </div>
 
     </div>
 </div>
-<!-- courses end -->
+<!-- calendar end -->
 
 <input type="hidden" value="@Url.Action("GetEvents")" id="AjaxUrl" />
 
-<input type="hidden" value="@Url.Action("GetEvent","EventsNews")" id="GetEventUrl" />
+<input type="hidden" value="@Url.Action("GetEvent", "EventsNews")" id="GetEventUrl" />
 
-<input type="hidden" value="@Url.Action("Courses","api")" id="GetCourseUrl" />
+<input type="hidden" value="@Url.Action("Courses", "api")" id="GetCourseUrl" />
 
-<input type="hidden" value="@Url.Action("CourseDetails","Courses")" id="GetCoursedetails" />
+<input type="hidden" value="@Url.Action("CourseDetails", "Courses")" id="GetCoursedetails" />
 
 <!-- events start -->
 @*
@@ -340,7 +353,7 @@
         transition: 0.5s ease-in-out;
         overflow: hidden;
         /*z-index:10;
-                                                                                        */
+                                                                                                        */
     }
 
 </style>

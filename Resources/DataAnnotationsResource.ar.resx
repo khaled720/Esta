@@ -420,4 +420,7 @@
   <data name="upcourses_events" xml:space="preserve">
     <value>الدورات والاحداث القادمة</value>
   </data>
+  <data name="emailexists" xml:space="preserve">
+    <value>هذا البريد موجود بالفعل</value>
+  </data>
 </root>

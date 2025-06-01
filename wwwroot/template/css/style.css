@@ -157,10 +157,11 @@ li {
 }
 
 p {
-    font-size: 14px;
+    /*font-size: 14px;*/
     font-weight: normal;
     line-height: 24px;
-    color: var(--secondary-color);
+    color: var(--third-color);
+    /*color: var(--secondary-color);*/
     margin-bottom: 15px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -311,25 +312,14 @@ padding: 20px 0;
     justify-content: space-between;
 }
 
-#upComingCourses, #blog, #Footer, #about {
+#upComingCourses, #blog, #Footer, #about, #choose {
     position: relative !important;
 }
-
-    #upComingCourses::before {
-        top: 0;
-        background: url(../img/overlay-top.png) top center no-repeat;
-        background-size: contain;
-    }
-
-    #blog::before {
-        top: 0;
-        background: url(../img/overlay-top.png) top center no-repeat;
-        background-size: contain;
-    }
 
     #blog::after,
     #blog::before,
     #upComingCourses::before,
+    #choose::before,
     #Footer::before {
         position: absolute;
         content: "";
@@ -339,11 +329,29 @@ padding: 20px 0;
         z-index: 1;
     }
 
+    #blog::before {
+        top: 0;
+        background: url(../img/overlay-top.png) top center no-repeat;
+        background-size: contain;
+    }
+
     #blog::after {
         bottom: 0;
         background: url(../img/overlay-bottom.png) bottom center no-repeat;
         background-size: contain;
     }
+
+    #upComingCourses::before {
+        top: 0;
+        background: url(../img/overlay-top.png) top center no-repeat;
+        background-size: contain;
+    }
+
+#choose::before {
+    top: 0;
+    background: url(../img/overlay-top.png) top center no-repeat;
+    background-size: contain;
+}
 
     #Footer::before {
         top: 0;
@@ -1369,9 +1377,9 @@ li.shopping-cart a {
 
 .courses-para p {
     line-height: 26px;
-    font-size: 14px;
+    font-size: 16px;
     margin: 0;
-    color: var(--secondary-color);
+    color: var(--third-color);
 }
 
 .courses-single-icon {
@@ -1701,9 +1709,9 @@ li.shopping-cart a {
     }
 
 .course-details-overview-top p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 28px;
-    color: var(--secondary-color);
+    color: var(--third-color);
 }
 
 .course-details-tabs .nav.nav-pills {
@@ -3007,6 +3015,7 @@ span.published-time.published-location {
     padding-bottom: 35px;
     padding-right: 28px;
 }
+
 .blog-text-offer {
     position: absolute;
     top: 20px;
@@ -3686,6 +3695,7 @@ span.opening-date {
             .profile-nav ul > li > .nav-link > .badge {
                 float: right;
             }
+
 .bio-graph-heading {
     background: var(--primary-color);
     color: #fff !important;
@@ -3695,11 +3705,13 @@ span.opening-date {
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
 }
+
     .bio-graph-heading h4 {
         color: #fff !important;
         font-size: 16px;
     }
-    .bio-graph-info {
+
+.bio-graph-info {
     color: #89817e;
 }
 

@@ -24,10 +24,35 @@
 
 
 
+var targetWord = 'ESTA';
+var regex = new RegExp(`\\b(${targetWord})\\b`, 'gi');
+
+function boldInHeaderAndParagraphs() {
+    const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p');
+
+    elements.forEach((el) => {
+        el.childNodes.forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const span = document.createElement('span');
+                span.innerHTML = node.textContent.replace(regex, '<strong>$1</strong>');
+                node.replaceWith(...span.childNodes);
+            }
+        });
+    });
+}
+
+boldInHeaderAndParagraphs();
 
 
 
-
+function showPass(id) {
+    var x = document.getElementById(id);
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
 
 function SendEmail() {
     debugger;

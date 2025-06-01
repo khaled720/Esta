@@ -304,6 +304,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This Email already exists.
+        /// </summary>
+        public static string emailexists {
+            get {
+                return ResourceManager.GetString("emailexists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Supported Email Format.
         /// </summary>
         public static string emailformaterr {
@@ -709,7 +718,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password must be 8 digits or more having one lower char and one upper char and one number.
+        ///   Looks up a localized string similar to password must be at least 8 characters including one uppercase, lowercase letter, one special character and alphanumeric characters.
         /// </summary>
         public static string passwordcons {
             get {

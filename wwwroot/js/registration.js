@@ -1,4 +1,5 @@
-﻿//Registration Form JS
+﻿
+//Registration Form JS
 document.getElementById("old").onclick = () => {
     if (document.getElementById("old").checked == true) {
         document.getElementById("memnumgroup").style.display = 'block';
@@ -113,7 +114,7 @@ function showTab(n) {
     fixStepIndicator(n)
 }
 //1
-function nextPrev(n) {
+async function nextPrev(n) {
 
 
     if (currentTab < 5) {
@@ -134,19 +135,13 @@ function nextPrev(n) {
                 if (city && area && hometown && streetName && blockNumber) {
 
                     document.getElementById("MessagingAddress").value = blockNumber + " " + streetName + " " + hometown + " , " + area + " , " + city
-
-
                 }
-
-
-
             }
-
         }
 
-
+        debugger
         // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
+        if (n == 1 && !(await validateForm())) return false;
 
         // Hide the current tab:
         x[currentTab].style.display = "none";
@@ -178,17 +173,22 @@ function nextPrev(n) {
 
 }
 
-function validateForm() {
+async function validateForm() {
 
     var s = $("#regForm").valid();
     // This function deals with validation of the form fields
     var x, y, i, valid = true;
 
 
-    if (currentTab == 0 &&
-        document.getElementById("idnoImg").files != null
+    if (currentTab == 0
         &&
-        document.getElementById("idnoImg").files.length < 2
+        document.getElementById("idnoImg0").files != null
+        &&
+        document.getElementById("idnoImg0").files.length < 1
+        &&
+        document.getElementById("idnoImg1").files != null
+        &&
+        document.getElementById("idnoImg1").files.length < 1
     ) {
         var country = document.getElementById("nationalty-select").value;
         if (country == "Egypt" || country == "مصر") {
@@ -196,7 +196,51 @@ function validateForm() {
             return false;
         }
     }
+    if (currentTab == 0) {
+        try {
+            const email = document.getElementById("email").value;
+            const response = await fetch("/Account/ValidateEmail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    //"RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() // if using antiforgery
+                },
+                body: JSON.stringify({ email: email })
+            });
+            const result = await response.json();
+            if (!result.isValid) {
+                document.getElementById("email-err").innerText = document.getElementById("localizedEmailError").innerText;
+                return false;
+            } else {
+                document.getElementById("email-err").innerText = "";
+            }
+        } catch (error) {
+            console.error("Error checking email existence:", error);
+            document.getElementById("email-err").innerText = "Error checking email existence. Please try again later.";
+            return false;
+        }
 
+        //$.ajax({
+        //    url: "/Account/ValidateEmail",
+        //    data: { email: document.getElementById("email").value },
+        //    type: "POST",
+        //    async: false,
+        //    success: function (result) {
+
+        //        if (!result.isValid) {
+        //            document.getElementById("email-err").innerText = document.getElementById("localizedEmailError").innerText;
+        //            return false;
+        //        } else {
+        //            document.getElementById("email-err").innerText = "";
+        //        }
+        //    },
+        //    error: function (xhr, status, error) {
+        //        console.error("Error checking email existence:", error);
+        //        document.getElementById("email-err").innerText = "Error checking email existence. Please try again later.";
+        //        return false;
+        //    }
+        //});
+    }
     valid = s;
     //x = document.getElementsByClassName("tab");
     //y = x[currentTab].getElementsByTagName("input");
@@ -263,18 +307,18 @@ function Check(ans, Id) {
 
 
 
-function previewImage(event) {
+function previewImage(event, id) {
 
 
-    console.log(event);
+    //console.log(event);
 
     var files = event.target.files;
-    document.getElementById("img-preview").innerHTML = "";
+    document.getElementById(id).innerHTML = "";
     for (var i = 0; i < files.length; i++) {
 
         var x = URL.createObjectURL(files[i])
 
-        document.getElementById("img-preview").innerHTML += "<img src=" + x + " style='    max-width: 200px; max-height: 200px;object-fit: cover; '/>";
+        document.getElementById(id).innerHTML += "<img src=" + x + " style='    max-width: 200px; max-height: 200px;object-fit: cover; '/>";
 
     }
 
@@ -286,7 +330,8 @@ checkNationality();
 
 function checkNationality() {
 
-    document.getElementById("img-preview").innerHTML = "";
+    document.getElementById("img-preview0").innerHTML = "";
+    document.getElementById("img-preview1").innerHTML = "";
     var x = document.getElementById("nationalty-select").value;
     console.log(x);
 
@@ -294,24 +339,26 @@ function checkNationality() {
         document.getElementById("idCard-sec").style.display = "block";
         document.getElementById("passport-sec").style.display = "none";
         // id staff required
-        document.getElementById("idnoImg").setAttribute("required", true);
+        document.getElementById("idnoImg0").setAttribute("required", true);
+        document.getElementById("idnoImg1").setAttribute("required", true);
         document.getElementById("idno").setAttribute("required", true);
 
         document.getElementById("passport").removeAttribute("required");
 
         document.getElementById("passportImg").removeAttribute("required");
-        document.getElementById("passportImg-error").remove();
+        //document.getElementById("passportImg-error").remove();
 
     } else {
         document.getElementById("idCard-sec").style.display = "none";
         document.getElementById("passport-sec").style.display = "block";
-        // passport staff required
+        // passport stuff required
         document.getElementById("passport").setAttribute("required", true);
         document.getElementById("passportImg").setAttribute("required", true);
         document.getElementById("idno").removeAttribute("required");
 
-        document.getElementById("idnoImg").removeAttribute("required");
-        document.getElementById("idnoImg-error").remove();
+        document.getElementById("idnoImg0").removeAttribute("required");
+        document.getElementById("idnoImg1").removeAttribute("required");
+        document.getElementById("idcard-err").remove();
 
 
     }

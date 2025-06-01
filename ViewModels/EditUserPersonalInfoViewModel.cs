@@ -78,20 +78,8 @@ namespace ESTA.ViewModels
         public string MobilePhone { get; set; } = String.Empty;
 
 
-
-
-
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "homephone")]
-        public string HomePhone { get; set; } = String.Empty;
-
-
-
-
-
+        public string? HomePhone { get; set; } = String.Empty;
 
         [Required(
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),

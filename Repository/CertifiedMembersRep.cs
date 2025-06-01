@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Repository
 {
-    public class CertifiedMembersRep :ICertifiedMembersRep
+    public class CertifiedMembersRep : ICertifiedMembersRep
     {
         private readonly AppDbContext appContext;
 
-        public CertifiedMembersRep(AppDbContext appContext )
+        public CertifiedMembersRep(AppDbContext appContext)
         {
             this.appContext = appContext;
         }
@@ -19,7 +19,7 @@ namespace ESTA.Repository
 
             try
             {
-await appContext.CertifiedMembers.AddAsync(x);
+                await appContext.CertifiedMembers.AddAsync(x);
                 return true;
             }
             catch (Exception)
@@ -34,9 +34,9 @@ await appContext.CertifiedMembers.AddAsync(x);
         {
             try
             {
-              appContext.CertifiedMembers.Remove(
-                  await appContext.CertifiedMembers.AsQueryable().Where(y => y.Id == Id).FirstAsync()
-                  );
+                appContext.CertifiedMembers.Remove(
+                    await appContext.CertifiedMembers.AsQueryable().Where(y => y.Id == Id).FirstAsync()
+                    );
                 return true;
             }
             catch (Exception)
@@ -49,7 +49,7 @@ await appContext.CertifiedMembers.AddAsync(x);
         {
             try
             {
-            return   await  appContext.CertifiedMembers.ToListAsync();
+                return await appContext.CertifiedMembers.OrderBy(x => x.Name).ToListAsync();
             }
             catch (Exception)
             {
@@ -74,8 +74,8 @@ await appContext.CertifiedMembers.AddAsync(x);
         {
             try
             {
-       return await         appContext.CertifiedMembers.AsQueryable()
-                    .Where(y => y.Name.Trim() == name.Trim()).AnyAsync();
+                return await appContext.CertifiedMembers.AsQueryable()
+                             .Where(y => y.Name.Trim() == name.Trim()).AnyAsync();
             }
             catch (Exception)
             {
@@ -87,7 +87,7 @@ await appContext.CertifiedMembers.AddAsync(x);
         {
             try
             {
-           var user= await appContext.CertifiedMembers.AsQueryable().Where(y => y.Id == x.Id).AsTracking().FirstAsync();
+                var user = await appContext.CertifiedMembers.AsQueryable().Where(y => y.Id == x.Id).AsTracking().FirstAsync();
 
                 user.Name = x.Name;
                 return true;

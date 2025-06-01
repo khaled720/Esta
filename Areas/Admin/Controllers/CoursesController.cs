@@ -20,7 +20,7 @@ namespace ESTA.Areas.Admin.Controllers
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly UserManager<User> userManager;
 
-        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment,UserManager<User> userManager)
+        public CoursesController(IUnitOfWork appRep, IWebHostEnvironment hostEnvironment, UserManager<User> userManager)
         {
             this.appRep = appRep;
             this.hostEnvironment = hostEnvironment;
@@ -30,18 +30,18 @@ namespace ESTA.Areas.Admin.Controllers
 
 
 
-        
-               public async Task<IActionResult> DeleteUserFromCourse(int cId,string uid)
+
+        public async Task<IActionResult> DeleteUserFromCourse(int cId, string uid)
         {
-        bool isdeleted=  await  appRep.UsersCoursesRep.DeleteUserFromCourse(cId, uid);
+            bool isdeleted = await appRep.UsersCoursesRep.DeleteUserFromCourse(cId, uid);
             if (isdeleted)
             {
 
-              await  appRep.UserRep.UpdateUserLevel(uid);
+                await appRep.UserRep.UpdateUserLevel(uid);
 
                 await appRep.SaveChangesAsync();
             }
-return            RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [Authorize("RequireAdminRole")]
@@ -49,16 +49,16 @@ return            RedirectToAction("Index");
         public async Task<IActionResult> AssignCoursePrerequisite(int cId)
         {
             var courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
-          
+
             PrerequisiteCourseViewModel prerequisite = new();
             prerequisite.PreCourses = new List<PreCourse>();
-            prerequisite.MainCourse = courses.Find(y=>y.Id==cId);
-              courses.Remove(prerequisite.MainCourse);
+            prerequisite.MainCourse = courses.Find(y => y.Id == cId);
+            courses.Remove(prerequisite.MainCourse);
 
             foreach (var course in courses)
             {
-                var isPre =await appRep.CoursesRep.IsPrerequisiteCourse(prerequisite.MainCourse.Id,course.Id);
-                prerequisite.PreCourses.Add(new PreCourse() { course=course,isPrerequisite=isPre});
+                var isPre = await appRep.CoursesRep.IsPrerequisiteCourse(prerequisite.MainCourse.Id, course.Id);
+                prerequisite.PreCourses.Add(new PreCourse() { course = course, isPrerequisite = isPre });
             }
 
 
@@ -88,23 +88,23 @@ return            RedirectToAction("Index");
 
         [Authorize("RequireAdminRole")]
         [HttpGet]
-        public async Task<IActionResult> Index(PagerViewModel<Course> pagerViewModel,int page=1)
+        public async Task<IActionResult> Index(PagerViewModel<Course> pagerViewModel, int page = 1)
         {
             //if (pagerViewModel.lengthOfFullList == 0) 
             //{ 
             pagerViewModel.CurrentPage = page;
-            var courses =(List<Course>)await appRep.CoursesRep.GetAllCourses();
-            
+            var courses = (List<Course>)await appRep.CoursesRep.GetAllCourses();
+
             //pagerViewModel.lengthOfFullList = courses.Count;
             //}
 
             pagerViewModel.Update(courses);
 
-         
 
 
 
-        //    var courseList = appRep.GetPaginatedList<Course>(currentPage,pageSize);
+
+            //    var courseList = appRep.GetPaginatedList<Course>(currentPage,pageSize);
 
 
 
@@ -206,7 +206,7 @@ return            RedirectToAction("Index");
                     clvm.Levels = new List<Level>();
                 }
 
-            
+
                 return View(clvm);
             }
         }
@@ -323,28 +323,56 @@ return            RedirectToAction("Index");
         }
 
         [HttpGet]
-        public  IActionResult UpdateCoursePaymentStatuse(int cid,string uid,bool paymentstate)
+        public IActionResult UpdateCoursePaymentStatuse(int cid, string uid, bool paymentstate)
         {
             try
             {
                 appRep.UsersCoursesRep.UpdateUserCoursePaymentStatus(uid, cid, paymentstate);
                 appRep.SaveChangesAsync().Wait();
 
-                return RedirectToAction("CourseInfo", new {id=cid });
+                return RedirectToAction("CourseInfo", new { id = cid });
             }
-            catch (Exception e )
+            catch (Exception e)
             {
                 return RedirectToAction("CourseInfo", new { id = cid });
             }
         }
 
 
-      
-        public async Task<IActionResult> AddUsetToCourseAsCompleted(int cid,string uid)
+        [HttpPost]
+        public async Task<IActionResult> AddUserToCourse(int cid, string uid, int grade)
         {
             try
             {
-       appRep.UsersCoursesRep.AddUsertoCourseAsCompleted(cid, uid);
+                appRep.UsersCoursesRep.AddUsertoCourseAsCompleted(cid, uid, grade);
+                var c = await appRep.CoursesRep.GetCourse(cid);
+                int? level = c.LevelId;
+
+                if (level < 4)
+                {
+                    var usr = await userManager.FindByIdAsync(uid);
+                    if (usr.LevelId < level)
+                    {
+                        usr.LevelId = (int)level;
+                        await userManager.UpdateAsync(usr);
+                    }
+                }
+                await appRep.SaveChangesAsync();
+
+
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message });
+            }
+        }
+
+        public async Task<IActionResult> AddUserToCourseAsNew(int cid, string uid)
+        {
+            try
+            {
+                appRep.UsersCoursesRep.AddUsertoCourseAsNew(cid, uid);
                 var c = await appRep.CoursesRep.GetCourse(cid);
                 int? level = c.LevelId;
 
@@ -368,12 +396,14 @@ return            RedirectToAction("Index");
             }
         }
 
-     
-        public IActionResult UsersNotEnrolled(int courseId)
+        public async Task<IActionResult> UsersNotEnrolledAsync(int courseId)
         {
             try
             {
-                var users=appRep.UsersCoursesRep.GetAllUsersNotEnrolledinCourse(courseId);
+                var users = appRep.UsersCoursesRep.GetAllUsersNotEnrolledinCourse(courseId);
+                var course = await appRep.CoursesRep.GetCourse(courseId); // Ensure the course exists before proceeding
+
+                ViewBag.CourseCompleted = course.StartDate.Value.Date < DateTime.Today;
                 ViewBag.CourseId = courseId;
 
                 return View(users);

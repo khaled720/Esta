@@ -57,6 +57,8 @@ namespace ESTA.Areas.Admin.Controllers
                                           .GetAwaiter().GetResult() == true).Where(y => y.Country == "Egypt" || y.Country == "مصر").OrderBy(x => x.FullName).ToList(),
                 5 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
                                           .GetAwaiter().GetResult() == true).Where(y => y.Country != "Egypt" && y.Country != "مصر").OrderBy(x => x.FullName).ToList(),
+                6 => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
+                                          .GetAwaiter().GetResult() == true).Where(y => !y.IsMempershipPaid).OrderBy(x => x.FullName).ToList(),
                 _ => allUsers.Where(y => userManager.IsInRoleAsync(y, "User")
                                           .GetAwaiter().GetResult() == true).OrderBy(x => x.FullName).ToList(),
             };

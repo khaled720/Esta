@@ -331,7 +331,7 @@
     <value>أكد بريدك الالكتروني</value>
   </data>
   <data name="emailconfirmdesc" xml:space="preserve">
-    <value>تم ارسال رابط التاكيد على بريدك الالكتروني يمكنك التاكيد بالضغط على الرابط</value>
+    <value>سيصلك رسالة عبر البريد الإلكتروني؛ برجاء الضغط على الرابط لتأكيد الإيميل الخاص بك</value>
   </data>
   <data name="emailus" xml:space="preserve">
     <value>البريد الالكتروني</value>
@@ -853,5 +853,14 @@
   </data>
   <data name="PayNowBank" xml:space="preserve">
     <value>الدفع بواسطة فيزا ,ماستر كارد او ميزة</value>
+  </data>
+  <data name="MembersOrder" xml:space="preserve">
+    <value>الأعضاء بالترتيب الابجدي</value>
+  </data>
+  <data name="emailexists" xml:space="preserve">
+    <value>هذا البريد موجود بالفعل</value>
+  </data>
+  <data name="unpaidMembership" xml:space="preserve">
+    <value>لم يدفعوا العضوية</value>
   </data>
 </root>

@@ -181,7 +181,7 @@ namespace ESTA.Repository
             {
 
                 var course = await appContext.Courses.OrderBy(y => y.StartDate)
-                    .Where(y => y.StartDate > DateTime.Now).FirstOrDefaultAsync();
+                    .Where(y => y.StartDate.Value.Date >= DateTime.Today).FirstOrDefaultAsync();
                 return course;
 
             }
@@ -189,10 +189,22 @@ namespace ESTA.Repository
             {
                 return null;
             }
-
-
         }
+        public List<Course> Get3UpcomingCourses()
+        {
+            try
+            {
+                var course = appContext.Courses.OrderBy(y => y.StartDate)
+                    .Where(y => y.StartDate.Value.Date >= DateTime.Today).OrderByDescending(x => x.StartDate)
+                    .Take(3).ToList();
+                return course;
 
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public async Task<List<Course>> SearchCoursesByName(string query)
         {
 

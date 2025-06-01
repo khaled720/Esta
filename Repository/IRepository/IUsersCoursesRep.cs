@@ -10,22 +10,23 @@ namespace ESTA.Repository.IRepository
 
         public List<User> GetAllUsersNotEnrolledinCourse(int courseId);
 
-        public bool AddUsertoCourseAsCompleted(int courseId,string userId);
-        public bool IsUserCompletedCourse(int courseId,string userId);
+        public bool AddUsertoCourseAsCompleted(int courseId, string userId, int grade);
+        public bool AddUsertoCourseAsNew(int courseId, string userId);
+        public bool IsUserCompletedCourse(int courseId, string userId);
 
 
         public bool UpdateUserCoursePaymentStatus(string UserId, int CourseId, bool NewState);
 
         // List<Course>  GetCurrentUserCourses();
 
-       public Task<List<UserCourse>>  GetUserCoursesResults(string userId);
+        public Task<List<UserCourse>> GetUserCoursesResults(string userId);
 
 
-        public Task<bool> IsCourseRefunded(int courseId,string userId);
+        public Task<bool> IsCourseRefunded(int courseId, string userId);
 
 
-        Task<bool> UpdateUserCourseResult(int courseId, string userId,int grade);
-        Task<UserCourse>  GetUserCourse(int courseId, string userId);
+        Task<bool> UpdateUserCourseResult(int courseId, string userId, int grade);
+        Task<UserCourse> GetUserCourse(int courseId, string userId);
         Task<bool> DeleteUserFromCourse(int cId, string uid);
     }
 }

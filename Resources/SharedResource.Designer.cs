@@ -396,7 +396,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to congratulations! You have successfully completed this course..
+        ///   Looks up a localized string similar to Congratulations! You have successfully completed this course..
         /// </summary>
         public static string completedCourse {
             get {
@@ -729,11 +729,20 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We Have Emailed you with your activation link ,please confirm your Email!.
+        ///   Looks up a localized string similar to You will receive an email; Please click on the link to confirm your email.
         /// </summary>
         public static string emailconfirmdesc {
             get {
                 return ResourceManager.GetString("emailconfirmdesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email already exists..
+        /// </summary>
+        public static string emailexists {
+            get {
+                return ResourceManager.GetString("emailexists", resourceCulture);
             }
         }
         
@@ -972,7 +981,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have already enrolled this course.
+        ///   Looks up a localized string similar to You have already enrolled in this course.
         /// </summary>
         public static string haveenrolled {
             get {
@@ -1125,7 +1134,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to lateness penalty.
+        ///   Looks up a localized string similar to Lateness penalty.
         /// </summary>
         public static string latepen {
             get {
@@ -1202,6 +1211,15 @@ namespace ESTA.Resources {
         public static string membershipconfirm {
             get {
                 return ResourceManager.GetString("membershipconfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members in alphabetical order.
+        /// </summary>
+        public static string MembersOrder {
+            get {
+                return ResourceManager.GetString("MembersOrder", resourceCulture);
             }
         }
         
@@ -1296,7 +1314,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pay with visa, Master Card, Meeza.
+        ///   Looks up a localized string similar to Pay with visa, Mastercard, Meeza.
         /// </summary>
         public static string movetopay {
             get {
@@ -1413,7 +1431,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Non of Them.
+        ///   Looks up a localized string similar to None of Them.
         /// </summary>
         public static string non {
             get {
@@ -1494,7 +1512,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Our Vission.
+        ///   Looks up a localized string similar to Our Vision.
         /// </summary>
         public static string ourvission {
             get {
@@ -1609,7 +1627,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pay using visa or mastercard.
+        ///   Looks up a localized string similar to Pay with Visa or Master card.
         /// </summary>
         public static string PayNowBank {
             get {
@@ -1969,7 +1987,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign Up.
+        ///   Looks up a localized string similar to New Member.
         /// </summary>
         public static string signup {
             get {
@@ -2041,7 +2059,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Terms&amp;Conditions.
+        ///   Looks up a localized string similar to Terms &amp; Conditions.
         /// </summary>
         public static string termsCon {
             get {
@@ -2073,6 +2091,15 @@ namespace ESTA.Resources {
         public static string unban {
             get {
                 return ResourceManager.GetString("unban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not paid the Membership.
+        /// </summary>
+        public static string unpaidMembership {
+            get {
+                return ResourceManager.GetString("unpaidMembership", resourceCulture);
             }
         }
         

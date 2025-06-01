@@ -18,7 +18,7 @@
     @Html.ActionLink(localizer["addnewcourse"], "AddCourse", "Courses", new { }, new { @class = "btn btn-primary" })
 </div>
 
-<input id="search" placeholder=@localizer["search"] oninput="Search()" class="form-control" />
+@* <input id="search" placeholder=@localizer["search"] oninput="Search()" class="form-control" /> *@
 <br />
 <div class="rounded-div">
 
@@ -137,7 +137,28 @@
 
 
 
-
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#courses-table').DataTable({
+                "bDestroy": true,
+                "bSearchable": true,
+                "responsive": true,
+                // "columns": [
+                //     { "orderable": "true" },
+                //     { "orderable": "true" },
+                //     { "orderable": "true" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                // ]
+            });
+            //$('#courses-table').dataTable();
+        });
+    </script>
+}
 
 
 

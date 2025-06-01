@@ -230,7 +230,7 @@
     <value>Code of professional Ethics</value>
   </data>
   <data name="completedCourse" xml:space="preserve">
-    <value>congratulations! You have successfully completed this course.</value>
+    <value>Congratulations! You have successfully completed this course.</value>
   </data>
   <data name="confirm" xml:space="preserve">
     <value>Confirm</value>
@@ -341,7 +341,7 @@
     <value>Please Confirm you Email</value>
   </data>
   <data name="emailconfirmdesc" xml:space="preserve">
-    <value>We Have Emailed you with your activation link ,please confirm your Email!</value>
+    <value>You will receive an email; Please click on the link to confirm your email</value>
   </data>
   <data name="emailus" xml:space="preserve">
     <value>Email Us</value>
@@ -419,7 +419,7 @@
     <value>Good</value>
   </data>
   <data name="haveenrolled" xml:space="preserve">
-    <value>You have already enrolled this course</value>
+    <value>You have already enrolled in this course</value>
   </data>
   <data name="haveread" xml:space="preserve">
     <value>I've Read Everything Carefully and I Accept</value>
@@ -506,7 +506,7 @@
     <value>Moderators</value>
   </data>
   <data name="movetopay" xml:space="preserve">
-    <value>Pay with visa, Master Card, Meeza</value>
+    <value>Pay with visa, Mastercard, Meeza</value>
   </data>
   <data name="mycourses" xml:space="preserve">
     <value>My Courses</value>
@@ -536,7 +536,7 @@
     <value>Next</value>
   </data>
   <data name="non" xml:space="preserve">
-    <value>Non of Them</value>
+    <value>None of Them</value>
   </data>
   <data name="notenrolled" xml:space="preserve">
     <value>Not Enrolled</value>
@@ -563,7 +563,7 @@
     <value>Our Mission</value>
   </data>
   <data name="ourvission" xml:space="preserve">
-    <value>Our Vission</value>
+    <value>Our Vision</value>
   </data>
   <data name="overview" xml:space="preserve">
     <value>Overview</value>
@@ -706,7 +706,7 @@
     <value>Sign Out</value>
   </data>
   <data name="signup" xml:space="preserve">
-    <value>Sign Up</value>
+    <value>New Member</value>
   </data>
   <data name="state" xml:space="preserve">
     <value>State</value>
@@ -730,7 +730,7 @@
     <value>Technical Analysis</value>
   </data>
   <data name="termsCon" xml:space="preserve">
-    <value>Terms&amp;Conditions</value>
+    <value>Terms &amp; Conditions</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Title in English</value>
@@ -844,7 +844,7 @@
     <value>Institutional member</value>
   </data>
   <data name="latepen" xml:space="preserve">
-    <value>lateness penalty</value>
+    <value>Lateness penalty</value>
   </data>
   <data name="memfee" xml:space="preserve">
     <value>Mempership Fee</value>
@@ -862,6 +862,15 @@
     <value>Pay with fawry</value>
   </data>
   <data name="PayNowBank" xml:space="preserve">
-    <value>Pay using visa or mastercard</value>
+    <value>Pay with Visa or Master card</value>
+  </data>
+  <data name="MembersOrder" xml:space="preserve">
+    <value>Members in alphabetical order</value>
+  </data>
+  <data name="emailexists" xml:space="preserve">
+    <value>This email already exists.</value>
+  </data>
+  <data name="unpaidMembership" xml:space="preserve">
+    <value>Not paid the Membership</value>
   </data>
 </root>

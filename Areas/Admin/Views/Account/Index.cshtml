@@ -20,6 +20,8 @@
                 <th>@localizer["username"]</th>
                 <th>@localizer["UserRole"]</th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -32,11 +34,20 @@
                         <td>@item.Roles</td>
                         <td>
                             @Html.ActionLink(localizer["edit"], "EditUser", new { userId = item.Id },
-                                 new { @class = "btn btn-success" })
-                        </td>
-
-                    </tr>
-                }
+                            new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @Html.ActionLink(localizer["ResetPassword"], "ResetPassword", new { userId = item.Id },
+                                        new { @class = "btn btn-secondary",
+                                        onclick = "return confirm('Are you sure you want to reset this user\\'s password?');"})
+                </td>
+                <td>
+                    @Html.ActionLink(localizer["delete"], "DeleteUser", new { userId = item.Id },
+                                        new { @class = "btn btn-danger",
+                                        onclick = "return confirm('Are you sure you want to delete this user?');"})
+                </td>
+            </tr>
+                        }
             }
         </tbody>
     </table>

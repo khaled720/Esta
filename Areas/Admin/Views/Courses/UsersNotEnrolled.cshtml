@@ -18,49 +18,125 @@
 </p>
 
 
-    <table class="table">
-        <thead>
+<table class="table" id="users-table">
+    <thead>
+        <tr>
+
+            <th>
+                @localizer["fullname"]
+            </th>
+            <th>
+                @localizer["email"]
+            </th>
+            <th>
+                @localizer["actions"]
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
             <tr>
 
-                <th>
-           User Name
-                </th>
-                <th>
-          Email
-          </th>
-                <th>
-                    @localizer["actions"]
-                </th>
+                <td>
+                    @Model[i].FullName
 
+
+                </td>
+                <td>
+                    @Model[i].Email
+                </td>
+                <td>
+                    @if (ViewBag.CourseCompleted)
+                    {
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          Add To Course
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Add Grade</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="grade" class="form-label">@localizer["grade"]</label>
+                                    <input id="grade" type="text" class="form-control" value="100" />                                
+                                    <input id="CId" type="hidden" class="form-control" value="@ViewBag.CourseId" />                                
+                                    <input id="UId" type="hidden" class="form-control" value="@Model[i].Id" />                                
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@localizer["close"]</button>
+                                <button type="button" class="btn btn-primary" onclick="submitGrade()"> @localizer["submit"]</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" asp-action="AddUserToCourseAsNew"
+                           asp-route-cid="@ViewBag.CourseId" asp-route-uid="@Model[i].Id">Add To Course</a>
+                    }
+                </td>
             </tr>
-        </thead>
-        <tbody>
+        }
 
-            @for (int i = 0; i < Model.Count(); i++)
-            {
-                <tr>
+    </tbody>
+</table>
 
-                    <td>
-                        @Model[i].FullName
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#users-table').DataTable({
+                "bDestroy": true,
+                "bSearchable": true,
+                "responsive": true,
+                // "columns": [
+                //     { "orderable": "true" },
+                //     { "orderable": "true" },
+                //     { "orderable": "true" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                //     { "orderable": "false" },
+                // ]
+            });
+            //$('#courses-table').dataTable();
+        });
 
-                     
-                    </td>
-                    <td>
-                        @Model[i].Email
-                    </td>
-                    <td>
-
-                    <a class="btn btn-primary" asp-action="AddUsetToCourseAsCompleted"
-                   asp-route-cid="@ViewBag.CourseId" asp-route-uid="@Model[i].Id">Add To Course</a>
-                    </td>
-
-                  
-                </tr>
-            }
-          
-
-
-
-
-        </tbody>
-    </table>
+        function submitGrade() {
+            var grade = $('#grade').val();
+            var courseId = $('#CId').val();
+            var userId = $('#UId').val();
+            $.ajax({
+                url: '@Url.Action("AddUserToCourse", "Courses", new { area = "Admin" })',
+                type: 'POST',
+                data: {
+                    grade: grade,
+                    cid: courseId,
+                    uid: userId
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('User added to course successfully!');
+                        location.reload(); // Reload the page to see the changes
+                    } else {
+                        alert('Error adding user to course: ' + response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        }
+    </script>
+}

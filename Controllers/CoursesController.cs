@@ -30,6 +30,8 @@ namespace ESTA.Controllers
         public async Task<IActionResult> OtherCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllOtherCourses();
+            courses = courses.OrderBy(x => x.StartDate).ToList();
+
             return View(courses);
 
         }
@@ -37,6 +39,8 @@ namespace ESTA.Controllers
         public async Task<IActionResult> CetaCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCetaCourses();
+            courses = courses.OrderBy(x => x.StartDate).ToList();
+            // Get CETA content
             var content = appRep.ContentRep.GetContent("CETA");
 
             ViewCETA viewCETA = new()

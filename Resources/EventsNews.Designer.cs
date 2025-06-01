@@ -115,7 +115,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esta Event.
+        ///   Looks up a localized string similar to ESTA Event.
         /// </summary>
         public static string EstaEvent {
             get {

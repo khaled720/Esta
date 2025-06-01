@@ -135,6 +135,25 @@ namespace ESTA.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize("RequireAdminRole")]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            await userManager.DeleteAsync(user);
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize("RequireAdminRole")]
+        public async Task<IActionResult> ResetPassword(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            var res = await userManager.GeneratePasswordResetTokenAsync(user);
+            await userManager.ResetPasswordAsync(user, res, "R3s3tP@ss"); // This is a placeholder password, you should generate a secure one or allow the user to set their own password.
+                                                                          // user.PasswordHash, "R3s3tP@ss"
+            return RedirectToAction("Index");
+        }
+
         [Authorize]
         public IActionResult UserChangePassword()
         {

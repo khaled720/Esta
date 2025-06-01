@@ -114,7 +114,7 @@
                                         else
                                         {
                                             <a asp-action="profile" asp-controller="user" asp-area="" class="loginBtn">
-                                                @User.FindFirstValue(ClaimTypes.Name)
+                                                @localizer["profile"]
                                             </a>
 
                                         }
@@ -124,18 +124,18 @@
                                 }
                                 else
                                 {
-                                    <div class=" row header-contact header-login header-contact1 ">
+                                    <div class="header-contact header-login">
 
-                                        <div class="">
+                                        @*<div class="">*@
 
                                             <span class="ti-user"></span>
                                             <a asp-action="Login" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signin"]</a>
 
-                                        </div>
-                                        <div>
+                                        @*</div>*@
+                                        @*<div>*@
                                             <span class="ti-user"></span>
                                             <a asp-action="Register" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signup"]</a>
-                                        </div>
+                                        @*</div>*@
                                     </div>
                                 }
                             </div>
@@ -258,14 +258,6 @@
                                             <a href="#">@localizer["membership"]</a>
                                             <ul class="submenu">
                                                 <li>
-                                                    <a asp-area="" asp-controller="Forums" asp-action="Index">@localizer["discussionbf"]</a>
-                                                </li>
-
-                                                <li>
-                                                    <a asp-area="" asp-controller="EventsNews" asp-action="Index">@localizer["events&news"]</a>
-                                                </li>
-
-                                                <li>
                                                     <a asp-area="" asp-controller="Home" asp-action="About" asp-route-type="benefits">
                                                         @localizer["benefits"]
                                                     </a>
@@ -276,7 +268,19 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a asp-area="" asp-controller="Account" asp-action="Register">@localizer["becamemember"]</a>
+                                                    <a asp-area="" asp-controller="EventsNews" asp-action="Index">
+                                                        @localizer["events&news"]
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Forums" asp-action="Index">
+                                                        @localizer["discussionbf"]
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Account" asp-action="Register">
+                                                        @localizer["becamemember"]
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </li>

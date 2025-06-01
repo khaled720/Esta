@@ -2,6 +2,7 @@
 using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace ESTA.Repository
 {
@@ -16,7 +17,7 @@ namespace ESTA.Repository
             this.userManager = userManager;
         }
 
-        public bool AddUsertoCourseAsCompleted(int courseId, string userId)
+        public bool AddUsertoCourseAsCompleted(int courseId, string userId, int grade)
         {
             try
             {
@@ -26,24 +27,41 @@ namespace ESTA.Repository
                          CourseId = courseId,
                          UserId = userId,
                          isPaid = true,
-                         StateId = 3,
-                         Grade = 100
+                         StateId = 3,// Completed state
+                         Grade = grade,
                      });
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
-
+        public bool AddUsertoCourseAsNew(int courseId, string userId)
+        {
+            try
+            {
+                appDbContext.UserCourses.Add(
+                     new UserCourse
+                     {
+                         CourseId = courseId,
+                         UserId = userId,
+                         isPaid = true,
+                         StateId = 1
+                     });
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public bool IsUserCompletedCourse(int courseId, string userId)
         {
             try
             {
                 var Res = appDbContext.UserCourses.Where(x => x.UserId == userId && x.CourseId == courseId).FirstOrDefault();
-                
+
                 return Res != null ? Res.StateId == 3 : false;
             }
             catch (Exception)

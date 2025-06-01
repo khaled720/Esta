@@ -641,7 +641,7 @@
 }
 /* Color */
 .gray-color {
-	color: #8a8a8a;
+	color: var(--third-color);
 }
 .white-color {
 	color: #fff;

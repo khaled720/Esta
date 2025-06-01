@@ -29,8 +29,13 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.Password" class="form-label"></label>
-                    <input asp-for="@Model.Password" class="form-control" autocomplete="current-password" type="password" aria-required="true" />
+                    <div class="input-group">
+                        <input id="Pass" asp-for="@Model.Password" class="form-control" autocomplete="current-password" type="password" aria-required="true" />
+                        <span class="input-group-text" id="addon-wrapping" onclick="showPass('Pass')"><i class="ti-eye"></i></span>
+                    </div>
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    <!-- An element to toggle between password visibility -->
+                    @* <input type="checkbox" onclick="myFunction()">Show Password *@
                 </div>
                 <div>
                     @*  <div class="checkbox">
@@ -64,6 +69,7 @@
     </div>
 
 </div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

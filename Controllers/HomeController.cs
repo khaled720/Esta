@@ -137,7 +137,7 @@ namespace ESTA.Controllers
 
                 }
 
-                hivm.UpcomingCourse = await this.Uow.CoursesRep.GetUpcomingCourse();
+                hivm.UpcomingCourse =  this.Uow.CoursesRep.Get3UpcomingCourses();
 
             }
             catch (Exception ex)
@@ -205,6 +205,9 @@ namespace ESTA.Controllers
                     break;
                 case "benefits":
                     ViewBag.about = localizer["benefits"];
+                    break;
+                case "institutionalMem":
+                    ViewBag.about = localizer["institutionalMem"];
                     break;
                 default:
                     ViewBag.about = localizer["about"];

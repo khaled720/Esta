@@ -328,7 +328,7 @@
     <value>Password</value>
   </data>
   <data name="passwordcons" xml:space="preserve">
-    <value>Password must be 8 digits or more having one lower char and one upper char and one number</value>
+    <value>password must be at least 8 characters including one uppercase, lowercase letter, one special character and alphanumeric characters</value>
   </data>
   <data name="paylink" xml:space="preserve">
     <value>Payment Link</value>
@@ -419,5 +419,8 @@
   </data>
   <data name="upcourses_events" xml:space="preserve">
     <value>Upcoming Courses &amp; Events</value>
+  </data>
+  <data name="emailexists" xml:space="preserve">
+    <value>This Email already exists</value>
   </data>
 </root>

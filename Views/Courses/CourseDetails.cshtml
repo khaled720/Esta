@@ -207,103 +207,102 @@ top:0;bottom:0;right:0;left:0 ">
                                         <div class="course-details-overview-bottom d-flex justify-content-between mt-25">
                                             <div class="course-overview-info-left">
                                                 <div class="course-overview-student-lecture mt-10">
-                                                    <span class="gray-color">@localizer["level"] : <span class="primary-color">@Model.course.level.TypeName</span></span>
-                                                    <span class="student-lecture-number gray-color">@localizer["stdate"]: <span class="primary-color">@Model.course.StartDate.Value.ToShortDateString()</span></span>
+                                                    <span class="primary-color">@localizer["level"] : <span class="gray-color">@Model.course.level.TypeName</span></span>
+                                                    <span class="student-lecture-number primary-color">@localizer["stdate"]: <span class="gray-color">@Model.course.StartDate.Value.ToShortDateString()</span></span>
                                                     @if (Model.course.FinalGrade <= 0)
                                                     {
-
                                                         <span class="student-lecture-number gray-color">*@localizer["coursehint"]</span>
-
                                                     }
 
                                                 </div>
                                             </div>
                                         </div>
 
-                                        @if (signInManager.IsSignedIn(User))
+                                        @if(Model.course.StartDate != null && Model.course.StartDate.Value.Date > DateTime.Now.Date)
                                         {
-                                            if (!Model.isCompleted)
+                                            @if (signInManager.IsSignedIn(User))
                                             {
-                                                if (Model.isCourseEnrolled)
+                                                if (!Model.isCompleted)
                                                 {
-                                                    if (!Model.IsCourseRefunded)
+                                                    if (Model.isCourseEnrolled)
                                                     {
-                                                        <h4 class="text-danger">@localizer["haveenrolled"]</h4>
-
-                                                        <a class="btn btn-info" asp-action="Create"
-                                                           asp-controller="Refund"
-                                                           asp-area="Payment" asp-route-CourseId="@Model.course.Id">@localizer["refund"]</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        if (Model.IsMempershipPaid)
+                                                        if (!Model.IsCourseRefunded)
                                                         {
-                                                            @if (Model.IsPrerequisiteCoursesPassed)
+                                                            <h4 class="text-danger">@localizer["haveenrolled"]</h4>
+
+                                                            <a class="btn btn-info" asp-action="Create"
+                                                               asp-controller="Refund"
+                                                               asp-area="Payment" asp-route-CourseId="@Model.course.Id">@localizer["refund"]</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Model.IsMempershipPaid)
                                                             {
-                                                                <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()">
-                                                                    <span class="btn-text bg-red">@localizer["join"]</span>
-                                                                </a>
+                                                                @if (Model.IsPrerequisiteCoursesPassed)
+                                                                {
+                                                                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()">
+                                                                        <span class="btn-text bg-red">@localizer["join"]</span>
+                                                                    </a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <h4 class="text-danger">@localizer["preinc"]</h4>
+                                                                }
                                                             }
                                                             else
                                                             {
-                                                                <h4 class="text-danger">@localizer["preinc"]</h4>
+                                                                <h4 class="text-danger">@localizer["memnotpaid"]</h4>
+                                                                <a class="btn btn-info" asp-action="ConfirmMembershipOrder"
+                                                                   asp-controller="Orders"
+                                                                   asp-area="Payment">@localizer["paymem"]</a>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Model.UsersEnrolledCount < Model.course.MaxAllowedMembersCount)
+                                                        {
+                                                            if (Model.IsMempershipPaid)
+                                                            {
+                                                                @if (Model.IsPrerequisiteCoursesPassed)
+                                                                {
+                                                                    <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()">
+                                                                        <span class="btn-text bg-red">@localizer["join"]</span>
+                                                                    </a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <h4 class="text-danger">@localizer["preinc"]</h4>
+                                                                }
+                                                                @* <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()">
+                                        <span class="btn-text bg-red">@localizer["join"]</span>
+                                        </a> *@
+                                                            }
+                                                            else
+                                                            {
+                                                                <h4 class="text-danger">@localizer["memnotpaid"]</h4>
+                                                                <a class="btn btn-info" asp-action="ConfirmMembershipOrder"
+                                                                   asp-controller="Orders" asp-area="Payment">@localizer["paymem"]</a>
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            <h4 class="text-danger">@localizer["memnotpaid"]</h4>
-                                                            <a class="btn btn-info" asp-action="ConfirmMembershipOrder"
-                                                               asp-controller="Orders"
-                                                               asp-area="Payment">@localizer["paymem"]</a>
+                                                            <h4 class="text-danger">@localizer["coursecomplete"]</h4>
                                                         }
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    if (Model.UsersEnrolledCount < Model.course.MaxAllowedMembersCount)
-                                                    {
-                                                        if (Model.IsMempershipPaid)
-                                                        {
-                                                            @if (Model.IsPrerequisiteCoursesPassed)
-                                                            {
-                                                                <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()">
-                                                                    <span class="btn-text bg-red">@localizer["join"]</span>
-                                                                </a>
-                                                            }
-                                                            else
-                                                            {
-                                                                <h4 class="text-danger">@localizer["preinc"]</h4>
-                                                            }
-                                                            @* <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" onclick="ShowEnrollOptions()">
-                                    <span class="btn-text bg-red">@localizer["join"]</span>
-                                    </a> *@
-                                                        }
-                                                        else
-                                                        {
-                                                            <h4 class="text-danger">@localizer["memnotpaid"]</h4>
-                                                            <a class="btn btn-info" asp-action="ConfirmMembershipOrder"
-                                                               asp-controller="Orders"
-                                                               asp-area="Payment">@localizer["paymem"]</a>
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        <h4 class="text-danger">@localizer["coursecomplete"]</h4>
-                                                    }
+                                                    <strong style="color:green">  @localizer["completedCourse"] </strong>
                                                 }
                                             }
                                             else
                                             {
-                                                <strong style="color:green">  @localizer["completedCourse"] </strong>
+                                                <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" asp-controller="Account" asp-action="Register">
+                                                    <span class="btn-text bg-red">@localizer["join"]</span>
+                                                </a>
                                             }
                                         }
-                                        else
-                                        {
-                                            <a class="vissionMissionBtn theme-btn blue-bg-border mt-30" asp-controller="Account" asp-action="Register">
-                                                <span class="btn-text bg-red">@localizer["join"]</span>
-                                            </a>
-                                        }
-
                                     </div>
                                 </div>
                             </div>
