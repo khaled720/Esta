@@ -220,6 +220,7 @@ namespace ESTA.Repository
             {
                 var user = await appContext.Users.Where(y => y.Id == userId).FirstAsync();
                 user.IsMempershipPaid = true;
+                user.MembershipYear = DateTime.Now.Year;
                 appContext.Users.Update(user);
 
             }

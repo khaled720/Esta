@@ -54,9 +54,10 @@ namespace ESTA.Areas.Payment.Controllers
 
             EmailSender.Send_Mail(
                       User.FindFirstValue(ClaimTypes.Email),
-                         "you have sent a refund request with<br> Serial Number :<b>"
-                         + refund.SerialNumber + "</b> <br> For Order <b>" + refund.OrderNumber
-                         + "</b><br> we are working on it",
+                         "You have submitted a refund request with the following details:<br>"
+                            + "Serial Number: <b>" + refund.SerialNumber + "</b><br>"
+                            + "Order Number: <b>" + refund.OrderNumber + "</b><br>  "
+                            + "We are currently processing your request.",
                          "Esta Refund Request",
                          "ESTA"
                      );
@@ -64,19 +65,16 @@ namespace ESTA.Areas.Payment.Controllers
             var email = _configuration.GetValue<string>("Mail:AdminMail");
             EmailSender.Send_Mail(
                 email,
-                     "refund request has been placed with <br> Serial Number <b>"
-                     + refund.SerialNumber + "</b><br> For Order <br> <b>" + refund.OrderNumber
-                     + "</b> <br>on " + refund.CreateDate + "<br> by User <b>" + User.FindFirstValue(ClaimTypes.Email) + "</b>",
+                     "A new refund request has been submitted with the following details:<br><br>"
+                        + "Serial Number: <b>" + refund.SerialNumber + "</b><br>"
+                        + "Order Number: <b>" + refund.OrderNumber + "</b><br>  "
+                        + "Submission Date: <b>" + refund.CreateDate + "</b><br>"
+                        + "Submitted By: <b>" + User.FindFirstValue(ClaimTypes.Email) + "</b>",
                      "Esta Refund Request",
                      "ESTA"
                  );
             return RedirectToAction("profile", "User", new { area = "" });
         }
-
-
-
-
-
 
         [Authorize]
         [HttpGet]
@@ -111,9 +109,9 @@ namespace ESTA.Areas.Payment.Controllers
                 }
 
                 if (
-            newState == RefundStates.Refunded.ToString()
-            &&
-            refund.Type == RefundTypes.Mempership.ToString())
+                    newState == RefundStates.Refunded.ToString()
+                    &&
+                    refund.Type == RefundTypes.Mempership.ToString())
                 {
                     var courseOrder = await uow.UserRep.RevokeMempershipPayment(refund.UserId);
                     //////////////////
@@ -129,22 +127,18 @@ namespace ESTA.Areas.Payment.Controllers
                 var user = await uow.UserRep.GetUser(refund.UserId);
 
                 EmailSender.Send_Mail(
-                user.Email,
-                      "Your Refund Request State Has been updated  <br>Serial Number <b>"
-                      + refund.SerialNumber + "</b><br>For Order <b>" + refund.OrderNumber
-                      + "</b><br> State  <b>" + newState + "</b>",
-                      "ESTA Refund Request",
-                      "ESTA"
+                user.Email, "Hello,<br><br>We wanted to inform you that the status of your refund request has been updated.<br><br>" +
+                    "Serial Number: <b> " + refund.SerialNumber + " </b><br>" +
+                    "Order Number: <b> " + refund.OrderNumber + " </b><br>" +
+                    "Updated Status: <b> " + newState + " </b><br><br>" +
+                    "Thank you for using ESTA.",
+                    "ESTA Refund Request",
+                    "ESTA"
                   );
 
             }
 
             return RedirectToAction("index", "Payments", new { area = "Admin" });
         }
-
-
-
-
-
     }
 }

@@ -83,8 +83,15 @@ namespace ESTA.Areas.Admin.Controllers
             else
             {
                 await appRep.UserRep.RevokeMempershipPayment(id);
+                var user = await appRep.UserRep.GetUser(id);
+                
+                EmailSender.Send_Mail(
+                    user.Email,
+                    "Your ESTA membership has expired",
+                    "Membership status",
+                    "ESTA"
+                );
             }
-
 
             await appRep.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -101,7 +108,7 @@ namespace ESTA.Areas.Admin.Controllers
             {
                 EmailSender.Send_Mail(
                     ApprovedUser.Email,
-                    "Your Request to join ESTA has been Approved",
+                    "Your request to join ESTA has been approved.",
                     "Request Approval",
                     "ESTA"
                 );
@@ -124,7 +131,7 @@ namespace ESTA.Areas.Admin.Controllers
             {
                 EmailSender.Send_Mail(
                     ApprovedUser.Email,
-                    "Your Email has been Approved by ESTA admins",
+                    "Your email has been approved by ESTA administrators.",
                     "Email approval",
                     "ESTA"
                 );
@@ -379,7 +386,7 @@ namespace ESTA.Areas.Admin.Controllers
 
                 EmailSender.Send_Mail(
                     email,
-                    "Your Password has been resetted",
+                    "Your password has been reset.",
                     "Password reset",
                     "ESTA"
                 );

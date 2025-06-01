@@ -236,6 +236,7 @@ namespace ESTA.Models
         //public string?  PassportImagePath { get; set; } = String.Empty;
         //public string GradutionImagePath { get; set; } = String.Empty;
         public string? MembershipNumber { get; set; } = String.Empty;
+        public int MembershipYear { get; set; }
         public bool VisibleProfile { get; set; } = false;
 
         /// /////////////

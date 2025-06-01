@@ -24,7 +24,7 @@ namespace ESTA.Controllers
         private readonly IWebHostEnvironment hostEnvironment;
 
         private readonly IConfiguration _configuration;
-        private readonly IStringLocalizer<ESTA.SharedResource> localizer;
+        private readonly IStringLocalizer<SharedResource> localizer;
         private readonly string culture;
 
         public HomeController(
@@ -32,7 +32,7 @@ namespace ESTA.Controllers
             IUnitOfWork appRep,
             IWebHostEnvironment hostEnvironment,
             IHttpContextAccessor contextAccessor,
-                IStringLocalizer<ESTA.SharedResource> localizer,
+                IStringLocalizer<SharedResource> localizer,
             IConfiguration configuration
         )
         {
@@ -137,7 +137,7 @@ namespace ESTA.Controllers
 
                 }
 
-                hivm.UpcomingCourse =  this.Uow.CoursesRep.Get3UpcomingCourses();
+                hivm.UpcomingCourse = this.Uow.CoursesRep.Get3UpcomingCourses();
 
             }
             catch (Exception ex)
@@ -150,7 +150,6 @@ namespace ESTA.Controllers
 
             return View(hivm);
         }
-
 
         public async Task<IActionResult> Search(string query)
         {
@@ -175,7 +174,6 @@ namespace ESTA.Controllers
             return View(hsvm);
 
         }
-
 
         public async Task<IActionResult> About(string type)
         {
