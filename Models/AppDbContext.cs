@@ -170,6 +170,7 @@ namespace ESTA.Models
 
         public DbSet<PrerequisiteCourse> PrerequisiteCourses { get; set; }
         public DbSet<HomeBanner> HomeBanners { get; set; }
+        public DbSet<Logo> Logos { get; set; }
 
 
     }

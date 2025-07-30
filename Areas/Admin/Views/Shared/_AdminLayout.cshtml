@@ -124,10 +124,17 @@
                                                 <li><a class="dropdown-item" asp-area="admin" asp-controller="Banners" asp-action="Index" asp-route-type="4">@localizer["Banner"]4</a></li>
                                             </ul>
                                         </li>
-                                    }@if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Board of directors"))
+                                    }
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Board of directors"))
                                     {
                                         <li class="nav-item">
                                             <a class="nav-link text-dark" asp-area="admin" asp-controller="Directors" asp-action="Index">@localizer["board"]</a>
+                                        </li>
+                                    }
+                                    @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Logos"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="admin" asp-controller="Logos" asp-action="Index">@localizer["Logos"]</a>
                                         </li>
                                     }
                                     @if (await userManager.IsInRoleAsync(user, "Admin") || await userManager.IsInRoleAsync(user, "Contacts"))

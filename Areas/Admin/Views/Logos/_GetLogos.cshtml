@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+@model List<ESTA.Models.Logo>;
+
+@if (Model.Count > 0)
+{
+    <div id="courses-grid" class="animate__fadeIn rounded-div" style="animation-duration:1s;display:grid;gap:15px; grid-template-columns:1fr 1fr 1fr 1fr">
+
+        @foreach (var item in Model)
+        {
+            <div class="card" style="height:fit-content; position:relative">
+
+                <img src="@Url.Content("~/images/Logos/" + item.ImagePath)" height="200px" />
+
+                @Html.ActionLink(localizer["delete"], "DeleteLogo", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you Sure to delete , data will be lost?');" })
+
+            </div>
+        }
+    </div>
+}

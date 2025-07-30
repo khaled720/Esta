@@ -1,0 +1,51 @@
+﻿ul, ol, li {
+    list-style: none;
+}
+
+.image-tickerDIV {
+    /*  width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center; */
+    width: 98vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-ticker {
+    width: 100vw;
+    overflow: hidden;
+}
+
+    .image-ticker:hover ul {
+        animation-play-state: paused;
+    }
+
+    .image-ticker ul {
+        display: flex;
+        animation: scroll-infinite 20s linear infinite;
+    }
+
+        .image-ticker ul li {
+            padding: 10px;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            flex-shrink: 0;
+        }
+
+@keyframes scroll-infinite {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-1800px);
+    }
+}

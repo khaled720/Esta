@@ -59,6 +59,7 @@
     <Folder Include="Log\" />
     <Folder Include="wwwroot\Images\Courses\" />
     <Folder Include="wwwroot\Images\Banners\" />
+    <Folder Include="wwwroot\Images\Logos\" />
     <Folder Include="wwwroot\Images\News\" />
     <Folder Include="wwwroot\editor_images\" />
     <Folder Include="wwwroot\Images\Users\ProfilePicture\" />

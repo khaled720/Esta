@@ -61,6 +61,8 @@ namespace ESTA.Repository
 
         public IBannerRep BannerRep => new BannerRep(appContext);
 
+        public ILogosRep LogosRep => new LogosRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
          return await   this.appContext.SaveChangesAsync()>0;

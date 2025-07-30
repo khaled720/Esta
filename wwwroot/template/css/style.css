@@ -349,7 +349,7 @@ padding: 20px 0;
 
 #choose::before {
     top: 0;
-    background: url(../img/overlay-top.png) top center no-repeat;
+    background: url(../img/overlay-top-gray.png) top center no-repeat;
     background-size: contain;
 }
 

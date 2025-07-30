@@ -138,6 +138,7 @@ namespace ESTA.Controllers
                 }
 
                 hivm.UpcomingCourse = this.Uow.CoursesRep.Get3UpcomingCourses();
+                hivm.LogosList = this.Uow.LogosRep.GetAllLogos();
 
             }
             catch (Exception ex)

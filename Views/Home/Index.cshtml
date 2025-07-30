@@ -8,6 +8,23 @@
 @model ESTA.ViewModels.HomeIndexViewModel
 @inject IStringLocalizer<ESTA.SharedResource> localizer;
 
+<style>
+    .card {
+        transition: 0.5s ease-in-out;
+        overflow: hidden;
+        /*z-index:10;*/
+    }
+
+    #courses-calendar {
+        max-width: 1300px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 10px;
+        padding: 3px;
+    }
+</style>
+
+<link href="~/css/ticker.css" rel="stylesheet" />
 <!-- slider-start -->
 <div class="slider-area pos-relative">
     <div class="slider-active">
@@ -107,7 +124,6 @@
     </div>
 </div>
 <!-- slider-end -->
-
 <!-- about start -->
 <div id="about" class="about-area pt-80 pb-70">
     <div class="container">
@@ -140,11 +156,9 @@
     </div>
 </div>
 <!-- about end -->
-
 <!-- latest_news start -->
 @await Component.InvokeAsync("Events")
 <!-- latest_news end -->
-
 <!-- courses start -->
 @if (Model.UpcomingCourse != null)
 {
@@ -152,7 +166,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 aos-init aos-animate" data-aos="fade-up"
-                          data-aos-anchor-placement="center-center" data-aos-duration="1000">
+                     data-aos-anchor-placement="center-center" data-aos-duration="1000">
                     <div class="section-title mb-50 text-center">
                         <div class="section-title-heading mb-20">
                             <h1 class="primary-color">@localizer["upcourses"]</h1>
@@ -248,7 +262,6 @@
 }
 
 <!-- courses end -->
-
 <!-- choose start -->
 <div id="upComingCourses" class="gray-bg pt-70 pb-20 ">
     <div class="container">
@@ -288,7 +301,6 @@
     </div>
 </div>
 <!-- choose end -->
-
 <!-- calendar start -->
 <div id="choose" class="pt-100 pb-50" style="background-image: url(@Url.Content("~/template/img/shop_bg.jpg"))">
     <div class="container">
@@ -309,16 +321,6 @@
                 <div class="col-lg-10 aos-init aos-animate" data-aos="fade-down"
                      data-aos-duration="1500">
 
-                    <style>
-                        #courses-calendar {
-                            max-width: 1300px;
-                            margin: 0 auto;
-                            background-color: white;
-                            border-radius: 10px;
-                            padding: 3px;
-                        }
-                    </style>
-
                     <div id="courses-calendar"></div>
 
                 </div>
@@ -329,7 +331,20 @@
     </div>
 </div>
 <!-- calendar end -->
-
+<!-- image ticker start -->
+<div class="image-tickerDIV">
+    <div class="image-ticker">
+        <ul>
+            @foreach (var item in Model.LogosList)
+            {
+                <li>
+                    <img src="@Url.Content("~/images/Logos/" + item.ImagePath)">
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<!-- image ticker end -->
 <input type="hidden" value="@Url.Action("GetEvents")" id="AjaxUrl" />
 
 <input type="hidden" value="@Url.Action("GetEvent", "EventsNews")" id="GetEventUrl" />
@@ -342,28 +357,11 @@
 @*
     @await Component.InvokeAsync("UpcomingEvents")
 *@
-
 <!-- events end -->
 <br />
 
-
-
-<style>
-    .card {
-        transition: 0.5s ease-in-out;
-        overflow: hidden;
-        /*z-index:10;
-                                                                                                        */
-    }
-
-</style>
-
-
-
-
 @section Scripts {
-
-
+    <script src="~/js/ticker.js"></script>
     <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>-->
     <!--<script src="~/lib/jquery/dist/jquery.js"></script>-->
     <script src="~/js/moment.js"></script>

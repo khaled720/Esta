@@ -192,8 +192,6 @@ namespace ESTA.Areas.Admin.Controllers
                     //     user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
                 }
 
-
-
                 if (userData.PassportImages != null)
                 {
                     await appRep.ImageRep.RemoveImageByTypeAsync(2, dbUser.Id);
@@ -224,9 +222,6 @@ namespace ESTA.Areas.Admin.Controllers
 
                     //     user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
                 }
-
-
-
 
                 await userManager.UpdateAsync(dbUser);
 
