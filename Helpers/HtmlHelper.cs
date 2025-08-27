@@ -8,7 +8,11 @@ namespace ESTA.Helpers
         {
             string Desc = Regex.Replace(text.Trim(), "<.*?>", String.Empty);
             if (Desc.Length > length)
-                return Desc.Substring(0, length);
+            {
+                string StrRes = Desc[..length];
+                int lastSpaceIndex = StrRes.LastIndexOf(' ');
+                return StrRes[..lastSpaceIndex];
+            }
             else
                 return Desc;
         }

@@ -64,20 +64,17 @@ namespace ESTA.Controllers
 
                 if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                 {
-                    hivm.About = Regex.Replace(
+                    hivm.About = HtmlHelper.RemoveHTMLTags(
                         Uow.ContentRep.GetContent("about").DescriptionAr ?? "",
-                        "<.*?>",
-                        String.Empty
+                        400
                     );
-                    hivm.Mission = Regex.Replace(
+                    hivm.Mission = HtmlHelper.RemoveHTMLTags(
                         Uow.ContentRep.GetContent("mission").DescriptionAr ?? "",
-                        "<.*?>",
-                        String.Empty
+                        400
                     );
-                    hivm.Vission = Regex.Replace(
+                    hivm.Vission = HtmlHelper.RemoveHTMLTags(
                         Uow.ContentRep.GetContent("vission").DescriptionAr ?? "",
-                        "<.*?>",
-                        String.Empty
+                        400
                     );
                     banners.ForEach(x =>
                     {
@@ -91,20 +88,17 @@ namespace ESTA.Controllers
                 }
                 else
                 {
-                    hivm.About = Regex.Replace(
+                    hivm.About = HtmlHelper.RemoveHTMLTags(
                         Uow.ContentRep.GetContent("about").DescriptionEn ?? "",
-                        "<.*?>",
-                        String.Empty
+                        400
                     );
-                    hivm.Mission = Regex.Replace(
+                    hivm.Mission = HtmlHelper.RemoveHTMLTags(
                         Uow.ContentRep.GetContent("mission").DescriptionEn ?? "",
-                        "<.*?>",
-                        String.Empty
+                        400
                     );
-                    hivm.Vission = Regex.Replace(
+                    hivm.Vission = HtmlHelper.RemoveHTMLTags(
                         Uow.ContentRep.GetContent("vission").DescriptionEn ?? "",
-                        "<.*?>",
-                        String.Empty
+                        400
                     );
 
                     banners.ForEach(x =>
@@ -116,25 +110,6 @@ namespace ESTA.Controllers
                             Details = x.DetailsEn
                         });
                     });
-                }
-
-                if (hivm.About.Length > 400)
-                {
-
-                    hivm.About = hivm.About.Substring(0, 400);
-
-                }
-                if (hivm.Vission.Length > 400)
-                {
-
-                    hivm.Vission = hivm.Vission.Substring(0, 400);
-
-                }
-                if (hivm.Mission.Length > 400)
-                {
-
-                    hivm.Mission = hivm.Mission.Substring(0, 400);
-
                 }
 
                 hivm.UpcomingCourse = this.Uow.CoursesRep.Get3UpcomingCourses();

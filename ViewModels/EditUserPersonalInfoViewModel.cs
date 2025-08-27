@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ESTA.Helpers;
+using ESTA.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Security.AccessControl;
 using System.Xml.Linq;
-using ESTA.Models;
 
 namespace ESTA.ViewModels
 {
@@ -102,7 +103,9 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(Resources.DataAnnotationsResource), Name = "passportImg")]
         public List<IFormFile>?  PassportImages { get; set; }
         [Display(ResourceType = typeof(Resources.DataAnnotationsResource), Name = "NationalIdImagesImg")]
-        public List<IFormFile>?  NationalIdImages { get; set; }
+        public List<IFormFile>? NationalCardImagesFront { get; set; }
+        [Display(ResourceType = typeof(Resources.DataAnnotationsResource), Name = "NationalIdImagesImg")]
+        public List<IFormFile>? NationalCardImagesBack { get; set; }
 
         public List<UserImage> userImages { get; set; } =new List<UserImage>();
 
@@ -112,6 +115,13 @@ namespace ESTA.ViewModels
        //)]
         public string? MembershipNumber { get; set; } = String.Empty;
 
+        [Required(
+            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+            ErrorMessageResourceName = "required"
+        )]
+        [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "country")]
+        public string Country { get; set; } = String.Empty;
+        public List<string> Countries { get; set; } = CultureManager.GetCountries().ToList();
 
     }
 }

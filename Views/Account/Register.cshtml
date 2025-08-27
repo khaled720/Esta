@@ -24,7 +24,7 @@
 
 
     <span class="text-danger">
-        @Html.ValidationSummary(excludePropertyErrors:true)
+        @Html.ValidationSummary(excludePropertyErrors: true)
 
     </span>
 
@@ -71,11 +71,12 @@
                         onchange="checkNationality()" class="form-control" asp-for="@Model.Country">
                     @foreach (var item in Model.Countries)
                     {
-                        if(item == "Egypt")
+                        if (item == "Egypt")
                         {
                             <option selected="selected">@item</option>
                         }
-                        else{
+                        else
+                        {
                             <option>@item</option>
                         }
                     }
@@ -88,7 +89,7 @@
 
             <div id="img-preview0">
             </div>
-             <div id="img-preview1">
+            <div id="img-preview1">
             </div>
 
 
@@ -101,7 +102,7 @@
 
                     <span asp-validation-for="@Model.NationalCardID" class="text-danger"></span>
                 </div>
-               
+
 
                 <div class=" col-12 ">
                     <label>National Card Front Image</label>
@@ -123,10 +124,7 @@
                     <span id="idcard-err" asp-validation-for="@Model.NationalCardImagesBack" class="text-danger"></span>
 
                 </div>
-                    <span id="localizedIdError" hidden>@localizer["IdCardLimit"]</span>
-
-
-
+                <span id="localizedIdError" hidden>@localizer["IdCardLimit"]</span>
 
             </div>
 
@@ -137,8 +135,7 @@
             <div class="row" id="passport-sec" style="display:none">
                 <div class="form-group col-12 ">
                     <label asp-for="@Model.Passport"></label><span class="text-danger m-1">*</span>
-                    <input id="passport" asp-for="@Model.Passport" class="form-control"
-                           autocomplete="username" />
+                    <input id="passport" asp-for="@Model.Passport" class="form-control" />
 
                     <span asp-validation-for="@Model.Passport" class="text-danger"></span>
                 </div>
@@ -588,7 +585,7 @@
                 <p>
                     @if (!String.IsNullOrEmpty(Model.codeofEthics))
                     {
-                        @Html.Raw(Model.codeofEthics.Replace("../.",".").ToString())
+                        @Html.Raw(Model.codeofEthics.Replace("../.", ".").ToString())
                     }
                 </p>
 
@@ -608,22 +605,22 @@
 
                 @for (var i = 0; i < Model.Questions.Count; i++)
                 {
-                    @Html.HiddenFor(y=>Model.Questions[i].Id)
+                    @Html.HiddenFor(y => Model.Questions[i].Id)
 
                     @if (Thread.CurrentThread.CurrentCulture.Name.Contains("ar"))
                     {
-                        @Html.DisplayFor(y=>Model.Questions[i].QuestionArtxt)
+                        @Html.DisplayFor(y => Model.Questions[i].QuestionArtxt)
 
                     }
                     else
                     {
-                        @Html.DisplayFor(y=>Model.Questions[i].QuestionEntxt)
+                        @Html.DisplayFor(y => Model.Questions[i].QuestionEntxt)
 
                     }
 
-                    @Html.HiddenFor(y=>Model.Questions[i].IsYesNo)
-                    @Html.HiddenFor(y=>Model.Questions[i].QuestionEntxt)
-                    @Html.HiddenFor(y=>Model.Questions[i].QuestionArtxt)
+                    @Html.HiddenFor(y => Model.Questions[i].IsYesNo)
+                    @Html.HiddenFor(y => Model.Questions[i].QuestionEntxt)
+                    @Html.HiddenFor(y => Model.Questions[i].QuestionArtxt)
                     if (Model.Questions[i].IsYesNo)
                     {
 
@@ -665,7 +662,7 @@
                         <textarea placeholder="Explain ...." type="text"
                                   id="t-@Model.Questions[i].Id"
                                   class="form-control " asp-for=@Model.Questions[i].Answer>
-                                        </textarea>
+                                                    </textarea>
 
                         <span asp-validation-for="@Model.Questions[i].Answer"
                               class="text-danger"></span>
@@ -734,7 +731,7 @@
 
 </div>
 
-@section scripts{
-<script src="~/js/registration.js"></script>
+@section scripts {
+    <script src="~/js/registration.js"></script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -151,6 +151,7 @@ namespace ESTA.Areas.Admin.Controllers
                 dbUser.MobilePhone = userData.MobilePhone;
                 dbUser.Birthdate = userData.Birthdate;
                 dbUser.MembershipNumber = userData.MembershipNumber;
+                dbUser.Country = userData.Country;
 
                 if (User.IsInRole("Admin"))
                 {
@@ -160,11 +161,11 @@ namespace ESTA.Areas.Admin.Controllers
                     dbUser.Passport = userData.Passport;
                 }
 
-                if (userData.NationalIdImages != null)
+                if (userData.NationalCardImagesBack != null && userData.NationalCardImagesFront != null)
                 {
                     await appRep.ImageRep.RemoveImageByTypeAsync(1, dbUser.Id);
                     await this.appRep.SaveChangesAsync();
-                    foreach (var image in userData.NationalIdImages)
+                    foreach (var image in userData.NationalCardImagesBack)
                     {
 
                         try
@@ -189,6 +190,30 @@ namespace ESTA.Areas.Admin.Controllers
 
                     }
 
+                    foreach (var image in userData.NationalCardImagesFront)
+                    {
+
+                        try
+                        {
+                            var SavePath = hostEnvironment.WebRootPath + Constants.NationalIDsImagesSavingPath;
+                            var PhotoName = await FileUpload.SavePhotoAsync(
+                             image,
+                                dbUser.FullName + " " + dbUser.Id,
+                                SavePath
+                            );
+                            //userData.userImages.Add(new UserImage() { TypeId = 1, Path = Constants.NationalIDsImagesSavingPath + PhotoName, UserId = dbUser.Id });
+                            //adding to database
+                            await appRep.ImageRep.AddImages(new UserImage() { TypeId = 1, Path = Constants.NationalIDsImagesSavingPath + PhotoName, UserId = dbUser.Id });
+
+                            await this.appRep.SaveChangesAsync();
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
+
+                    }
                     //     user.NationalIDImagePath = Constants.NationalIDsImagesSavingPath + PhotoName;
                 }
 
