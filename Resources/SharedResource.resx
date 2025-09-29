@@ -873,4 +873,19 @@
   <data name="unpaidMembership" xml:space="preserve">
     <value>Not paid the Membership</value>
   </data>
+  <data name="coursewillstart" xml:space="preserve">
+    <value>Enrollment is not permitted as the course begins in less than 10 days.</value>
+  </data>
+  <data name="foreignPay" xml:space="preserve">
+    <value>Cannot proceed with enrollment as online payment is not available for users outside the country.</value>
+  </data>
+  <data name="membershipNotPaid" xml:space="preserve">
+    <value>Cannot proceed with enrollment as the membership has not been paid.</value>
+  </data>
+  <data name="paylaterinfo" xml:space="preserve">
+    <value>Kindly ensure payment is completed within 3 days to avoid cancellation of your request.</value>
+  </data>
+  <data name="preqnotComplete" xml:space="preserve">
+    <value>Enrollment denied due to incomplete prerequisite courses.</value>
+  </data>
 </root>

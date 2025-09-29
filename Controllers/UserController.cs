@@ -140,7 +140,7 @@ namespace ESTA.Controllers
                 if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 {
 
-                    return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Mempership Is Not Paid "));
+                    return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("membershipNotPaid")));
 
                 }
 
@@ -167,7 +167,7 @@ namespace ESTA.Controllers
                         }
                         if (MatchCounter != PrerequisiteCourses.Count())
                         {
-                            return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll.Prerequisite Courses Not Completed"));
+                            return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("preqnotComplete")));
                         }
 
 
@@ -184,13 +184,14 @@ namespace ESTA.Controllers
                         }
                         await appRep.SaveChangesAsync();
 
+                        return View("_Info", new Info(localizer.GetString("Pay Later"), localizer.GetString("paylaterinfo")));
 
-                        return RedirectToAction("profile");
+                        //return RedirectToAction("profile");
 
                     }
                     else
                     {
-                        return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Course Will start in less than 10 days"));
+                        return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("coursewillstart")));
                     }
 
 
@@ -214,13 +215,13 @@ namespace ESTA.Controllers
             if (!await appRep.UserRep.IsUserMempershipPaid(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
 
-                return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Mempership Is Not Paid "));
+                return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("membershipNotPaid")));
 
             }
             if (await appRep.UserRep.IsForeignUser(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
 
-                return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll. Foreign Users Can not pay online "));
+                return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("foreignPay")));
 
             }
             var course = await appRep.CoursesRep.GetCourse(Id);
@@ -245,7 +246,7 @@ namespace ESTA.Controllers
                     }
                     if (MatchCounter != PrerequisiteCourses.Count())
                     {
-                        return View("_Info", new Info(localizer.GetString("cannotenroll"), "Can not Enroll.Prerequisite Courses Not Completed"));
+                        return View("_Info", new Info(localizer.GetString("cannotenroll"), localizer.GetString("preqnotComplete")));
                     }
 
 

@@ -863,4 +863,19 @@
   <data name="unpaidMembership" xml:space="preserve">
     <value>لم يدفعوا العضوية</value>
   </data>
+  <data name="coursewillstart" xml:space="preserve">
+    <value>لا يُسمح بالتسجيل لأن الدورة ستبدأ خلال أقل من 10 أيام.</value>
+  </data>
+  <data name="foreignPay" xml:space="preserve">
+    <value>لا يمكن المتابعة في التسجيل لأن الدفع الإلكتروني غير متاح للمستخدمين خارج الدولة.</value>
+  </data>
+  <data name="membershipNotPaid" xml:space="preserve">
+    <value>لا يمكن المتابعة في التسجيل لأن رسوم العضوية لم يتم دفعها.</value>
+  </data>
+  <data name="paylaterinfo" xml:space="preserve">
+    <value>يرجى التأكد من إتمام الدفع خلال 3 أيام لتجنب إلغاء طلبك.</value>
+  </data>
+  <data name="preqnotComplete" xml:space="preserve">
+    <value>تم رفض التسجيل بسبب عدم إكمال المقررات المطلوبة.</value>
+  </data>
 </root>

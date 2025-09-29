@@ -567,6 +567,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enrollment is not permitted as the course begins in less than 10 days..
+        /// </summary>
+        public static string coursewillstart {
+            get {
+                return ResourceManager.GetString("coursewillstart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Course Prerequisite.
         /// </summary>
         public static string cpre {
@@ -909,6 +918,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot proceed with enrollment as online payment is not available for users outside the country..
+        /// </summary>
+        public static string foreignPay {
+            get {
+                return ResourceManager.GetString("foreignPay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreign Members.
         /// </summary>
         public static string forignmem {
@@ -1211,6 +1229,15 @@ namespace ESTA.Resources {
         public static string membershipconfirm {
             get {
                 return ResourceManager.GetString("membershipconfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot proceed with enrollment as the membership has not been paid..
+        /// </summary>
+        public static string membershipNotPaid {
+            get {
+                return ResourceManager.GetString("membershipNotPaid", resourceCulture);
             }
         }
         
@@ -1591,6 +1618,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kindly ensure payment is completed within 3 days to avoid cancellation of your request..
+        /// </summary>
+        public static string paylaterinfo {
+            get {
+                return ResourceManager.GetString("paylaterinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pay Mempership.
         /// </summary>
         public static string paymem {
@@ -1695,6 +1731,15 @@ namespace ESTA.Resources {
         public static string preinc {
             get {
                 return ResourceManager.GetString("preinc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enrollment denied due to incomplete prerequisite courses..
+        /// </summary>
+        public static string preqnotComplete {
+            get {
+                return ResourceManager.GetString("preqnotComplete", resourceCulture);
             }
         }
         

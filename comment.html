@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CV Comment Box</title>
+  
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 40px;
+}
+
+.comment-box {
+  background-color: white;
+  border: 2px solid #00bcd4;
+  border-radius: 8px;
+  padding: 15px;
+  width: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  resize: none;
+  outline: none;
+  font-size: 16px;
+  height: 60px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+textarea::placeholder {
+  color: #aaa;
+}
+
+.attachment {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 6px;
+  padding: 5px 10px;
+  width: fit-content;
+}
+
+.attachment img {
+  width: 20px;
+  margin-right: 8px;
+}
+
+.filename {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.remove-file {
+  cursor: pointer;
+  color: #999;
+  font-size: 16px;
+}
+.footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.attach-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.attach-icon:hover {
+  color: #000;
+}
+
+.publish-btn {
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.publish-btn:hover {
+  background-color: #0097a7;
+}
+</style>
+
+</head>
+<body>
+  <div class="comment-box">
+    <textarea placeholder="Write a comment...">CV is looking good! @Laura Knies</textarea>
+
+	  <div class="attachment" id="file-attachment" style="display: none;">
+		<img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+		<span class="filename" id="file-name">filename.pdf</span>
+		<span class="remove-file" onclick="removeFile()">✕</span>
+	  </div>
+    <div class="footer">
+	    <label for="file-upload" class="attach-icon">📎</label>
+		<input type="file" id="file-upload" accept=".pdf" style="display: none;" />
+      <button class="publish-btn">Publish</button>
+    </div>
+  </div>
+
+<script>
+const fileInput = document.getElementById("file-upload");
+const fileAttachment = document.getElementById("file-attachment");
+const fileNameSpan = document.getElementById("file-name");
+
+fileInput.addEventListener("change", function () {
+  const file = this.files[0];
+
+  if (!file) return;
+
+  const maxSizeKB = 512;
+  const isPDF = file.name.toLowerCase().endsWith(".pdf");
+  const fileSizeKB = file.size / 1024;
+
+  if (!isPDF) {
+    alert("Only PDF files are allowed.");
+    this.value = "";
+    return;
+  }
+
+  if (fileSizeKB > maxSizeKB) {
+    alert("File size must not exceed 512 KB.");
+    this.value = "";
+    return;
+  }
+
+  fileNameSpan.textContent = file.name;
+
+  // Set icon (PDF icon)
+  const icon = fileAttachment.querySelector("img");
+  icon.src = "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+
+  fileAttachment.style.display = "flex";
+});
+
+function removeFile() {
+  fileInput.value = "";
+  fileAttachment.style.display = "none";
+}
+
+
+</script>
+</body>
+</html>
