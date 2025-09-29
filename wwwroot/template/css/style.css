@@ -2632,7 +2632,7 @@ span.published-time.published-location {
     }
 
 .comments-reply {
-    padding-left: 130px;
+    margin-left: 90px;
 }
 
 .comments-text {

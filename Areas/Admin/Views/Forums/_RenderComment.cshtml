@@ -33,12 +33,20 @@
                 </div>
 
                 <p>@comment.Comment</p>
+                @if (!string.IsNullOrEmpty(comment.FilePath))
+                {
+                    <div class="attachment" style="display: flex;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+                        <a href="@Url.Content("~/images/comments/" + comment.FilePath)" target="_blank" class="filename">@(comment.FilePath)</a>
+                    </div>
+                }
                 @if (role)
                 {
-                    <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id">
+                    @* <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id">
                         <button type="submit" class='btn btn-danger'>Delete Comment</button>
-                    </form>
+                    </form> *@
 
+                    <a onclick='deleteComment(@comment.Id)' class='link-danger delete'>Delete</a>
                     @if (comment.Banned)
                     {
                         <div style="display:inline-block;">
@@ -96,12 +104,20 @@
                                 </div>
 
                                 <p>@reply.Comment</p>
+                                @if (!string.IsNullOrEmpty(reply.FilePath))
+                                {
+                                    <div class="attachment" style="display: flex;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+                                        <a href="@Url.Content("~/images/comments/" + reply.FilePath)" target="_blank" class="filename">@(reply.FilePath)</a>
+                                    </div>
+                                }
                                 @if (role)
                                 {
 
-                                    <form method="post" asp-action="DeleteReply" asp-route-commentId="@reply.Id">
+                                    <a onclick='DeleteReply(@reply.Id)' class='link-danger delete'>Delete</a>
+                                    @* <form method="post" asp-action="DeleteReply" asp-route-commentId="@reply.Id">
                                         <button asp-action="" type="submit" class='btn btn-danger'>Delete Replay</button>
-                                    </form>
+                                    </form> *@
                                     if (reply.Banned)
                                     {
                                         <div style="display:inline-block;">

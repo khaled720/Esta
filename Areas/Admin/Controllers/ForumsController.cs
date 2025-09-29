@@ -229,7 +229,7 @@ namespace ESTA.Areas.Admin.Controllers
                 appRep.ForumRep.DeleteComment(Reply);
                 await appRep.SaveChangesAsync();
 
-                return RedirectToAction("GetForum", new { id = Reply[0].forumId });
+                return Json(true);
             }
             return RedirectToAction("Error");
 

@@ -8,7 +8,7 @@
             commentId: id
         },
         success: function (data) {
-            $("#Comment" + id).remove();
+            $("#comment" + id).remove();
             loadStats();
         },
         error: function (data) {
@@ -26,8 +26,41 @@ function DeleteReply(id) {
             commentId: id
         },
         success: function (data) {
-            $("#Comment" + id).remove();
-            loadStats();
+            $("#comment" + id).remove();
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
+}
+function deleteCommentUser(id) {
+    console.log(id)
+    $.ajax({
+        type: 'post',
+        dataType: 'JSON',
+        url: $('#AjaxDelCmnt').val(),
+        data: {
+            commentId: id
+        },
+        success: function (data) {
+            $("#comment" + id).remove();
+        },
+        error: function (data) {
+            console.log(data)
+        }
+    });
+}
+function DeleteReplyUser(id) {
+    console.log(id)
+    $.ajax({
+        type: 'post',
+        dataType: 'JSON',
+        url: $('#AjaxDelRpl').val(),
+        data: {
+            commentId: id
+        },
+        success: function (data) {
+            $("#comment" + id).remove();
         },
         error: function (data) {
             console.log(data)

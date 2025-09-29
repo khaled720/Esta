@@ -7,13 +7,12 @@
 @inject SignInManager<User> signInManager;
 @{
     var IsSigned = signInManager.IsSignedIn(User);
-    var role = false;
+    var userId = "";
     if (IsSigned)
     {
         var user = await userManager.GetUserAsync(User);
-        role = await userManager.IsInRoleAsync(user, "Admin");
+        userId = user.Id;
     }
-    var admin = role.ToString().ToLower();
     ICollection<ESTA.ViewModels.GetUserForums> commentList = new List<ESTA.ViewModels.GetUserForums>();
     commentList.Add(Model);
 }
@@ -21,23 +20,94 @@
     .delete {
         color: red !important;
     }
+
+    .comment-box {
+        background-color: white;
+        border: 1px solid var(--primary-color);
+        border-radius: 8px;
+        padding: 15px;
+        width: 500px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+        .comment-box textarea {
+            width: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            height: 60px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+            .comment-box textarea::placeholder {
+                color: #aaa;
+            }
+
+    .attachment {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        background-color: #f1f1f1;
+        border-radius: 6px;
+        padding: 5px 10px;
+        width: fit-content;
+    }
+
+        .attachment img {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+    .filename {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .remove-file {
+        cursor: pointer;
+        color: #999;
+        font-size: 16px;
+    }
+
+    .footer {
+        width: 100%;
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .attach-icon {
+        cursor: pointer;
+        font-size: 18px;
+        color: #666;
+        transition: color 0.2s ease;
+    }
+
+        .attach-icon:hover {
+            color: #000;
+        }
 </style>
 <div class="container">
     <div class="card x-75">
         <div class="card-body">
             @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
-       {
-           showAllLink = false,
-           showReply = true,
-           UserForums = commentList
-       })
+            {
+                showAllLink = false,
+                        showReply = true,
+                        UserForums = commentList
+                        })
             <input type="hidden" value="@Model.Id" id="ParentId" />
             <input type="hidden" value="@Model.forumId" id="ForumId" />
-            <input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
-            <input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
         </div>
     </div>
 </div>
+<input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
+<input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
 @section Scripts {
     <script src="~/js/forumsfuncs.js"></script>
     <script>
@@ -48,21 +118,33 @@
         });
         function AddReply(id) {
             if ($('#reply' + id).val()) {
+                $('#rplyErr').text('')
+                formDate = new FormData();
+                var fileInput = document.getElementById("comment-file");
+                var file = fileInput.files[0];
+                if (file) {
+                    formDate.append("file", file);
+                }
+                else{
+                    formDate.append("file", null);
+                }
+                formDate.append("forumId", $('#ForumId').val());
+                formDate.append("comment", $('#reply' + id).val());
+                formDate.append("parentId", id);
+
                 $.ajax({
                     type: 'post',
                     dataType: 'JSON',
                     url: '@this.Url.Action("AddReply", "Forums")',
-                    data: {
-                        forumId: $('#ForumId').val(),
-                        comment: $('#reply' + id).val(),
-                        parentId: id
-                    },
+                    processData: false,
+                    contentType: false,
+                    data:formDate,
                     success: function (data) {
                         $('#reply' + id).val('')
                         pageNo = 1
                         ListReplies(data, false)
                         $('#replyToggle' + id).css('visibility', 'visible')
-
+                        removeFile()
                         checkCommentReplies()
                     },
                     error: function (data) {
@@ -101,9 +183,14 @@
 
                 str += "<li id='comment" + obj.id + "' class='mb-3'><div class='comments-box d-flex'><div class='comments-avatar'><img src='"+ obj.userPic+"' alt='' class='rounded-circle shadow-1-strong me-3' width='65' height='65'></div>" +
                     "<div class='comments-text'><div class='avatar-name'><h5>" + obj.userName + "<span class='small'> - " + formatDate(obj.createdDate) + "</span></h5></div><p>" + obj.comment + "</p>";
-                if (@admin) {
-                    str += "<a onclick='DeleteReply" + obj.id + "' class='link-danger delete'>Delete</a>";
-                }
+                    if (obj.filePath != null && obj.filePath !=""){
+                        str +="<div class='attachment' style='display: flex;'><img src='https://cdn-icons-png.flaticon.com/512/337/337946.png'alt='PDF' />"
+                        +"<a href='/images/comments/" + obj.filePath+"' target='_blank' class='filename' >"+obj.filePath+"</a>";
+                    }
+                    if('@userId' == obj.userId){
+                        str += "<a onclick='DeleteReplyUser(" + obj.id + ")' class='link-danger delete'>Delete</a>";
+                    }
+                        //str += "<a onclick='DeleteReply" + obj.id + "' class='link-danger delete'>Delete</a>";
                 str += "</div></div></li>";
             });
             if (append) {
@@ -126,12 +213,53 @@
                 success: function (data) {
                     if (!data) {
                         $('#MoreBtn').hide();
+                    }else{
+                        $('#MoreBtn').show();
                     }
                 },
                 error: function (data) {
                     console.log(data)
                 }
             });
+        }
+        function getFile(e) {
+            //debugger
+            const fileAttachment = document.getElementById("file-attachment");
+            const fileNameSpan = document.getElementById("file-name");
+            const file = e.files[0];
+
+            if (!file) return;
+
+            const maxSizeKB = 512;
+            const isPDF = file.name.toLowerCase().endsWith(".pdf");
+            const fileSizeKB = file.size / 1024;
+
+            if (!isPDF) {
+            $('#rplyErr').text("Only PDF files are allowed.");
+            e.value = "";
+            return;
+            }
+
+            if (fileSizeKB > maxSizeKB) {
+            $('#rplyErr').text("File size must not exceed 512 KB.");
+            e.value = "";
+            return;
+            }
+
+            fileNameSpan.textContent = file.name;
+
+            // Set icon (PDF icon)
+            const icon = fileAttachment.querySelector("img");
+            icon.src = "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+
+            fileAttachment.style.display = "flex";
+        }
+
+        function removeFile() {
+            const fileInput = document.getElementById("comment-file");
+            const fileAttachment = document.getElementById("file-attachment");
+            fileInput.value = "";
+            fileAttachment.style.display = "none";
         }
     </script>
 }

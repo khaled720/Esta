@@ -7,6 +7,77 @@
     .delete {
         color: red !important;
     }
+
+    .comment-box {
+        background-color: white;
+        border: 1px solid var(--primary-color);
+        border-radius: 8px;
+        padding: 15px;
+        width: 500px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+        .comment-box textarea {
+            width: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            height: 60px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+            .comment-box textarea::placeholder {
+                color: #aaa;
+            }
+
+    .attachment {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        background-color: #f1f1f1;
+        border-radius: 6px;
+        padding: 5px 10px;
+        width: fit-content;
+    }
+
+        .attachment img {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+    .filename {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .remove-file {
+        cursor: pointer;
+        color: #999;
+        font-size: 16px;
+    }
+
+    .footer {
+        width: 100%;
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .attach-icon {
+        cursor: pointer;
+        font-size: 18px;
+        color: #666;
+        transition: color 0.2s ease;
+    }
+
+        .attach-icon:hover {
+            color: #000;
+        }
 </style>
 <div class="slider-area">
     <div class="pages-title">
@@ -62,33 +133,44 @@
             <div class="col-12">
                 <div class="post-comments post-comments-padding white-bg">
 
-
-
                     <div class="post-comments-form my-3">
                         <div class="section-title mb-30">
                             <h2>Leave a Comment</h2>
                         </div>
-                        <div class="row">
-                            <div class="col-xl-8">
+                        <div class="row comment-box">
+                            <textarea cols="30" rows="5" wrap="hard" maxlength="500" id="comment" placeholder="Write a comment..."></textarea>
+
+                            <div class="attachment" id="file-attachment" style="display: none;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+                                <span class="filename" id="file-name"></span>
+                                <span class="remove-file" onclick="removeFile()">✕</span>
+                            </div>
+                            <div class="footer">
+                                <div>
+                                    <label for="comment-file" class="attach-icon">📎</label>
+                                    <input type="file" onchange="getFile(this)" id="comment-file" accept=".pdf" style="display: none;" />
+                                </div>
+                                <div>
+                                    <button onclick="AddComment()" class="btn btn-primary">Comment</button>
+                                </div>
+                            </div>
+                            @* <div class="col-xl-8">
                                 <textarea wrap="hard" maxlength="500" name="comments" style="border-radius:10px" id="comment" cols="30" rows="5" class="form-control" placeholder="Your Comment"></textarea>
                                 <button class="btn btn-primary py-3 px-5 mt-3" onclick="AddComment()">send comment</button>
-                            </div>
+                            </div> *@
                         </div>
                         <div id="cmntErr" class="text-danger">
                         </div>
                     </div>
-
-
-
 
                     <div class="latest-comments">
                         <ul id="CommentList">
 
                             @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
                             {
-                            showAllLink = true,
-                            showReply = false,
-                            UserForums = Model.UserForum
+                                showAllLink = true,
+                                showReply = false,
+                                UserForums = Model.UserForum
                             })
                         </ul>
                     </div>
@@ -97,11 +179,11 @@
                         <button id="MoreBtn" onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
                     }
 
-                 
+
                 </div>
             </div>
 
-         @*   <div class="col-xl-4 align-self-center" id="stats">
+            @*   <div class="col-xl-4 align-self-center" id="stats">
             </div>*@
         </div>
     </div>
@@ -110,21 +192,14 @@
 <input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
 <input type="hidden" value="@Model.Id" id="ForumId" />
 
-@section Scripts{
+@section Scripts {
     <script src="~/js/forumsfuncs.js"></script>
     <script>
-        $(document).ready(function () {
-            var id = $('#ForumId').val();
-            loadStats();
-        });
-        function loadStats() {
-            $('#stats').load('@Url.Action("GetForumStatistics","Forums",new { id = ViewContext.RouteData.Values["id"]})');
-        }
         var commentPage = 1;
         function getNextPage() {
             $.ajax({
                 type: 'get',
-                url: '@this.Url.Action("GetForumsComment","Forums")',
+                url: '@this.Url.Action("GetForumsComment", "Forums")',
                 data: {
                     forumId: $('#ForumId').val(),
                     page: commentPage++
@@ -141,7 +216,7 @@
         function checkMoreComments() {
             $.ajax({
                 type: 'get',
-                url: '@this.Url.Action("CheckMoreComments","Forums")',
+                url: '@this.Url.Action("CheckMoreComments", "Forums")',
                 data: {
                     forumId: $('#ForumId').val(),
                     page: commentPage
@@ -158,18 +233,31 @@
 
         function AddComment() {
             if ($('#comment').val()) {
+                $('#cmntErr').text('')
+                // comment-file
+                formDate = new FormData();
+                var fileInput = document.getElementById("comment-file");
+                var file = fileInput.files[0];
+                if (file) {
+                    formDate.append("file", file);
+                }
+                else{
+                    formDate.append("file", null);
+                }
+                formDate.append("forumId", $('#ForumId').val());
+                formDate.append("comment", $('#comment').val());
+
                 $.ajax({
                     type: 'post',
-                    url: '@this.Url.Action("AddComment","Forums")',
-                    data: {
-                        forumId: $('#ForumId').val(),
-                        comment: $('#comment').val()
-                    },
+                    url: '@this.Url.Action("AddComment", "Forums")',
+                    processData: false,
+                    contentType: false,
+                    data: formDate,
                     success: function (data) {
                         $('#comment').val('')
                         $('#CommentList').append(data);
                         checkMoreComments()
-                        loadStats();
+                        removeFile()
                     },
                     error: function (data) {
                         console.log('hiii')
@@ -181,6 +269,44 @@
             }
         }
 
+        function getFile(e) {
+            //debugger
+            const fileAttachment = document.getElementById("file-attachment");
+            const fileNameSpan = document.getElementById("file-name");
+            const file = e.files[0];
 
+            if (!file) return;
+
+            const maxSizeKB = 512;
+            const isPDF = file.name.toLowerCase().endsWith(".pdf");
+            const fileSizeKB = file.size / 1024;
+
+            if (!isPDF) {
+            $('#cmntErr').text("Only PDF files are allowed.");
+            e.value = "";
+            return;
+            }
+
+            if (fileSizeKB > maxSizeKB) {
+            $('#cmntErr').text("File size must not exceed 512 KB.");
+            e.value = "";
+            return;
+            }
+
+            fileNameSpan.textContent = file.name;
+
+            // Set icon (PDF icon)
+            const icon = fileAttachment.querySelector("img");
+            icon.src = "https://cdn-icons-png.flaticon.com/512/337/337946.png";
+
+            fileAttachment.style.display = "flex";
+        }
+
+        function removeFile() {
+            const fileInput = document.getElementById("comment-file");
+            const fileAttachment = document.getElementById("file-attachment");
+            fileInput.value = "";
+            fileAttachment.style.display = "none";
+        }
     </script>
-                    }
+}

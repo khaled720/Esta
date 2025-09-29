@@ -191,13 +191,20 @@ namespace ESTA.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddCommentAsync(int forumId, string comment)
+        public async Task<IActionResult> AddCommentAsync(int forumId, string comment, IFormFile file)
         {
+            string filePath = string.Empty;
+            if (file != null)
+            {
+                // Handle file upload if necessary
+                filePath = ImageHelper.UploadedFile(file, "images/Comments");
+            }
             var newComment = new UserForum
             {
                 Comment = comment,
                 userId = _userManager.GetUserId(User),
-                forumId = forumId
+                forumId = forumId,
+                FilePath = filePath
             };
             appRep.ForumRep.AddComment(newComment);
             await appRep.SaveChangesAsync();
@@ -222,14 +229,21 @@ namespace ESTA.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddReplyAsync(int forumId, string comment, int parentId)
+        public async Task<IActionResult> AddReplyAsync(int forumId, string comment, int parentId, IFormFile file)
         {
+            string filePath = string.Empty;
+            if (file != null)
+            {
+                // Handle file upload if necessary
+                filePath = ImageHelper.UploadedFile(file, "images/Comments");
+            }
             var newReply = new UserForum
             {
                 Comment = comment,
                 userId = _userManager.GetUserId(User),
                 forumId = forumId,
-                ParentId = parentId
+                ParentId = parentId,
+                FilePath = filePath
             };
             appRep.ForumRep.AddComment(newReply);
             await appRep.SaveChangesAsync();
@@ -238,22 +252,41 @@ namespace ESTA.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCommentAsync(int commentId)
         {
+            var comment = appRep.ForumRep.GetCommentById(commentId);
+            var forumId = comment.forumId;
             var Reply = appRep.ForumRep.GetReplies(commentId);
-            Reply.Add(appRep.ForumRep.GetCommentById(commentId));
+            Reply.Add(comment);
             appRep.ForumRep.DeleteComment(Reply);
+
+            if (!string.IsNullOrEmpty(comment.FilePath))
+            {
+                ImageHelper.DeleteFile("images/Comments", comment.FilePath);
+            }
+            foreach (var item in Reply)
+            {
+                if (!string.IsNullOrEmpty(item.FilePath))
+                {
+                    ImageHelper.DeleteFile("images/Comments", item.FilePath);
+                }
+            }
             await appRep.SaveChangesAsync();
 
             return Json(true);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteReplyAsync(int commentId)
         {
             var Reply = appRep.ForumRep.GetCommentById(commentId);
+            var parentId = Reply.ParentId;
+            if (!string.IsNullOrEmpty(Reply.FilePath))
+            {
+                ImageHelper.DeleteFile("images/Comments", Reply.FilePath);
+            }
             appRep.ForumRep.DeleteReply(Reply);
             await appRep.SaveChangesAsync();
 

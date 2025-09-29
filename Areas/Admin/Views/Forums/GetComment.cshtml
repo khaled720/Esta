@@ -23,21 +23,41 @@
     .delete {
         color: red !important;
     }
+
+    .attachment {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        background-color: #f1f1f1;
+        border-radius: 6px;
+        padding: 5px 10px;
+        width: fit-content;
+    }
+
+        .attachment img {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+    .filename {
+        font-size: 14px;
+        margin-right: 10px;
+    }
 </style>
 <div class="container">
     <div class="card x-75">
         <div class="card-body">
             @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
             {
-            showAllLink = false,
-            showReply = true,
-            UserForums = commentList
-            })
+                showAllLink = false,
+                        showReply = true,
+                        UserForums = commentList
+                        })
             <input type="hidden" value="@Model.Id" id="ParentId" />
             <input type="hidden" value="@Model.forumId" id="ForumId" />
             <input type="hidden" value="@Url.Action("DeleteComment")" id="AjaxDelCmnt" />
             <input type="hidden" value="@Url.Action("DeleteReply")" id="AjaxDelRpl" />
-            <input type="hidden" value="@Url.Action("BanUser","Forums")" id="AjaxBanUser" />
+            <input type="hidden" value="@Url.Action("BanUser", "Forums")" id="AjaxBanUser" />
         </div>
     </div>
 </div>
@@ -66,7 +86,7 @@
         </div>
     </div>
 </div>
-@section Scripts{
+@section Scripts {
     <script src="~/js/forumsfuncs.js"></script>
     <script>
         var pageNo = 0
@@ -81,7 +101,7 @@
                 $.ajax({
                     type: 'post',
                     dataType: 'JSON',
-                    url: '@this.Url.Action("AddReply","Forums")',
+                    url: '@this.Url.Action("AddReply", "Forums")',
                     data: {
                         forumId: $('#ForumId').val(),
                         comment: $('#reply' + id).val(),
@@ -109,7 +129,7 @@
             $.ajax({
                 type: 'get',
                 dataType: 'JSON',
-                url: '@this.Url.Action("GetCommentReplies","Forums")',
+                url: '@this.Url.Action("GetCommentReplies", "Forums")',
                 data: {
                     parentId: $('#ParentId').val(),
                     page: pageNo++
@@ -131,8 +151,12 @@
 
                 str += "<li id='comment" + obj.id + "' class='mb-3'><div class='comments-box d-flex'><div class='comments-avatar'><img src='" + obj.userPic + "' alt='' class='rounded-circle shadow-1-strong me-3' width='65' height='65'></div>" +
                     "<div class='comments-text'><div class='avatar-name'><h5>" + obj.userName + "<span class='small'> - " + formatDate(obj.createdDate) + "</span></h5></div><p>" + obj.comment + "</p>";
-                if (@admin) {
-                    str += "<a onclick='DeleteReply" + obj.id + "' class='link-danger delete'>Delete</a>";
+                if (obj.filePath != null && obj.filePath !=""){
+                        str +="<div class='attachment' style='display: flex;'><img src='https://cdn-icons-png.flaticon.com/512/337/337946.png'alt='PDF' />"
+                        +"<a href='/images/comments/" + obj.filePath+"' target='_blank' class='filename' >"+obj.filePath+"</a>";
+                    }
+                    if (@admin) {
+                    str += "<a onclick='DeleteReply(" + obj.id + ")' class='link-danger delete'>Delete</a>";
                     if(obj.banned){
                         str += "<a href='#' class='link-secondary mx-2'>Banned</a>";
                     }
@@ -154,7 +178,7 @@
             $.ajax({
                 type: 'get',
                 dataType: 'JSON',
-                url: '@this.Url.Action("CheckCommentReplies","Forums")',
+                url: '@this.Url.Action("CheckCommentReplies", "Forums")',
                 data: {
                     parentId: $('#ParentId').val(),
                     page: pageNo
@@ -162,6 +186,8 @@
                 success: function (data) {
                     if (!data) {
                         $('#MoreBtn').hide();
+                    }else{
+                        $('#MoreBtn').show();
                     }
                 },
                 error: function (data) {

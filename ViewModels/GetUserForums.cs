@@ -12,5 +12,6 @@
         public ICollection<GetUserForums> Replies { get; set; }
         public int RepliesCount { get; set; }
         public bool Banned { get; set; } = false;
+        public string FilePath { get; set; }
     }
 }

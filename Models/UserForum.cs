@@ -15,6 +15,7 @@ namespace ESTA.Models
         public virtual ICollection<UserForum> Replies { get; set; } = new List<UserForum>();
         [StringLength(500)]
         public string Comment { get; set; }
+        public string FilePath { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

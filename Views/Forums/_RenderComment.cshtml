@@ -3,27 +3,25 @@
 *@
 @using Microsoft.AspNetCore.Identity;
 @using ESTA.Repository.IRepository;
+@inject IUnitOfWork appRep;
 @inject UserManager<User> userManager;
 @inject SignInManager<User> signInManager;
-@inject IUnitOfWork appRep;
+@model ESTA.ViewModels.RenderComment
 @{
     var IsSigned = signInManager.IsSignedIn(User);
-    var role = false;
+    var userId = "";
     if (IsSigned)
     {
         var user = await userManager.GetUserAsync(User);
-        role = await userManager.IsInRoleAsync(user, "Admin");
+        userId = user.Id;
     }
-    var admin = role.ToString().ToLower();
 }
-@model ESTA.ViewModels.RenderComment
-
 @foreach (var comment in Model.UserForums)
 {
     <li id="comment@(comment.Id)" class="mb-3">
         <div class="comments-box main-comments d-flex">
             <div class="comments-avatar">
-                <img src="@Url.Content("~"+comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
+                <img src="@Url.Content("~" + comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
             </div>
             <div class="comments-text">
                 <div class="avatar-name">
@@ -31,14 +29,22 @@
                 </div>
 
                 <p>@comment.Comment</p>
-                @if (role)
+                @if (!string.IsNullOrEmpty(comment.FilePath))
                 {
-
-                    <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id">
-                        <button type="submit" class='btn btn-danger'>Delete </button>
-
-                    </form>
+                    <div class="attachment" style="display: flex;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+                        <a href="@Url.Content("~/images/comments/" + comment.FilePath)" target="_blank" class="filename">@(comment.FilePath)</a>
+                    </div>
                 }
+
+                @if (userId == comment.userId)
+                {
+                    @* <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id" style="display:inline-block;">
+                        <button type="submit" class='btn btn-danger'>Delete</button>
+                    </form> *@
+                    <a onclick='deleteCommentUser(@comment.Id)' class='link-danger delete'>Delete</a>
+                }
+
             </div>
             <div class="col-md-4" style="margin:auto;">
                 @if (Model.showAllLink && comment.RepliesCount > 0)
@@ -81,7 +87,7 @@
                     <li id="comment@(reply.Id)" class="mb-3">
                         <div class="comments-box d-flex">
                             <div class="comments-avatar">
-                                <img src="@Url.Content("~"+comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
+                                <img src="@Url.Content("~" + comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
                             </div>
                             <div class="comments-text">
                                 <div class="avatar-name">
@@ -89,15 +95,19 @@
                                 </div>
 
                                 <p>@reply.Comment</p>
-                                @if (role)
+                                @if (!string.IsNullOrEmpty(reply.FilePath))
                                 {
-
-
-
-                                    <form method="post" asp-action="DeleteReply" asp-route-commentId="@reply.Id">
-                                        <button type="submit" class='btn btn-danger'>Delete Reply</button>
-
-                                    </form>
+                                    <div class="attachment" style="display: flex;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+                                        <a href="@Url.Content("~/images/comments/" + reply.FilePath)" target="_blank" class="filename">@(reply.FilePath)</a>
+                                    </div>
+                                }
+                                @if (userId == reply.userId)
+                                {
+                                    <a onclick='DeleteReplyUser(@reply.Id)' class='link-danger delete'>Delete</a>
+                                    @* <form method="post" asp-action="DeleteReply" asp-route-commentId="@reply.Id" style="display:inline-block;">
+                                        <button type="submit" class='btn btn-danger'>Delete</button>
+                                    </form> *@
                                 }
                             </div>
                         </div>
@@ -113,19 +123,34 @@
         </div>
         @if (Model.showReply)
         {
-            <div class='row w-50 p-2'>
-                <div class='col-8'>
+            <div class='row w-50 p-2 comment-box comments-reply'>
+                <textarea cols="30" rows="5" wrap="hard" maxlength="500" id="reply@(comment.Id)" placeholder="Write a reply..."></textarea>
+
+                <div class="attachment" id="file-attachment" style="display: none;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
+                    <span class="filename" id="file-name"></span>
+                    <span class="remove-file" onclick="removeFile()">✕</span>
+                </div>
+                <div class="footer">
+                    <div>
+                        <label for="comment-file" class="attach-icon">📎</label>
+                        <input type="file" onchange="getFile(this)" id="comment-file" accept=".pdf" style="display: none;" />
+                    </div>
+                    <div>
+                        <button onclick="AddReply(@comment.Id)" class="btn btn-primary">Reply</button>
+                    </div>
+                </div>
+                @* <div class='col-8'>
                     <input class='form-control' id="reply@(comment.Id)" type='text' placeholder='write reply' aria-label='Write Reply ...'>
                 </div>
                 <div class='col-4'>
                     <button class='btn btn-primary' onclick='AddReply(@comment.Id)'>Reply</button>
-                </div>
+                </div> *@
             </div>
             <div id="rplyErr" class="text-danger">
             </div>
         }
 
-        <input type="hidden" value="@Url.Action("GetComment", new{id = comment.Id})" id="CopyToClip@(comment.Id)">
+        <input type="hidden" value="@Url.Action("GetComment", new { id = comment.Id })" id="CopyToClip@(comment.Id)">
     </li>
 }
-
