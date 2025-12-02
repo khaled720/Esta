@@ -888,4 +888,31 @@
   <data name="preqnotComplete" xml:space="preserve">
     <value>Enrollment denied due to incomplete prerequisite courses.</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="leaveComment" xml:space="preserve">
+    <value>Leave a comment</value>
+  </data>
+  <data name="more" xml:space="preserve">
+    <value>Load more</value>
+  </data>
+  <data name="Replies" xml:space="preserve">
+    <value>replies</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="writeComment" xml:space="preserve">
+    <value>Write a comment...</value>
+  </data>
+  <data name="writereply" xml:space="preserve">
+    <value>Write a reply...</value>
+  </data>
+  <data name="LatestReplies" xml:space="preserve">
+    <value>Latest replies</value>
+  </data>
 </root>

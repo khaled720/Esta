@@ -99,3 +99,30 @@ nav {
 .register-english-levels {
     direction: rtl
 }
+
+.post-comments {
+    direction: rtl !important;
+}
+
+.main-comments {
+    /*padding-left: 155px;*/
+    /*padding-right: 0px;*/
+}
+
+.comments-text {
+    padding-right: 20px;
+    padding-left: 0px;
+}
+
+#CommentList .row {
+    flex-direction: row !important;
+}
+
+#CommentList li {
+    direction: rtl;
+}
+
+.comments-reply {
+    /*    margin-left: 0px;
+    margin-right: 90px;*/
+}

@@ -127,68 +127,6 @@ namespace ESTA.Controllers
             return View();
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> NewForumAsync(AddForum forum)
-        {
-            var Newforum = new Forum
-            {
-                Description = forum.Description,
-                Title = forum.Title,
-                LevelId = forum.levelId
-            };
-            appRep.ForumRep.AddForum(Newforum);
-            await appRep.SaveChangesAsync();
-
-            return RedirectToAction("Index");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<IActionResult> EditForumAsync(int id)
-        {
-            Forum? Forum = appRep.ForumRep.GetForum(id, true);
-
-            ViewBag.LevelsListItem = await GetLevelsAsync();
-            if (Forum != null)
-            {
-                EditForum editForum = _mapper.Map<Forum, EditForum>(Forum);
-                return View(editForum);
-            }
-            return RedirectToAction("Error");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> EditForumAsync(EditForum EditForum)
-        {
-            Forum Forum = appRep.ForumRep.GetForum(EditForum.Id, false);
-            if (Forum != null)
-            {
-                _mapper.Map(EditForum, Forum);
-                await appRep.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Error");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> DeleteForumAsync(int id)
-        {
-            Forum Forum = appRep.ForumRep.GetForum(id, false);
-            if (Forum != null)
-            {
-                appRep.ForumRep.DeleteForum(Forum);
-                await appRep.SaveChangesAsync();
-                List<UserForum> commentList = appRep.ForumRep.GetComments(id, null);
-                appRep.ForumRep.DeleteComment(commentList);
-                await appRep.SaveChangesAsync();
-                return Json(true);
-            }
-            return View(false);
-        }
-
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddCommentAsync(int forumId, string comment, IFormFile file)
@@ -419,43 +357,6 @@ namespace ESTA.Controllers
             bool CheckReplies = appRep.ForumRep.CheckMoreComments(page, parentId);
 
             return Json(CheckReplies);
-        }
-
-        [HttpGet]
-        public IActionResult GetForumStatistics(int? id)
-        {
-            //count of comment/ count of replies/ count of engaging users.
-            ForumStatisticsObj statisticsObj = new();
-            DateTime todayDate = DateTime.Now.Date;
-            DateTime yesterday = DateTime.Now.AddDays(-1).Date;
-            DateTime threeMonths = DateTime.Now.AddMonths(-3).Date;
-
-            statisticsObj.Today = new()
-            {
-                NoComment = appRep.ForumRep.GetCommentCountByDate(id, todayDate),
-                NoReplies = appRep.ForumRep.GetReplyCountByDate(id, todayDate),
-                NoUser = appRep.ForumRep.GetUsersCountByDate(id, todayDate)
-            };
-            statisticsObj.Yesterday = new()
-            {
-                NoComment = appRep.ForumRep.GetCommentCountByDate(id, yesterday),
-                NoReplies = appRep.ForumRep.GetReplyCountByDate(id, yesterday),
-                NoUser = appRep.ForumRep.GetUsersCountByDate(id, yesterday)
-            };
-            statisticsObj.LastThreeMonths = new()
-            {
-                NoComment = appRep.ForumRep.GetCommentCountByDate(id, threeMonths, false),
-                NoReplies = appRep.ForumRep.GetReplyCountByDate(id, threeMonths, false),
-                NoUser = appRep.ForumRep.GetUsersCountByDate(id, threeMonths, false)
-            };
-            statisticsObj.Total = new()
-            {
-                NoComment = appRep.ForumRep.GetCommentCountByDate(id),
-                NoReplies = appRep.ForumRep.GetReplyCountByDate(id),
-                NoUser = appRep.ForumRep.GetUsersCountByDate(id)
-            };
-
-            return PartialView("_ForumStatistics", statisticsObj);
         }
 
         [NonAction]

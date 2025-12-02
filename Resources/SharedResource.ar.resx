@@ -878,4 +878,31 @@
   <data name="preqnotComplete" xml:space="preserve">
     <value>تم رفض التسجيل بسبب عدم إكمال المقررات المطلوبة.</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>تعليق</value>
+  </data>
+  <data name="leaveComment" xml:space="preserve">
+    <value>اترك تعليقًا</value>
+  </data>
+  <data name="more" xml:space="preserve">
+    <value>تحميل المزيد</value>
+  </data>
+  <data name="Replies" xml:space="preserve">
+    <value>ردود</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>رد</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>عرض </value>
+  </data>
+  <data name="writeComment" xml:space="preserve">
+    <value>اكتب تعليقًا...</value>
+  </data>
+  <data name="writereply" xml:space="preserve">
+    <value>اكتب ردًا...</value>
+  </data>
+  <data name="LatestReplies" xml:space="preserve">
+    <value>احدث الردود</value>
+  </data>
 </root>

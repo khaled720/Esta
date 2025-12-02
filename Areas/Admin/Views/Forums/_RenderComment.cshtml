@@ -22,10 +22,10 @@
 </style>
 @foreach (var comment in Model.UserForums)
 {
-    <li id="comment@(comment.Id)" class="mb-3">
+    <li id="comment@(comment.Id)" class="comment-parent">
         <div class="comments-box main-comments d-flex">
             <div class="comments-avatar">
-                <img src="@Url.Content("~"+comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
+                <img src="@Url.Content("~" + comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
             </div>
             <div class="comments-text">
                 <div class="avatar-name">
@@ -40,55 +40,52 @@
                         <a href="@Url.Content("~/images/comments/" + comment.FilePath)" target="_blank" class="filename">@(comment.FilePath)</a>
                     </div>
                 }
-                @if (role)
-                {
-                    @* <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id">
+
+            </div>
+        </div>
+        <div class="comment-op" style="align-items: baseline;display: flex;flex-direction: row;gap: 10px;">
+            @if (role)
+            {
+                @* <form method="post" asp-action="DeleteComment" asp-route-commentId="@comment.Id">
                         <button type="submit" class='btn btn-danger'>Delete Comment</button>
                     </form> *@
 
-                    <a onclick='deleteComment(@comment.Id)' class='link-danger delete'>Delete</a>
-                    @if (comment.Banned)
-                    {
-                        <div style="display:inline-block;">
-                            <button class='btn btn-secondary'>Banned</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div style="display:inline-block;">
-                            <button onclick="BanUser('@comment.userId',@comment.forumId)" class='btn btn-danger'>Ban User</button>
-                        </div>
-                    }
-
-                }
-            </div>
-            <div class="col-md-4" style="margin:auto;">
-                @if (Model.showAllLink)
+                <a onclick='deleteComment(@comment.Id)' class='link-danger delete'>Delete</a>
+                @if (comment.Banned)
                 {
-                    <div class="row">
-                        <a asp-action="GetComment" asp-route-id="@comment.Id" id="repliesCountText@(comment.Id)" class="my-2">Show All @(comment.RepliesCount) Replies...</a>
+                    <div style="display:inline-block;">
+                        <button class='btn btn-secondary'>Banned</button>
                     </div>
                 }
-                <div class="row">
-                    <a href="#" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="copy link to clipboard" onclick="copyToClipboard(@comment.Id)">
-                        <svg style="width:6%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M280 64h40c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128C0 92.7 28.7 64 64 64h40 9.6C121 27.5 153.3 0 192 0s71 27.5 78.4 64H280zM64 112c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H304v24c0 13.3-10.7 24-24 24H192 104c-13.3 0-24-10.7-24-24V112H64zm128-8a24 24 0 1 0 0-48 24 24 0 1 0 0 48z" /></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
+                else
+                {
+                    <div style="display:inline-block;">
+                        <button onclick="BanUser('@comment.userId',@comment.forumId)" class='btn btn-danger'>Ban User</button>
+                    </div>
+                }
 
-        @if (comment.RepliesCount == 0)
-        {
-            <div class="row" id="replyToggle@(comment.Id)" style="visibility:hidden">
-                <a class="btn dropdown-toggle w-auto" data-toggle="collapse" href="#replyCollapse@(comment.Id)" role="button" aria-expanded="false" aria-controls="collapseExample"></a>
-            </div>
-        }
-        else
-        {
-            <div class="row" id="replyToggle@(comment.Id)" style="visibility:visible">
-                <a class="btn dropdown-toggle" style="padding: 5px 10px;" data-bs-toggle="collapse" href="#replyCollapse@(comment.Id)" role="button" aria-expanded="false" aria-controls="collapseExample"></a>
-            </div>
-        }
+            }
+            @if (Model.showAllLink)
+            {
+                <a asp-action="GetComment" asp-route-id="@comment.Id" id="repliesCountText@(comment.Id)" class="my-2">Show All @(comment.RepliesCount) Replies...</a>
+            }
+            <a class="secondary" href="#" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="copy link to clipboard" onclick="copyToClipboard(@comment.Id)">
+                Copy
+            </a>
+
+            @if (comment.RepliesCount == 0)
+            {
+                <div class="row" id="replyToggle@(comment.Id)" style="visibility:hidden">
+                    <a class="dropdown-toggle w-auto" data-toggle="collapse" href="#replyCollapse@(comment.Id)" role="button" aria-expanded="false" aria-controls="collapseExample">latest replies</a>
+                </div>
+            }
+            else
+            {
+                <div class="row" id="replyToggle@(comment.Id)" style="visibility:visible">
+                    <a class="dropdown-toggle" style="padding: 5px 10px;" data-bs-toggle="collapse" href="#replyCollapse@(comment.Id)" role="button" aria-expanded="false" aria-controls="collapseExample">latest replies</a>
+                </div>
+            }
+        </div>
         <div class="collapse" id="replyCollapse@(comment.Id)">
             <ul id="replyList@(comment.Id)" class="comments-reply">
                 @foreach (var reply in comment.Replies)
@@ -96,7 +93,7 @@
                     <li id="comment@(reply.Id)" class="mb-3">
                         <div class="comments-box d-flex">
                             <div class="comments-avatar">
-                                <img src="@Url.Content("~"+comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
+                                <img src="@Url.Content("~" + comment.userPic)" alt="" class='rounded-circle shadow-1-strong me-3' width='65' height='65'>
                             </div>
                             <div class="comments-text">
                                 <div class="avatar-name">
@@ -146,7 +143,7 @@
         </div>
         @if (Model.showReply)
         {
-@*            <div class='row w-50 p-2'>
+            @*            <div class='row w-50 p-2'>
                 <div class='col-8'>
                     <input class='form-control' id="reply@(comment.Id)" type='text' placeholder='write reply' aria-label='Write Reply ...'>
                 </div>
@@ -158,7 +155,7 @@
             </div>*@
         }
 
-        <input type="hidden" value="@Url.Action("GetComment", new{id = comment.Id})" id="CopyToClip@(comment.Id)">
+        <input type="hidden" value="@Url.Action("GetComment", new { id = comment.Id })" id="CopyToClip@(comment.Id)">
     </li>
 }
 

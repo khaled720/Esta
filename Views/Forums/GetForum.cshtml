@@ -3,82 +3,7 @@
 *@
 
 @model ESTA.ViewModels.ForumsWithComments
-<style>
-    .delete {
-        color: red !important;
-    }
-
-    .comment-box {
-        background-color: white;
-        border: 1px solid var(--primary-color);
-        border-radius: 8px;
-        padding: 15px;
-        width: 500px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-
-        .comment-box textarea {
-            width: 100%;
-            border: none;
-            resize: none;
-            outline: none;
-            font-size: 16px;
-            height: 60px;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-            .comment-box textarea::placeholder {
-                color: #aaa;
-            }
-
-    .attachment {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        background-color: #f1f1f1;
-        border-radius: 6px;
-        padding: 5px 10px;
-        width: fit-content;
-    }
-
-        .attachment img {
-            width: 20px;
-            margin-right: 8px;
-        }
-
-    .filename {
-        font-size: 14px;
-        margin-right: 10px;
-    }
-
-    .remove-file {
-        cursor: pointer;
-        color: #999;
-        font-size: 16px;
-    }
-
-    .footer {
-        width: 100%;
-        margin-top: 15px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .attach-icon {
-        cursor: pointer;
-        font-size: 18px;
-        color: #666;
-        transition: color 0.2s ease;
-    }
-
-        .attach-icon:hover {
-            color: #000;
-        }
-</style>
+@inject IStringLocalizer<SharedResource> localizer;
 <div class="slider-area">
     <div class="pages-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(@Url.Content("~/template/img/inner-bg.png"));">
@@ -102,56 +27,53 @@
 </div>
 
 
-<div class="news-details-area pt-50">
+@* <div class="news-details-area pt-50">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-12">
-                <div class="post-comments post-comments-padding white-bg">
-                    <div class="latest-comments">
-                        <ul>
-                            <li>
-                                <div class="comments-box main-comments d-flex">
-                                    <div class="comments-text">
-                                        <div class="avatar-name">
-                                            <h3>@Model.Title</h3>
-                                        </div>
-                                        <p>@Model.Description</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                    <div>
+                        <h3>@Model.Title</h3>
                     </div>
+                    <p>@Model.Description</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> *@
 <hr />
-<div class="news-details-area">
+<div class="news-details-area pt-50">
     <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-12">
+                    <div>
+                        <h3>@Model.Title</h3>
+                    </div>
+                    <p>@Model.Description</p>
+            </div>
+        </div>
         <div class="row" style="justify-content: center;">
             <div class="col-12">
-                <div class="post-comments post-comments-padding white-bg">
+                <div class="post-comments white-bg">
 
                     <div class="post-comments-form my-3">
                         <div class="section-title mb-30">
-                            <h2>Leave a Comment</h2>
+                            <h2>@localizer["leaveComment"]</h2>
                         </div>
-                        <div class="row comment-box">
-                            <textarea cols="30" rows="5" wrap="hard" maxlength="500" id="comment" placeholder="Write a comment..."></textarea>
+                        <div class="comment-box">
+                            <textarea cols="30" rows="5" wrap="hard" maxlength="500" id="comment" placeholder="@localizer["writeComment"]"></textarea>
 
                             <div class="attachment" id="file-attachment" style="display: none;">
                                 <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF" />
                                 <span class="filename" id="file-name"></span>
                                 <span class="remove-file" onclick="removeFile()">✕</span>
                             </div>
-                            <div class="footer">
+                            <div class="comment-footer">
                                 <div>
                                     <label for="comment-file" class="attach-icon">📎</label>
                                     <input type="file" onchange="getFile(this)" id="comment-file" accept=".pdf" style="display: none;" />
                                 </div>
                                 <div>
-                                    <button onclick="AddComment()" class="btn btn-primary">Comment</button>
+                                    <button onclick="AddComment()" class="btn btn-primary">@localizer["Comment"]</button>
                                 </div>
                             </div>
                             @* <div class="col-xl-8">
@@ -176,7 +98,7 @@
                     </div>
                     @if (ViewBag.CheckMoreComments)
                     {
-                        <button id="MoreBtn" onclick="getNextPage()" class="btn btn-link my-2">Load more...</button>
+                        <button id="MoreBtn" onclick="getNextPage()" class="btn btn-link my-2">@localizer["more"]</button>
                     }
 
 

@@ -3,33 +3,7 @@
 *@
 
 @model ESTA.ViewModels.ForumsWithComments
-<style>
-    .delete {
-        color: red !important;
-        cursor:pointer;
-        text-decoration:none;
-    }
 
-    .attachment {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        background-color: #f1f1f1;
-        border-radius: 6px;
-        padding: 5px 10px;
-        width: fit-content;
-    }
-
-        .attachment img {
-            width: 20px;
-            margin-right: 8px;
-        }
-
-    .filename {
-        font-size: 14px;
-        margin-right: 10px;
-    }
-</style>
 <div class="slider-area">
     <div class="pages-title">
         <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url(../../template/img/inner-bg.png);">
@@ -53,7 +27,7 @@
 </div>
 
 
-<div class="news-details-area pt-50">
+@* <div class="news-details-area pt-50">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-12">
@@ -76,10 +50,18 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 <hr />
-<div class="news-details-area">
+<div class="news-details-area pt-50">
     <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-12">
+                <div>
+                    <h3>@Model.Title</h3>
+                </div>
+                <p>@Model.Description</p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-xl-8 col-lg-12">
                 <div class="post-comments post-comments-padding white-bg">

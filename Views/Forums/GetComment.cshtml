@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<User> userManager;
 @inject SignInManager<User> signInManager;
+@inject IStringLocalizer<SharedResource> localizer;
 @{
     var IsSigned = signInManager.IsSignedIn(User);
     var userId = "";
@@ -16,91 +17,18 @@
     ICollection<ESTA.ViewModels.GetUserForums> commentList = new List<ESTA.ViewModels.GetUserForums>();
     commentList.Add(Model);
 }
-<style>
-    .delete {
-        color: red !important;
-    }
 
-    .comment-box {
-        background-color: white;
-        border: 1px solid var(--primary-color);
-        border-radius: 8px;
-        padding: 15px;
-        width: 500px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-
-        .comment-box textarea {
-            width: 100%;
-            border: none;
-            resize: none;
-            outline: none;
-            font-size: 16px;
-            height: 60px;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-            .comment-box textarea::placeholder {
-                color: #aaa;
-            }
-
-    .attachment {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        background-color: #f1f1f1;
-        border-radius: 6px;
-        padding: 5px 10px;
-        width: fit-content;
-    }
-
-        .attachment img {
-            width: 20px;
-            margin-right: 8px;
-        }
-
-    .filename {
-        font-size: 14px;
-        margin-right: 10px;
-    }
-
-    .remove-file {
-        cursor: pointer;
-        color: #999;
-        font-size: 16px;
-    }
-
-    .footer {
-        width: 100%;
-        margin-top: 15px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .attach-icon {
-        cursor: pointer;
-        font-size: 18px;
-        color: #666;
-        transition: color 0.2s ease;
-    }
-
-        .attach-icon:hover {
-            color: #000;
-        }
-</style>
 <div class="container">
     <div class="card x-75">
         <div class="card-body">
-            @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
-            {
-                showAllLink = false,
-                        showReply = true,
-                        UserForums = commentList
-                        })
+            <ul id="CommentList">
+                @await Html.PartialAsync("_RenderComment", new ESTA.ViewModels.RenderComment
+                {
+                    showAllLink = false,
+                                showReply = true,
+                                UserForums = commentList
+                                })
+            </ul>
             <input type="hidden" value="@Model.Id" id="ParentId" />
             <input type="hidden" value="@Model.forumId" id="ForumId" />
         </div>
@@ -188,7 +116,7 @@
                         +"<a href='/images/comments/" + obj.filePath+"' target='_blank' class='filename' >"+obj.filePath+"</a>";
                     }
                     if('@userId' == obj.userId){
-                        str += "<a onclick='DeleteReplyUser(" + obj.id + ")' class='link-danger delete'>Delete</a>";
+                        str += "<a onclick='DeleteReplyUser(" + obj.id + ")' class='link-danger delete'>"+'@localizer["delete"]'+"</a>";
                     }
                         //str += "<a onclick='DeleteReply" + obj.id + "' class='link-danger delete'>Delete</a>";
                 str += "</div></div></li>";

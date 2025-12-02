@@ -64,13 +64,14 @@
             {
                 <div class="card mb-3">
                     <h5 class="card-header" style="display:flex;justify-content:space-between">
-                    
-                        <a>General</a>    <a asp-action="GetForum" asp-route-id="@forum.Id">@forum.Title</a>
+
+                        <a>General</a>
+                        <a asp-action="GetForum" asp-route-id="@forum.Id">@forum.Title</a>
                     </h5>
                     <div class="card-body">
                         <p class="card-text">@forum.Description</p>
                     </div>
-                @*    @if (role)
+                    @*    @if (role)
                     {
                         <div class="card-footer">
                             <a asp-controller="Forums" asp-action="EditForum" asp-route-id="@forum.Id" class="btn btn-secondary">
@@ -84,7 +85,7 @@
                 </div>
             }
         </div>
-    @*    <div class="col-xl-4 align-self-center" id="stats">
+        @*    <div class="col-xl-4 align-self-center" id="stats">
         </div>*@
     </div>
 </div>

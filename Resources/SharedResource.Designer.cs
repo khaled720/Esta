@@ -396,6 +396,15 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Congratulations! You have successfully completed this course..
         /// </summary>
         public static string completedCourse {
@@ -1170,6 +1179,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Latest replies.
+        /// </summary>
+        public static string LatestReplies {
+            get {
+                return ResourceManager.GetString("LatestReplies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave a comment.
+        /// </summary>
+        public static string leaveComment {
+            get {
+                return ResourceManager.GetString("leaveComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string level {
@@ -1337,6 +1364,15 @@ namespace ESTA.Resources {
         public static string moderators {
             get {
                 return ResourceManager.GetString("moderators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load more.
+        /// </summary>
+        public static string more {
+            get {
+                return ResourceManager.GetString("more", resourceCulture);
             }
         }
         
@@ -1888,6 +1924,24 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to replies.
+        /// </summary>
+        public static string Replies {
+            get {
+                return ResourceManager.GetString("Replies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply.
+        /// </summary>
+        public static string Reply {
+            get {
+                return ResourceManager.GetString("Reply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field is required.
         /// </summary>
         public static string required {
@@ -2001,6 +2055,15 @@ namespace ESTA.Resources {
         public static string sendusmessage {
             get {
                 return ResourceManager.GetString("sendusmessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string ShowAll {
+            get {
+                return ResourceManager.GetString("ShowAll", resourceCulture);
             }
         }
         
@@ -2325,6 +2388,24 @@ namespace ESTA.Resources {
         public static string workinfo {
             get {
                 return ResourceManager.GetString("workinfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a comment....
+        /// </summary>
+        public static string writeComment {
+            get {
+                return ResourceManager.GetString("writeComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a reply....
+        /// </summary>
+        public static string writereply {
+            get {
+                return ResourceManager.GetString("writereply", resourceCulture);
             }
         }
     }

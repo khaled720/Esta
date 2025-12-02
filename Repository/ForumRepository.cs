@@ -356,20 +356,20 @@ namespace ESTA.Repository
         {
             try
             {
-                
-                if (levelId==4)
+
+                if (levelId == 4)
                 {
                     return appContext.Forums
-           .Where(y =>  y.LevelId == 4)
-           .Include(y => y.level)
-           .ToList();
+                       .Where(y => y.LevelId == 4)
+                       .Include(y => y.level)
+                       .ToList();
                 }
                 else
                 {
-            var x=     appContext.Forums
-       .Where(y => /*y.LevelId ==4 ||*/ y.LevelId   <= levelId )
-       .Include(y => y.level)
-       .ToList();
+                    var x = appContext.Forums
+                       .Where(y => /*y.LevelId ==4 ||*/ y.LevelId <= levelId)
+                       .Include(y => y.level)
+                       .ToList();
                     return x;
                 }
 
