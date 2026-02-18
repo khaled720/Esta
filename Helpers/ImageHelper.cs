@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore;
+using Serilog;
 
 namespace ESTA.Helpers
 {
@@ -34,10 +35,10 @@ namespace ESTA.Helpers
                     file.Delete();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-
+                Log.Error("Image Helper: " + ex.Message);
             }
         }
     }

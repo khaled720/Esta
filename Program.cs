@@ -3,30 +3,12 @@ using ESTA.Repository;
 using ESTA.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
-using ESTA.Mappers;
 using ESTA.Helpers;
-using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Localization;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
-using ESTA.Resources;
-using System.Reflection;
-using ESTA;
-using System.Security.Policy;
-using Microsoft.AspNetCore.Mvc.Routing;
-using ESTA.Controllers;
 using EntityFrameworkCore.UseRowNumberForPaging;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using AspNetCore.ReCaptcha;
 using ESTA.Services;
 using Serilog;
-using ESTA.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 

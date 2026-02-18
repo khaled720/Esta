@@ -1,4 +1,6 @@
-﻿using System.Net.Mail;
+﻿using Serilog;
+using Serilog.Core;
+using System.Net.Mail;
 
 namespace ESTA.Models
 {
@@ -59,7 +61,10 @@ namespace ESTA.Models
 
             }
             catch (Exception ex)
-            { return false; }
+            {
+                Log.Error("Email Sender: " + ex.Message);
+                return false;
+            }
         }
 
     }

@@ -30,23 +30,28 @@ namespace ESTA.Areas.Payment.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Create(int CourseId)
+        public async Task<IActionResult> CreateAsync(int CourseId)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var Course = await uow.CoursesRep.GetCourse(CourseId);
             var Order = uow.CourseOrdersRep.GetUserCourseOrderNumber(CourseId, userId);
 
-            ViewBag.OrderNumber = Order != null ? Order.OrderNumber : "0";
-            return View();
+            var Refund = new Refund
+            {
+                UserId = userId,
+                OrderNumber = Order != null ? Order.OrderNumber : "0",
+                RequestedAmount = Course.Price,
+                Status = RefundStates.Pending.ToString(),
+                Type = RefundTypes.Course.ToString(),
+            };
+
+            return View(Refund);
         }
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(Refund refund)
         {
-
-            refund.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             refund.SerialNumber = (await uow.RefundRep.GetMaxId() + 100).ToString();
-            refund.Status = RefundStates.Pending.ToString();
-            refund.Type = RefundTypes.Course.ToString();
 
 
             await uow.RefundRep.AddRefundRequest(refund);

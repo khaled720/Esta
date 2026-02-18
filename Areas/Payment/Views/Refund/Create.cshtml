@@ -23,29 +23,18 @@
             </div>*@
             <div class="form-group">
                 <label asp-for="@Model.OrderNumber" class="control-label"></label>
-                <input asp-for="@Model.OrderNumber" value="@ViewBag.OrderNumber" class="form-control" disabled />
+                <input asp-for="@Model.OrderNumber" value="@Model.OrderNumber" class="form-control" readonly />
                 <span asp-validation-for="@Model.OrderNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.RequestedAmount" class="control-label"></label>
-                <input asp-for="@Model.RequestedAmount" class="form-control" />
+                <input asp-for="@Model.RequestedAmount" class="form-control" readonly />
                 <span asp-validation-for="@Model.RequestedAmount" class="text-danger"></span>
             </div>
-            @*        <div class="form-group">
-            <label asp-for="CreateDate" class="control-label"></label>
-            <input asp-for="CreateDate" class="form-control" />
-            <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>*@
-            @*     <div class="form-group">
-            <label asp-for="UserId" class="control-label"></label>
-            <input asp-for="UserId" class="form-control" />
-            <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>*@
-            @*     <div class="form-group">
-            <label asp-for="Status" class="control-label"></label>
-            <input asp-for="Status" class="form-control" />
-            <span asp-validation-for="Status" class="text-danger"></span>
-            </div>*@
+            <input asp-for="UserId" class="form-control" value="@Model.UserId" type="hidden" />
+            <input asp-for="Status" class="form-control" value="@Model.Status" type="hidden" />
+            <input asp-for="Type" class="form-control" value="@Model.Type" type="hidden" />
+
             <div class="form-group">
                 <label asp-for="@Model.Reason" class="control-label"></label>
                 <textarea asp-for="@Model.Reason" class="form-control"></textarea>
