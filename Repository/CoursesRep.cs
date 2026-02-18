@@ -108,12 +108,16 @@ namespace ESTA.Repository
 
         public async Task<IEnumerable<Course>> GetAllCetaCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId < 4 && y.MaxAllowedMembersCount > 0).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
+            return await appContext.Courses
+                .Where(y => y.LevelId < 4 && y.MaxAllowedMembersCount > 0).OrderBy(x => x.StartDate)
+                .AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllOtherCourses()
         {
-            return await appContext.Courses.Where(y => y.LevelId == 4 && y.MaxAllowedMembersCount > 0).OrderByDescending(x => x.StartDate).AsNoTracking().ToListAsync();
+            return await appContext.Courses
+                .Where(y => y.LevelId == 4 && y.MaxAllowedMembersCount > 0).OrderBy(x => x.StartDate)
+                .AsNoTracking().ToListAsync();
         }
 
         public async Task<Course> GetCourse(int id)
@@ -194,8 +198,8 @@ namespace ESTA.Repository
         {
             try
             {
-                var course = appContext.Courses.OrderBy(y => y.StartDate)
-                    .Where(y => y.StartDate.Value.Date >= DateTime.Today).OrderByDescending(x => x.StartDate)
+                var course = appContext.Courses
+                    .Where(y => y.StartDate.Value.Date >= DateTime.Today).OrderBy(x => x.StartDate)
                     .Take(3).ToList();
                 return course;
 

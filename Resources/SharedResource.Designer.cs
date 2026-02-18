@@ -340,7 +340,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Certified Members.
+        ///   Looks up a localized string similar to CETA Holders.
         /// </summary>
         public static string cetaholders {
             get {

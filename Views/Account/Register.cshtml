@@ -1,7 +1,9 @@
 ﻿@using ESTA.ViewModels
+@inject ESTA.Helpers.CultureManager CultureManager;
 
 @model RegisterViewModel
 @using Microsoft.Extensions.Localization
+@using System.Globalization
 @inject IStringLocalizer<SharedResource> localizer;
 
 
@@ -69,15 +71,29 @@
                 <label asp-for="@Model.Country"></label>
                 <select id="nationalty-select"
                         onchange="checkNationality()" class="form-control" asp-for="@Model.Country">
-                    @foreach (var item in Model.Countries)
+                    @foreach (var item in CultureManager.GetCountries())
                     {
-                        if (item == "Egypt")
+                        if (item.NameEn == "Egypt")
                         {
-                            <option selected="selected">@item</option>
+                            if (CultureInfo.CurrentCulture.Name == "ar")
+                            {
+                                <option value="@item.NameEn" selected="selected">@item.NameAr</option>
+                            }
+                            else
+                            {
+                                <option value="@item.NameEn" selected="selected">@item.NameEn</option>
+                            }
                         }
                         else
                         {
-                            <option>@item</option>
+                            if (CultureInfo.CurrentCulture.Name == "ar")
+                            {
+                                <option value="@item.NameEn">@item.NameAr</option>
+                            }
+                            else
+                            {
+                                <option value="@item.NameEn">@item.NameEn</option>
+                            }
                         }
                     }
 
@@ -354,13 +370,14 @@
 
 
             <div class="row">
-                <div class="form-group  col-lg-6 col-sm-12">
+                @* <div class="form-group  col-lg-6 col-sm-12">
                     <label asp-for="@Model.Hometown"></label><span class="text-danger m-1">*</span>
                     <input asp-for="@Model.Hometown" class="form-control"
                            autocomplete="username" />
 
                     <span asp-validation-for="@Model.Hometown" class="text-danger"></span>
-                </div><div class="form-group  col-lg-6 col-sm-12">
+                </div> *@
+                <div class="form-group  col-lg-6 col-sm-12">
 
 
                     <label asp-for="@Model.StreetName"></label><span class="text-danger m-1">*</span>
@@ -408,10 +425,10 @@
             <div class="form-group">
 
                 <label asp-for="@Model.MessagingAddress"></label><span class="text-danger m-1">*</span>
-                <input asp-for="@Model.MessagingAddress" class="form-control"
+                <input asp-for="@Model.MessagingAddress" id="MsgAdrs" class="form-control"
                        autocomplete="username" />
 
-                <input style="width:18px" type="checkbox" id="msg-addres-check" />
+                <input style="width:18px" type="checkbox" id="msg-addres-check" onchange="chngMsgAdrs()" />
                 <label class="col-5">Same as your Address ?</label>
 
 
@@ -662,7 +679,7 @@
                         <textarea placeholder="Explain ...." type="text"
                                   id="t-@Model.Questions[i].Id"
                                   class="form-control " asp-for=@Model.Questions[i].Answer>
-                                                    </textarea>
+                                                                                        </textarea>
 
                         <span asp-validation-for="@Model.Questions[i].Answer"
                               class="text-danger"></span>

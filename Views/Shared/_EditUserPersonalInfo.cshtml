@@ -1,4 +1,7 @@
-﻿@*
+﻿@using System.Globalization
+@inject ESTA.Helpers.CultureManager CultureManager;
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -52,15 +55,29 @@
         <label asp-for="@Model.Country"></label>
         <select id="nationalty-select"
                 onchange="checkNationality()" class="form-control" asp-for="@Model.Country">
-            @foreach (var item in Model.Countries)
+            @foreach (var item in CultureManager.GetCountries())
             {
-                if (item == Model.Country)
+                if (item.NameEn == Model.Country)
                 {
-                    <option selected="selected">@item</option>
+                    if (CultureInfo.CurrentCulture.Name == "ar")
+                    {
+                        <option value="@item.NameEn" selected="selected">@item.NameAr</option>
+                    }
+                    else
+                    {
+                        <option value="@item.NameEn" selected="selected">@item.NameEn</option>
+                    }
                 }
                 else
                 {
-                    <option>@item</option>
+                    if (CultureInfo.CurrentCulture.Name == "ar")
+                    {
+                        <option value="@item.NameEn">@item.NameAr</option>
+                    }
+                    else
+                    {
+                        <option value="@item.NameEn">@item.NameEn</option>
+                    }
                 }
             }
         </select>
@@ -110,6 +127,7 @@
                     <label asp-for="@Model.PassportImages"></label>
                     <input id="passportImg" asp-for="@Model.PassportImages" type="file" multiple class="form-control" accept="image/jpeg, image/png" />
                 }
+                <input type="hidden" id="PassImgCnt" value="@counter" />
             }
         </div>
 
@@ -149,7 +167,7 @@
                         <span class="text-danger m-1">* Two Images Should be provided Front & Back</span>
 
                         <input id="idnoImg0" accept='.png,.jpg,.jpeg,.webp' asp-for="@Model.NationalCardImagesFront" type="file" />
-                        <span id="idcard-err" asp-validation-for="@Model.NationalCardImagesFront" class="text-danger"></span>
+                        <span id="idcard-err0" asp-validation-for="@Model.NationalCardImagesFront" class="text-danger"></span>
 
                     </div>
 
@@ -157,7 +175,7 @@
                         <label>National Card Back Image</label>
 
                         <input id="idnoImg1" accept='.png,.jpg,.jpeg,.webp' asp-for="@Model.NationalCardImagesBack" type="file" />
-                        <span id="idcard-err" asp-validation-for="@Model.NationalCardImagesBack" class="text-danger"></span>
+                        <span id="idcard-err1" asp-validation-for="@Model.NationalCardImagesBack" class="text-danger"></span>
 
                     </div>
                 }
@@ -168,7 +186,7 @@
                         <label asp-for="@Model.NationalCardImagesFront"></label>
 
                         <input id="idnoImg0" accept='.png,.jpg,.jpeg,.webp' asp-for="@Model.NationalCardImagesFront" type="file" />
-                        <span id="idcard-err" asp-validation-for="@Model.NationalCardImagesFront" class="text-danger"></span>
+                        <span id="idcard-err0" asp-validation-for="@Model.NationalCardImagesFront" class="text-danger"></span>
 
                     </div>
 
@@ -176,10 +194,11 @@
                         <label asp-for="@Model.NationalCardImagesBack"></label>
 
                         <input id="idnoImg1" accept='.png,.jpg,.jpeg,.webp' asp-for="@Model.NationalCardImagesBack" type="file" />
-                        <span id="idcard-err" asp-validation-for="@Model.NationalCardImagesBack" class="text-danger"></span>
+                        <span id="idcard-err1" asp-validation-for="@Model.NationalCardImagesBack" class="text-danger"></span>
 
                     </div>
                 }
+                <input type="hidden" id="IdImgCnt" value="@counter1" />
             }
 
         </div>
@@ -290,32 +309,36 @@
         // document.getElementById("img-preview0").innerHTML = "";
         // document.getElementById("img-preview1").innerHTML = "";
         var x = document.getElementById("nationalty-select").value;
-        console.log(x);
+        //console.log(x);
 
         if (x == "Egypt" || x == "مصر") {
             document.getElementById("idCard-sec").style.display = "block";
             document.getElementById("passport-sec").style.display = "none";
             // id staff required
-            document.getElementById("idnoImg0").setAttribute("required", true);
-            document.getElementById("idnoImg1").setAttribute("required", true);
+            var ImgCnt = document.getElementById("IdImgCnt").value
+            if(ImgCnt<2){
+                document.getElementById("idnoImg0").setAttribute("required", true);
+                document.getElementById("idnoImg1").setAttribute("required", true);
+            }
             document.getElementById("idno").setAttribute("required", true);
 
             document.getElementById("passport").removeAttribute("required");
-
             document.getElementById("passportImg").removeAttribute("required");
-            //document.getElementById("passportImg-error").remove();
 
         } else {
             document.getElementById("idCard-sec").style.display = "none";
             document.getElementById("passport-sec").style.display = "block";
             // passport stuff required
-            document.getElementById("passport").setAttribute("required", true);
-            document.getElementById("passportImg").setAttribute("required", true);
-            document.getElementById("idno").removeAttribute("required");
 
+            var ImgCnt = document.getElementById("PassImgCnt").value
+            if(ImgCnt==0){
+                document.getElementById("passportImg").setAttribute("required", true);
+            }
+            document.getElementById("passport").setAttribute("required", true);
+
+            document.getElementById("idno").removeAttribute("required");
             document.getElementById("idnoImg0").removeAttribute("required");
             document.getElementById("idnoImg1").removeAttribute("required");
-            document.getElementById("idcard-err").remove();
 
         }
     }

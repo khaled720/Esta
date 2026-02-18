@@ -1,32 +1,20 @@
-﻿using System.Globalization;
+﻿using ESTA.Models;
+using ESTA.Repository.IRepository;
+using System.Globalization;
 
 namespace ESTA.Helpers
 {
     public class CultureManager
     {
+        private readonly IUnitOfWork uow;
 
-        public static IEnumerable<string> GetCountries()
+        public CultureManager(IUnitOfWork uow)
         {
-          
-
-            SortedSet<string> listOfCountries = new();
-
-            foreach (var culturesInfo in CultureInfo.GetCultures(CultureTypes.AllCultures))
-            {
-                try
-                {
-                    listOfCountries.Add(new RegionInfo(culturesInfo.LCID).EnglishName);
-                    listOfCountries.Remove("Israel");
-                    listOfCountries.Add("Palestine");
-                }
-                catch (Exception)
-                {
-                    continue;
-                }
-            }
-
-
-            return listOfCountries;
+            this.uow = uow;
+        }
+        public IEnumerable<Countries> GetCountries()
+        {
+            return uow.CountriesRep.GetCountries(); 
         }
     }
 }

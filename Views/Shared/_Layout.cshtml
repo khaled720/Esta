@@ -129,13 +129,13 @@
 
                                         @*<div class="">*@
 
-                                            <span class="ti-user"></span>
-                                            <a asp-action="Login" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signin"]</a>
+                                        <span class="ti-user"></span>
+                                        <a asp-action="Login" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signin"]</a>
 
                                         @*</div>*@
                                         @*<div>*@
-                                            <span class="ti-user"></span>
-                                            <a asp-action="Register" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signup"]</a>
+                                        <span class="ti-user"></span>
+                                        <a asp-action="Register" asp-controller="Account" asp-area="" class="loginBtn">@localizer["signup"]</a>
                                         @*</div>*@
                                     </div>
                                 }
@@ -152,7 +152,7 @@
                                                data-toggle="tooltip" title="@langTooltip">
                                                 <span style="color:white" class="ti-world"></span>
                                             </a>
-                                            <input type="hidden" value="@Url.Action("SetCulture","Lang")" id="langUrl" />
+                                            <input type="hidden" value="@Url.Action("SetCulture", "Lang")" id="langUrl" />
                                         </li>
 
                                         <li><a href="https://www.facebook.com/ESTA.Mainpage?sfnsn=scwspwa&mibextid=RUbZ1f" target="_blank"><span class="ti-facebook"></span></a></li>
@@ -170,7 +170,7 @@
                                                data-toggle="tooltip" title="@langTooltip">
                                                 <span style="color:white" class="ti-world"></span>
                                             </a>
-                                            <input type="hidden" value="@Url.Action("SetCulture","Lang",new {area=""})" id="langUrl" />
+                                            <input type="hidden" value="@Url.Action("SetCulture", "Lang", new { area = "" })" id="langUrl" />
                                         </li>
                                     }
 
@@ -252,7 +252,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li>
+                                        <li style="direction: ltr;">
                                             <a asp-area="" asp-controller="courses" asp-action="CetaHolders">@localizer["cetaholders"]</a>
                                         </li>
                                         <li>
@@ -378,7 +378,7 @@
                                     <div class="single-footer-contact-info row">
                                         <span class="ti-headphone col-1 "></span>
 
-                                        <span class="footer-contact-list-text">+202 - 37629820/  +202 - 37629830/+02 1064000515</span>
+                                        <span class="footer-contact-list-text">+202 - 37629820/  +202 - 37629830/+02 01064000515</span>
                                     </div>
                                     <br />
                                     <div class="single-footer-contact-info row">

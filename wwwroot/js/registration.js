@@ -121,23 +121,23 @@ async function nextPrev(n) {
         // This function will figure out which tab to display
         var x = document.getElementsByClassName("tab");// 5
 
-        if (currentTab == 1) {
-            var isSameasAddress = document.getElementById("msg-addres-check").checked;
-            if (isSameasAddress) {
+        //if (currentTab == 1) {
+        //    var isSameasAddress = document.getElementById("msg-addres-check").checked;
+        //    if (isSameasAddress) {
 
-                var city = document.getElementById("City").value;
-                var area = document.getElementById("Area").value;
-                var hometown = document.getElementById("Hometown").value;
-                var streetName = document.getElementById("StreetName").value;
-                var blockNumber = document.getElementById("BlockNumber").value;
+        //        var city = document.getElementById("City").value;
+        //        var area = document.getElementById("Area").value;
+        //        //var hometown = document.getElementById("Hometown").value;
+        //        var streetName = document.getElementById("StreetName").value;
+        //        var blockNumber = document.getElementById("BlockNumber").value;
 
 
-                if (city && area && hometown && streetName && blockNumber) {
+        //        if (city && area && streetName && blockNumber) {
 
-                    document.getElementById("MessagingAddress").value = blockNumber + " " + streetName + " " + hometown + " , " + area + " , " + city
-                }
-            }
-        }
+        //            document.getElementById("MessagingAddress").value = blockNumber + " " + streetName + " , " + area + " , " + city
+        //        }
+        //    }
+        //}
 
         debugger
         // Exit the function if any field in the current tab is invalid:
@@ -325,6 +325,24 @@ function previewImage(event, id) {
 
 }
 
+function chngMsgAdrs() {
+    const checkboxElement = document.getElementById("msg-addres-check");
+    if (checkboxElement.checked) {
+
+        var city = document.getElementById("City").value;
+        var area = document.getElementById("Area").value;
+        var streetName = document.getElementById("StreetName").value;
+        var blockNumber = document.getElementById("BlockNumber").value;
+
+        const inputElement = document.getElementById("MsgAdrs");
+        inputElement.value = blockNumber + " " + streetName + " , " + area + " , " + city
+        inputElement.readOnly = true;
+    }
+    else {
+        const inputElement = document.getElementById("MsgAdrs");//MsgAdrs
+        inputElement.readOnly = false;
+    }
+}
 
 checkNationality();
 
@@ -358,7 +376,7 @@ function checkNationality() {
 
         document.getElementById("idnoImg0").removeAttribute("required");
         document.getElementById("idnoImg1").removeAttribute("required");
-        document.getElementById("idcard-err").remove();
+        //document.getElementById("idcard-err").remove();
 
 
     }

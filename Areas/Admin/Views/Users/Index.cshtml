@@ -101,7 +101,7 @@
                 <th>@localizer["fullname"]</th>
                 <th>@localizer["country"]</th>
                 <th>@localizer["regdate"]</th>
-                <th colspan="2">@localizer["membership"]</th>
+                <th>@localizer["membership"]</th>
 
                 <th>@localizer["actions"]</th>
                 <th></th>
@@ -118,8 +118,9 @@
                         <td>@item.FullName</td>
                         <td>@item.Country</td>
                         <td>@item.JoinDate.ToShortDateString()</td>
-                        <td>@item.MembershipNumber</td>
+                        
                         <td>
+                            @item.MembershipNumber |
                             @if (item.IsMempershipPaid)
                             {
                                 @Html.ActionLink(localizer["endMem"], "EditMempership", new { id = item.Id, isPaid = false }, new { @class = "btn btn-danger" })
@@ -179,20 +180,11 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            debugger;
             $('#courses-table').DataTable({
                 "bDestroy": true,
                 "bSearchable": true,
-                "responsive": true,
-                // "columns": [
-                //     { "orderable": "true" },
-                //     { "orderable": "true" },
-                //     { "orderable": "true" },
-                //     { "orderable": "false" },
-                //     { "orderable": "false" },
-                //     { "orderable": "false" },
-                //     { "orderable": "false" },
-                //     { "orderable": "false" },
-                // ]
+                "responsive": true
             });
             //$('#courses-table').dataTable();
         });

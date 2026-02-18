@@ -26,6 +26,7 @@ using Microsoft.Extensions.DependencyInjection;
 using AspNetCore.ReCaptcha;
 using ESTA.Services;
 using Serilog;
+using ESTA.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +94,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<CultureManager>();
 
 builder.Services
     .AddMvc()
@@ -171,6 +173,8 @@ app.UseRequestLocalization(
 ImageHelper.Configure(app.Environment);
 
 EmailSender.Configure(builder.Configuration);
+
+
 
 // Configure Serilog for logging (middleware)
 app.UseSerilogRequestLogging();

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using ESTA.Helpers;
 using Microsoft.Extensions.Localization;
+using ESTA.Repository.IRepository;
 
 namespace ESTA.ViewModels
 {
@@ -101,10 +102,10 @@ namespace ESTA.ViewModels
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "englishwl")]
         public string EnglishWritingLevel { get; set; } = "Good";
 
-        [Required(
-            ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
-            ErrorMessageResourceName = "required"
-        )]
+        //[Required(
+        //    ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
+        //    ErrorMessageResourceName = "required"
+        //)]
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "hometown")]
         public string Hometown { get; set; } = String.Empty;
 
@@ -325,8 +326,6 @@ namespace ESTA.ViewModels
 
         public IFormFile? ProfilePicture { get; set; }
 
-        public List<string> Countries { get; set; } = CultureManager.GetCountries().ToList();
-
         public bool IsNationalityClaimsValid()
         {
             //if country egypt natid image required
@@ -334,7 +333,7 @@ namespace ESTA.ViewModels
 
             if (this.Country == "Egypt" || this.Country == "مصر")
             {
-                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImagesFront == null|| this.NationalCardImagesBack == null)
+                if (string.IsNullOrEmpty(this.NationalCardID) || this.NationalCardImagesFront == null || this.NationalCardImagesBack == null)
                 {
                     return false;
                 }

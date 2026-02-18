@@ -11,7 +11,7 @@ namespace ESTA.Repository
         private readonly AppDbContext appContext;
         private readonly UserManager<User> userManager;
 
-        public UnitOfWork(AppDbContext appContext,UserManager<User> userManager)
+        public UnitOfWork(AppDbContext appContext, UserManager<User> userManager)
         {
             this.appContext = appContext;
             this.userManager = userManager;
@@ -24,13 +24,13 @@ namespace ESTA.Repository
 
         public ICoursesRep CoursesRep => new CoursesRep(appContext);
 
-        public ILevelRep LevelRep =>  new LevelsRep(appContext);
+        public ILevelRep LevelRep => new LevelsRep(appContext);
 
-        public IUserRep UserRep =>  new UserRep(appContext);
+        public IUserRep UserRep => new UserRep(appContext);
 
         public IQuestionRep QuestionRep => new QuestionRep(appContext);
 
-        public IContentRep ContentRep =>  new ContentRep(appContext);
+        public IContentRep ContentRep => new ContentRep(appContext);
 
         public IDirectorRep DirectorRep => new DirectorRep(appContext);
 
@@ -38,7 +38,7 @@ namespace ESTA.Repository
 
         public IUserAnswerRep UserAnswerRep => new UserAnswerRep(appContext);
 
-        public IUsersCoursesRep UsersCoursesRep => new UsersCoursesRep(appContext,userManager);
+        public IUsersCoursesRep UsersCoursesRep => new UsersCoursesRep(appContext, userManager);
 
         public IForumRepository ForumRep => new ForumRepository(appContext);
         public IEventsRepo EventRep => new EventRepo(appContext);
@@ -53,7 +53,7 @@ namespace ESTA.Repository
 
         public ICoursePayments CoursePaymentsRep => new CoursePaymentRep(appContext);
 
-        public IConstantsRep ConstantsRep =>  new ConstantsRep(appContext);
+        public IConstantsRep ConstantsRep => new ConstantsRep(appContext);
 
         public IRefundRep RefundRep => new RefundRep(appContext);
 
@@ -63,17 +63,19 @@ namespace ESTA.Repository
 
         public ILogosRep LogosRep => new LogosRep(appContext);
 
+        public ICountriesRep CountriesRep => new CountriesRep(appContext);
+
         public async Task<bool> SaveChangesAsync()
         {
-         return await   this.appContext.SaveChangesAsync()>0;
+            return await this.appContext.SaveChangesAsync() > 0;
         }
 
 
 
-        public  void RollbackChangesAsync()
+        public void RollbackChangesAsync()
         {
- 
-                 this.appContext.ChangeTracker.Clear();
+
+            this.appContext.ChangeTracker.Clear();
         }
 
         /// <summary>
@@ -81,15 +83,15 @@ namespace ESTA.Repository
         /// </summary>
         /// <typeparam name="T"> T is generic class represent a class which has Dbset </typeparam>
         /// <returns> List of T </returns>
-        public List<T> GetPaginatedList<T>(int pageSize=5,int currentPage=1) where T : class
+        public List<T> GetPaginatedList<T>(int pageSize = 5, int currentPage = 1) where T : class
         {
 
 
             var genericlist = appContext.Set<T>()
-                .Skip(pageSize*(currentPage-1))
+                .Skip(pageSize * (currentPage - 1))
                 .Take(pageSize)
                 .ToList();
-        
+
             return genericlist;
         }
 
