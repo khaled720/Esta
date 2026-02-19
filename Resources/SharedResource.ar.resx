@@ -905,4 +905,10 @@
   <data name="LatestReplies" xml:space="preserve">
     <value>احدث الردود</value>
   </data>
+  <data name="reminderMembership" xml:space="preserve">
+    <value>تذكير: إشتراكك ينتهي بتاريخ 30/6. يرجى التجديد لتجنب انقطاع الخدمة.</value>
+  </data>
+  <data name="renewMembership" xml:space="preserve">
+    <value>مطلوب دفع الاشتراك. الوصول إلى المنتديات والخدمات مقيد. يمكن الوصول إلى ملف التعريف الخاص بك فقط.</value>
+  </data>
 </root>

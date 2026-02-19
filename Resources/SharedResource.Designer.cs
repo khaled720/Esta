@@ -1915,11 +1915,29 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reminder: Your subscription ends on 30/6. Please renew to avoid service interruption..
+        /// </summary>
+        public static string reminderMembership {
+            get {
+                return ResourceManager.GetString("reminderMembership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Renewal Fee.
         /// </summary>
         public static string renewfee {
             get {
                 return ResourceManager.GetString("renewfee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscription payment required. Access to forums and services is restricted. Only your profile is accessible..
+        /// </summary>
+        public static string renewMembership {
+            get {
+                return ResourceManager.GetString("renewMembership", resourceCulture);
             }
         }
         

@@ -70,7 +70,8 @@ namespace ESTA.Areas.Payment.Repository
         {
             try
             {
-                return appContext.CoursesOrders.Where(x => x.CourseId == courseId && x.UserId == userId).FirstOrDefault();
+                return appContext.CoursesOrders.Where(x => x.CourseId == courseId && x.UserId == userId)
+                    .Where(x => !string.IsNullOrEmpty(x.OrderResult)).FirstOrDefault();
             }
             catch (Exception)
             {

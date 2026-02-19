@@ -15,6 +15,7 @@
         public string Email { get; set; }
         public string ProfilePic { get; set; }
         public bool IsMempershipPaid { get; set; }
+        public int MempershipDaysToEnd { get; set; }
         public bool IsModerator { get; set; }
         public int CoursesCount { get; set; }
         public int FinishedCourses { get; set; }

@@ -4,6 +4,7 @@
 @using System.Globalization
 @model ESTA.ViewModels.ViewProfile
 
+<link href="~/lib/toastr/toastr.min.css" rel="stylesheet" />
 <style>
     .file-upload {
         background-color: #ffffff;
@@ -70,7 +71,7 @@
             <div class="card">
                 <div class="card-header user-heading text-center">
                     <a href="#">
-                        <img src="@Url.Content("~"+Model.ProfilePic)" alt="" class="rounded-circle img-fluid">
+                        <img src="@Url.Content("~" + Model.ProfilePic)" alt="" class="rounded-circle img-fluid">
                     </a>
                     <button type="button" data-toggle="modal" data-target="#exampleModal" style="position: relative;top: 35px;right: 35px;">
                         <i class="fa fa-pen-square"></i>
@@ -213,7 +214,7 @@
                 <div class="file-upload my-2">
                     <div class="image-upload-wrap rounded-circle">
                         <input class="file-upload-input" type='file' id="file-upload" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png" />
-                        <img class="img-fluid rounded-circle" id="imgSrc" src="@Url.Content("~"+Model.ProfilePic)" alt="your image" />
+                        <img class="img-fluid rounded-circle" id="imgSrc" src="@Url.Content("~" + Model.ProfilePic)" alt="your image" />
                     </div>
                 </div>
             </div>
@@ -224,10 +225,14 @@
         </div>
     </div>
 </div>
+@* less than 3 days to end. *@
+@* zero days to end. *@
+@* negative days to end. *@
 
 
 @section Scripts {
     <script src="~/lib/datatable/datatables.min.js"></script>
+    <script src="~/lib/toastr/toastr.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#table').DataTable({
@@ -289,4 +294,55 @@
             })
         }
     </script>
+    
+    @if (!Model.IsMempershipPaid)
+    {
+        @* ERROR you have to renew. *@
+        <script type="text/javascript">
+            toastr.options = {
+              "closeButton": true,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": false,
+              "positionClass": "toast-bottom-center",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": 0,
+              "extendedTimeOut": 0,
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut",
+              "tapToDismiss": true
+            }
+            toastr.error('@localizer["renewMembership"]');
+        </script>
+    }
+    else if (Model.MempershipDaysToEnd >= 0 && Model.MempershipDaysToEnd < 3)
+    {
+        @* WARNING you need to renew. *@
+        <script type="text/javascript">
+            toastr.options = {
+              "closeButton": true,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": false,
+              "positionClass": "toast-bottom-center",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": 0,
+              "extendedTimeOut": 0,
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut",
+              "tapToDismiss": true
+            }
+            toastr.warning('@localizer["reminderMembership"]');
+        </script>
+    }
 }

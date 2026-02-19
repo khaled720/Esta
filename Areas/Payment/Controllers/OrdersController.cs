@@ -259,12 +259,12 @@ namespace ESTA.Areas.Payment.Controllers
                     TotalFee += ConstantsFees.RenewalFee;
 
                     //penalty only on old members.
-                    if (DateTime.Now.Date >= ConstantsFees.PenaltyMonth)
+                    if (DateTime.Now.Date >= ConstantsFees.PenaltyMonth.Date)
                     {
                         var LatenessYear = DateTime.Now.Year - LoggedInuser.MembershipYear;
                         FeesDetails.LatePenalty = ConstantsFees.LatePenalty * LatenessYear;
 
-                        TotalFee += ConstantsFees.LatePenalty;
+                        TotalFee += (ConstantsFees.LatePenalty * LatenessYear);
                     }
                 }
                 else

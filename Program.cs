@@ -96,7 +96,9 @@ builder.Services
 // Add serilog services to the container and read config from appsettings
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.AddSingleton(typeof(LogManager<>));
+builder.Services.AddScoped<MembershipEndedFilter>();
 
 builder.Services.AddAuthorization(
     opt =>

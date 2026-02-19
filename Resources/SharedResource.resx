@@ -915,4 +915,10 @@
   <data name="LatestReplies" xml:space="preserve">
     <value>Latest replies</value>
   </data>
+  <data name="reminderMembership" xml:space="preserve">
+    <value>Reminder: Your subscription ends on 30/6. Please renew to avoid service interruption.</value>
+  </data>
+  <data name="renewMembership" xml:space="preserve">
+    <value>Subscription payment required. Access to forums and services is restricted. Only your profile is accessible.</value>
+  </data>
 </root>

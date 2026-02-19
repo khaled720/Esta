@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateAndTime.Workdays;
 
 namespace ESTA.Controllers
 {
@@ -40,20 +41,32 @@ namespace ESTA.Controllers
             await appRep.UsersCoursesRep.RemovePaylaterUsersExceeded3days();
             await appRep.SaveChangesAsync();
 
-            ViewBag.ExpiryMonth = await appRep.ConstantsRep.getMempershipExpiryMonth();
+            var ExpiryMonth = await appRep.ConstantsRep.getMempershipExpiryMonth();
+
+            var Today = DateTime.Today;
+            var days = DateTime.DaysInMonth(Today.Year, ExpiryMonth);
+            var ExpiryDate = new DateTime(Today.Year, ExpiryMonth, days);
 
             var CurrentUser = await userManager.GetUserAsync(User);
             var PFP = appRep.ImageRep.GetUserProfilePic(CurrentUser.Id);
             var userCourses = CurrentUser.Courses;
+            var country = appRep.CountriesRep.GetCountry(CurrentUser.Country);
+
+            string CountryName;
+            if (country != null)
+                CountryName = Thread.CurrentThread.CurrentCulture.Name == "ar" ? country.NameAr : country.NameEn;
+            else
+                CountryName = CurrentUser.Country;
 
             ViewProfile profile = new()
             {
+                MempershipDaysToEnd = (ExpiryDate - Today).Days,
                 Id = CurrentUser.Id,
                 FullNameAr = CurrentUser.FullNameAr,
                 FullName = CurrentUser.FullName,
                 Email = CurrentUser.Email,
                 Birthdate = CurrentUser.Birthdate,
-                Country = CurrentUser.Country,
+                Country = CountryName,
                 Job = CurrentUser.Job,
                 UserId = CurrentUser.NationalCardID ?? CurrentUser.Passport ?? "",
                 MembershipNumber = CurrentUser.MembershipNumber,
@@ -67,6 +80,7 @@ namespace ESTA.Controllers
                 ForumsCount = appRep.ForumRep.GetSpecificForumByLevelId(CurrentUser.LevelId).Count(),
             };
 
+            ViewBag.ExpiryMonth = ExpiryMonth;
             return View(profile);
         }
         [HttpPost]

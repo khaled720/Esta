@@ -29,7 +29,7 @@
             </div>
             <div class="comments-text">
                 <div class="avatar-name">
-                    <h5>@comment.userName <span class='small'> - @comment.CreatedDate</span></h5>
+                    <h5>@comment.userName <span class='small'> - @comment.CreatedDate.ToString("yyyy/MM/dd hh:mm:ss tt")</span></h5>
                 </div>
 
                 <p>@comment.Comment</p>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="comments-text">
                                 <div class="avatar-name">
-                                    <h5>@reply.userName <span class='small'> - @reply.CreatedDate</span></h5>
+                                    <h5>@reply.userName <span class='small'> - @reply.CreatedDate.ToString("yyyy/MM/dd hh:mm:ss tt")</span></h5>
                                 </div>
 
                                 <p>@reply.Comment</p>

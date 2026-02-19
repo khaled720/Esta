@@ -208,7 +208,7 @@ top:0;bottom:0;right:0;left:0 ">
                                             <div class="course-overview-info-left">
                                                 <div class="course-overview-student-lecture mt-10">
                                                     <span class="primary-color">@localizer["level"] : <span class="gray-color">@Model.course.level.TypeName</span></span>
-                                                    <span class="student-lecture-number primary-color">@localizer["stdate"]: <span class="gray-color">@Model.course.StartDate.Value.ToShortDateString()</span></span>
+                                                    <span class="student-lecture-number primary-color">@localizer["stdate"]: <span class="gray-color">@Model.course.StartDate.Value.ToString("yyyy/MM/dd")</span></span>
                                                     @if (Model.course.FinalGrade <= 0)
                                                     {
                                                         <span class="student-lecture-number gray-color">*@localizer["coursehint"]</span>
