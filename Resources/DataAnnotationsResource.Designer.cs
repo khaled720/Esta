@@ -331,7 +331,7 @@ namespace ESTA.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English WritingLevel.
+        ///   Looks up a localized string similar to English Writing Level.
         /// </summary>
         public static string englishwl {
             get {
