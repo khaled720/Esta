@@ -53,9 +53,7 @@
         <div class=" col-6">
 
             <label asp-for="@Model.PenaltyMonth"></label>
-            <input type="date"
-                   asp-for="@Model.PenaltyMonth"
-                   value="@Model.PenaltyMonth.ToString("yyyy-MM-dd")"
+            <input asp-for="@Model.PenaltyMonth"
                    class="form-control" />
             <span asp-validation-for="@Model.PenaltyMonth"></span>
         </div>

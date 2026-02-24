@@ -29,7 +29,7 @@ namespace ESTA.Models
             ErrorMessageResourceType = typeof(ESTA.Resources.DataAnnotationsResource),
             ErrorMessageResourceName = "required"
             )]
-        public DateTime PenaltyMonth { get; set; } = DateTime.Today;
+        public int PenaltyMonth { get; set; }
 
         [Display(ResourceType = typeof(ESTA.Resources.DataAnnotationsResource), Name = "newmemfee")]
 
