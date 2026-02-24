@@ -245,8 +245,6 @@ namespace ESTA.Areas.Payment.Controllers
             }
             else
             {
-                var CurrentMonth = DateTime.Now;
-
                 //currentMonth < Expiry.
                 //currentMonth > Expiry and < penalty.
                 //currentMonth > penalty.
@@ -257,14 +255,30 @@ namespace ESTA.Areas.Payment.Controllers
                 {
                     FeesDetails.RenewalFee = ConstantsFees.RenewalFee;
                     TotalFee += ConstantsFees.RenewalFee;
-                    var PenaltyDate = new DateTime(DateTime.Now.Year, ConstantsFees.PenaltyMonth, 1);
-                    //penalty only on old members.
-                    if (DateTime.Now.Date >= PenaltyDate)
-                    {
-                        var LatenessYear = DateTime.Now.Year - LoggedInuser.MembershipYear;
-                        FeesDetails.LatePenalty = ConstantsFees.LatePenalty * LatenessYear;
 
-                        TotalFee += (ConstantsFees.LatePenalty * LatenessYear);
+                    var PenaltyDate = new DateTime(DateTime.Now.Year, ConstantsFees.PenaltyMonth, 1);
+                    var CurrentDate = DateTime.Now.Date;
+                    var CurrentYear = CurrentDate.Month > ConstantsFees.MempershipExpiryMonth ?
+                        CurrentDate.Year : CurrentDate.Year - 1;
+
+                    var LatenessYear = Math.Max(0, CurrentYear - LoggedInuser.MembershipYear);
+                    int penaltyYears = 0;
+
+                    if (LatenessYear >= 1 && CurrentDate.Month >= ConstantsFees.PenaltyMonth)
+                    {
+                        penaltyYears = LatenessYear;
+                    }
+                    else if (LatenessYear > 1 && CurrentDate.Month < ConstantsFees.PenaltyMonth)
+                    {
+                        penaltyYears = LatenessYear - 1;
+                    }
+
+                    if (penaltyYears > 0)
+                    {
+                        var penalty = ConstantsFees.LatePenalty * penaltyYears;
+
+                        FeesDetails.LatePenalty = penalty;
+                        TotalFee += penalty;
                     }
                 }
                 else

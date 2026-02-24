@@ -193,6 +193,15 @@ namespace ESTA.Controllers
                             LoginModel.Password, false, false);
                         if (result.Succeeded)
                         {
+                            if (await userManager.IsInRoleAsync(user, "Moderator") && await userManager.IsInRoleAsync(user, "User"))
+                            {
+                                if (await appRep.ConstantsRep.getMempershipExpiryMonth()
+                                    < DateTime.Now.Month)
+                                {
+                                    await appRep.UserRep.RevokeMempershipPayment(user.Id);
+                                    await appRep.SaveChangesAsync();
+                                }
+                            }
                             if ((!await userManager.IsInRoleAsync(user, "Moderator") && !await userManager.IsInRoleAsync(user, "User")) || await userManager.IsInRoleAsync(user, "Admin"))
                             {
                                 return RedirectToAction("index", "Home", new { area = "Admin" });
@@ -229,7 +238,7 @@ namespace ESTA.Controllers
 
 
 
-
+                    //6<6
                     if (
                         await appRep.ConstantsRep.getMempershipExpiryMonth()
                         <

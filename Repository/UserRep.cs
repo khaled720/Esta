@@ -218,9 +218,13 @@ namespace ESTA.Repository
 
             try
             {
+                var ConstantsFees = appContext.Constants.First();
+
                 var user = await appContext.Users.Where(y => y.Id == userId).FirstAsync();
                 user.IsMempershipPaid = true;
-                user.MembershipYear = DateTime.Now.Year;
+                user.MembershipYear = DateTime.Now.Month > ConstantsFees.MempershipExpiryMonth ?
+                        DateTime.Now.Year : DateTime.Now.Year - 1;
+                //user.MembershipYear = DateTime.Now.Year;
                 appContext.Users.Update(user);
 
             }
