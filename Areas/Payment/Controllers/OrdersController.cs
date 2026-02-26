@@ -256,30 +256,28 @@ namespace ESTA.Areas.Payment.Controllers
                     FeesDetails.RenewalFee = ConstantsFees.RenewalFee;
                     TotalFee += ConstantsFees.RenewalFee;
 
-                    var PenaltyDate = new DateTime(DateTime.Now.Year, ConstantsFees.PenaltyMonth, 1);
                     var CurrentDate = DateTime.Now.Date;
                     var CurrentYear = CurrentDate.Month > ConstantsFees.MempershipExpiryMonth ?
                         CurrentDate.Year : CurrentDate.Year - 1;
+                    var PenaltyDate = new DateTime(CurrentYear, ConstantsFees.PenaltyMonth, 1);
 
                     var LatenessYear = Math.Max(0, CurrentYear - LoggedInuser.MembershipYear);
                     int penaltyYears = 0;
 
-                    if (LatenessYear >= 1 && CurrentDate.Month >= ConstantsFees.PenaltyMonth)
+                    if (LatenessYear >= 1 && CurrentDate >= PenaltyDate)
                     {
                         penaltyYears = LatenessYear;
                     }
-                    else if (LatenessYear > 1 && CurrentDate.Month < ConstantsFees.PenaltyMonth)
+                    else if (LatenessYear > 1 && CurrentDate < PenaltyDate)
                     {
                         penaltyYears = LatenessYear - 1;
                     }
 
-                    if (penaltyYears > 0)
-                    {
-                        var penalty = ConstantsFees.LatePenalty * penaltyYears;
+                    var penalty = ConstantsFees.LatePenalty * penaltyYears;
 
-                        FeesDetails.LatePenalty = penalty;
-                        TotalFee += penalty;
-                    }
+                    FeesDetails.LatePenalty = penalty;
+                    TotalFee += penalty;
+
                 }
                 else
                 {
