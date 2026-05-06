@@ -120,25 +120,27 @@
 
                                     @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                     {
-                                        @if (item.DescriptionAr.Count() > 45)
+                                        @item.DescriptionAr
+                                        @* @if (item.DescriptionAr.Count() > 45)
                                         {
                                             <p>@item.DescriptionAr.Substring(0, 45) ..</p>
                                         }
                                         else
                                         {
                                             <p>@item.DescriptionAr</p>
-                                        }
+                                        } *@
                                     }
                                     else
                                     {
-                                        @if (item.Description.Count() > 45)
+                                        @item.Description
+                                        @* @if (item.Description.Count() > 45)
                                         {
                                             <p>@item.Description.Substring(0, 45) ..</p>
                                         }
                                         else
                                         {
                                             <p>@item.Description</p>
-                                        }
+                                        } *@
                                     }
 
 
@@ -167,7 +169,7 @@
                     @localizer["Previous"]
                 </h4>
             </div>
-            
+
             <div class="row m-2">
                 @foreach (var item in Model.courses.Where(x => x.StartDate.Value.Date < DateTime.Now.Date).OrderByDescending(x => x.StartDate))
                 {
@@ -212,25 +214,27 @@
 
                                     @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
                                     {
-                                        @if (item.DescriptionAr.Count() > 45)
+                                        @item.DescriptionAr
+                                        @* @if (item.DescriptionAr.Count() > 45)
                                         {
                                             <p>@item.DescriptionAr.Substring(0, 45) ..</p>
                                         }
                                         else
                                         {
                                             <p>@item.DescriptionAr</p>
-                                        }
+                                        } *@
                                     }
                                     else
                                     {
-                                        @if (item.Description.Count() > 45)
+                                        @item.Description
+                                        @* @if (item.Description.Count() > 45)
                                         {
                                             <p>@item.Description.Substring(0, 45) ..</p>
                                         }
                                         else
                                         {
                                             <p>@item.Description</p>
-                                        }
+                                        } *@
                                     }
 
 
@@ -254,6 +258,6 @@
                 }
             </div>
         }
-        
+
     </div>
 </div>

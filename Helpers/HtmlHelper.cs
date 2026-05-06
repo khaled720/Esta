@@ -11,6 +11,7 @@ namespace ESTA.Helpers
             {
                 string StrRes = Desc[..length];
                 int lastSpaceIndex = StrRes.LastIndexOf(' ');
+                lastSpaceIndex = lastSpaceIndex > 0 ? lastSpaceIndex : length;
                 return StrRes[..lastSpaceIndex];
             }
             else

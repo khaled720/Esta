@@ -85,7 +85,7 @@
                 <th>@localizer["fullname"]</th>
                 <th>@localizer["country"]</th>
                 <th>@localizer["regdate"]</th>
-                <th>@localizer["membership"]</th>
+                <th colspan="2">@localizer["membership"]</th>
 
                 <th>@localizer["actions"]</th>
                 <th></th>
@@ -102,9 +102,10 @@
                         <td>@item.FullName</td>
                         <td>@item.Country</td>
                         <td>@item.JoinDate.ToShortDateString()</td>
-
                         <td>
-                            @item.MembershipNumber |
+                            @item.MembershipNumber
+                        </td>
+                        <td>
                             @if (item.IsMempershipPaid)
                             {
                                 @Html.ActionLink(localizer["endMem"], "EditMempership", new { id = item.Id, isPaid = false }, new { @class = "btn btn-danger" })

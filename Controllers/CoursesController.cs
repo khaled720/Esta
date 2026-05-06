@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text.Encodings.Web;
 using ESTA.Areas.Admin.Models;
+using ESTA.Helpers;
 using ESTA.Models;
 using ESTA.Repository;
 using ESTA.Repository.IRepository;
@@ -30,7 +31,12 @@ namespace ESTA.Controllers
         public async Task<IActionResult> OtherCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllOtherCourses();
-
+            courses.Select(c =>
+            {
+                c.Description = HtmlHelper.RemoveHTMLTags(c.Description, 50);
+                c.DescriptionAr = HtmlHelper.RemoveHTMLTags(c.DescriptionAr, 50);
+                return c;
+            }).ToList();
             return View(courses);
 
         }
@@ -38,6 +44,14 @@ namespace ESTA.Controllers
         public async Task<IActionResult> CetaCourses()
         {
             List<Course> courses = (List<Course>)await appRep.CoursesRep.GetAllCetaCourses();
+
+            courses.Select(c =>
+            {
+                c.Description = HtmlHelper.RemoveHTMLTags(c.Description, 50);
+                c.DescriptionAr = HtmlHelper.RemoveHTMLTags(c.DescriptionAr, 50);
+                return c;
+            }).ToList();
+
             // Get CETA content
             var content = appRep.ContentRep.GetContent("CETA");
 

@@ -7,6 +7,8 @@
 <link href="~/css/course.css" rel="stylesheet" />
 
 <h2>Edit Course</h2>
+<input type="file" id="ck_imageUploader" accept="image/gif, image/jpeg, image/png" style="display:none;" />
+
 <div class="neuDiv" id="kk" style="margin:auto">
 
     <form method="post" enctype="multipart/form-data">
@@ -107,7 +109,7 @@
         <div class="form-group col-12">
             <label>Description</label>
 
-            <textarea asp-for=@Model.course.Description class=""></textarea>
+            <textarea asp-for=@Model.course.Description class="" id="editor_en"></textarea>
             @Html.ValidationMessageFor(k => k.course.Description, "", new { @class = "text-danger" })
             @*
             <span asp-validation-for=@Model.course.Description style="color: blue;"></span>*@
@@ -117,7 +119,7 @@
             <label>Description In Arabic</label>
 
 
-            <textarea asp-for=@Model.course.DescriptionAr class=""></textarea>
+            <textarea asp-for=@Model.course.DescriptionAr class="" id="editor_ar"></textarea>
 
             @Html.ValidationMessageFor(k => k.course.DescriptionAr, "", new { @class = "text-danger" })
 
@@ -128,4 +130,18 @@
 
 
     </form>
-</div><script src="~/js/course.js"></script>
+</div>
+<script src="~/js/ckeditor/ckeditor.js"></script>
+<script src="~/js/course.js"></script>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace("editor_en");
+        });
+
+        $(document).ready(function () {
+            CKEDITOR.replace("editor_ar");
+        });
+    </script>
+}

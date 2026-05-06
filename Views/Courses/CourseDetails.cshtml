@@ -19,18 +19,18 @@
 @if (Model != null)
 {
     <div id="choice" style="z-index:2; display:none;backdrop-filter:blur(5px);position:absolute;
-top:0;bottom:0;right:0;left:0 ">
+    top:0;bottom:0;right:0;left:0 ">
 
 
         <div style="z-index: 100000;background: white;
-    padding: 32px;left: 30%;top: 30%;position: sticky;width: 50%;
-    border: 0.5px gray solid;border-radius: 15px;">
+        padding: 32px;left: 30%;top: 30%;position: sticky;width: 50%;
+        border: 0.5px gray solid;border-radius: 15px;">
 
             <p>@localizer["coursepopup"] </p>
 
             @if (!await uow.UserRep.IsForeignUser(Model.userid)
-           && Model.course.StartDate != null
-           && (Model.course.StartDate - DateTime.Now).Value.Days >= 0)
+                    && Model.course.StartDate != null
+                    && (Model.course.StartDate - DateTime.Now).Value.Days >= 0)
             {
 
                 <a asp-action="PayEnrollCourse" asp-controller="User"
@@ -42,10 +42,10 @@ top:0;bottom:0;right:0;left:0 ">
             {
 
                 @if (await uow.UserRep.IsForeignUser(Model.userid)
-               && Model.course.StartDate != null
-               //&& (Model.StartDate - DateTime.Now).Value.Days < 0
-               && (Model.course.StartDate - DateTime.Now).Value.Days < 10
-               )
+                        && Model.course.StartDate != null
+                        //&& (Model.StartDate - DateTime.Now).Value.Days < 0
+                        && (Model.course.StartDate - DateTime.Now).Value.Days < 10
+                        )
                 {
 
                     <p class="text-danger">Enrollment Not Available right now ,If you want to register <a class="btn btn-primary" asp-controller="Home" asp-action="Contact" asp-area="">Contact Us</a></p>
@@ -102,7 +102,7 @@ top:0;bottom:0;right:0;left:0 ">
                 <div class="col-xl-12 col-lg-12">
                     <div class="single-course-details-area mb-30">
                         <div class="course-details-thumb text-center">
-                            <img src="@Url.Content("~"+@Model.course.PhotoPath)" alt="">
+                            <img src="@Url.Content("~" + @Model.course.PhotoPath)" alt="">
                         </div>
                         <div class="single-course-details white-bg">
                             <div class="course-details-title mb-20" style="display:flex;justify-content:space-between">
@@ -175,7 +175,7 @@ top:0;bottom:0;right:0;left:0 ">
 
                                                                 </h5>
                                                             </div>
-                                                            <img src="@Url.Content("~"+@item.prerequisiteCourse.PhotoPath) " height="200px" />
+                                                            <img src="@Url.Content("~" + @item.prerequisiteCourse.PhotoPath) " height="200px" />
 
                                                             <div class="card-body">
                                                                 @localizer["stdate"]:@item.prerequisiteCourse.StartDate.Value.ToShortDateString()
@@ -212,7 +212,7 @@ top:0;bottom:0;right:0;left:0 ">
                                             </div>
                                         </div>
 
-                                        @if(Model.course.StartDate != null && Model.course.StartDate.Value.Date > DateTime.Now.Date)
+                                        @if (Model.course.StartDate != null && Model.course.StartDate.Value.Date > DateTime.Now.Date)
                                         {
                                             @if (signInManager.IsSignedIn(User))
                                             {
