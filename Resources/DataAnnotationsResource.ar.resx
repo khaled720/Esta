@@ -423,4 +423,7 @@
   <data name="emailexists" xml:space="preserve">
     <value>هذا البريد موجود بالفعل</value>
   </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
 </root>

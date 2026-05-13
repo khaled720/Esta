@@ -1,10 +1,11 @@
-﻿using System.Configuration;
-using System.Security.Claims;
-using ESTA.Areas.Payment.Models;
+﻿using ESTA.Areas.Payment.Models;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using System.Configuration;
+using System.Security.Claims;
 
 namespace ESTA.Areas.Payment.Controllers
 {
@@ -38,6 +39,7 @@ namespace ESTA.Areas.Payment.Controllers
 
             var Refund = new Refund
             {
+                CourseId = CourseId,
                 UserId = userId,
                 OrderNumber = Order != null ? Order.OrderNumber : "0",
                 RequestedAmount = Course.Price,
@@ -87,6 +89,18 @@ namespace ESTA.Areas.Payment.Controllers
         {
 
             var result = await uow.RefundRep.GetRefundRequest(id);
+
+            if (result.Course == null)
+            {
+                var courseOrder = await uow.CourseOrdersRep.GetOrderByNumber(result.OrderNumber, result.UserId);
+                if (courseOrder != null)
+                {
+                    var course = await uow.CoursesRep.GetCourse(courseOrder.CourseId);
+                    result.CourseId = courseOrder.CourseId;
+                    result.Course = course;
+                }
+            }
+
             return View(result);
         }
         [Authorize]
@@ -102,10 +116,14 @@ namespace ESTA.Areas.Payment.Controllers
                     &&
                     refund.Type == RefundTypes.Course.ToString())
                 {
-                    var courseOrder = await uow.CourseOrdersRep.GetOrderByNumber(refund.OrderNumber, refund.UserId);
-
+                    var courseId = refund.CourseId;
+                    if (courseId == null)
+                    {
+                        ModelState.AddModelError("", "Course not found for this refund request.");
+                        return View(refund);
+                    }
                     //4 Means Course state is Refunded
-                    await uow.CoursesRep.UpdateCourseState(courseOrder.CourseId, refund.UserId, 4);
+                    await uow.CoursesRep.UpdateCourseState(courseId.Value, refund.UserId, 4);
                     //update user level
 
                     await uow.UserRep.UpdateUserLevel(refund.UserId);
@@ -135,7 +153,8 @@ namespace ESTA.Areas.Payment.Controllers
                 user.Email, "Hello,<br><br>We wanted to inform you that the status of your refund request has been updated.<br><br>" +
                     "Serial Number: <b> " + refund.SerialNumber + " </b><br>" +
                     "Order Number: <b> " + refund.OrderNumber + " </b><br>" +
-                    "Updated Status: <b> " + newState + " </b><br><br>" +
+                    "Updated Status: <b> " + newState + " </b><br>" +
+                    (string.IsNullOrEmpty(refund.Notes) ? "" : "Notes: <b> " + refund.Notes + " </b><br>") +
                     "Thank you for using ESTA.",
                     "ESTA Refund Request",
                     "ESTA"

@@ -125,15 +125,15 @@ namespace ESTA.Areas.Admin.Controllers
         NewModeratorCurrentUserAsync()
         {
             ViewBag.SelectForum = ForumsToSelect();
-            var users= await appRep.UserRep.GetAllUsers();
+            var users = await appRep.UserRep.GetAllUsers();
 
-            var Users=new List<User>();
+            var Users = new List<User>();
 
             foreach (var item in users)
             {
-                if (!await userManager.IsInRoleAsync(item,"Moderator") && !await userManager.IsInRoleAsync(item, "Admin")) 
+                if (!await userManager.IsInRoleAsync(item, "Moderator") && !await userManager.IsInRoleAsync(item, "Admin"))
                 {
-                Users.Add(item);
+                    Users.Add(item);
                 }
             }
             ViewBag.Users = Users;
@@ -144,16 +144,16 @@ namespace ESTA.Areas.Admin.Controllers
         public async Task<IActionResult>
         NewModeratorCurrentUser(User usr)
         {
-     
+
             var res = await userManager.FindByIdAsync(usr.Id);
 
-            if (res!=null)
+            if (res != null)
             {
                 await userManager.AddToRoleAsync(res, "Moderator");
 
                 ModeratorForum ModeratorForum;
 
-                usr.SelectForum.ForEach(async x =>
+                usr.SelectForum.ForEach(x =>
                 {
                     ModeratorForum = new()
                     {
@@ -162,9 +162,9 @@ namespace ESTA.Areas.Admin.Controllers
                     };
 
                     appRep.ModeratorRep.NewModeratorForum(ModeratorForum);
-                    await appRep.SaveChangesAsync();
 
                 });
+                await appRep.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             else
@@ -249,10 +249,19 @@ namespace ESTA.Areas.Admin.Controllers
                 return View(moderator);
             }
         }
-        [HttpPost]
-        public IActionResult DeleteModerator(int id)
+        [HttpGet]
+        public async Task<IActionResult> DeleteModeratorAsync(string id)
         {
-            return View();
+            // delete moderator from forum.
+            appRep.ModeratorRep.GetModeratorForumById(id).ForEach(x =>
+             {
+                 appRep.ModeratorRep.RemoveModeratorForum(x);
+             });
+            var res = await appRep.SaveChangesAsync();
+            if (res)
+                await userManager.RemoveFromRoleAsync(await userManager.FindByIdAsync(id), "Moderator");
+
+            return RedirectToAction("Index");
         }
         private List<SelectListItem> ForumsToSelect()
         {

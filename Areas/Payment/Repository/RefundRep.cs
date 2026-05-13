@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ESTA.Areas.Payment.Repository
 {
-    public class RefundRep:IRefundRep
+    public class RefundRep : IRefundRep
     {
         private readonly AppDbContext appRep;
 
@@ -19,9 +19,9 @@ namespace ESTA.Areas.Payment.Repository
         {
             try
             {
-       //         return await appRep.RefundRep.AddRefundRequest(refundrequest);
+                //         return await appRep.RefundRep.AddRefundRequest(refundrequest);
 
-        await     appRep.RefundRequests.AddAsync(refundrequest);
+                await appRep.RefundRequests.AddAsync(refundrequest);
                 return true;
             }
             catch (Exception)
@@ -36,14 +36,14 @@ namespace ESTA.Areas.Payment.Repository
 
             return await appRep.RefundRequests.ToListAsync();
 
-        
+
         }
 
         public async Task<int> GetMaxId()
         {
             try
             {
-               return await  appRep.RefundRequests.MaxAsync(y=>y.Id);
+                return await appRep.RefundRequests.MaxAsync(y => y.Id);
             }
             catch (Exception)
             {
@@ -57,7 +57,8 @@ namespace ESTA.Areas.Payment.Repository
             try
             {
 
-                return await appRep.RefundRequests.Include(y=>y.User)
+                return await appRep.RefundRequests.Include(y => y.User)
+                    .Include(y => y.Course)
                     .Where(y => y.Id == Id).FirstAsync();
             }
 
@@ -69,15 +70,15 @@ namespace ESTA.Areas.Payment.Repository
         //migration
         public async Task<List<Refund>> GetSpecificUserRefundRequests(string UserId)
         {
-        return await    appRep.RefundRequests.Where(y=>y.UserId==UserId).ToListAsync();
+            return await appRep.RefundRequests.Where(y => y.UserId == UserId).ToListAsync();
         }
 
         public async Task<bool> UpdateRefundStatus(int RefundRequestId, string newState)
         {
             try
             {
-             var result=await   appRep.RefundRequests.FindAsync(RefundRequestId); 
-            result.Status = newState;
+                var result = await appRep.RefundRequests.FindAsync(RefundRequestId);
+                result.Status = newState;
                 appRep.RefundRequests.Update(result);
                 return true;
             }
@@ -88,6 +89,6 @@ namespace ESTA.Areas.Payment.Repository
             }
         }
 
-   
+
     }
 }

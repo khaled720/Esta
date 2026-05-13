@@ -3,18 +3,19 @@ using ESTA.Areas.Payment.Repository.IRespository;
 using ESTA.Models;
 using ESTA.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
-
 namespace ESTA.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext appContext;
         private readonly UserManager<User> userManager;
+        private readonly ILogger<UnitOfWork> logger;
 
-        public UnitOfWork(AppDbContext appContext, UserManager<User> userManager)
+        public UnitOfWork(AppDbContext appContext, UserManager<User> userManager, ILogger<UnitOfWork> logger)
         {
             this.appContext = appContext;
             this.userManager = userManager;
+            this.logger = logger;
         }
 
 
@@ -67,7 +68,15 @@ namespace ESTA.Repository
 
         public async Task<bool> SaveChangesAsync()
         {
-            return await this.appContext.SaveChangesAsync() > 0;
+            try
+            {
+                return await this.appContext.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"An error occurred while saving changes to the database.{ex.Message}");
+                return false; // Indicate failure
+            }
         }
 
 

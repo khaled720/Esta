@@ -423,4 +423,7 @@
   <data name="emailexists" xml:space="preserve">
     <value>This Email already exists</value>
   </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
 </root>

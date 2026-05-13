@@ -1,11 +1,16 @@
-﻿
-
-
-@model List<ESTA.Areas.Admin.Models.CertifiedMember>
+﻿@model List<ESTA.Areas.Admin.Models.CertifiedMember>
 
 @using Microsoft.Extensions.Localization
 @using System.Globalization
 
+<style>
+    .certified-mem {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: 0.2px solid #80808036
+    }
+</style>
 @inject IStringLocalizer<SharedResource> localizer;
 <div class="slider-area">
     <div class="page-title">
@@ -25,48 +30,36 @@
 
 @if (Model.Count == 0)
 {
-  @*  <p style="padding:40px" sty>  @localizer["notfound"]</p>*@
+    @*  <p style="padding:40px" sty>  @localizer["notfound"]</p>*@
 }
 <p style="padding:20px 40px"> **@localizer["MembersOrder"] </p>
-    <br />
-<table class="" style="width:500px;margin :auto">
+<br />
+<div class="card col-md-6" style="margin: auto;">
+    <ul class="list-group list-group-flush">
 
-		<tbody>
-        @foreach (var item in Model )
+        @foreach (var item in Model)
         {
-	
-      
-		<tr>
-				<td style="display:flex;align-items:center;justify-content:space-evenly;border-bottom:0.2px solid #80808036">
-					@*	@if (Thread.CurrentThread.CurrentCulture.Name == "ar")
-						{*@
-							<span class="ti-user" style="font-size:30px"></span>   
-					      <span class="h4" style="font-weight:600">@item.Name</span>
-						<hr />
-					@*	}
-						else
-						{
-						<span class="ti-user"></span>      <span class="h5">@item</span>
-				<hr />
-						}*@
+            <li class="list-group-item">
+                <span class="ti-user" style="font-size:30px;margin: 10px;"></span>
+                <span class="h5" style="font-weight:600">@item.Name</span>
+            </li>
+        }
+    </ul>
+</div>
+@* <table class="" style="width:500px;margin :auto">
 
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="certified-mem">
+                    <span class="ti-user" style="font-size:30px;margin: 10px;"></span>
+                    <span class="h4" style="font-weight:600">@item.Name</span>
+                    <hr />
+                </td>
+            </tr>
+        }
 
+    </tbody>
 
-
-				</td>
-
-			</tr>
-      
-			
-	
-       
-
-
-
-		
-
-	}
-
-	</tbody>
-
-	</table>
+</table> *@

@@ -14,21 +14,22 @@
     <thead>
         <tr>
             <th>@localizer["fullname"]</th>
-      <th>@localizer["actions"]</th>
+            <th>@localizer["actions"]</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @Html.ActionLink(localizer["edit"], "Edit", new {  id=item.Id }) |
-       @*         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink(localizer["delete"], "Delete", new { id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Html.ActionLink(localizer["edit"], "Edit", new { id = item.Id }) |
+                    @*         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink(localizer["delete"], "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

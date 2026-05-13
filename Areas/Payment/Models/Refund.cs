@@ -34,7 +34,11 @@ namespace ESTA.Areas.Payment.Models
         [Display(ResourceType = typeof(ESTA.Resources
         .DataAnnotationsResource), Name = "type")]
         public string Type { get; set; }  //course or mempership
-
+        public Course? Course { get; set; }
+        public int? CourseId { get; set; }
+        [Display(ResourceType = typeof(ESTA.Resources
+.DataAnnotationsResource), Name = "Notes")]
+        public string Notes { get; set; } = string.Empty;
     }
     public enum RefundStates
     {

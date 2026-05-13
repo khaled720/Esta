@@ -6,16 +6,16 @@ namespace ESTA.Areas.Payment.Repository.IRespository
     {
 
 
-     Task<List<Refund>>  GetAllRefundRequests();
-     Task<List<Refund>>   GetSpecificUserRefundRequests(string UserId);
+        Task<List<Refund>> GetAllRefundRequests();
+        Task<List<Refund>> GetSpecificUserRefundRequests(string UserId);
 
-     Task<Refund>  GetRefundRequest(int Id);
+        Task<Refund> GetRefundRequest(int Id);
 
         Task<int> GetMaxId();
 
-     Task<bool> AddRefundRequest(Refund refundrequest);
+        Task<bool> AddRefundRequest(Refund refundrequest);
 
-    Task< bool>   UpdateRefundStatus(int RefundRequestId,string newState);
+        Task<bool> UpdateRefundStatus(int RefundRequestId, string newState);
 
     }
 }
