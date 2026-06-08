@@ -84,7 +84,7 @@ namespace ESTA.Areas.Admin.Controllers
             {
                 await appRep.UserRep.RevokeMempershipPayment(id);
                 var user = await appRep.UserRep.GetUser(id);
-                
+
                 EmailSender.Send_Mail(
                     user.Email,
                     "Your ESTA membership has expired",
@@ -93,18 +93,31 @@ namespace ESTA.Areas.Admin.Controllers
                 );
             }
 
-            await appRep.SaveChangesAsync();
-            return RedirectToAction("Index");
+            var res = await appRep.SaveChangesAsync();
+            string ToastType, ToastMessage;
+            if (res)
+            {
+                // Set success message in TempData
+                ToastType = "success";
+                ToastMessage = "Membership payment status updated successfully.";
+            }
+            else
+            {
+                ToastType = "error";
+                ToastMessage = "Failed to create item. Please check your inputs.";
+            }
+            return Json(new { ToastType, ToastMessage });
+            //return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> EditApproval(string id, bool isApproved)
         {
             await appRep.UserRep.EditUserApproval(id, isApproved);
-            await appRep.SaveChangesAsync();
+            var res = await appRep.SaveChangesAsync();
 
             var ApprovedUser = await appRep.UserRep.GetUser(id);
 
-            if (isApproved)
+            if (isApproved && res)
             {
                 EmailSender.Send_Mail(
                     ApprovedUser.Email,
@@ -113,21 +126,45 @@ namespace ESTA.Areas.Admin.Controllers
                     "ESTA"
                 );
             }
-            return RedirectToAction("Index");
+            string ToastType, ToastMessage;
+            if (res)
+            {
+                // Set success message in TempData
+                ToastType = "success";
+                ToastMessage = "User approval status updated successfully.";
+            }
+            else
+            {
+                ToastType = "error";
+                ToastMessage = "Failed to update user approval status. Please check your inputs.";
+            }
+            return Json(new { ToastType, ToastMessage });
+            //return RedirectToAction("Index");
         }
         public async Task<IActionResult> DeleteUser(string userId)
         {
             await appRep.UserRep.DeleteUser(userId);
-            await appRep.SaveChangesAsync();
+            var res = await appRep.SaveChangesAsync();
+            if (res)
+            {
+                // Set success message in TempData
+                TempData["ToastType"] = "success";
+                TempData["ToastMessage"] = "User deleted successfully.";
+            }
+            else
+            {
+                TempData["ToastType"] = "error";
+                TempData["ToastMessage"] = "Failed to delete user. Please check your inputs.";
+            }
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> EditEmailConfirmation(string id, bool isConfirmed)
         {
             await appRep.UserRep.EditUserEmailConfirmationApproval(id, isConfirmed);
-            await appRep.SaveChangesAsync();
+            var res = await appRep.SaveChangesAsync();
             var ApprovedUser = await appRep.UserRep.GetUser(id);
 
-            if (isConfirmed)
+            if (isConfirmed && res)
             {
                 EmailSender.Send_Mail(
                     ApprovedUser.Email,
@@ -136,7 +173,21 @@ namespace ESTA.Areas.Admin.Controllers
                     "ESTA"
                 );
             }
-            return RedirectToAction("Index");
+            string ToastType, ToastMessage;
+            if (res)
+            {
+                // Set success message in TempData
+                ToastType = "success";
+                ToastMessage = "Email confirmation status updated successfully.";
+            }
+            else
+            {
+                ToastType = "error";
+                ToastMessage = "Failed to update email confirmation status. Please check your inputs.";
+            }
+
+            return Json(new { ToastType, ToastMessage });
+            //return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> EditPersonalInfo(EditUserPersonalInfoViewModel userData)
@@ -411,6 +462,10 @@ namespace ESTA.Areas.Admin.Controllers
                     "ESTA"
                 );
             }
+            // Set success message in TempData
+            TempData["ToastType"] = "success";
+            TempData["ToastMessage"] = "Password reset successfully.";
+
             return RedirectToAction("Index", "Users", new { area = "Admin" });
 
         }

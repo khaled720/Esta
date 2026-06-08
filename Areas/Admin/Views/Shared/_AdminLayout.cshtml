@@ -41,8 +41,7 @@
     {
         <link href="~/css/admin-style-ar.css" rel="stylesheet" />
     }
-
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="~/template/css/fontawesome-all.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -281,6 +280,8 @@
             &copy; 2022 - ESTA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!-- Add near the bottom of your <body>, after jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/select2/select2.min.js"></script>
     <script src="~/lib/datatable/datatables.min.js"></script>
@@ -289,7 +290,27 @@
     <script src="~/js/site.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <input type="hidden" asp-area="" value="@Url.Content("~/api/Images")" id="GetPostEditorImagesUrl" />
     @await RenderSectionAsync("Scripts", required: false)
+    @if (TempData["ToastMessage"] != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var type = '@TempData["ToastType"]';
+                var message = '@TempData["ToastMessage"]';
+                debugger
+                if (type === 'success') {
+                    toastr.success(message);
+                } else if (type === 'error') {
+                    toastr.error(message);
+                } else if (type === 'info') {
+                    toastr.info(message);
+                } else if (type === 'warning') {
+                    toastr.warning(message);
+                }
+            });
+        </script>
+    }
 </body>
 </html>

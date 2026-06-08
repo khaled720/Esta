@@ -105,7 +105,7 @@ namespace ESTA.Controllers
                         MatchCounter++;
                     }
                 }
-                if (!String.IsNullOrEmpty(cdvm.userid) && MatchCounter == cdvm.PrerequisiteCourses.Count)
+                if (!String.IsNullOrEmpty(cdvm.userid) && MatchCounter >= 1)
                 {
                     cdvm.IsPrerequisiteCoursesPassed = true;
                 }

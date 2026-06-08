@@ -65,9 +65,9 @@
     <a asp-action="Index" style="decoration:none" asp-controller="Users"
        class="btn btn-primary" asp-route-type=3 asp-area="Admin">@localizer["newmem"]</a>
 
-        <a asp-action="Index" style="decoration:none" asp-controller="Users"
+    <a asp-action="Index" style="decoration:none" asp-controller="Users"
        class="btn btn-primary" asp-route-type=2 asp-area="Admin">@localizer["oldmem"]</a>
-   
+
     <a asp-action="Index" style="decoration:none" asp-controller="Users" class="btn btn-info"
        asp-route-type=5 asp-area="Admin">@localizer["forignmem"]</a>
 
@@ -108,25 +108,35 @@
                         <td>
                             @if (item.IsMempershipPaid)
                             {
-                                @Html.ActionLink(localizer["endMem"], "EditMempership", new { id = item.Id, isPaid = false }, new { @class = "btn btn-danger" })
+                                <button data-url="@Url.Action("EditMempership", new { id = item.Id, isPaid = false })" class="btn btn-danger" onclick="clickBtn(this)">
+                                    @localizer["endMem"]
+                                </button>
+                                // @Html.ActionLink(localizer["endMem"], "EditMempership", new { id = item.Id, isPaid = false }, new { @class = "btn btn-danger" })
 
                             }
                             else
                             {
-                                @Html.ActionLink(localizer["paymem"], "EditMempership", new { id = item.Id, isPaid = true }, new { @class = "btn btn-success" })
-
+                                <button data-url="@Url.Action("EditMempership", new { id = item.Id, isPaid = true })" class="btn btn-success" onclick="clickBtn(this)">
+                                    @localizer["paymem"]
+                                </button>
+                                //@Html.ActionLink(localizer["paymem"], "EditMempership", new { id = item.Id, isPaid = true }, new { @class = "btn btn-success" })
                             }
                         </td>
 
                         <td>
                             @if (item.IsApproved)
                             {
-                                @Html.ActionLink(localizer["disapprove"], "EditApproval", new { id = item.Id, isApproved = false }, new { @class = "btn btn-danger" })
-
+                                <button data-url="@Url.Action("EditApproval", new { id = item.Id, isApproved = false })" class="btn btn-danger" onclick="clickBtn(this)">
+                                    @localizer["disapprove"]
+                                </button>
+                                // @Html.ActionLink(localizer["disapprove"], "EditApproval", new { id = item.Id, isApproved = false }, new { @class = "btn btn-danger" })
                             }
                             else
                             {
-                                @Html.ActionLink(localizer["approve"], "EditApproval", new { id = item.Id, isApproved = true }, new { @class = "btn btn-success" })
+                                <button data-url="@Url.Action("EditApproval", new { id = item.Id, isApproved = true })" class="btn btn-success" onclick="clickBtn(this)">
+                                    @localizer["approve"]
+                                </button>
+                                // @Html.ActionLink(localizer["approve"], "EditApproval", new { id = item.Id, isApproved = true }, new { @class = "btn btn-success" })
 
                             }
                         </td>
@@ -135,16 +145,22 @@
 
                             @if (item.EmailConfirmed)
                             {
-                                @Html.ActionLink(localizer["rejectemail"], "EditEmailConfirmation", new { id = item.Id, isConfirmed = false }, new { @class = "btn btn-danger" })
+                                <button data-url="@Url.Action("EditEmailConfirmation", new { id = item.Id, isConfirmed = false })" class="btn btn-danger" onclick="clickBtn(this)">
+                                    @localizer["rejectemail"]
+                                </button>
+                                //@Html.ActionLink(localizer["rejectemail"], "EditEmailConfirmation", new { id = item.Id, isConfirmed = false }, new { @class = "btn btn-danger" })
 
                             }
                             else
                             {
-                                @Html.ActionLink(localizer["confirmemail"], "EditEmailConfirmation", new { id = item.Id, isConfirmed = true }, new { @class = "btn btn-primary" })
-
+                                <button data-url="@Url.Action("EditEmailConfirmation", new { id = item.Id, isConfirmed = true })" class="btn btn-primary" onclick="clickBtn(this)">
+                                    @localizer["confirmemail"]
+                                </button>
+                                //@Html.ActionLink(localizer["confirmemail"], "EditEmailConfirmation", new { id = item.Id, isConfirmed = true }, new { @class = "btn btn-primary" })
                             }
                         </td>
                         <td>
+
                             @Html.ActionLink(localizer["resetpassword"], "ResetPassword", new { Email = item.Email }, new { @class = "btn btn-warning", @onclick = "return confirm('Reset Password for this  user?');" })
 
                         </td>
@@ -173,6 +189,32 @@
             });
         });
 
+        function clickBtn(button){
+            var url = $(button).data("url");
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    //location.reload();
+                    var type = data.toastType;
+                    var message = data.toastMessage;
+                
+                    if (type === 'success') {
+                        toastr.success(message);
+                    } else if (type === 'error') {
+                        toastr.error(message);
+                    } else if (type === 'info') {
+                        toastr.info(message);
+                    } else if (type === 'warning') {
+                        toastr.warning(message);
+                    }
+                    window.location.reload();
+                },
+                error: function () {
+                    alert("An error occurred while processing the request.");
+                }
+            });
+        }
 
     </script>
 
